@@ -111,7 +111,7 @@ public class ScheduleAppointmentPage extends BasePage {
                 clickOnAppSaveButton();
             clickOnAssesmentType(Type);
         }
-        public void enteringClientDetails(String firstName,String lastName){
+        public void eenteringClientDetails(String firstName,String lastName){
             enterFirstName(firstName);
             enterLastName(lastName);
             clickOnDateOfBirthField();
