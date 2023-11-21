@@ -1,10 +1,16 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
+import org.automation.utilities.RandomStrings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import test.ScheduleAppointmentTest;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static test.ScheduleAppointmentTest.*;
 
 public class ScheduleAppointmentPage extends BasePage {
 
@@ -14,21 +20,23 @@ public class ScheduleAppointmentPage extends BasePage {
     public By assessmentTime = By.id("assessmentTime");
     public By assestmentType = By.id("assestmentType");
     public By assestmentTypeText=By.xpath("//option[text()=' Adult ADHD Only ']");
-    public By cilentFirstName = By.xpath("//div[@class='col-md-3'][5]");
-    public By cilentLastName = By.xpath("(//input[@class='ng-untouched ng-pristine ng-invalid'])[2]");
-    public By dateOfBirth = By.xpath("//input[@class='ng-pristine ng-invalid border border-danger ng-touched']");
+    public By clientFirstName = By.xpath("//input[@placeholder='Client First Name']");
+    public By clientLastName = By.xpath("//input[@placeholder='Client Last Name']");
+    public By dateOfBirth = By.xpath("(//input[@class='ng-untouched ng-pristine ng-invalid'])[1]");
     public By grade = By.xpath("(//select[@class='ng-untouched ng-pristine ng-invalid'])[1]");
     public By schoolType = By.xpath("(//select[@class='ng-untouched ng-pristine ng-invalid'])[2]");
-    public By cellNumber = By.xpath("(//input[@class='p-inputtext p-component p-element p-inputmask'])[1]");
+    public By SchoolType=By.xpath("(//select[@id='schoolType'])[2]");
+    public By cellNumber = By.xpath("//input[@placeholder='Cell Number']");
     public By phoneNumber = By.xpath("(//input[@class='p-inputtext p-component p-element p-inputmask'])[2]");
-    public By emailAddress = By.xpath("//input[@type='email'])[1]");
+    public By emailAddress = By.xpath("//input[@placeholder='Email Address']");
     public By reasonForCall = By.id("reasonForCall");
-    public By address1 = By.xpath("//input[@class='ng-untouched ng-pristine ng-valid'])[5]");
-    public By address2 = By.xpath("//input[@class='ng-untouched ng-pristine ng-valid'])[6]");
-    public By city = By.xpath("//input[@class='ng-untouched ng-pristine ng-valid'])[7]");
-    public By state = By.xpath("//input[@class='ng-untouched ng-pristine ng-valid'])[8]");
-    public By zipCode = By.xpath("//input[@class='ng-untouched ng-pristine ng-valid'])[9]");
+    public By address1 = By.xpath("//input[@placeholder='Address 1']");
+    public By address2 = By.xpath("//input[@placeholder='Address 2']");
+    public By city = By.xpath("//input[@placeholder='City']");
+    public By state = By.xpath("//input[@placeholder='State']");
+    public By zipCode = By.xpath("//input[@placeholder='Zip Code']");
     public By continueToDeposit = By.id("intakeFormSubmit");
+    public By testAmount=By.xpath("//input[@placeholder='Test Amount']");
     public By headerResource = By.xpath("//div[@class='header-resource-name']");
     //(//div[@class='mbsc-flex ng-star-inserted'])[1]
     public By selectingtoday=By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-selected ng-star-inserted']");
@@ -37,12 +45,14 @@ public class ScheduleAppointmentPage extends BasePage {
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
     public By totalBoxes=By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
     public By afternoonToggleButton=By.xpath("//mbsc-button[text()='Afternoon']");
+    public By enterAmountField=By.xpath("//input[@placeholder='Enter Amount']");
+    public By collectDeposit=By.xpath("//button[text()='Collect Deposit']");
+    public By viewDetails=By.xpath("//a[text()='View Detail']");
+
+    ScheduleAppointmentTest schedule = new ScheduleAppointmentTest();
 
     public void selectAssessmentDate() {
-        // clickBtn_custom(assessmentDate,"Select Assessment Date");
-
         clickBtn_custom(assessmentDate);
-
     }
 
     public void selectTestinglocation(String chooseLocationText) {
@@ -88,16 +98,18 @@ public class ScheduleAppointmentPage extends BasePage {
         selectDropDownByIndex_custom(assestmentType,assestmentTypeTexts);
     }
     public void enterFirstName(String cilentFirstNameText){
-        sendKeys_withClear(cilentFirstName,cilentFirstNameText);
+        sendKeys_withClear(clientFirstName,cilentFirstNameText);
     }
     public void enterLastName(String cilentLastNameText){
-        sendKeys_withClear(cilentLastName,cilentLastNameText);
+        sendKeys_withClear(clientLastName,cilentLastNameText);
     }
     public void selectGradeType(int gradeType){
         selectDropDownByIndex_custom(grade,gradeType);
     }
-    public void selectSchoolType(String schoolTypeOption){
-        selectDropDownByVisibleText_custom(schoolType,schoolTypeOption);
+    public void selectSchoolType(int schoolTypeOption) throws InterruptedException {
+       // click_custom(SchoolType);
+        Thread.sleep(2000);
+        selectDropDownByIndex_custom(SchoolType,schoolTypeOption);
     }
     public void enterCellNumber(String cellNumberText){
         sendKeys_withClear(cellNumber,cellNumberText);
@@ -105,6 +117,50 @@ public class ScheduleAppointmentPage extends BasePage {
     public void enterPhoneNumber(String phoneNumberText){
         sendKeys_withClear(phoneNumber,phoneNumberText);
     }
+    public void enterEmialAddress(String emailAddressText){
+        sendKeys_withClear(emailAddress,emailAddressText);
+    }
+    public void reasonForCallDropDown(String reasonForCallText){
+        selectDropDownByVisibleText_custom(reasonForCall,reasonForCallText);
+    }
+    public void enterAdress1(String address1Text){
+        sendKeys_withClear(address1,address1Text);
+    }
+    public void enterAdress2(String address2Text){
+        sendKeys_withClear(address2,address2Text);
+    }
+    public void enterCity(String cityText){
+        sendKeys_withClear(city,cityText);
+    }
+    public void enterState(String stateText){
+        sendKeys_withClear(state,stateText);
+    }
+    public void enterZipCode(String zipCodeText){
+        sendKeys_withClear(zipCode,zipCodeText);
+    }
+
+    public void enterTestAmount(String testAmountText){
+        sendKeys_withClear(testAmount,testAmountText);
+    }
+    public void clickOnContinueToDepositButton(){
+        click_custom(continueToDeposit);
+    }
+    public void enterInDateField(String dateOfBirthText) throws InterruptedException {
+        click_custom(dateOfBirth);
+        Thread.sleep(2000);
+        sendKeys_withClear(dateOfBirth,dateOfBirthText);
+    }
+    public void enterAmount(String enterAmountText){
+        sendKeys_withClear(enterAmountField,enterAmountText);
+    }
+    public void clickOnCollectDepositButton(){
+        click_custom(collectDeposit);
+    }
+    public void clickOnViewDetailsButton(){
+
+        click_custom(viewDetails);
+    }
+
 
     //================///////////=========================
     public void scheduleAppointment(String testingLocation) throws InterruptedException {
@@ -120,13 +176,29 @@ public class ScheduleAppointmentPage extends BasePage {
                 clickOnAppSaveButton();
             clickOnAssesmentType(Type);
         }
-        public void enteringClientDetails(String firstName,String lastName,int gradeType,String schoolTypeOption,String cellNumberText,String phoneNumberText){
-            enterFirstName(firstName);
-            enterLastName(lastName);
+        public void enteringClientDetails(String CustomerFirstName,String CustomerLastName,int gradeType,int schoolTypeOption,String cellNumber ,String EmailAddress,String reasonForCallText,String address1Text,String address2Text,String cityText,String stateText,String zipCodeText,String testAmountText,String enterAmountText) throws InterruptedException {
+            enterFirstName(CustomerFirstName);
+            enterLastName(CustomerLastName);
+            Thread.sleep(2000);
+            enterInDateField( "11-11-1111");
             selectGradeType(gradeType);
             selectSchoolType(schoolTypeOption);
-            enterCellNumber(cellNumberText);
-            enterPhoneNumber( phoneNumberText);
+            enterCellNumber(cellNumber);
+           // enterPhoneNumber( phoneNumberText);
+            enterEmialAddress(EmailAddress);
+            reasonForCallDropDown(reasonForCallText);
+            enterAdress1(address1Text);
+            enterAdress2(address2Text);
+            enterCity( cityText);
+            enterState(stateText);
+            enterZipCode(zipCodeText);
+            enterTestAmount(testAmountText);
+            clickOnContinueToDepositButton();
+            Thread.sleep(4000);
+            enterAmount(enterAmountText);
+            clickOnCollectDepositButton();
+            Thread.sleep(8000);
+            clickOnViewDetailsButton();
         }
     }
 
