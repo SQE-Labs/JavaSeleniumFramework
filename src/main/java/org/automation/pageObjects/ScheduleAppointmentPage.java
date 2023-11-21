@@ -97,7 +97,7 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(dateOfBirth);
     }
 
-    //====================///////////===========================
+    //================///////////=========================
     public void scheduleAppointment(String testingLocation) throws InterruptedException {
         createAppointment(testingLocation);
     }
