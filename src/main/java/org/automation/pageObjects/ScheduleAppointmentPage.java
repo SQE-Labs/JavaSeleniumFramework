@@ -84,7 +84,7 @@ public class ScheduleAppointmentPage extends BasePage {
     }
 
     public void clickOnAssesmentType(int assestmentTypeTexts){
-       // click_custom(assestmentType);
+        click_custom(assestmentType);
         selectDropDownByIndex_custom(assestmentType,assestmentTypeTexts);
     }
     public void enterFirstName(String cilentFirstNameText){
