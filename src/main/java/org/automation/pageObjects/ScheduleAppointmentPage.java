@@ -16,7 +16,7 @@ public class ScheduleAppointmentPage extends BasePage {
     public By assestmentTypeText=By.xpath("//option[text()=' Adult ADHD Only ']");
     public By cilentFirstName = By.xpath("//div[@class='col-md-3'][5]");
     public By cilentLastName = By.xpath("(//input[@class='ng-untouched ng-pristine ng-invalid'])[2]");
-    public By dateOfBirth = By.xpath("(//input[@class='ng-untouched ng-pristine ng-invalid'])[3]");
+    public By dateOfBirth = By.xpath("//input[@class='ng-pristine ng-invalid border border-danger ng-touched']");
     public By grade = By.xpath("(//select[@class='ng-untouched ng-pristine ng-invalid'])[1]");
     public By schoolType = By.xpath("(//select[@class='ng-untouched ng-pristine ng-invalid'])[2]");
     public By cellNumber = By.xpath("(//input[@class='p-inputtext p-component p-element p-inputmask'])[1]");
@@ -93,8 +93,17 @@ public class ScheduleAppointmentPage extends BasePage {
     public void enterLastName(String cilentLastNameText){
         sendKeys_withClear(cilentLastName,cilentLastNameText);
     }
-    public void clickOnDateOfBirthField(){
-        click_custom(dateOfBirth);
+    public void selectGradeType(int gradeType){
+        selectDropDownByIndex_custom(grade,gradeType);
+    }
+    public void selectSchoolType(String schoolTypeOption){
+        selectDropDownByVisibleText_custom(schoolType,schoolTypeOption);
+    }
+    public void enterCellNumber(String cellNumberText){
+        sendKeys_withClear(cellNumber,cellNumberText);
+    }
+    public void enterPhoneNumber(String phoneNumberText){
+        sendKeys_withClear(phoneNumber,phoneNumberText);
     }
 
     //================///////////=========================
@@ -111,10 +120,13 @@ public class ScheduleAppointmentPage extends BasePage {
                 clickOnAppSaveButton();
             clickOnAssesmentType(Type);
         }
-        public void enteringClientDetails(String firstName,String lastName){
+        public void enteringClientDetails(String firstName,String lastName,int gradeType,String schoolTypeOption,String cellNumberText,String phoneNumberText){
             enterFirstName(firstName);
             enterLastName(lastName);
-            clickOnDateOfBirthField();
+            selectGradeType(gradeType);
+            selectSchoolType(schoolTypeOption);
+            enterCellNumber(cellNumberText);
+            enterPhoneNumber( phoneNumberText);
         }
     }
 
