@@ -1,6 +1,7 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -37,6 +38,17 @@ public class ScheduleAppointmentPage extends BasePage {
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
     public By totalBoxes=By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
     public By afternoonToggleButton=By.xpath("//mbsc-button[text()='Afternoon']");
+    public By appointmentsSubTab = By.xpath("(//div/ul[@class='ng-star-inserted'][3])");
+    public By viewAll = By.xpath("(//ul/li[@class='ng-star-inserted'])[2]");
+    public By filters = By.xpath("//*[@class='theme-button grey ml-auto mr-3']");
+    public By filterSearch = By.id("filterSearch");
+    public By dateFrom = By.xpath("(//input[@class='ng-untouched ng-pristine ng-valid'])[1]");
+    public By dateTo = By.xpath("(//input[@class='ng-untouched ng-pristine ng-valid'])[2]");
+    public By search = By.xpath("//*[@id='dateRangeFilter']");
+    public By viewDetails = By.xpath("//*[@id=\"appointmentTable\"]/tbody/tr[29]/td[7]/a");
+    public By cancelAppointment = By.xpath("//button[@class='theme-button danger m-2 ng-star-inserted']");
+    public By yesCancelBtn = By.xpath("//button[@class='theme-button danger mx-2 ng-star-inserted']");
+
 
     public void selectAssessmentDate() {
         // clickBtn_custom(assessmentDate,"Select Assessment Date");
@@ -50,6 +62,31 @@ public class ScheduleAppointmentPage extends BasePage {
         selectDropDownByVisibleText_custom(chooseTestingLocation, chooseLocationText, "ChooseLocation");
 
     }
+
+    public void selectDateFrom(String chooseDateFromText) {
+        clickBtn_custom(dateFrom, "chooseDateFromTxt");
+        selectDropDownByVisibleText_custom(dateFrom,"chooseDateFromTxt");
+
+    }
+
+    public void selectDateTo(String chooseDateToText) {
+        clickBtn_custom(dateTo, "chooseDateToTxt");
+        selectDropDownByVisibleText_custom(dateFrom,"chooseDateToText");
+
+    }
+
+    public void click_CancelAppointmentBtn() throws InterruptedException {
+        Thread.sleep(3000);
+        scrollIntoView(cancelAppointment);
+        click_custom(cancelAppointment);
+    }
+
+    public void click_YesCancelBtn() throws InterruptedException {
+        Thread.sleep(3000);
+        scrollIntoView(cancelAppointment);
+        click_custom(cancelAppointment);
+    }
+
 
     public void createAppointment(String chooseLocationText) throws InterruptedException {
         selectTestinglocation(chooseLocationText);
@@ -72,8 +109,33 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(saveButton);
     }
 
+    public void enter_SearchText(String searchText) {
+        sendKeys_withClear(filterSearch,searchText);    }
+
+
     public void clickOnAppSaveButton() {
         click_custom(appointmentSaveButtonButton);
+    }
+
+
+    public void click_ViewAllOption() throws InterruptedException {
+        Thread.sleep(3000);
+        click_custom(viewAll);
+    }
+
+    public void click_FilterBtn() {
+        click_custom(filters);
+    }
+
+
+    public void click_AppointmentsSubtab() throws InterruptedException {
+        Thread.sleep(5000);
+        click_custom(appointmentsSubTab);
+    }
+
+    public void click_ViewDetails() throws InterruptedException {
+        Thread.sleep(5000);
+        click_custom(viewDetails);
     }
 
     public  void getTotalColumnCount() {
@@ -111,10 +173,21 @@ public class ScheduleAppointmentPage extends BasePage {
                 clickOnAppSaveButton();
             clickOnAssesmentType(Type);
         }
-        public void eenteringClientDetails(String firstName,String lastName){
+        public void enteringClientDetails(String firstName,String lastName){
             enterFirstName(firstName);
             enterLastName(lastName);
             clickOnDateOfBirthField();
+        }
+
+        public void cancel_Appointment(String searchAppointmentText) throws InterruptedException {
+            click_AppointmentsSubtab();
+            click_ViewAllOption();
+            click_FilterBtn();
+            enter_SearchText(searchAppointmentText);
+            click_ViewDetails();
+            click_CancelAppointmentBtn();
+            //click_YesCancelBtn();
+
         }
     }
 

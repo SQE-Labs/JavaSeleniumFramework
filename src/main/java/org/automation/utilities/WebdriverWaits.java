@@ -3,6 +3,7 @@ package org.automation.utilities;
 import org.automation.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,6 +12,8 @@ import java.time.Duration;
 import java.util.Set;
 
 public class WebdriverWaits extends BaseTest {
+
+    static WebDriverWait wait = new WebDriverWait((WebDriver) driver,Duration.ofSeconds(2));
     /**
      * Waits for a given element to be visible
      *
@@ -108,6 +111,10 @@ public class WebdriverWaits extends BaseTest {
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 //
 //    }
+
+    public static void WaitUntilVisible(By element) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+    }
 
     public static void SwitchToNewTab() throws InterruptedException {
         String originalHandle = getDriver().getWindowHandle();
