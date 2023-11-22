@@ -2,6 +2,7 @@ package test;
 
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.DashboardPage;
+import org.automation.pageObjects.LoginPage;
 import org.automation.pageObjects.ScheduleAppointmentPage;
 import org.automation.utilities.RandomStrings;
 import org.testng.annotations.Test;
@@ -16,10 +17,10 @@ public class ScheduleAppointmentTest extends BaseTest {
 
     @Test(priority = 0, enabled = true, description = "To verify schedule appointment")
     public void scheduleAppointment_Admin() throws InterruptedException {
-        LoginTest login = new LoginTest();
+        LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-        login.ValidLogin();
+        login.validLogin();
         Thread.sleep(10000);
         dashboard.clickScheduleAppointment();
         Thread.sleep(5000);
@@ -40,6 +41,11 @@ public class ScheduleAppointmentTest extends BaseTest {
          CustomerLastName = "Marsh" + RandomStrings.RequiredCharacters(2);
          EmailAddress =  CustomerFirstName+"@yopmail.com";
         schedule.enteringClientDetails( CustomerFirstName,CustomerLastName,2,2,"4567892658",EmailAddress,"Math","NSW"," Tasmania"," Barkers Creek","South Australia","5422","1200","1000");
+    }
+    @Test(priority = 3,enabled = true)
+    public void filterCreatedAppointment() throws InterruptedException {
+        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+        schedule.selectCreatedAppointment(CustomerFirstName);
 
     }
 }

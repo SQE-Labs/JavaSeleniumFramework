@@ -1,16 +1,14 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
-import org.automation.utilities.RandomStrings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import test.ScheduleAppointmentTest;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static test.ScheduleAppointmentTest.*;
+import static test.ScheduleAppointmentTest.CustomerFirstName;
+import static test.ScheduleAppointmentTest.CustomerLastName;
 
 public class ScheduleAppointmentPage extends BasePage {
 
@@ -48,6 +46,9 @@ public class ScheduleAppointmentPage extends BasePage {
     public By enterAmountField=By.xpath("//input[@placeholder='Enter Amount']");
     public By collectDeposit=By.xpath("//button[text()='Collect Deposit']");
     public By viewDetails=By.xpath("//a[text()='View Detail']");
+    public By searchBox=By.xpath("//input[@placeholder='Type here to search']");
+    public By viewlink=By.xpath("//a[text()='View All']");
+    public By filter=By.xpath("//a[text()='Filter']");
 
     ScheduleAppointmentTest schedule = new ScheduleAppointmentTest();
 
@@ -160,6 +161,16 @@ public class ScheduleAppointmentPage extends BasePage {
 
         click_custom(viewDetails);
     }
+    public void enterInsearchBox(String CustomerFirstName )
+    {
+        sendKeys_withClear(searchBox,CustomerFirstName);
+    }
+    public void clickOnviewLink(){
+        click_custom(viewlink);
+    }
+    public void clickOnFilterbutton(){
+        click_custom(filter);
+    }
 
 
     //================///////////=========================
@@ -176,7 +187,7 @@ public class ScheduleAppointmentPage extends BasePage {
                 clickOnAppSaveButton();
             clickOnAssesmentType(Type);
         }
-        public void enteringClientDetails(String CustomerFirstName,String CustomerLastName,int gradeType,int schoolTypeOption,String cellNumber ,String EmailAddress,String reasonForCallText,String address1Text,String address2Text,String cityText,String stateText,String zipCodeText,String testAmountText,String enterAmountText) throws InterruptedException {
+        public String enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address1Text, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
             enterFirstName(CustomerFirstName);
             enterLastName(CustomerLastName);
             Thread.sleep(2000);
@@ -199,7 +210,17 @@ public class ScheduleAppointmentPage extends BasePage {
             clickOnCollectDepositButton();
             Thread.sleep(8000);
             clickOnViewDetailsButton();
+            return CustomerFirstName;
         }
+
+
+
+    public void selectCreatedAppointment(String CustomerFirstName) throws InterruptedException {
+        clickOnviewLink();
+        Thread.sleep(2000);
+        clickOnFilterbutton();
+        enterInsearchBox(CustomerFirstName);
+    }
     }
 
 
