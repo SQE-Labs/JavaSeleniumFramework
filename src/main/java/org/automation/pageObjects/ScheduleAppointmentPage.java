@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import test.ScheduleAppointmentTest;
 
-import java.util.List;
+import java.util.*;
 
 import static test.ScheduleAppointmentTest.CustomerFirstName;
 import static test.ScheduleAppointmentTest.CustomerLastName;
@@ -49,6 +49,11 @@ public class ScheduleAppointmentPage extends BasePage {
     public By searchBox=By.xpath("//input[@placeholder='Type here to search']");
     public By viewlink=By.xpath("//a[text()='View All']");
     public By filter=By.xpath("//a[text()='Filter']");
+
+    //****************Adding TestPlan for the appointment****************
+
+    public By testPlan=By.xpath("//button[text()=' Test Plan ']");
+    public By checkBox=By.xpath("//input[@class='custom-control-input']");
 
     ScheduleAppointmentTest schedule = new ScheduleAppointmentTest();
 
@@ -172,6 +177,22 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(filter);
     }
 
+    //******************Adding TestPlan for the Appointment**************
+
+    public void click_TestPlanButton(){
+        click_custom(testPlan);
+    }
+//    public void clickOnCheckBox(){
+//        List<WebElement> list = getWebElements(checkBox, "Heders");
+//        ArrayList checkboxes=new ArrayList();
+//        for(WebElement checkbox: list){
+//            checkboxes.add(checkbox);w
+//        }
+    //    }
+
+
+
+
 
     //================///////////=========================
     public void scheduleAppointment(String testingLocation) throws InterruptedException {
@@ -212,14 +233,14 @@ public class ScheduleAppointmentPage extends BasePage {
             clickOnViewDetailsButton();
             return CustomerFirstName;
         }
-
-
-
     public void selectCreatedAppointment(String CustomerFirstName) throws InterruptedException {
         clickOnviewLink();
         Thread.sleep(2000);
         clickOnFilterbutton();
         enterInsearchBox(CustomerFirstName);
+    }
+    public void creatingTestPlanForTheAppointment(){
+        click_TestPlanButton();
     }
     }
 

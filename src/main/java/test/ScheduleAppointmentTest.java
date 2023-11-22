@@ -42,10 +42,15 @@ public class ScheduleAppointmentTest extends BaseTest {
          EmailAddress =  CustomerFirstName+"@yopmail.com";
         schedule.enteringClientDetails( CustomerFirstName,CustomerLastName,2,2,"4567892658",EmailAddress,"Math","NSW"," Tasmania"," Barkers Creek","South Australia","5422","1200","1000");
     }
-    @Test(priority = 3,enabled = true)
-    public void filterCreatedAppointment() throws InterruptedException {
+    @Test(priority = 3,enabled = true,description="filter and viewing created appointment in detail")
+    public void filter_CreatedAppointment() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         schedule.selectCreatedAppointment(CustomerFirstName);
+    }
+    @Test(priority = 4,enabled = true,description = "creating TestPlan for the created appointment")
+    public void testPlanFor_scheduled_Appointment() throws InterruptedException {
+        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+         schedule.creatingTestPlanForTheAppointment();
 
     }
 }
