@@ -174,6 +174,8 @@ public class BasePage extends ActionEngine {
         jse.executeScript("arguments[0].scrollIntoView(true);", ele);
 
     }
+
+
     public static  void waitForSpinner(){
         WebdriverWaits.waitForElementNotVisible(By.className("spinner"),10);
 

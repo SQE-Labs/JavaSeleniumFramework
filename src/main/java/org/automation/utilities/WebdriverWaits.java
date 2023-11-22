@@ -1,16 +1,23 @@
 package org.automation.utilities;
 
 import org.automation.base.BaseTest;
+import org.automation.elements.Element;
+import org.automation.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.Set;
 
+import static com.relevantcodes.extentreports.LogStatus.FAIL;
+import static com.relevantcodes.extentreports.LogStatus.PASS;
+
 public class WebdriverWaits extends BaseTest {
+
+    static WebDriverWait wait = new WebDriverWait((WebDriver) driver,Duration.ofSeconds(2));
     /**
      * Waits for a given element to be visible
      *
@@ -109,6 +116,10 @@ public class WebdriverWaits extends BaseTest {
 //
 //    }
 
+    public static void WaitUntilVisible(By element) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+    }
+
     public static void SwitchToNewTab() throws InterruptedException {
         String originalHandle = getDriver().getWindowHandle();
         Set<String> tabs = getDriver().getWindowHandles();
@@ -128,7 +139,24 @@ public class WebdriverWaits extends BaseTest {
       js.executeScript(String.valueOf(ele));
   }
 
+
+    public String getText_custom(By path) {
+        String text = "";
+        try {
+
+            Element element = new Element("", path);
+            text = element.getText();
+            Log.info("Text for " + path + " is " + text);
+            extentTest.log(PASS, "Text retrieved is: " + text);
+            return text;
+        } catch (Exception e) {
+            extentTest.log(FAIL, "Unable to get text due to exception : \n" + e);
+
+        }
+        return text;
     }
+
+}
 
 
 
