@@ -8,9 +8,13 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
@@ -107,14 +111,18 @@ public class WebdriverWaits extends BaseTest {
         }
     }
 
-//    public static void fluentWait_ElementLocated(long waitTimeForTimeout, long waitTimeForPolling, By locator) {
+    public static void fluentWait_ElementLocated( ) {
 //        Wait<WebDriver> wait = new FluentWait<>(getDriver())
 //                .withTimeout(waitTimeForTimeout, TimeUnit.SECONDS)
 //                .pollingEvery(waitTimeForPolling, TimeUnit.SECONDS)
 //                .ignoring(NoSuchElementException.class);
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-//
-//    }
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
+                .withTimeout(Duration.ofSeconds(15))
+                .pollingEvery(Duration.ofSeconds(15))
+                .ignoring(NoSuchElementException.class);
+
+    }
 
     public static void WaitUntilVisible(By element) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
