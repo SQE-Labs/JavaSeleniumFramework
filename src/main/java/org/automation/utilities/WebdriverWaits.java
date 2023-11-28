@@ -30,19 +30,17 @@ public class WebdriverWaits extends BaseTest {
      */
     public static void waitForElementVisible(By locator, long waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+          wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
 
     /**
      * Waits for a given element to be visible
      *
-     * @param waitTime WebDriver instance
-     * @param waitTime      element to wait for
-     */
-    public static void waitForElementVisible(By locator, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+     **/
+    public static void waitForElementVisible(By locator ) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+          wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
     }
 
@@ -140,7 +138,10 @@ public class WebdriverWaits extends BaseTest {
 
         Thread.sleep(3000);
     }
-  public void byToWebelement(By element){
+
+
+
+    public void byToWebelement(By element){
 
       JavascriptExecutor js=(JavascriptExecutor)driver;
       WebElement ele=driver.get().findElement(element);

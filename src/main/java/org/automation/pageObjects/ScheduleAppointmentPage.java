@@ -1,10 +1,13 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.*;
+
+import static org.automation.utilities.WebdriverWaits.waitForElementVisible;
 
 public class ScheduleAppointmentPage extends BasePage {
 
@@ -34,7 +37,7 @@ public class ScheduleAppointmentPage extends BasePage {
     public By headerResource = By.xpath("//div[@class='header-resource-name']");
     //(//div[@class='mbsc-flex ng-star-inserted'])[1]
     public By selectingtoday=By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-selected ng-star-inserted']");
-    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[1]");
+    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[8]");
     public By saveButton = By.xpath("//mbsc-button[text()=' Save ']");
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
     public By totalBoxes=By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
@@ -95,9 +98,17 @@ public class ScheduleAppointmentPage extends BasePage {
     public By loginButton=By.xpath("//button[text()=' Log In ']");
 
     //********CHECKING AVAILABILITY******************
+    public By totalSlots=By.xpath("//div[@class='mbsc-timeline-events']");
     public By availability=By.xpath("//a[text()='Availability']");
-    public By slots=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[3]");
+    public By slot=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[5]");
+    public By slot1=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[7]");
+    public By slot2=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[8]");
+    public By slot3=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[9]");
+    public By slot4=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[10]");
     public By diagnosticianSaveButton=By.xpath("//button[text()='Save']");
+    public By todayLink=By.xpath("//mbsc-button[text()=' Today ']");
+    public By delete=By.xpath("//mbsc-button[text()=' Delete ']");
+    public By cancel=By.xpath("//mbsc-button[text()=' Cancel ']");
 
 
 
@@ -263,7 +274,8 @@ public class ScheduleAppointmentPage extends BasePage {
         sendKeys_withClear(dateOfBirth,dateOfBirthText);
     }
     public void enterAmount(String enterAmountText) throws InterruptedException {
-        Thread.sleep(3000);
+//         waitForElementVisible(enterAmountField,10);
+        click_custom(enterAmountField);
         sendKeys_withClear(enterAmountField,enterAmountText);
     }
     public void clickOnCollectDepositButton(){
@@ -312,7 +324,7 @@ public class ScheduleAppointmentPage extends BasePage {
         //+++++++++Create Diagnostician+++++++++++++++
 
     public void click_DiagnosticianLink(){
-//        fluentWait_ElementLocated();
+
         click_custom(diagnosticianLink);
     }
 public void click_createDiagnosticianButton(){
@@ -371,12 +383,24 @@ public void click_LogOutLink(){
         click_custom(availability);
     }
     public void click_On_Slot() throws InterruptedException {
-        click_custom(slots);
-        Thread.sleep(3000);
-        click_custom(diagnosticianSaveButton);
-        click_custom(logOutLink);
+        Thread.sleep(8000);
+            click_custom(slot);
+            Thread.sleep(4000);
+        scrollIntoHorizontally(slot1);
+            click_custom(slot1);
+        click_custom(slot2);
+            click_custom(slot4);
+            click_custom(slot3);
+            click_custom(diagnosticianSaveButton);
+           // click_custom(logOutLink);
+    }
+    public void click_TodayLink(){
+        click_custom(todayLink);
     }
 
+    public void click_On_Delete(){
+        click_custom(delete);
+    }
 
 
 
@@ -413,6 +437,7 @@ public void click_LogOutLink(){
             enterInDateField( dateOfBirthText);
             selectGradeType(gradeType);
             selectSchoolType(schoolTypeOption);
+            Thread.sleep(2000);
             enterCellNumber(cellNumber);
            // enterPhoneNumber( phoneNumberText);
             enterEmialAddress(EmailAddress);
@@ -424,7 +449,7 @@ public void click_LogOutLink(){
             enterZipCode(zipCodeText);
             enterTestAmount(testAmountText);
             clickOnContinueToDepositButton();
-            Thread.sleep(4000);
+            Thread.sleep(3000);
             enterAmount(enterAmountText);
             clickOnCollectDepositButton();
             Thread.sleep(8000);
@@ -450,12 +475,11 @@ public void click_LogOutLink(){
             clickOnCheckBox();
             clickOnTestPlanSaveButton();
         }
-        public String create_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName, String PasswordText, String RePassword) throws InterruptedException {
-            Thread.sleep(8000);
+        public void create_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName, String PasswordText, String RePassword) throws InterruptedException {
+            Thread.sleep(10000);
             click_DiagnosticianLink();
             Thread.sleep(5000);
             click_createDiagnosticianButton();
-            Thread.sleep(8000);
             enter_diagnostician_FirstName(CustomerFirstName);
             enter_diagnostician_LastName(CustomerLastName);
             enter_Diagnostician_MobileNumber(diagnostician_MobileNumberText);
@@ -467,7 +491,6 @@ public void click_LogOutLink(){
             clickOn_createDiagnosticianButton();
             Thread.sleep(4000);
             click_LogOutLink();
-            return CustomerFirstName;
 
         }
         public void login_As_Diagnostician(String UserName,String PasswordText) throws InterruptedException {
@@ -481,6 +504,20 @@ public void click_LogOutLink(){
             click_On_Availablity();
             Thread.sleep(4000);
             click_On_Slot();
+        }
+        public void deleting_Availability() throws InterruptedException {
+            click_custom(slot1);
+            Thread.sleep(3000);
+            click_On_Delete();
+            click_custom(diagnosticianSaveButton);
+          //  click_custom(logOutLink);
+        }
+        public void cancel_Availability() throws InterruptedException {
+        click_custom(slot2);
+        Thread.sleep(3000);
+        click_custom(cancel);
+            click_custom(diagnosticianSaveButton);
+            click_custom(logOutLink);
         }
     }
 

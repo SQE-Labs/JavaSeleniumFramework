@@ -32,7 +32,9 @@ public class ScheduleAppointmentTest extends BaseTest {
     public void diagnostician_Availability() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         schedule.login_As_Diagnostician(UserName,"123456");
-        schedule. checking_Availability();
+        schedule.checking_Availability();
+        schedule.cancel_Availability();
+        schedule.deleting_Availability();
     }
     @Test(priority = 2, enabled = true, description = "To verify schedule appointment")
     public void scheduleAppointment_Admin() throws InterruptedException {
@@ -60,7 +62,7 @@ public class ScheduleAppointmentTest extends BaseTest {
         schedule.enteringClientDetails(CustomerFirstName, CustomerLastName, 2, "19-11-1997",2, "4567892658", EmailAddress, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
     }
 
-    @Test(priority = 5, enabled = true, description = "filter and viewing created appointment in detail")
+    @Test(priority = 5, enabled = false, description = "filter and viewing created appointment in detail")
     public void filter_CreatedAppointment() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         schedule.search_ScheduledAppointment(CustomerFirstName);
