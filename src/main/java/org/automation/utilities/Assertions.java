@@ -13,7 +13,7 @@ import static com.relevantcodes.extentreports.LogStatus.PASS;
 import static org.automation.base.BaseTest.extentTest;
 
 public class Assertions {
-    static WebdriverWaits wait=new WebdriverWaits();
+
     public static void assertEquals(String actual, String expected) {
 
         try {

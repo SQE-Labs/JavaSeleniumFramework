@@ -78,20 +78,7 @@ public class ScheduleAppointmentPage extends BasePage {
     public By testPlanSaveButton=By.xpath("//button[text()='Save']");
 
     //+++++++++++++++CREATE DIAGNOSTICS++++++++++++++
-    public  By diagnosticianLink=By.xpath("//a[text()='Diagnosticians']");
-    public By createDiagnostician=By.xpath("//button[text()='Create Diagnostician']");
-    public By diagnostician_FirstName=By.xpath("//input[@placeholder='First Name']");
-    public By diagnostician_LastName=By.xpath("//input[@placeholder='Last Name']");
-    public By diagnostician_MobileNumber=By.xpath("//input[@placeholder='(999) 999-9999']");
-    public By diagnostician_Email=By.xpath("//input[@placeholder='Email']");
-    public By assignLocation=By.xpath("//select[@id='testingLocation']");
-    public By locationName=By.xpath("//option[text()='Plano']");
-    public By userName=By.xpath("//input[@placeholder='Username']");
-    public By password_Field=By.xpath("//input[@placeholder='Create Password']");
-    public By confirm_PasswordField=By.xpath("//input[@placeholder='Confirm Password']");
-    public By createDiagnosticianButton=By.xpath("//button[text()='Create Diagnostician']");
 
-    public By logOutLink=By.xpath("//a[text()='Log Out']");
     public By userNameField=By.xpath("//input[@name='login_username']");
     public By passwordField=By.xpath("//input[@name='login_password']");
 
@@ -109,11 +96,13 @@ public class ScheduleAppointmentPage extends BasePage {
     public By todayLink=By.xpath("//mbsc-button[text()=' Today ']");
     public By delete=By.xpath("//mbsc-button[text()=' Delete ']");
     public By cancel=By.xpath("//mbsc-button[text()=' Cancel ']");
+    public By logOutLink=By.xpath("//a[text()='Log Out']");
 
 
 
-
-
+    public void click_LogOutLink(){
+        click_custom(logOutLink);
+    }
     public static By getCanceledXPAth(String ClientName) {
         return By.xpath("//td[contains(text(),'"+ClientName+"')]//parent::tr//span[contains(text(),'Canceled')]");
     }
@@ -321,50 +310,6 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(testPlanSaveButton);
         }
 
-        //+++++++++Create Diagnostician+++++++++++++++
-
-    public void click_DiagnosticianLink(){
-
-        click_custom(diagnosticianLink);
-    }
-public void click_createDiagnosticianButton(){
-        click_custom(createDiagnostician);
-}
-
-public void enter_diagnostician_FirstName(String CustomerFirstName) throws InterruptedException {
-        Thread.sleep(2000);
-        sendKeys_withClear(diagnostician_FirstName,CustomerFirstName);
-}
-public void enter_diagnostician_LastName(String CustomerLastName){
- sendKeys_withClear(diagnostician_LastName,CustomerLastName);
-}
-public void enter_Diagnostician_MobileNumber(String diagnostician_MobileNumberText){
-        sendKeys_withClear(diagnostician_MobileNumber,diagnostician_MobileNumberText);
-}
-public void enter_Diagnostician_Email(String diagnostician_EmailText){
-        sendKeys_withClear(diagnostician_Email,diagnostician_EmailText);
-}
-public void click_AssignLocation(){
-        click_custom(assignLocation);
-        click_custom(locationName);
-}
-public void userNameField(String userNameText){
-        sendKeys_withClear(userName,userNameText);
-}
-public void create_passwordField(String passwordFieldText){
-        sendKeys_withClear(password_Field,passwordFieldText);
-}
-public void confirm_PasswordField(String confirmPasswordText)
-{
-    sendKeys_withClear(confirm_PasswordField,confirmPasswordText);
-}
-public void clickOn_createDiagnosticianButton(){
-        click_custom(createDiagnosticianButton);
-}
-public void click_LogOutLink(){
-        click_custom(logOutLink);
-}
-
 //******************Logging as diagnostician************
 
     public void enter_UserName(String CustomerFirstName){
@@ -475,24 +420,8 @@ public void click_LogOutLink(){
             clickOnCheckBox();
             clickOnTestPlanSaveButton();
         }
-        public void create_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName, String PasswordText, String RePassword) throws InterruptedException {
-            Thread.sleep(10000);
-            click_DiagnosticianLink();
-            Thread.sleep(5000);
-            click_createDiagnosticianButton();
-            enter_diagnostician_FirstName(CustomerFirstName);
-            enter_diagnostician_LastName(CustomerLastName);
-            enter_Diagnostician_MobileNumber(diagnostician_MobileNumberText);
-            enter_Diagnostician_Email(EmailAddress);
-            click_AssignLocation();
-            userNameField(UserName);
-            create_passwordField(PasswordText);
-            confirm_PasswordField(RePassword);
-            clickOn_createDiagnosticianButton();
-            Thread.sleep(4000);
-            click_LogOutLink();
 
-        }
+
         public void login_As_Diagnostician(String UserName,String PasswordText) throws InterruptedException {
         Thread.sleep(4000);
             enter_UserName(UserName);

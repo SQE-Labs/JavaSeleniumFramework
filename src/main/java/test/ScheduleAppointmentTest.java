@@ -2,31 +2,26 @@ package test;
 
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.DashboardPage;
+import org.automation.pageObjects.Diagnostician;
 import org.automation.pageObjects.LoginPage;
 import org.automation.pageObjects.ScheduleAppointmentPage;
 import org.automation.utilities.RandomStrings;
 import org.testng.annotations.Test;
 import java.util.Set;
 
+import static test.SuperAdminTest.*;
+
 
 public class ScheduleAppointmentTest extends BaseTest {
-    public static String CustomerFirstName;
-    public static String CustomerLastName;
-    public static String EmailAddress;
-    public static String UserName;
+
 
 
     @Test(priority=0,enabled=true,description = "Create Diagnosticians")
     public void create_Diagnosticians() throws InterruptedException {
         LoginPage login = new LoginPage();
-        CustomerFirstName = "Michel" + RandomStrings.requiredCharacters(2);
-        CustomerLastName = "Marsh" + RandomStrings.requiredCharacters(2);
-        EmailAddress = CustomerFirstName + "@yopmail.com";
-        UserName = "Brodie" + RandomStrings.requiredCharacters(2);
-      //  Password=RandomStrings.requiredDigits(6);
-        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-        login.validLogin();
-        schedule.create_Diagnostician(CustomerFirstName,CustomerLastName,"8564234568",EmailAddress,UserName,"123456","123456");
+        Diagnostician diagnostician = new Diagnostician();
+      //  login.validLogin();
+        diagnostician.create_Diagnostician(CustomerFirstName,CustomerLastName,"8564234568",EmailAddress,UserName,"123456","123456");
     }
     @Test(priority = 1,enabled = true,description = "diagnostician Scheduling availability")
     public void diagnostician_Availability() throws InterruptedException {
