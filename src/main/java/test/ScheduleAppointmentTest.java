@@ -21,12 +21,12 @@ public class ScheduleAppointmentTest extends BaseTest {
         LoginPage login = new LoginPage();
         Diagnostician diagnostician = new Diagnostician();
       //  login.validLogin();
-        diagnostician.create_Diagnostician(CustomerFirstName,CustomerLastName,"8564234568",EmailAddress,UserName,"123456","123456");
+        diagnostician.create_Diagnostician(diagnosticianFirstName,diagnosticianLastName,"8564234568",diagnosticianEmailAddress,diagnosticianUserName,"123456","123456");
     }
     @Test(priority = 1,enabled = true,description = "diagnostician Scheduling availability")
     public void diagnostician_Availability() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-        schedule.login_As_Diagnostician(UserName,"123456");
+        schedule.login_As_Diagnostician(diagnosticianUserName,"123456");
         schedule.checking_Availability();
         schedule.cancel_Availability();
         schedule.deleting_Availability();
@@ -54,13 +54,13 @@ public class ScheduleAppointmentTest extends BaseTest {
     @Test(priority = 4, enabled = true, description = "Filling client details")
     public void fillClientDetails() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-        schedule.enteringClientDetails(CustomerFirstName, CustomerLastName, 2, "19-11-1997",2, "4567892658", EmailAddress, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
+        schedule.enteringClientDetails( diagnosticianFirstName, diagnosticianLastName, 2, "19-11-1997",2, "4567892658", diagnosticianEmailAddress, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
     }
 
     @Test(priority = 5, enabled = false, description = "filter and viewing created appointment in detail")
     public void filter_CreatedAppointment() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-        schedule.search_ScheduledAppointment(CustomerFirstName);
+        schedule.search_ScheduledAppointment(diagnosticianFirstName);
     }
 
     @Test(priority = 6, enabled = true, description = "creating TestPlan for the created appointment")

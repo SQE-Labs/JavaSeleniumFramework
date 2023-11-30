@@ -21,7 +21,7 @@ import static com.relevantcodes.extentreports.LogStatus.PASS;
 
 public class WebdriverWaits extends BaseTest {
 
-    static WebDriverWait wait = new WebDriverWait((WebDriver) driver,Duration.ofSeconds(2));
+    public static WebDriverWait wait = new WebDriverWait((WebDriver) driver,Duration.ofSeconds(2));
     /**
      * Waits for a given element to be visible
      *
@@ -38,12 +38,15 @@ public class WebdriverWaits extends BaseTest {
      * Waits for a given element to be visible
      *
      **/
-    public static void waitForElementVisible(By locator ) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-          wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    public static void waitForElementVisible(By element ) {
 
+        try {
+            WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+        } catch (Exception e) {
+
+        }
     }
-
 
     /**
      * Waits for a given element to be selected

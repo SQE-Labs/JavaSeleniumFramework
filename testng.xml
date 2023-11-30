@@ -8,6 +8,7 @@
         </packages>
         <classes>
             <class name="test.SuperAdminTest"></class>
+<!--            <class name="test.DiagnosticianTest"></class>-->
         </classes>
     </test>
 </suite>

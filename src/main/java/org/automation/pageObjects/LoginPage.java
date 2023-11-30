@@ -7,8 +7,8 @@ import org.openqa.selenium.By;
 
 public class LoginPage extends BasePage {
 
-    public By userNameField = By.xpath("//*[@name='login_username']");
-    public By PasswordField = By.xpath("//*[@name='login_password']");
+    public By userNameField = By.xpath("//input[@placeholder='Username']");
+    public By PasswordField = By.xpath("//input[@placeholder='Password']");
     public By login = By.id("loginFormSubmit");
 
 
@@ -25,9 +25,10 @@ public class LoginPage extends BasePage {
         clickBtn_custom(login);
     }
 
-    public void validLogin() {
-        sendKeys_custom(userNameField, PropertiesUtil.getPropertyValue("userName"));
-        sendKeys_custom(PasswordField, PropertiesUtil.getPropertyValue("password"));
+    public void validLogin()   {
+
+        sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("userName"));
+        sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("password"));
         clickBtn_custom(login);
 
     }
