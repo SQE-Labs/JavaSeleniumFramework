@@ -21,7 +21,12 @@ public class Diagnostician extends BasePage {
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public static By actualText = By.xpath("(//td)[2]");
     public By backButton = By.xpath("//button[text()='Back']");
-    public static By diagnosticianListPage = By.xpath("//h3[text()='Diagnosticians List']");
+    public static By diagnosticianDashBoardPage = By.xpath("//h3[text()='Dashboard']");
+
+
+
+    //**************Search created diagnostician*************
+
     public By filterButton = By.xpath("//a[text()='Filter']");
     public By searchField = By.xpath("//input[@id='filterSearch']");
 
@@ -32,9 +37,12 @@ public class Diagnostician extends BasePage {
     public By emailField = By.xpath("//input[@formcontrolname='email']");
     public By updateButton = By.xpath("//button[text()='Update']");
     public By enableToggle=By.xpath("//label[text()='Enable User']");
+
     public By passwordTextField = By.xpath("//input[@formcontrolname='password']");
     public By confirmPasswordField = By.xpath("(//input[@type='password'])[2]");
     public static By edit_Succ_Msg = By.xpath("//div[text()=' Diagnostician details updated successfully. ']");
+    public static By UserNameGetText=By.xpath("(//td)[2]");
+    public static By disableUser=By.xpath("//label[text()='Enable User']");
     public By toggle = By.xpath("//span[@class='slider round']");
     public By dontSaveButton=By.xpath("//a[text()='Don’t Save']");
 
@@ -101,6 +109,8 @@ public class Diagnostician extends BasePage {
     public void click_Back_Button() {
         click_custom(backButton);
     }
+
+    //*************search created diagnostician***************
 
     public void click_filterButton() {
         click_custom(filterButton);
@@ -192,6 +202,7 @@ public class Diagnostician extends BasePage {
 
     public void edit_Diagnostician(String cellNumberText, String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
+
         Thread.sleep(3000);
         enter_CellNumber(cellNumberText);
         enter_Diagnostician_Email1(EmailAddress1);
@@ -201,9 +212,13 @@ public class Diagnostician extends BasePage {
         click_UpdateButton();
     }
 
-    public void cheking_DisableUser(){
+    public void cheking_DisableUser() throws InterruptedException {
         click_On_EditButton();
-        enableToggle
+        Thread.sleep(4000);
+        clickOn_DontSave();
+        click_On_EditButton();
+        Thread.sleep(4000);
+        clickOn_DontSave();
     }
     public void enable_DiagnosticianUser() throws InterruptedException {
         Thread.sleep(4000);
@@ -227,7 +242,6 @@ public class Diagnostician extends BasePage {
         clickOn_Login_UsernameField(userNameFieldText);
         clickOn_Login_PasswordField(PasswordFieldText);
           clickOn_Login_Button();
-
     }
     public void not_Edit_Diagnostician(String cellNumberText, String EmailAddress1, String passwordTextFieldText,String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
@@ -237,5 +251,6 @@ public class Diagnostician extends BasePage {
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordFieldField(confirmPasswordFieldText);
         clickOn_DontSave();
+        Thread.sleep(6000);
     }
 }

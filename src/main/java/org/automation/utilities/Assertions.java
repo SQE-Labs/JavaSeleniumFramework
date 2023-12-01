@@ -3,7 +3,8 @@ package org.automation.utilities;
 import org.automation.elements.Element;
 import org.automation.logger.Log;
 import org.openqa.selenium.By;
- 
+
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -11,6 +12,7 @@ import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
 
 import static org.automation.base.BaseTest.extentTest;
+import static org.automation.base.BaseTest.getDriver;
 
 public class Assertions {
 
@@ -45,6 +47,23 @@ public class Assertions {
         String actual = Assertions.getText_custom(element);
         softAssert.assertEquals(actual, expected);
         softAssert.assertAll();
+    }
+    public static void validate_SuccessTXTByString(By element, String expected) throws InterruptedException {
+//        SoftAssert softAssert = new SoftAssert();
+//        String actual = Assertions.getText_custom();
+//        softAssert.assertEquals(actual, expected);
+//        softAssert.assertAll();
+        WebElement strvalue = getDriver().findElement(element);
+        String Expected = "Text to compare";
+        String Actual = strvalue.getText();
+        System.out.println(Actual);
+
+        if(expected.equals(Actual)){
+            System.out.println("Pass");
+        }
+        else {
+            System.out.println("Fail");
+        }
     }
 
 

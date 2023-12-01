@@ -9,6 +9,7 @@
         <classes>
             <class name="test.SuperAdminTest"></class>
 <!--            <class name="test.DiagnosticianTest"></class>-->
+<!--            <class name="test.DirectorTest"></class>-->
         </classes>
     </test>
 </suite>
