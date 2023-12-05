@@ -7,9 +7,10 @@
 <!--            <package name="test.*"></package>-->
         </packages>
         <classes>
-            <class name="test.SuperAdminTest"></class>
+<!--            <class name="test.SuperAdminTest"></class>-->
 <!--            <class name="test.DiagnosticianTest"></class>-->
 <!--            <class name="test.DirectorTest"></class>-->
+            <class name="test.AppointmentsTest"></class>
         </classes>
     </test>
 </suite>

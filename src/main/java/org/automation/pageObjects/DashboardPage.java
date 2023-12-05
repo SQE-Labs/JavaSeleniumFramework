@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class DashboardPage extends BasePage {
 
-    public By scheduleAppointment = By.xpath("//*[@id='Schedule Appointment']");
+    public By scheduleAppointment = By.xpath("//li[@id='Schedule Appointment']");
 
 
     public void clickScheduleAppointment() throws InterruptedException {

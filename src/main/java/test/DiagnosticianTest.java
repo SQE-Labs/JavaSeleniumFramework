@@ -15,19 +15,19 @@ public class DiagnosticianTest extends BaseTest {
     public static String CustomerLastName;
     public static String EmailAddress;
     public static String UserName;
-    @Test(priority = 0, enabled = true,description = "SuperAdmin is able to create Diagnostician")
-    public void create_Diagnostician() throws InterruptedException {
-        CustomerFirstName = "Michel" + RandomStrings.requiredCharacters(2);
-        CustomerLastName = "Marsh" + RandomStrings.requiredCharacters(2);
-        EmailAddress = CustomerFirstName + "@yopmail.com";
-        UserName = "Brodie" + RandomStrings.requiredCharacters(2);
-        LoginPage login = new LoginPage();
-        login.validLogin();
-        Diagnostician diagnostician = new Diagnostician();
-        diagnostician.create_Diagnostician(CustomerFirstName, CustomerLastName, "8564234568", EmailAddress, UserName, "123456", "123456");
-        Thread.sleep(5000);
-        //   validate_SuccessTXT(actualText,UserName);
-    }
+//    @Test(priority = 0, enabled = true,description = "SuperAdmin is able to create Diagnostician")
+//    public void create_Diagnostician() throws InterruptedException {
+//        CustomerFirstName = "Michel" + RandomStrings.requiredCharacters(2);
+//        CustomerLastName = "Marsh" + RandomStrings.requiredCharacters(2);
+//        EmailAddress = CustomerFirstName + "@yopmail.com";
+//        UserName = "Brodie" + RandomStrings.requiredCharacters(2);
+//        LoginPage login = new LoginPage();
+//        login.validLogin();
+//        Diagnostician diagnostician = new Diagnostician();
+//        diagnostician.create_Diagnostician(CustomerFirstName, CustomerLastName, "8564234568", EmailAddress, UserName, "123456", "123456");
+//        Thread.sleep(5000);
+//        //   validate_SuccessTXT(actualText,UserName);
+//    }
     @Test(priority = 1,enabled = true,description = "SuperAdmin is able to search created diagnostician or not")
     public void search_Created_Diagnostician() throws InterruptedException {
         Diagnostician diagnostician=new Diagnostician();

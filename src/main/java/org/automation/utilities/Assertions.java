@@ -17,14 +17,9 @@ import static org.automation.base.BaseTest.getDriver;
 public class Assertions {
 
     public static void assertEquals(String actual, String expected) {
-
-        try {
             Assert.assertEquals(actual, expected);
             extentTest.log(PASS, "Assertion passed , Value is : " + actual);
-        } catch (AssertionError e) {
-            Log.info("excpetion in assertEquals method");
-            extentTest.log(FAIL, "Assertion failed => " + "Actual Value : '" + actual + "' | Expected Value : '" + expected + "'");
-        }
+
     }
     public static String getText_custom(By path) {
         String text = "";
@@ -42,7 +37,7 @@ public class Assertions {
         return text;
     }
 
-    public static void validate_SuccessTXT(By element, String expected) throws InterruptedException {
+    public static void validate_text(By element, String expected) throws InterruptedException {
         SoftAssert softAssert = new SoftAssert();
         String actual = Assertions.getText_custom(element);
         softAssert.assertEquals(actual, expected);

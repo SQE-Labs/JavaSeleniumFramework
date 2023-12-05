@@ -37,7 +37,7 @@ public class ScheduleAppointmentPage extends BasePage {
     public By headerResource = By.xpath("//div[@class='header-resource-name']");
     //(//div[@class='mbsc-flex ng-star-inserted'])[1]
     public By selectingtoday=By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-selected ng-star-inserted']");
-    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[8]");
+    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[1]");
     public By saveButton = By.xpath("//mbsc-button[text()=' Save ']");
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
     public By totalBoxes=By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
@@ -79,19 +79,19 @@ public class ScheduleAppointmentPage extends BasePage {
 
     //+++++++++++++++CREATE DIAGNOSTICS++++++++++++++
 
-    public By userNameField=By.xpath("//input[@name='login_username']");
-    public By passwordField=By.xpath("//input[@name='login_password']");
+    public By userNameField=By.xpath("//input[@placeholder='Username']");
+    public By passwordField=By.xpath("//input[@placeholder='Password']");
 
     public By loginButton=By.xpath("//button[text()=' Log In ']");
 
     //********CHECKING AVAILABILITY******************
     public By totalSlots=By.xpath("//div[@class='mbsc-timeline-events']");
     public By availability=By.xpath("//a[text()='Availability']");
-    public By slot=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[5]");
-    public By slot1=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[7]");
-    public By slot2=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[8]");
-    public By slot3=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[9]");
-    public By slot4=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[10]");
+    public By slot=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[1]");
+    public By slot1=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[3]");
+    public By slot2=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[5]");
+    public By slot3=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[7]");
+    public By slot4=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[9]");
     public By diagnosticianSaveButton=By.xpath("//button[text()='Save']");
     public By todayLink=By.xpath("//mbsc-button[text()=' Today ']");
     public By delete=By.xpath("//mbsc-button[text()=' Delete ']");
@@ -372,7 +372,9 @@ public class ScheduleAppointmentPage extends BasePage {
                 Thread.sleep(3000);
                 //  schedule.clickOnColumn();
                 clickOnSaveButton();
+            Thread.sleep(3000);
                 clickOnAppSaveButton();
+            Thread.sleep(3000);
             clickOnAssesmentType(Type);
         }
         public String enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address1Text, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
@@ -423,7 +425,7 @@ public class ScheduleAppointmentPage extends BasePage {
 
 
         public void login_As_Diagnostician(String UserName,String PasswordText) throws InterruptedException {
-        Thread.sleep(4000);
+        Thread.sleep(8000);
             enter_UserName(UserName);
             enter_Password(PasswordText);
             click_LoginButton( );

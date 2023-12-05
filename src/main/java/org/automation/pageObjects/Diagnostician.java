@@ -185,7 +185,7 @@ public class Diagnostician extends BasePage {
         confirm_PasswordField(RePassword);
         clickOn_createDiagnosticianButton();
         Thread.sleep(4000);
-        //  click_LogOutLink();
+         click_LogOutLink();
     }
 
     public void diagnostician_ListPage() throws InterruptedException {
@@ -195,7 +195,6 @@ public class Diagnostician extends BasePage {
     }
 
     public void search_CreatedDiagnostician(String UserName) throws InterruptedException {
-        Thread.sleep(3000);
         click_filterButton();
         enterInSearchField(UserName);
     }
