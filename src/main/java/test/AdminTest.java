@@ -8,9 +8,10 @@ import org.automation.utilities.RandomStrings;
 import org.testng.annotations.Test;
 
 public class AdminTest {
-    String diagnosticianUserName;
-    String  diagnosticianFirstName;
-    String diagnosticianLastName;
+    public String diagnosticianUserName;
+   public  String  diagnosticianFirstName;
+   public  String diagnosticianLastName;
+   public String diagnosticianEmailAddress;
     @Test(priority=0,enabled=true,description = "Create Diagnosticians")
     public void create_Diagnosticians() throws InterruptedException {
         LoginPage login = new LoginPage();
@@ -18,7 +19,7 @@ public class AdminTest {
         login.validLogin();
          diagnosticianFirstName = "josh" + RandomStrings.requiredCharacters(2);
         diagnosticianLastName = "englis" + RandomStrings.requiredCharacters(2);
-        String diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
+        diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
         diagnosticianUserName = "marsh" + RandomStrings.requiredCharacters(2);
         diagnostician.create_Diagnostician(diagnosticianFirstName,diagnosticianLastName,"8564234568",diagnosticianEmailAddress,diagnosticianUserName,"123456","123456");
     }

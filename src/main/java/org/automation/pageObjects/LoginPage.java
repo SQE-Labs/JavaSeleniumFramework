@@ -26,10 +26,18 @@ public class LoginPage extends BasePage {
     }
 
     public void validLogin()   {
-
         sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("userName"));
         sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("password"));
         clickBtn_custom(login);
-
+    }
+    public void diagnosticianLogin(){
+        sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("diagnosticianUserName"));
+        sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("diagnosticianPassword"));
+        clickBtn_custom(login);
+    }
+    public void directorLogin(){
+        sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("directorUserName"));
+        sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("directorPassword"));
+        clickBtn_custom(login);
     }
 }

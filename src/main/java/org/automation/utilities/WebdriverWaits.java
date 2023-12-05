@@ -3,15 +3,13 @@ package org.automation.utilities;
 import org.automation.base.BaseTest;
 import org.automation.elements.Element;
 import org.automation.logger.Log;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +19,7 @@ import static com.relevantcodes.extentreports.LogStatus.PASS;
 
 public class WebdriverWaits extends BaseTest {
 
-    public static WebDriverWait wait = new WebDriverWait((WebDriver) driver,Duration.ofSeconds(2));
+  //  public static WebDriverWait wait = new WebDriverWait((WebDriver) driver,Duration.ofSeconds(2));
     /**
      * Waits for a given element to be visible
      *
@@ -71,11 +69,11 @@ public class WebdriverWaits extends BaseTest {
         WebElement e = wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-    public static WebElement waitForElementUntilVisible(By locator, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
-        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        return e;
-    }
+//    public static WebElement waitForElementUntilVisible(By locator, int waitTime) {
+//        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
+//        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+//        return e;
+//    }
     public static void waitForElementNotVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
@@ -125,9 +123,9 @@ public class WebdriverWaits extends BaseTest {
 
     }
 
-    public static void WaitUntilVisible(By element) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
-    }
+//    public static void WaitUntilVisible(By element) {
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+//    }
 
     public static void SwitchToNewTab() throws InterruptedException {
         String originalHandle = getDriver().getWindowHandle();
@@ -142,6 +140,14 @@ public class WebdriverWaits extends BaseTest {
         Thread.sleep(3000);
     }
 
+    public static void WaitUntilInvisible(By element) {
+        try {
+            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(NoSuchElementException.class);
+            fluentWait1.until(ExpectedConditions.invisibilityOf(getDriver().findElement(element)));
+
+        } catch (WebDriverException e) {
+        }
+    }
 
 
     public void byToWebelement(By element){
@@ -168,6 +174,41 @@ public class WebdriverWaits extends BaseTest {
         return text;
     }
 
+    public  Boolean WaitUntilVisibleAllElements(List<WebElement> element) {
+        try {
+            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(NoSuchElementException.class, ElementNotInteractableException.class);
+            fluentWait1.until(ExpectedConditions.visibilityOfAllElements(element));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    public void WaitUntilPresent(By element) {
+            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(NoSuchElementException.class, ElementNotInteractableException.class);
+            fluentWait1.until(ExpectedConditions.presenceOfElementLocated(element));
+        }
+
+    public  void WaitUntilElementPresent(By locator, int tries) {
+
+        for (int i = 0; i < tries; i++) {
+            try {
+                Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(NoSuchElementException.class);
+                fluentWait1.until(ExpectedConditions.presenceOfElementLocated(locator));
+            } catch (Exception e) {
+                // throw new RuntimeException (e);
+            }
+        }
+
+    }
+
+    public static void WaitUntilVisible(By element) {
+        try {
+            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(NoSuchElementException.class, ElementNotInteractableException.class);
+            fluentWait1.until(ExpectedConditions.visibilityOfElementLocated(element));
+        } catch (Exception e) {
+
+        }
+    }
 }
 
 
