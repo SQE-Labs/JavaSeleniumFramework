@@ -1,14 +1,16 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import test.ScheduleAppointmentTest;
 
-import java.util.List;
+import java.io.File;
+import java.util.*;
 
-import static test.ScheduleAppointmentTest.CustomerFirstName;
-import static test.ScheduleAppointmentTest.CustomerLastName;
+import static com.relevantcodes.extentreports.LogStatus.FAIL;
+import static com.relevantcodes.extentreports.LogStatus.PASS;
+
 
 public class ScheduleAppointmentPage extends BasePage {
 
@@ -20,8 +22,8 @@ public class ScheduleAppointmentPage extends BasePage {
     public By assestmentTypeText=By.xpath("//option[text()=' Adult ADHD Only ']");
     public By clientFirstName = By.xpath("//input[@placeholder='Client First Name']");
     public By clientLastName = By.xpath("//input[@placeholder='Client Last Name']");
-    public By dateOfBirth = By.xpath("(//input[@class='ng-untouched ng-pristine ng-invalid'])[1]");
-    public By grade = By.xpath("(//select[@class='ng-untouched ng-pristine ng-invalid'])[1]");
+    public By dateOfBirth = By.xpath("//input[@placeholder='Date of Birth']");
+    public By grade = By.xpath("(//select[@id='schoolType'])[1]");
     public By schoolType = By.xpath("(//select[@class='ng-untouched ng-pristine ng-invalid'])[2]");
     public By SchoolType=By.xpath("(//select[@id='schoolType'])[2]");
     public By cellNumber = By.xpath("//input[@placeholder='Cell Number']");
@@ -43,14 +45,70 @@ public class ScheduleAppointmentPage extends BasePage {
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
     public By totalBoxes=By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
     public By afternoonToggleButton=By.xpath("//mbsc-button[text()='Afternoon']");
+
+    public By appointmentsSubTab = By.xpath("(//div/ul[@class='ng-star-inserted'][3])");
+    public By viewAll = By.xpath("//*[@id=\"Appointments\"]/li[1]/a");
+    public By filters = By.xpath("//a[@class='theme-button grey ml-auto mr-3']");
+    public By filterSearch = By.id("filterSearch");
+    public By dateFrom = By.xpath("(//input[@class='ng-untouched ng-pristine ng-valid'])[1]");
+    public By dateTo = By.xpath("(//input[@class='ng-untouched ng-pristine ng-valid'])[2]");
+    public By search = By.xpath("//*[@id='dateRangeFilter']");
+    public By viewDetailLink = By.xpath("//*[@id=\"appointmentTable\"]/tbody/tr[103]/td[7]/a");
+    public By cancelAppointment = By.xpath("//button[@class='theme-button danger m-2 ng-star-inserted']");
+    public By yesCancelBtn = By.xpath("//button[@class='theme-button danger mx-2 ng-star-inserted']");
+
+
     public By enterAmountField=By.xpath("//input[@placeholder='Enter Amount']");
     public By collectDeposit=By.xpath("//button[text()='Collect Deposit']");
     public By viewDetails=By.xpath("//a[text()='View Detail']");
     public By searchBox=By.xpath("//input[@placeholder='Type here to search']");
     public By viewlink=By.xpath("//a[text()='View All']");
     public By filter=By.xpath("//a[text()='Filter']");
+    public By cancelRadioBtn = By.xpath("//*[@id=\"noShowAppt\"]");
 
-    ScheduleAppointmentTest schedule = new ScheduleAppointmentTest();
+    //****************Adding TestPlan for the appointment****************
+
+    public By testPlan=By.xpath("//button[text()=' Test Plan ']");
+    public By checkBox=By.xpath("//label[text()='WJ Achievement']/..");
+    public By famCheckBox=By.xpath("//label[text()='FAM']/..");
+    public By nepsyCheckBox=By.xpath("//label[text()='NEPSY']/..");
+    public By ndCheckBox=By.xpath("//label[text()='ND']/..");
+    public By wmsCheckBox=By.xpath("//label[text()='WMS']/..");
+
+    public By bascSelfCheckBox=By.xpath("//label[text()='BASC Self']/..");
+    public By cbrsSelfCheckBox=By.xpath("//label[text()='CBRS Self']/..");
+    public By dlsDyslexiaCheckBox=By.xpath("//label[text()='DLS Dyslexia']/..");
+    public By testPlanSaveButton=By.xpath("//button[text()='Save']");
+
+    //+++++++++++++++CREATE DIAGNOSTICS++++++++++++++
+
+    public By userNameField=By.xpath("//input[@placeholder='Username']");
+    public By passwordField=By.xpath("//input[@placeholder='Password']");
+
+    public By loginButton=By.xpath("//button[text()=' Log In ']");
+
+    //********CHECKING AVAILABILITY******************
+    public By totalSlots=By.xpath("//div[@class='mbsc-timeline-events']");
+    public By availability=By.xpath("//a[text()='Availability']");
+    public By slot=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[1]");
+    public By slot1=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[3]");
+    public By slot2=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[5]");
+    public By slot3=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[7]");
+    public By slot4=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[9]");
+    public By diagnosticianSaveButton=By.xpath("//button[text()='Save']");
+    public By todayLink=By.xpath("//mbsc-button[text()=' Today ']");
+    public By delete=By.xpath("//mbsc-button[text()=' Delete ']");
+    public By cancel=By.xpath("//mbsc-button[text()=' Cancel ']");
+    public By logOutLink=By.xpath("//a[text()='Log Out']");
+
+
+
+    public void click_LogOutLink(){
+        click_custom(logOutLink);
+    }
+    public static By getCanceledXPAth(String ClientName) {
+        return By.xpath("//td[contains(text(),'"+ClientName+"')]//parent::tr//span[contains(text(),'Canceled')]");
+    }
 
     public void selectAssessmentDate() {
         clickBtn_custom(assessmentDate);
@@ -61,6 +119,34 @@ public class ScheduleAppointmentPage extends BasePage {
         selectDropDownByVisibleText_custom(chooseTestingLocation, chooseLocationText, "ChooseLocation");
 
     }
+
+    public void selectDateFrom(String chooseDateFromText) {
+        clickBtn_custom(dateFrom, "chooseDateFromTxt");
+        selectDropDownByVisibleText_custom(dateFrom,"chooseDateFromTxt");
+
+    }
+
+    public void selectDateTo(String chooseDateToText) {
+        clickBtn_custom(dateTo, "chooseDateToTxt");
+        selectDropDownByVisibleText_custom(dateFrom,"chooseDateToText");
+
+    }
+
+    public void click_CancelAppointmentBtn() throws InterruptedException {
+        Thread.sleep(3000);
+        scrollIntoView(cancelAppointment);
+        click_custom(cancelAppointment);
+    }
+
+    public void click_YesCancelBtn() throws InterruptedException {
+        Thread.sleep(5000);
+//        click_custom(cancelRadioBtn);
+//        Thread.sleep(3000);
+        click_custom(yesCancelBtn);
+    }
+
+
+
 
     public void createAppointment(String chooseLocationText) throws InterruptedException {
         selectTestinglocation(chooseLocationText);
@@ -73,18 +159,46 @@ public class ScheduleAppointmentPage extends BasePage {
         return list.size();
     }
 
+
    // public void clickOnColumn() {
     //    click_custom(clickOnBox);
         //   return expLocatorPos;
   //  }
 
     public void clickOnSaveButton() {
-        click_custom(afternoonToggleButton);
+      //  click_custom(afternoonToggleButton);
         click_custom(saveButton);
     }
 
+    public void enter_SearchText(String searchText) {
+        sendKeys_withClear(filterSearch,searchText);    }
+
+
     public void clickOnAppSaveButton() {
         click_custom(appointmentSaveButtonButton);
+    }
+
+
+    public void click_ViewAllOption() throws InterruptedException {
+        Thread.sleep(3000);
+        click_custom(viewAll);
+    }
+
+    public void click_FilterBtn() throws InterruptedException {
+        Thread.sleep(10000);
+        scrollIntoView(filters);
+        Thread.sleep(2000);
+        click_custom(filters);
+    }
+
+
+    public void click_AppointmentsSubtab() throws InterruptedException {
+        Thread.sleep(5000);
+        click_custom(appointmentsSubTab);
+    }
+
+    public void click_ViewDetailLink() throws InterruptedException {
+        click_custom(viewDetailLink);
     }
 
     public  void getTotalColumnCount() {
@@ -151,7 +265,9 @@ public class ScheduleAppointmentPage extends BasePage {
         Thread.sleep(2000);
         sendKeys_withClear(dateOfBirth,dateOfBirthText);
     }
-    public void enterAmount(String enterAmountText){
+    public void enterAmount(String enterAmountText) throws InterruptedException {
+//         waitForElementVisible(enterAmountField,10);
+        click_custom(enterAmountField);
         sendKeys_withClear(enterAmountField,enterAmountText);
     }
     public void clickOnCollectDepositButton(){
@@ -172,6 +288,81 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(filter);
     }
 
+    //******************Adding TestPlan for the Appointment**************
+
+    public void click_TestPlanButton() throws InterruptedException {
+        Thread.sleep(3000);
+        scrollIntoView(testPlan);
+        click_custom(testPlan);
+    }
+    public void clickOnCheckBox(){
+//        List<WebElement> list = getWebElements(checkBox, "Heders");
+//        ArrayList checkboxes=new ArrayList();
+//        for(WebElement checkbox: list){
+//            checkboxes.add(checkbox);
+        click_custom(checkBox);
+        click_custom(famCheckBox);
+        click_custom(nepsyCheckBox);
+        click_custom(ndCheckBox);
+        click_custom(wmsCheckBox );
+        click_custom(bascSelfCheckBox);
+        click_custom(cbrsSelfCheckBox );
+        click_custom(dlsDyslexiaCheckBox);
+        }
+        public void clickOnTestPlanSaveButton(){
+        click_custom(testPlanSaveButton);
+        }
+
+//******************Logging as diagnostician************
+
+    public void enter_UserName(String CustomerFirstName){
+        sendKeys_withClear(userNameField,CustomerFirstName);
+    }
+    public void enter_Password(String PasswordText){
+        sendKeys_withClear(passwordField,PasswordText);
+    }
+
+    public void click_LoginButton( ){
+        click_custom(loginButton );
+    }
+
+//******************checking availability*************
+    public void click_On_Availablity(){
+        click_custom(availability);
+    }
+    public void click_On_Slot() throws InterruptedException {
+        Thread.sleep(8000);
+            click_custom(slot);
+            Thread.sleep(4000);
+        scrollIntoHorizontally(slot1);
+            click_custom(slot1);
+        click_custom(slot2);
+            click_custom(slot4);
+            click_custom(slot3);
+            click_custom(diagnosticianSaveButton);
+           // click_custom(logOutLink);
+    }
+    public void click_TodayLink(){
+        click_custom(todayLink);
+    }
+
+    public void click_On_Delete(){
+        click_custom(delete);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //================///////////=========================
     public void scheduleAppointment(String testingLocation) throws InterruptedException {
@@ -184,16 +375,19 @@ public class ScheduleAppointmentPage extends BasePage {
                 Thread.sleep(3000);
                 //  schedule.clickOnColumn();
                 clickOnSaveButton();
+            Thread.sleep(3000);
                 clickOnAppSaveButton();
+            Thread.sleep(3000);
             clickOnAssesmentType(Type);
         }
-        public String enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address1Text, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
+        public String enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address1Text, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
             enterFirstName(CustomerFirstName);
             enterLastName(CustomerLastName);
             Thread.sleep(2000);
-            enterInDateField( "11-11-1111");
+            enterInDateField( dateOfBirthText);
             selectGradeType(gradeType);
             selectSchoolType(schoolTypeOption);
+            Thread.sleep(2000);
             enterCellNumber(cellNumber);
            // enterPhoneNumber( phoneNumberText);
             enterEmialAddress(EmailAddress);
@@ -205,7 +399,7 @@ public class ScheduleAppointmentPage extends BasePage {
             enterZipCode(zipCodeText);
             enterTestAmount(testAmountText);
             clickOnContinueToDepositButton();
-            Thread.sleep(4000);
+            Thread.sleep(3000);
             enterAmount(enterAmountText);
             clickOnCollectDepositButton();
             Thread.sleep(8000);
@@ -214,13 +408,52 @@ public class ScheduleAppointmentPage extends BasePage {
         }
 
 
+        public void search_ScheduledAppointment (String CustomerFirstName) throws InterruptedException {
+            clickOnviewLink();
+            Thread.sleep(4000);
+            clickOnFilterbutton();
+            Thread.sleep(3000);
+            enterInsearchBox(CustomerFirstName);
+            click_ViewDetailLink();
+//           click_CancelAppointmentBtn();
+//            click_YesCancelBtn();
+//            Thread.sleep(4000);
+        }
 
-    public void selectCreatedAppointment(String CustomerFirstName) throws InterruptedException {
-        clickOnviewLink();
+        public void creatingTestPlanForTheAppointment () throws InterruptedException {
+            click_TestPlanButton();
+            clickOnCheckBox();
+            clickOnTestPlanSaveButton();
+        }
+
+
+        public void login_As_Diagnostician(String UserName,String PasswordText) throws InterruptedException {
+        Thread.sleep(8000);
+            enter_UserName(UserName);
+            enter_Password(PasswordText);
+            click_LoginButton( );
+        }
+        public void checking_Availability() throws InterruptedException {
         Thread.sleep(2000);
-        clickOnFilterbutton();
-        enterInsearchBox(CustomerFirstName);
-    }
+            click_On_Availablity();
+            Thread.sleep(4000);
+            click_On_Slot();
+        }
+        public void deleting_Availability() throws InterruptedException {
+            click_custom(slot1);
+            Thread.sleep(3000);
+            click_On_Delete();
+            click_custom(diagnosticianSaveButton);
+          //  click_custom(logOutLink);
+        }
+        public void cancel_Availability() throws InterruptedException {
+        click_custom(slot2);
+        Thread.sleep(3000);
+        click_custom(cancel);
+            click_custom(diagnosticianSaveButton);
+            click_custom(logOutLink);
+        }
+
     }
 
 

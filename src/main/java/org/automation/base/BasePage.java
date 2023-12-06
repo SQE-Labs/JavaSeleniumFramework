@@ -174,6 +174,15 @@ public class BasePage extends ActionEngine {
         jse.executeScript("arguments[0].scrollIntoView(true);", ele);
 
     }
+    public void scrollIntoHorizontally(By element) {
+        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+        WebElement ele = getDriver().findElement(element);
+        jse.executeScript("document.documentElement.scrollLeft += 1000;", ele);
+
+    }
+
+
+
     public static  void waitForSpinner(){
         WebdriverWaits.waitForElementNotVisible(By.className("spinner"),10);
 
