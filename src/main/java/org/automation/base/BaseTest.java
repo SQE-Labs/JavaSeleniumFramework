@@ -62,7 +62,7 @@ public class BaseTest {
 				driver.set(new ChromeDriver(chromeOptions));
 				//WebDriverManager.chromedriver().setup();
 				 //driver = new ChromeDriver(chromeOptions();
-				//driver.set(new ChromeDriver());
+				//driver.set(new Chrome7Driver());
 				break;
 
 			case "fireFox":
