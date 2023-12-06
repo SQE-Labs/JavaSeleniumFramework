@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 
 public class DirectorPage extends BasePage {
     WebdriverWaits wait=new WebdriverWaits();
-    public By directorsTab= By.xpath("//a[text()='Directors']");
+    public By directorsTab= By.xpath("//li[@id='Directors']");
     public By createDirectorButton=By.xpath("//button[text()='Create Director']");
     public By directorsFirstName=By.xpath("//input[@placeholder='First Name']");
     public By directorsLastName=By.xpath("//input[@placeholder='Last Name']");
@@ -59,11 +59,14 @@ public class DirectorPage extends BasePage {
 
 
     public void click_DirectorTab(){
- wait.WaitUntilPresent(directorsTab);
+        wait.WaitUntilVisible(directorsTab);
+       wait.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+      // wait.WaitUntilPresent(directorsTab);
         click_custom(directorsTab);
     }
     public void click_CreateDirectorsButton(){
         wait.WaitUntilPresent(createDirectorButton);
+        wait.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(createDirectorButton);
     }
     public void click_directorsFirstNameField(String directorsFirstNameText){
@@ -116,7 +119,7 @@ public class DirectorPage extends BasePage {
 
     //***************edit created director*****************
     public void click_On_EditButton() {
-        wait.WaitUntilPresent(editButton);
+        wait.WaitUntilVisible(editButton);
         click_custom(editButton);
     }
 

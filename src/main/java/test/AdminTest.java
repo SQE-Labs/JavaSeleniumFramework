@@ -1,5 +1,6 @@
 package test;
 
+import org.automation.base.BaseTest;
 import org.automation.pageObjects.DashboardPage;
 import org.automation.pageObjects.Diagnostician;
 import org.automation.pageObjects.LoginPage;
@@ -7,19 +8,19 @@ import org.automation.pageObjects.ScheduleAppointmentPage;
 import org.automation.utilities.RandomStrings;
 import org.testng.annotations.Test;
 
-public class AdminTest {
-    public String diagnosticianUserName;
-   public  String  diagnosticianFirstName;
-   public  String diagnosticianLastName;
-   public String diagnosticianEmailAddress;
+public class AdminTest extends BaseTest {
+    String diagnosticianUserName;
+    String  diagnosticianFirstName;
+    String diagnosticianEmailAddress;
+    String diagnosticianLastName;
     @Test(priority=0,enabled=true,description = "Create Diagnosticians")
     public void create_Diagnosticians() throws InterruptedException {
         LoginPage login = new LoginPage();
         Diagnostician diagnostician = new Diagnostician();
-        login.validLogin();
+        login.validLogin("Addy","123456");
          diagnosticianFirstName = "josh" + RandomStrings.requiredCharacters(2);
         diagnosticianLastName = "englis" + RandomStrings.requiredCharacters(2);
-        diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
+         diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
         diagnosticianUserName = "marsh" + RandomStrings.requiredCharacters(2);
         diagnostician.create_Diagnostician(diagnosticianFirstName,diagnosticianLastName,"8564234568",diagnosticianEmailAddress,diagnosticianUserName,"123456","123456");
     }

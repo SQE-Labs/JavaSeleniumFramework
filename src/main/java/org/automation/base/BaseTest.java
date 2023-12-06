@@ -58,11 +58,7 @@ public class BaseTest {
 			case "chrome":
 				ChromeOptions chromeOptions = new ChromeOptions();
 				chromeOptions.setBrowserVersion("119");
-				//WebDriverManager.chromedriver().setup();
 				driver.set(new ChromeDriver(chromeOptions));
-				//WebDriverManager.chromedriver().setup();
-				 //driver = new ChromeDriver(chromeOptions();
-				//driver.set(new ChromeDriver());
 				break;
 
 			case "fireFox":
@@ -76,7 +72,6 @@ public class BaseTest {
 
 		getDriver().manage().window().maximize();
 		getDriver().navigate().to(url);
-		validLoginBaseTest();
 	}
 
 	/**
@@ -107,18 +102,8 @@ public class BaseTest {
 		//getDriver().navigate().refresh();
 	}
 
-	public void validLoginBaseTest() {
-		try {
-			Element username = new Element("var", By.xpath("//input[@name='j_username']"));
-			username.getWebElement().sendKeys(PropertiesUtil.getPropertyValue("userName"));
-			Element password = new Element("var", By.xpath("//input[@name='predigpass']"));
-			password.getWebElement().sendKeys(PropertiesUtil.getPropertyValue("password"));
-			Element button = new Element("var", By.xpath("//*[@name='submit']"));
-			button.getWebElement().click();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
+	
 
 	/**
 	 * Method to execute at the end of the suite execution

@@ -19,7 +19,7 @@ public class Diagnostician extends BasePage {
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
     public By createDiagnosticianButton = By.xpath("//button[text()='Create Diagnostician']");
-    public By logOutLink = By.xpath("//a[text()='Log Out']");
+
     public  By actualText = By.xpath("(//td)[2]");
     public By backButton = By.xpath("//button[text()='Back']");
     public  By diagnosticianDashBoardPage = By.xpath("//h3[text()='Dashboard']");
@@ -52,17 +52,19 @@ public class Diagnostician extends BasePage {
     public By userNameField = By.xpath("//input[@placeholder='Username']");
     public By PasswordField = By.xpath("//input[@placeholder='Password']");
     public By login = By.id("loginFormSubmit");
-    public static By validation_Msg=By.xpath("//small[text()='Username or password is incorrect']");
+    public  By validation_Msg=By.xpath("//small[text()='Username or password is incorrect']");
+
+
 WebdriverWaits waits=new WebdriverWaits();
 
     public void click_DiagnosticianLink() {
         waits.WaitUntilVisible(diagnosticianLink);
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+        waits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(diagnosticianLink);
     }
     public void click_createDiagnosticianButton() {
         waits.WaitUntilVisible(createDiagnostician);
-        WebdriverWaits.WaitUntilInvisible(By.xpath("//div[@class='ngx-spinner-overlay ng-tns-c135-6 ng-trigger ng-trigger-fadeIn ng-star-inserted']"));
+        waits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(createDiagnostician);
     }
 
@@ -106,10 +108,7 @@ WebdriverWaits waits=new WebdriverWaits();
         click_custom(createDiagnosticianButton);
     }
 
-    public void click_LogOutLink() {
-        waits.WaitUntilPresent(logOutLink);
-        click_custom(logOutLink);
-    }
+
 
     public void click_Back_Button() {
         waits.WaitUntilPresent(backButton);
@@ -129,7 +128,7 @@ WebdriverWaits waits=new WebdriverWaits();
     //+++++++++++++++++EDIT DIAGNOSTICIAN++++++++++++++
 
     public void click_On_EditButton() {
-        waits. WaitUntilPresent(editButton);
+        waits.WaitUntilVisible(editButton);
         click_custom(editButton);
     }
 
@@ -166,10 +165,12 @@ WebdriverWaits waits=new WebdriverWaits();
 
     //**********DIAGNOSTICIAN LOGGING IN WITH NEW PASSWORD************
     public void clickOn_Login_UsernameField(String userNameFieldText) {
+        WebdriverWaits.WaitUntilVisible(userNameField);
         sendKeys_withClear(userNameField, userNameFieldText);
     }
 
     public void clickOn_Login_PasswordField(String PasswordFieldText) {
+        WebdriverWaits.WaitUntilVisible(PasswordField);
         sendKeys_withClear(PasswordField, PasswordFieldText);
     }
 
@@ -190,13 +191,10 @@ WebdriverWaits waits=new WebdriverWaits();
         create_passwordField(PasswordText);
         confirm_PasswordField(RePassword);
         clickOn_createDiagnosticianButton();
-
-         click_LogOutLink();
     }
 
     public void diagnostician_ListPage() throws InterruptedException {
         click_createDiagnosticianButton();
-
         click_Back_Button();
     }
 
@@ -207,8 +205,6 @@ WebdriverWaits waits=new WebdriverWaits();
 
     public void edit_Diagnostician(String cellNumberText, String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-
-
         enter_CellNumber(cellNumberText);
         enter_Diagnostician_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
@@ -219,14 +215,11 @@ WebdriverWaits waits=new WebdriverWaits();
 
     public void cheking_DisableUser() throws InterruptedException {
         click_On_EditButton();
-
         clickOn_DontSave();
         click_On_EditButton();
-
         clickOn_DontSave();
     }
     public void enable_DiagnosticianUser() throws InterruptedException {
-
         click_On_EditButton();
         off_ToggleButton();
         click_UpdateButton();
@@ -234,23 +227,14 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     public void Relogin_With_newPassword(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
-
-        click_LogOutLink();
         clickOn_Login_UsernameField(userNameFieldText);
         clickOn_Login_PasswordField(PasswordFieldText);
         clickOn_Login_Button();
     }
 
-    public void Relogin_With_OldPassword(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
 
-        click_LogOutLink();
-        clickOn_Login_UsernameField(userNameFieldText);
-        clickOn_Login_PasswordField(PasswordFieldText);
-          clickOn_Login_Button();
-    }
-    public void not_Edit_Diagnostician(String cellNumberText, String EmailAddress1, String passwordTextFieldText,String confirmPasswordFieldText) throws InterruptedException {
+    public void verify_DontSave(String cellNumberText, String EmailAddress1, String passwordTextFieldText,String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-
         enter_CellNumber(cellNumberText);
         enter_Diagnostician_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);

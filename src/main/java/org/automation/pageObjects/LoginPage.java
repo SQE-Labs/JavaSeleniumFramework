@@ -25,19 +25,25 @@ public class LoginPage extends BasePage {
         clickBtn_custom(login);
     }
 
-    public void validLogin()   {
+
+    public void superAdminLogin()   {
         sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("userName"));
         sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("password"));
         clickBtn_custom(login);
     }
-    public void diagnosticianLogin(){
-        sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("diagnosticianUserName"));
-        sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("diagnosticianPassword"));
-        clickBtn_custom(login);
+    public void diagnosticianLogin(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
+        enterUsername(userNameFieldText);
+        enterPassword(PasswordFieldText);
+        click_custom(login);
     }
-    public void directorLogin(){
-        sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("directorUserName"));
-        sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("directorPassword"));
-        clickBtn_custom(login);
+    public void validLogin(String username,String password){
+        enterUsername(username);
+        enterPassword(password);
+        clickLoginBtn();
+    }
+    public void directorLogin(String userNameFieldText, String PasswordFieldText){
+        enterUsername(userNameFieldText);
+        enterPassword(PasswordFieldText);
+        click_custom(login);
     }
 }
