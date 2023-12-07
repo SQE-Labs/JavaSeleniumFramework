@@ -26,10 +26,9 @@ public class LoginPage extends BasePage {
     }
 
     public void validLogin()   {
-
-        sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("userName"));
-        sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("password"));
+        sendKeys_custom(userNameField, PropertiesUtil.getPropertyValue("userName"));
+        sendKeys_custom(PasswordField, PropertiesUtil.getPropertyValue("password"));
         clickBtn_custom(login);
-
     }
+
 }

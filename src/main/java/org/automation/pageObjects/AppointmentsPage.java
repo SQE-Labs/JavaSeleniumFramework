@@ -1,10 +1,12 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
+import org.automation.logger.Log;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
-import static org.automation.pageObjects.Diagnostician.edit_Succ_Msg;
-import static org.automation.utilities.Assertions.validate_SuccessTXT;
+import static org.automation.utilities.Assertions.validate_text;
+
 
 public class AppointmentsPage extends BasePage {
     public By appointmentsTab= By.xpath("//a[text()=' Appointments ']");
@@ -18,6 +20,7 @@ public class AppointmentsPage extends BasePage {
     public By dateFrom=By.xpath("//input[@placeholder='From Date']");
     public By toDate=By.xpath("//input[@placeholder='To Date']");
     public By searchButton=By.xpath("//button[text()='Search']");
+    WebdriverWaits wait=new WebdriverWaits();
 
     public void click_AppointmentTab(){
         click_custom(appointmentsTab);
@@ -26,6 +29,7 @@ public class AppointmentsPage extends BasePage {
         click_custom(viewAllTab);
     }
     public void click_FilterButton(){
+        wait.WaitUntilPresent(filterButton);
          click_custom(filterButton);
     }
     public void click_SearchField(String searchFieldText){
@@ -34,35 +38,36 @@ public class AppointmentsPage extends BasePage {
     public void enter_Dates(String dateFromText,String toDateText) throws InterruptedException {
         click_custom(dateFrom);
         sendKeys_withClear(dateFrom,dateFromText);
-        Thread.sleep(4000);
+    wait.WaitUntilPresent(toDate);
         click_custom(toDate);
         sendKeys_withClear(toDate,toDateText);
-        Thread.sleep(4000);
+        wait.WaitUntilPresent(searchButton);
         click_custom(searchButton);
     }
 
     public void allAppointmentsPage(String searchFieldText,String dateFromText,String toDateText) throws InterruptedException {
-        Thread.sleep(10000);
-        validate_SuccessTXT(dashBoardPage,"Dashboard");
-        System.out.println("DashBoard page appear after superAdmin logged in");
+         wait.WaitUntilPresent(dashBoardPage);
+     validate_text(dashBoardPage,"Dashboard");
+        Log.info("DashBoard page appear after superAdmin logged in");
+
+        wait.WaitUntilPresent(viewAllTab);
         click_AppointmentTab();
-        validate_SuccessTXT(viewAllTab,"View All");
-        System.out.println("View all details tab successfully displayed");
+        validate_text(viewAllTab,"View All");
+        Log.info("View all details tab successfully displayed");
         click_ViewAllTab();
-        Thread.sleep(6000);
-        validate_SuccessTXT(allAppointmentsPage,"All Appointments");
-        System.out.println("Successfully All appointments page displayed");
+        wait.WaitUntilPresent(allAppointmentsPage);
+        validate_text(allAppointmentsPage,"All Appointments");
+        Log.info("Successfully All appointments page displayed");
         click_FilterButton();
-        Thread.sleep(4000);
+        wait.WaitUntilPresent(searchByDate);
         enter_Dates(dateFromText, toDateText);
-        validate_SuccessTXT(searchByDate,"Hazel Rogers");
-        System.out.println("Successfully searched created appointment By entering dates");
+        validate_text(searchByDate,"Hazel Rogers");
+        Log.info("Successfully searched created appointment By entering dates");
         getDriver().navigate().refresh();
-        Thread.sleep(6000);
         click_FilterButton();
         click_SearchField(searchFieldText);
-        Thread.sleep(4000);
-        validate_SuccessTXT(searchedText,"Hazel Rogers");
-        System.out.println("Successfully searched created appointment");
+        wait.WaitUntilPresent(searchedText);
+        validate_text(searchedText,"Hazel Rogers");
+        Log.info("Successfully searched created appointment");
     }
 }

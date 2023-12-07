@@ -1,11 +1,12 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
 
-
 public class Diagnostician extends BasePage {
+
     public By diagnosticianLink = By.xpath("//a[text()='Diagnosticians']");
     public By createDiagnostician = By.xpath("//button[text()='Create Diagnostician']");
     public By diagnostician_FirstName = By.xpath("//input[@placeholder='First Name']");
@@ -19,9 +20,9 @@ public class Diagnostician extends BasePage {
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
     public By createDiagnosticianButton = By.xpath("//button[text()='Create Diagnostician']");
     public By logOutLink = By.xpath("//a[text()='Log Out']");
-    public static By actualText = By.xpath("(//td)[2]");
+    public  By actualText = By.xpath("(//td)[2]");
     public By backButton = By.xpath("//button[text()='Back']");
-    public static By diagnosticianDashBoardPage = By.xpath("//h3[text()='Dashboard']");
+    public  By diagnosticianDashBoardPage = By.xpath("//h3[text()='Dashboard']");
 
 
 
@@ -40,9 +41,9 @@ public class Diagnostician extends BasePage {
 
     public By passwordTextField = By.xpath("//input[@formcontrolname='password']");
     public By confirmPasswordField = By.xpath("(//input[@type='password'])[2]");
-    public static By edit_Succ_Msg = By.xpath("//div[text()=' Diagnostician details updated successfully. ']");
-    public static By UserNameGetText=By.xpath("(//td)[2]");
-    public static By disableUser=By.xpath("//label[text()='Enable User']");
+    public  By edit_Succ_Msg = By.xpath("//div[text()=' Diagnostician details updated successfully. ']");
+    public  By UserNameGetText=By.xpath("(//td)[2]");
+    public  By disableUser=By.xpath("//label[text()='Enable User']");
     public By toggle = By.xpath("//span[@class='slider round']");
     public By dontSaveButton=By.xpath("//a[text()='Don’t Save']");
 
@@ -52,35 +53,38 @@ public class Diagnostician extends BasePage {
     public By PasswordField = By.xpath("//input[@placeholder='Password']");
     public By login = By.id("loginFormSubmit");
     public static By validation_Msg=By.xpath("//small[text()='Username or password is incorrect']");
-
+WebdriverWaits waits=new WebdriverWaits();
 
     public void click_DiagnosticianLink() {
-
+        waits.WaitUntilVisible(diagnosticianLink);
+        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(diagnosticianLink);
     }
-
     public void click_createDiagnosticianButton() {
+        waits.WaitUntilVisible(createDiagnostician);
+        WebdriverWaits.WaitUntilInvisible(By.xpath("//div[@class='ngx-spinner-overlay ng-tns-c135-6 ng-trigger ng-trigger-fadeIn ng-star-inserted']"));
         click_custom(createDiagnostician);
     }
 
     public void enter_diagnostician_FirstName(String CustomerFirstName) throws InterruptedException {
-        Thread.sleep(2000);
+        waits.WaitUntilVisible(diagnostician_FirstName);
         sendKeys_withClear(diagnostician_FirstName, CustomerFirstName);
     }
 
     public void enter_diagnostician_LastName(String CustomerLastName) {
+        waits.WaitUntilPresent(diagnostician_LastName);
         sendKeys_withClear(diagnostician_LastName, CustomerLastName);
     }
 
     public void enter_Diagnostician_MobileNumber(String diagnostician_MobileNumberText) {
+        waits.WaitUntilPresent(diagnostician_MobileNumber);
         sendKeys_withClear(diagnostician_MobileNumber, diagnostician_MobileNumberText);
     }
 
     public void enter_Diagnostician_Email(String diagnostician_EmailText) {
+        waits. WaitUntilPresent(diagnostician_Email);
         sendKeys_withClear(diagnostician_Email, diagnostician_EmailText);
     }
-
-
     public void click_AssignLocation() {
         click_custom(assignLocation);
         click_custom(locationName);
@@ -103,10 +107,12 @@ public class Diagnostician extends BasePage {
     }
 
     public void click_LogOutLink() {
+        waits.WaitUntilPresent(logOutLink);
         click_custom(logOutLink);
     }
 
     public void click_Back_Button() {
+        waits.WaitUntilPresent(backButton);
         click_custom(backButton);
     }
 
@@ -123,10 +129,12 @@ public class Diagnostician extends BasePage {
     //+++++++++++++++++EDIT DIAGNOSTICIAN++++++++++++++
 
     public void click_On_EditButton() {
+        waits. WaitUntilPresent(editButton);
         click_custom(editButton);
     }
 
     public void enter_CellNumber(String cellNumberText) {
+        waits. WaitUntilPresent(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -152,6 +160,7 @@ public class Diagnostician extends BasePage {
     }
     public void clickOn_DontSave()
     {
+        waits.WaitUntilPresent(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -170,11 +179,8 @@ public class Diagnostician extends BasePage {
 
 
     public void create_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName, String PasswordText, String RePassword) throws InterruptedException {
-        Thread.sleep(12000);
         click_DiagnosticianLink();
-        Thread.sleep(5000);
         click_createDiagnosticianButton();
-        Thread.sleep(4000);
         enter_diagnostician_FirstName(CustomerFirstName);
         enter_diagnostician_LastName(CustomerLastName);
         enter_Diagnostician_MobileNumber(diagnostician_MobileNumberText);
@@ -184,13 +190,13 @@ public class Diagnostician extends BasePage {
         create_passwordField(PasswordText);
         confirm_PasswordField(RePassword);
         clickOn_createDiagnosticianButton();
-        Thread.sleep(4000);
+
          click_LogOutLink();
     }
 
     public void diagnostician_ListPage() throws InterruptedException {
         click_createDiagnosticianButton();
-        Thread.sleep(5000);
+
         click_Back_Button();
     }
 
@@ -202,7 +208,7 @@ public class Diagnostician extends BasePage {
     public void edit_Diagnostician(String cellNumberText, String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
 
-        Thread.sleep(3000);
+
         enter_CellNumber(cellNumberText);
         enter_Diagnostician_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
@@ -213,14 +219,14 @@ public class Diagnostician extends BasePage {
 
     public void cheking_DisableUser() throws InterruptedException {
         click_On_EditButton();
-        Thread.sleep(4000);
+
         clickOn_DontSave();
         click_On_EditButton();
-        Thread.sleep(4000);
+
         clickOn_DontSave();
     }
     public void enable_DiagnosticianUser() throws InterruptedException {
-        Thread.sleep(4000);
+
         click_On_EditButton();
         off_ToggleButton();
         click_UpdateButton();
@@ -228,7 +234,7 @@ public class Diagnostician extends BasePage {
     }
 
     public void Relogin_With_newPassword(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
-        Thread.sleep(6000);
+
         click_LogOutLink();
         clickOn_Login_UsernameField(userNameFieldText);
         clickOn_Login_PasswordField(PasswordFieldText);
@@ -236,7 +242,7 @@ public class Diagnostician extends BasePage {
     }
 
     public void Relogin_With_OldPassword(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
-        Thread.sleep(6000);
+
         click_LogOutLink();
         clickOn_Login_UsernameField(userNameFieldText);
         clickOn_Login_PasswordField(PasswordFieldText);
@@ -244,12 +250,12 @@ public class Diagnostician extends BasePage {
     }
     public void not_Edit_Diagnostician(String cellNumberText, String EmailAddress1, String passwordTextFieldText,String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-        Thread.sleep(5000);
+
         enter_CellNumber(cellNumberText);
         enter_Diagnostician_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordFieldField(confirmPasswordFieldText);
         clickOn_DontSave();
-        Thread.sleep(6000);
+
     }
 }
