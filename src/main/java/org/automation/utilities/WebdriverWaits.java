@@ -20,31 +20,6 @@ import static com.relevantcodes.extentreports.LogStatus.PASS;
 public class WebdriverWaits extends BaseTest {
 
   //  public static WebDriverWait wait = new WebDriverWait((WebDriver) driver,Duration.ofSeconds(2));
-    /**
-     * Waits for a given element to be visible
-     *
-     * @param waitTime  WebDriver instance
-     * @param locator By of the element to wait for
-     */
-    public static void waitForElementVisible(By locator, long waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
-          wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-
-    /**
-     * Waits for a given element to be visible
-     *
-     **/
-    public static void waitForElementVisible(By element ) {
-
-        try {
-            WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(element));
-        } catch (Exception e) {
-
-        }
-    }
 
     /**
      * Waits for a given element to be selected
@@ -207,6 +182,16 @@ public class WebdriverWaits extends BaseTest {
             fluentWait1.until(ExpectedConditions.visibilityOfElementLocated(element));
         } catch (Exception e) {
 
+        }
+    }
+    public static Boolean WaitForElementInteractable(By element) {
+
+        try {
+            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(ElementClickInterceptedException.class, ElementNotInteractableException.class);
+            fluentWait1.until(ExpectedConditions.elementToBeClickable(element));
+            return true;
+        } catch (WebDriverException e) {
+            return false;
         }
     }
 }

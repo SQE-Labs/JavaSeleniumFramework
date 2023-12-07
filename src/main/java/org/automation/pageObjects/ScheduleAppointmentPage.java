@@ -5,9 +5,12 @@ import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
 import java.util.*;
 
-import static org.automation.utilities.WebdriverWaits.waitForElementVisible;
+import static com.relevantcodes.extentreports.LogStatus.FAIL;
+import static com.relevantcodes.extentreports.LogStatus.PASS;
+
 
 public class ScheduleAppointmentPage extends BasePage {
 
@@ -450,6 +453,7 @@ public class ScheduleAppointmentPage extends BasePage {
             click_custom(diagnosticianSaveButton);
             click_custom(logOutLink);
         }
+
     }
 
 

@@ -24,7 +24,7 @@ public class DirectorTest extends BaseTest {
     String directorLastName = "Ward" + RandomStrings.requiredCharacters(2);
     directorEmailAddress = directorFirstName + "@yopmail.com";
     directorUserName = "Riley" + RandomStrings.requiredCharacters(2);
-        login.validLogin();
+        login.superAdminLogin();
         director.create_Director(directorFirstName,directorLastName,"5236458965",directorEmailAddress, directorUserName,"123456","123456");
         Thread.sleep(3000);
     Assertions.validate_text(director.actualText,directorUserName);

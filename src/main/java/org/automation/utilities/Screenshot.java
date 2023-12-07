@@ -72,7 +72,7 @@ public final class Screenshot extends BaseTest {
     public static String getScreenshot(WebDriver driver, String screenshotName) {
         Long l = Calendar.getInstance().getTimeInMillis();
         String screenshotId = l.toString();
-        String Path = System.getProperty("user.dir") + "/test-report/";
+        String Path = System.getProperty("user.dir") + "/test-report/Screenshots/";
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String imgPath = Path + screenshotId + ".png";
         File dest = new File(imgPath);
@@ -82,7 +82,7 @@ public final class Screenshot extends BaseTest {
             e.printStackTrace();
         }
 
-        String ImagePath = "../test-report/" + screenshotId + ".png";
+        String ImagePath = "../test-report/Screenshots/" + screenshotId + ".png";
         return ImagePath;
     }
 

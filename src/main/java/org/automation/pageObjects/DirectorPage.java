@@ -59,9 +59,7 @@ public class DirectorPage extends BasePage {
 
 
     public void click_DirectorTab(){
- WebdriverWaits.WaitUntilVisible(directorsTab);
- WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
-
+ wait.WaitUntilPresent(directorsTab);
         click_custom(directorsTab);
     }
     public void click_CreateDirectorsButton(){
@@ -70,33 +68,33 @@ public class DirectorPage extends BasePage {
         click_custom(createDirectorButton);
     }
     public void click_directorsFirstNameField(String directorsFirstNameText){
-        wait.WaitUntilVisible(directorsFirstName);
+        wait.WaitUntilPresent(directorsFirstName);
         sendKeys_withClear(directorsFirstName,directorsFirstNameText);
     }
     public void click_directorsLastNameField(String directorsLastNameText){
-        wait.WaitUntilVisible(directorsLastName);
+        wait.WaitUntilPresent(directorsLastName);
         sendKeys_withClear(directorsLastName,directorsLastNameText);
     }
     public void click_directorsMobileNumberField(String directorsMobileNumberText){
-        wait.WaitUntilVisible(directorsMobileNumber);
+        wait.WaitUntilPresent(directorsMobileNumber);
         sendKeys_withClear(directorsMobileNumber,directorsMobileNumberText);
     }
     public void click_directorsdirectorsEmailField(String directorsEmailText){
-        wait.WaitUntilVisible(directorsEmail);
+        wait.WaitUntilPresent(directorsEmail);
         sendKeys_withClear(directorsEmail,directorsEmailText);
     }
     public void click_directorsassignLocationField( ){
-        wait.WaitUntilVisible(assignLocation);
+        wait.WaitUntilPresent(assignLocation);
        click_custom(assignLocation );
         wait.WaitUntilPresent(directorsLocationName);
        click_custom(directorsLocationName);
     }
     public void click_directorsUserNameField(String directorsUserNameText){
-        wait.WaitUntilVisible(directorsUserName);
+        wait.WaitUntilPresent(directorsUserName);
         sendKeys_withClear(directorsUserName,directorsUserNameText);
     }
     public void click_passwordField(String password_FieldText){
-        wait.WaitUntilVisible(password_Field);
+        wait.WaitUntilPresent(password_Field);
         sendKeys_withClear(password_Field,password_FieldText);
     }
     public void click_confirmPasswordField(String confirmPasswordFieldText){
@@ -109,7 +107,7 @@ public class DirectorPage extends BasePage {
     //***************search created diagnostician******************
 
     public void click_filterButton() {
-        wait.WaitUntilVisible(filterButton);
+        wait.WaitUntilPresent(filterButton);
         click_custom(filterButton);
     }
 
@@ -119,12 +117,12 @@ public class DirectorPage extends BasePage {
 
     //***************edit created director*****************
     public void click_On_EditButton() {
-        wait.WaitUntilVisible(editButton);
+        wait.WaitUntilPresent(editButton);
         click_custom(editButton);
     }
 
     public void enter_CellNumber(String cellNumberText){
-        WebdriverWaits.WaitUntilVisible(cellNumber);
+        wait.WaitUntilPresent(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -134,27 +132,23 @@ public class DirectorPage extends BasePage {
 
 
     public void off_ToggleButton() {
-        WebdriverWaits.WaitUntilVisible(toggle);
         click_custom(toggle);
     }
 
     public void enter_Director_Email1(String diagnostician_EmailText1) {
-        WebdriverWaits.WaitUntilVisible(emailField);
         sendKeys_withClear(emailField, diagnostician_EmailText1);
     }
 
     public void clickOn_PasswordField(String passwordTextFieldText) {
-        WebdriverWaits.WaitUntilVisible(passwordTextField);
         sendKeys_withClear(passwordTextField, passwordTextFieldText);
     }
 
     public void clickOn_confirmPasswordField(String confirmPasswordFieldText) {
-        WebdriverWaits.WaitUntilVisible(confirmPasswordField);
         sendKeys_withClear(confirmPasswordField, confirmPasswordFieldText);
     }
     public void clickOn_DontSave()
     {
-        wait.WaitUntilVisible(dontSaveButton);
+        wait.WaitUntilPresent(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -179,7 +173,6 @@ public class DirectorPage extends BasePage {
 
     //*********Create director**************
     public void create_Director(String directorsFirstNameText,String directorsLastNameText,String directorsMobileNumberText,String directorsEmailText,String directorsUserNameText,String password_FieldText,String confirmPasswordFieldText) throws InterruptedException {
-
         click_DirectorTab();
         click_CreateDirectorsButton();
         click_directorsFirstNameField(directorsFirstNameText);
@@ -200,18 +193,16 @@ public class DirectorPage extends BasePage {
     }
 
     //***********edit created director*************
-    public void edit_Director( String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
-        click_DirectorTab();
+    public void edit_Director(String cellNumberText, String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-        // test case number ( 4.6 )
+        // test case number ( 4.6 ).
         Assertions.validate_text(edit_Popup,"Edit User");
         Log.info("Successfully Edit popUp opens");
-        //enter_CellNumber(cellNumberText);
+        enter_CellNumber(cellNumberText);
         enter_Director_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordField(confirmPasswordFieldText);
         off_ToggleButton();
-
         click_UpdateButton();
     }
 
@@ -226,22 +217,20 @@ public class DirectorPage extends BasePage {
 
     //********Enable user of director************
     public void enable_Director() throws InterruptedException {
-      //click_DirectorTab();
         click_On_EditButton();
         off_ToggleButton();
         click_UpdateButton();
     }
     //**************Not Editing created director**************
 
-    public void not_Edit_Director(String EmailAddress1, String passwordTextFieldText,String confirmPasswordFieldText) throws InterruptedException {
+    public void not_Edit_Director(String cellNumberText, String EmailAddress1, String passwordTextFieldText,String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-        click_DirectorTab();
-        //enter_CellNumber(cellNumberText);
+        enter_CellNumber(cellNumberText);
         enter_Director_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordField(confirmPasswordFieldText);
         clickOn_DontSave();
-
+        Thread.sleep(6000);
     }
 
     //***********Relogin using new password*************

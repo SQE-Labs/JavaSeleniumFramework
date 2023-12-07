@@ -4,6 +4,7 @@ import org.automation.base.BaseTest;
 import org.automation.logger.Log;
 import org.automation.pageObjects.Diagnostician;
 
+import org.automation.pageObjects.LoginPage;
 import org.automation.utilities.Assertions;
 
 import org.testng.annotations.Test;
@@ -15,6 +16,7 @@ public class DiagnosticianTest extends BaseTest {
     public String CustomerFirstName;
     public String EmailAddress;
     public  String UserName;
+    LoginPage login = new LoginPage();
 //    @Test(priority = 0, enabled = true,description = "SuperAdmin is able to create Diagnostician")
 //    public void create_Diagnostician() throws InterruptedException {
 //        CustomerFirstName = "Michel" + RandomStrings.requiredCharacters(2);
@@ -55,17 +57,15 @@ public class DiagnosticianTest extends BaseTest {
     @Test(priority = 4,enabled = true,description="verify that diagnostician is able to edit or not after clicking dont save button")
     public void notEditing_Diagnostician() throws InterruptedException {
         Diagnostician diagnostician=new Diagnostician();
-        diagnostician.not_Edit_Diagnostician("5659865589",EmailAddress,"123456","123456");
+        diagnostician.verify_DontSave("5659865589",EmailAddress,"123456","123456");
     }
     @Test(priority = 5,enabled = false,description="Verify Diagnostician is able to login with new password or not")
     public void diagnostician_Relogin() throws InterruptedException {
-        Diagnostician diagnostician=new Diagnostician();
-        diagnostician.Relogin_With_newPassword(UserName,"12345678");
+        login.diagnosticianLogin(UserName,"12345678");
     }
     @Test(priority = 6,enabled = false,description = "Verify that diagnostician is able to login with old password or not")
     public void login_With_OldPassword() throws InterruptedException {
-        Diagnostician diagnostician=new Diagnostician();
-        diagnostician.Relogin_With_OldPassword(UserName,"123456");
+        login.diagnosticianLogin(UserName,"123456");
     }
 
 }
