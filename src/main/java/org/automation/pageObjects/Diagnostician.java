@@ -9,6 +9,7 @@ public class Diagnostician extends BasePage {
 
     public By diagnosticianLink = By.xpath("//a[text()='Diagnosticians']");
     public By createDiagnostician = By.xpath("//button[text()='Create Diagnostician']");
+    public By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
     public By diagnostician_FirstName = By.xpath("//input[@placeholder='First Name']");
     public By diagnostician_LastName = By.xpath("//input[@placeholder='Last Name']");
     public By diagnostician_MobileNumber = By.xpath("//input[@placeholder='(999) 999-9999']");
@@ -19,6 +20,7 @@ public class Diagnostician extends BasePage {
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
     public By createDiagnosticianButton = By.xpath("//button[text()='Create Diagnostician']");
+    public By validationMsg=By.xpath("//div[text()=' An error occurred. Please try again. ']");
 
     public  By actualText = By.xpath("(//td)[2]");
     public By backButton = By.xpath("//button[text()='Back']");
@@ -57,14 +59,11 @@ public class Diagnostician extends BasePage {
 
 WebdriverWaits waits=new WebdriverWaits();
 
-    public void click_DiagnosticianLink() {
-        waits.WaitUntilVisible(diagnosticianLink);
-        waits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
-        click_custom(diagnosticianLink);
-    }
+
     public void click_createDiagnosticianButton() {
         waits.WaitUntilVisible(createDiagnostician);
-        waits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+       // WebdriverWaits.WaitForPageLoadTime(10);
+        waits.WaitUntilInvisible(loginLoading);
         click_custom(createDiagnostician);
     }
 
@@ -74,25 +73,28 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     public void enter_diagnostician_LastName(String CustomerLastName) {
-        waits.WaitUntilPresent(diagnostician_LastName);
+        waits.WaitUntilVisible(diagnostician_LastName);
         sendKeys_withClear(diagnostician_LastName, CustomerLastName);
     }
 
     public void enter_Diagnostician_MobileNumber(String diagnostician_MobileNumberText) {
-        waits.WaitUntilPresent(diagnostician_MobileNumber);
+        waits.WaitUntilVisible(diagnostician_MobileNumber);
         sendKeys_withClear(diagnostician_MobileNumber, diagnostician_MobileNumberText);
     }
 
     public void enter_Diagnostician_Email(String diagnostician_EmailText) {
-        waits. WaitUntilPresent(diagnostician_Email);
+        waits. WaitUntilVisible(diagnostician_Email);
         sendKeys_withClear(diagnostician_Email, diagnostician_EmailText);
     }
     public void click_AssignLocation() {
+        WebdriverWaits.WaitUntilVisible(assignLocation);
         click_custom(assignLocation);
+        WebdriverWaits.WaitUntilVisible(locationName);
         click_custom(locationName);
     }
 
     public void userNameField(String userNameText) {
+        WebdriverWaits.WaitUntilVisible(userName);
         sendKeys_withClear(userName, userNameText);
     }
 
@@ -128,12 +130,12 @@ WebdriverWaits waits=new WebdriverWaits();
     //+++++++++++++++++EDIT DIAGNOSTICIAN++++++++++++++
 
     public void click_On_EditButton() {
-        waits.WaitUntilVisible(editButton);
+        WebdriverWaits.WaitUntilVisible(editButton);
         click_custom(editButton);
     }
 
     public void enter_CellNumber(String cellNumberText) {
-        waits. WaitUntilPresent(cellNumber);
+        WebdriverWaits.WaitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -159,7 +161,7 @@ WebdriverWaits waits=new WebdriverWaits();
     }
     public void clickOn_DontSave()
     {
-        waits.WaitUntilPresent(dontSaveButton);
+        waits.WaitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -180,7 +182,18 @@ WebdriverWaits waits=new WebdriverWaits();
 
 
     public void create_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName, String PasswordText, String RePassword) throws InterruptedException {
-        click_DiagnosticianLink();
+        click_createDiagnosticianButton();
+        enter_diagnostician_FirstName(CustomerFirstName);
+        enter_diagnostician_LastName(CustomerLastName);
+        enter_Diagnostician_MobileNumber(diagnostician_MobileNumberText);
+        enter_Diagnostician_Email(EmailAddress);
+        click_AssignLocation();
+        userNameField(UserName);
+        create_passwordField(PasswordText);
+        confirm_PasswordField(RePassword);
+        clickOn_createDiagnosticianButton();
+    }
+    public void Verify_Duplicate_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName,String PasswordText,String RePassword) throws InterruptedException {
         click_createDiagnosticianButton();
         enter_diagnostician_FirstName(CustomerFirstName);
         enter_diagnostician_LastName(CustomerLastName);
@@ -193,6 +206,7 @@ WebdriverWaits waits=new WebdriverWaits();
         clickOn_createDiagnosticianButton();
     }
 
+
     public void diagnostician_ListPage() throws InterruptedException {
         click_createDiagnosticianButton();
         click_Back_Button();
@@ -203,9 +217,9 @@ WebdriverWaits waits=new WebdriverWaits();
         enterInSearchField(UserName);
     }
 
-    public void edit_Diagnostician(String cellNumberText, String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
+    public void edit_Diagnostician( String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-        enter_CellNumber(cellNumberText);
+       // enter_CellNumber(cellNumberText);
         enter_Diagnostician_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordFieldField(confirmPasswordFieldText);

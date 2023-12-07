@@ -43,7 +43,7 @@ public class DiagnosticianTest extends BaseTest {
     public void edit_Diagnostician() throws InterruptedException {
         String diagnosticianEmailAddress1 = CustomerFirstName + "12@yopmail.com";
         Diagnostician diagnostician=new Diagnostician();
-        diagnostician.edit_Diagnostician("2456789548",diagnosticianEmailAddress1,"12345678","12345678");
+        diagnostician.edit_Diagnostician(diagnosticianEmailAddress1,"12345678","12345678");
         Assertions.validate_text(diagnostician.edit_Succ_Msg,"Diagnostician details updated successfully.");
         Log.info("Successfully Edited the created diagnostician");
     }

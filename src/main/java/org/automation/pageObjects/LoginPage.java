@@ -2,6 +2,7 @@ package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
 import org.automation.utilities.PropertiesUtil;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
 
@@ -27,6 +28,7 @@ public class LoginPage extends BasePage {
 
 
     public void superAdminLogin()   {
+        WebdriverWaits.WaitUntilVisible(userNameField);
         sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("userName"));
         sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("password"));
         clickBtn_custom(login);

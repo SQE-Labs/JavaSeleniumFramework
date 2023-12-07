@@ -55,48 +55,51 @@ public class DirectorPage extends BasePage {
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public By directorDashBoardPage = By.xpath("//h3[text()='Dashboard']");
     public By validation_Msg=By.xpath("//small[text()='Username or password is incorrect']");
+    public By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
 
 
 
-    public void click_DirectorTab(){
+    public void click_DirectorTab() throws InterruptedException {
+        WebdriverWaits.SwitchToNewTab();
         wait.WaitUntilVisible(directorsTab);
-       wait.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
-      // wait.WaitUntilPresent(directorsTab);
+        wait.WaitUntilInvisible(loginLoading);
+
         click_custom(directorsTab);
     }
     public void click_CreateDirectorsButton(){
-        wait.WaitUntilPresent(createDirectorButton);
-        wait.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+        wait.WaitUntilVisible(createDirectorButton);
+        wait.WaitUntilInvisible(loginLoading);
+      //  wait.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(createDirectorButton);
     }
     public void click_directorsFirstNameField(String directorsFirstNameText){
-        wait.WaitUntilPresent(directorsFirstName);
+        wait.WaitUntilVisible(directorsFirstName);
         sendKeys_withClear(directorsFirstName,directorsFirstNameText);
     }
     public void click_directorsLastNameField(String directorsLastNameText){
-        wait.WaitUntilPresent(directorsLastName);
+        wait.WaitUntilVisible(directorsLastName);
         sendKeys_withClear(directorsLastName,directorsLastNameText);
     }
     public void click_directorsMobileNumberField(String directorsMobileNumberText){
-        wait.WaitUntilPresent(directorsMobileNumber);
+        wait.WaitUntilVisible(directorsMobileNumber);
         sendKeys_withClear(directorsMobileNumber,directorsMobileNumberText);
     }
     public void click_directorsdirectorsEmailField(String directorsEmailText){
-        wait.WaitUntilPresent(directorsEmail);
+        wait.WaitUntilVisible(directorsEmail);
         sendKeys_withClear(directorsEmail,directorsEmailText);
     }
     public void click_directorsassignLocationField( ){
-        wait.WaitUntilPresent(assignLocation);
+        wait.WaitUntilVisible(assignLocation);
        click_custom(assignLocation );
-        wait.WaitUntilPresent(directorsLocationName);
+        wait.WaitUntilVisible(directorsLocationName);
        click_custom(directorsLocationName);
     }
     public void click_directorsUserNameField(String directorsUserNameText){
-        wait.WaitUntilPresent(directorsUserName);
+        wait.WaitUntilVisible(directorsUserName);
         sendKeys_withClear(directorsUserName,directorsUserNameText);
     }
     public void click_passwordField(String password_FieldText){
-        wait.WaitUntilPresent(password_Field);
+        wait.WaitUntilVisible(password_Field);
         sendKeys_withClear(password_Field,password_FieldText);
     }
     public void click_confirmPasswordField(String confirmPasswordFieldText){
@@ -109,7 +112,7 @@ public class DirectorPage extends BasePage {
     //***************search created diagnostician******************
 
     public void click_filterButton() {
-        wait.WaitUntilPresent(filterButton);
+        wait.WaitUntilVisible(filterButton);
         click_custom(filterButton);
     }
 
@@ -124,7 +127,7 @@ public class DirectorPage extends BasePage {
     }
 
     public void enter_CellNumber(String cellNumberText){
-        wait.WaitUntilPresent(cellNumber);
+        wait.WaitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -150,7 +153,7 @@ public class DirectorPage extends BasePage {
     }
     public void clickOn_DontSave()
     {
-        wait.WaitUntilPresent(dontSaveButton);
+        wait.WaitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -168,14 +171,13 @@ public class DirectorPage extends BasePage {
         click_custom(login);
     }
     public void click_LogOutLink() {
-        wait.WaitUntilPresent(logOutLink);
+        wait.WaitUntilVisible(logOutLink);
         click_custom(logOutLink);
     }
 
 
     //*********Create director**************
     public void create_Director(String directorsFirstNameText,String directorsLastNameText,String directorsMobileNumberText,String directorsEmailText,String directorsUserNameText,String password_FieldText,String confirmPasswordFieldText) throws InterruptedException {
-        click_DirectorTab();
         click_CreateDirectorsButton();
         click_directorsFirstNameField(directorsFirstNameText);
         click_directorsLastNameField(directorsLastNameText);
