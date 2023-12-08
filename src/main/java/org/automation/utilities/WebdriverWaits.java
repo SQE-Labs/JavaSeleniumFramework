@@ -176,6 +176,9 @@ public class WebdriverWaits extends BaseTest {
     public static void Refresh_Page(){
         getDriver().navigate().refresh();
     }
+    public void Back_To_Page(){
+        getDriver().navigate().back();
+    }
     public static void WaitForPageLoadTime(long time) {
         getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(time));
     }

@@ -21,6 +21,7 @@ public class DirectorPage extends BasePage {
     public By password_Field=By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField=By.xpath("//input[@placeholder='Confirm Password']");
     public By createDirectorsButton=By.xpath("//button[text()='Create Director']");
+    public By validationMsg=By.xpath("//div[text()=' An error occurred. Please try again. ']");
 
     //**************Search created director***************
     public By filterButton = By.xpath("//a[text()='Filter']");
@@ -70,6 +71,7 @@ public class DirectorPage extends BasePage {
         wait.WaitUntilVisible(createDirectorButton);
         wait.WaitUntilInvisible(loginLoading);
       //  wait.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+
         click_custom(createDirectorButton);
     }
     public void click_directorsFirstNameField(String directorsFirstNameText){
@@ -189,6 +191,19 @@ public class DirectorPage extends BasePage {
         click_confirmPasswordField(confirmPasswordFieldText);
         click_createDirectorButton();
     }
+    public void Verify_Duplicate_Director(String directorsFirstNameText,String directorsLastNameText,String directorsMobileNumberText,String directorsEmailText,String directorsUserNameText,String password_FieldText,String confirmPasswordFieldText) throws InterruptedException {
+        click_CreateDirectorsButton();
+        click_directorsFirstNameField(directorsFirstNameText);
+        click_directorsLastNameField(directorsLastNameText);
+        click_directorsMobileNumberField(directorsMobileNumberText);
+        click_directorsdirectorsEmailField(directorsEmailText);
+        click_directorsassignLocationField( );
+        click_directorsUserNameField(directorsUserNameText);
+        click_passwordField(password_FieldText);
+        click_confirmPasswordField(confirmPasswordFieldText);
+        click_createDirectorButton();
+    }
+
 
     //**************Search created director*************
     public void search_CreatedDirector(String UserName) throws InterruptedException {

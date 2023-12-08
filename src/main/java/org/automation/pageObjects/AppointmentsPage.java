@@ -110,29 +110,7 @@ public class AppointmentsPage extends BasePage {
         click_ViewAllTab();
         clickOn_ExportCSVButton();
     }
-    public boolean isFileDownloaded(String fileName) throws InterruptedException {
-        Thread.sleep(10000);
-        String home = System.getProperty("user.home");
-        String file_with_location = home + "/Downloads/" + fileName;
-        File file = new File(file_with_location.trim());
-        String fileTest = file.getName();
-        if (file.exists() && file.length() != 0) {
-            System.out.println(file_with_location + " is present with size greater than 0 ");
-            extentTest.log(PASS, file_with_location + " is present  with size greater than 0");
-            return true;
-        } else {
-            System.out.println(file_with_location + " is not present");
-            extentTest.log(FAIL, file_with_location + " is not  present ");
 
-            return false;
-        }
-    }
-    public String getDownloadFileName() {
-
-        ChromeDownloads download = new ChromeDownloads();
-        String downloadedFile = download.getFileName();
-        return downloadedFile;
-    }
     public void View_DetailsPage(){
         click_AppointmentTab();
         click_ViewAllTab();

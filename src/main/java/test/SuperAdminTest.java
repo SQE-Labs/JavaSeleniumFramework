@@ -41,7 +41,7 @@ public class SuperAdminTest extends BaseTest {
         Log.info("Successfully SuperAdmin Created diagnostician");
         diagnostician.Verify_Duplicate_Diagnostician(diagnosticianFirstName, diagnosticianLastName, "8564234568", diagnosticianEmailAddress, diagnosticianUserName,"123456", "123456");
         WebdriverWaits.WaitUntilVisible(diagnostician.validationMsg);
-        validate_text(diagnostician.validationMsg,"Duplicate value not accepted" );
+        validate_text(diagnostician.validationMsg,"Duplicate UserName value not accepted" );
         panelPage.clickOn_BackButton();
 
     }
@@ -49,6 +49,8 @@ public class SuperAdminTest extends BaseTest {
     @Test(priority = 1, enabled = true, description = "SuperAdmin is able to search created diagnostician or not")
     public void search_Created_Diagnostician() throws InterruptedException {
         Diagnostician diagnostician = new Diagnostician();
+        DashBoardPanelPage panelPage=new DashBoardPanelPage();
+        panelPage.clickOn_BackButton();
         diagnostician.search_CreatedDiagnostician(diagnosticianUserName);
         WebdriverWaits.WaitUntilVisible(diagnostician.actualText);
         validate_text(diagnostician.actualText, diagnosticianUserName);
@@ -95,8 +97,8 @@ public class SuperAdminTest extends BaseTest {
         Diagnostician diagnostician = new Diagnostician();
         //checking user is disable or not
         diagnostician.cheking_DisableUser();
-        WebdriverWaits.WaitUntilVisible(diagnostician.disableUser);
-        validate_text(diagnostician.disableUser, "Enable User");
+        WebdriverWaits.WaitUntilVisible(diagnostician.enableUser);
+        validate_text(diagnostician.enableUser, "Enable User");
     }
 
     @Test(priority = 4, enabled = true, description = "Verify that Superadmin is able to diable the user or not")
@@ -111,7 +113,7 @@ public class SuperAdminTest extends BaseTest {
         panelPage.click_LogOutLink();
     }
 
-    @Test(priority = 5, enabled = false, description = "verify that diagnostician is able to edit or not after clicking Dont save button")
+    @Test(priority = 5, enabled = true, description = "verify that diagnostician is able to edit or not after clicking Dont save button")
     public void verify_Dia_DontSaveBtn() throws InterruptedException {
         Diagnostician diagnostician = new Diagnostician();
         diagnostician.verify_DontSave("5659865589", diagnosticianEmailAddress, "123456", "123456");
@@ -123,10 +125,10 @@ public class SuperAdminTest extends BaseTest {
 
     @Test(priority = 8, enabled = true, description = "verify that SuperAdmin is able to create Director or not")
     public void create_Directors() throws InterruptedException {
-        directorFirstName = "AU_Stella" + RandomStrings.requiredCharacters(1);
+        directorFirstName = "AU_Bella" + RandomStrings.requiredCharacters(1);
         directorLastName = "AU_Eggers" + RandomStrings.requiredCharacters(1);
         directorEmailAddress = directorFirstName + "@yopmail.com";
-        directorUserName = "AU_Oulk" + RandomStrings.requiredCharacters(1);
+        directorUserName = "AU_Hulk" + RandomStrings.requiredCharacters(1);
         DirectorPage director = new DirectorPage();
         LoginPage login = new LoginPage();
         //Login with super Admin credentials
@@ -135,12 +137,17 @@ public class SuperAdminTest extends BaseTest {
         panelPage.click_DirectorTab();
         director.create_Director(directorFirstName, directorLastName, "5236458965", directorEmailAddress, directorUserName, "123456", "123456");
         validate_text(director.directorListPage, "Directors List");
+        director.Verify_Duplicate_Director(directorFirstName, directorLastName, "8564234568", directorEmailAddress, directorUserName,"123456", "123456");
+        validate_text(director.validationMsg,"Duplicate UserName value not accepted" );
+       // panelPage.clickOn_BackButton();
     }
 
     @Test(priority = 9, enabled = true, description = "Super admin is able to edit the created diagnostician or not")
     public void edit_Director() throws InterruptedException {
         String directorEmailAddress1 = directorFirstName + "12@yopmail.com";
         DirectorPage director = new DirectorPage();
+        DashBoardPanelPage panelPage=new DashBoardPanelPage();
+        panelPage.clickOn_BackButton();
         //director changing the password.
         director.edit_Director("2456789548", directorEmailAddress1, "12345678", "12345678");
         validate_text(director.edit_SuccMsg, "Director details updated successfully.");
@@ -213,16 +220,44 @@ public class SuperAdminTest extends BaseTest {
     public void view_ClientObservation_Page() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
         appointment.view_ClientObservation_Page();
-
     }
 
     @Test(priority = 18, enabled = true, description = "Verify that CSV file gets downloaded after clicking 'Export to CSV' button, on 'All Appointments' page")
     public void download_CSV_File() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelpage=new DashBoardPanelPage();
         appointment.exportCSV_Button();
         //Download exportCSV File and Check file is downloaded or not
-        String downloadFile = appointment.getDownloadFileName();
-        Assert.assertTrue(appointment.isFileDownloaded(downloadFile));
+        String downloadFile = panelpage.getDownloadFileName();
+        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
     }
 
+//**********************SuperAdmin is viewing Payments page********************
+    @Test(priority = 19,enabled = true,description = "Verify that superAdmin is able to view payment page or not")
+    public void view_Payments_Page() throws InterruptedException {
+        WebdriverWaits wait =new WebdriverWaits();
+        PaymentPage payment=new PaymentPage();
+        wait.Back_To_Page();
+        payment.clickOn_PaymentTab();
+        WebdriverWaits.WaitUntilVisible(payment.paymentListPage);
+        validate_text(payment.paymentListPage,"Payments List");
+    }
+    @Test(priority = 20,enabled = true,description="Verify that superAdmin is able to search perticular payment or not")
+    public void search_Payment() throws InterruptedException {
+        PaymentPage payment=new PaymentPage();
+        payment.click_filterButton();
+        payment.enterInSearchField("Guard");
+        WebdriverWaits.WaitUntilVisible(payment.cust_Name );
+        validate_text(payment. cust_Name,"Guard Bittle");
+    }
+    @Test(priority = 21,enabled = true,description = "Verify admin is able to download csv file or not")
+    public void download_ExportCSV_File() throws InterruptedException {
+        DashBoardPanelPage panelpage=new DashBoardPanelPage();
+        panelpage.clickOn_ExportCSVButton();
+        //Download exportCSV File and Check file is downloaded or not
+        String downloadFile = panelpage.getDownloadFileName();
+        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));  }
 }
+
+
+

@@ -45,7 +45,7 @@ public class Diagnostician extends BasePage {
     public By confirmPasswordField = By.xpath("(//input[@type='password'])[2]");
     public  By edit_Succ_Msg = By.xpath("//div[text()=' Diagnostician details updated successfully. ']");
     public  By UserNameGetText=By.xpath("(//td)[2]");
-    public  By disableUser=By.xpath("//label[text()='Enable User']");
+    public  By enableUser=By.xpath("//label[text()='Enable User']");
     public By toggle = By.xpath("//span[@class='slider round']");
     public By dontSaveButton=By.xpath("//a[text()='Don’t Save']");
 
@@ -120,10 +120,14 @@ WebdriverWaits waits=new WebdriverWaits();
     //*************search created diagnostician***************
 
     public void click_filterButton() {
+        WebdriverWaits.WaitUntilVisible(filterButton);
+        WebdriverWaits.WaitUntilInvisible(loginLoading);
+
         click_custom(filterButton);
     }
 
     public void enterInSearchField(String searchFieldText) {
+        WebdriverWaits.WaitUntilVisible(searchField);
         sendKeys_withClear(searchField, searchFieldText);
     }
 
@@ -135,7 +139,7 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     public void enter_CellNumber(String cellNumberText) {
-        WebdriverWaits.WaitUntilVisible(cellNumber);
+        waits.WaitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -161,7 +165,7 @@ WebdriverWaits waits=new WebdriverWaits();
     }
     public void clickOn_DontSave()
     {
-        waits.WaitUntilVisible(dontSaveButton);
+        WebdriverWaits.WaitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
