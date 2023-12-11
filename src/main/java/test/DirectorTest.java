@@ -42,7 +42,7 @@ public class DirectorTest extends BaseTest {
     public void edit_Director() throws InterruptedException {
         String directorEmailAddress1 = directorFirstName + "12@yopmail.com";
         DirectorPage director=new DirectorPage();
-        director.edit_Director("2456789548",directorEmailAddress1,"12345678","12345678");
+        director.edit_Director(directorEmailAddress1,"12345678","12345678");
         Assertions.validate_text(director.edit_SuccMsg,"Director details updated successfully.");
         Log.info("Successfully Edited the created director");
     }

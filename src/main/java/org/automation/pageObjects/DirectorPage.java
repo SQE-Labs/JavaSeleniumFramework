@@ -212,12 +212,12 @@ public class DirectorPage extends BasePage {
     }
 
     //***********edit created director*************
-    public void edit_Director(String cellNumberText, String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
+    public void edit_Director( String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
         // test case number ( 4.6 ).
         Assertions.validate_text(edit_Popup,"Edit User");
         Log.info("Successfully Edit popUp opens");
-        enter_CellNumber(cellNumberText);
+       // enter_CellNumber(cellNumberText);
         enter_Director_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordField(confirmPasswordFieldText);

@@ -4,6 +4,8 @@ import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
+import static org.automation.utilities.Assertions.validate_text;
+
 
 public class Diagnostician extends BasePage {
 
@@ -55,6 +57,28 @@ public class Diagnostician extends BasePage {
     public By PasswordField = By.xpath("//input[@placeholder='Password']");
     public By login = By.id("loginFormSubmit");
     public  By validation_Msg=By.xpath("//small[text()='Username or password is incorrect']");
+
+    //*****************Verify diagnostician is viewing appointments page***************
+
+    public By today_appointments=By.xpath("(//h6[@class='card-heading'])[1]");
+    public By view_DetailApp=By.xpath("//a[text()='View Details']");
+    public By start_Assesment=By.xpath("//a[text()='Start Assessment']");
+    public By no_Payment=By.xpath("//a[text()='No Payment']");
+    public By bouncing_Leg=By.xpath("(//div[@class='custom-control custom-checkbox'])[1]");
+    public By humming=By.xpath("(//div[@class='custom-control custom-checkbox'])[5]");
+    public By playing_with_pencil=By.xpath("(//div[@class='custom-control custom-checkbox'])[8]");
+    public By difficulty_Sitting=By.xpath("(//div[@class='custom-control custom-checkbox'])[14]");
+    public By Playing_with_hair=By.xpath("(//div[@class='custom-control custom-checkbox'])[13]");
+    public By excessive_Talking=By.xpath("(//div[@class='custom-control custom-checkbox'])[16]");
+    public By summary=By.xpath("//textarea[@class='custom-input border border-danger ng-pristine ng-valid ng-touched']");
+    public By dashboard=By.xpath("//h3[text()='Dashboard']");
+    public By appointmentUserName=By.xpath("//h3[text()=' Randy Walker ']");
+    public By appointmentsTab= By.xpath("//a[text()=' Appointments ']");
+    public By viewAllTab=By.xpath("(//a)[3]");
+
+
+
+
 
 
 WebdriverWaits waits=new WebdriverWaits();
@@ -169,20 +193,54 @@ WebdriverWaits waits=new WebdriverWaits();
         click_custom(dontSaveButton);
     }
 
-    //**********DIAGNOSTICIAN LOGGING IN WITH NEW PASSWORD************
-    public void clickOn_Login_UsernameField(String userNameFieldText) {
-        WebdriverWaits.WaitUntilVisible(userNameField);
-        sendKeys_withClear(userNameField, userNameFieldText);
+    //**********Diagnostician is viewing appointments************
+    public void clickOn_Today_Appointment(){
+        WebdriverWaits.WaitUntilInvisible(loginLoading);
+        WebdriverWaits.WaitUntilVisible(appointmentsTab);
+        click_custom(appointmentsTab);
+        WebdriverWaits.WaitUntilVisible(viewAllTab);
+        click_custom(viewAllTab);
+
+    }
+    public void clickOn_ViewDetail(){
+        WebdriverWaits.WaitUntilVisible(view_DetailApp);
+        click_custom(view_DetailApp);
+    }
+    public void clickOn_StartAssesment(){
+        WebdriverWaits.WaitUntilVisible(start_Assesment);
+        scrollIntoView(start_Assesment);
+        click_custom(start_Assesment);
+    }
+    public void clickOn_NoPaymentButton(){
+        WebdriverWaits.WaitUntilVisible(no_Payment);
+        click_custom(no_Payment);
+    }
+    public void clickOn_CheckBox(){
+        WebdriverWaits.WaitUntilVisible(bouncing_Leg);
+        click_custom(bouncing_Leg);
+        WebdriverWaits.WaitUntilVisible(humming);
+        click_custom(humming);
+        WebdriverWaits.WaitUntilVisible(playing_with_pencil);
+        click_custom(playing_with_pencil);
+        WebdriverWaits.WaitUntilVisible(difficulty_Sitting);
+        click_custom(difficulty_Sitting);
+        WebdriverWaits.WaitUntilVisible(Playing_with_hair);
+        click_custom(Playing_with_hair);
+        WebdriverWaits.WaitUntilVisible(excessive_Talking);
+        click_custom(excessive_Talking);
+    }
+    public void writing_Summary(String summaryText){
+        WebdriverWaits.WaitUntilVisible(summary);
+        scrollIntoView(summary);
+        sendKeys_withClear(summary,summaryText);
     }
 
-    public void clickOn_Login_PasswordField(String PasswordFieldText) {
-        WebdriverWaits.WaitUntilVisible(PasswordField);
-        sendKeys_withClear(PasswordField, PasswordFieldText);
-    }
 
-    public void clickOn_Login_Button() {
-        click_custom(login);
-    }
+
+
+
+
+
 
 
     public void create_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName, String PasswordText, String RePassword) throws InterruptedException {
@@ -243,14 +301,6 @@ WebdriverWaits waits=new WebdriverWaits();
         click_UpdateButton();
 
     }
-
-    public void Relogin_With_newPassword(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
-        clickOn_Login_UsernameField(userNameFieldText);
-        clickOn_Login_PasswordField(PasswordFieldText);
-        clickOn_Login_Button();
-    }
-
-
     public void verify_DontSave(String cellNumberText, String EmailAddress1, String passwordTextFieldText,String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
         enter_CellNumber(cellNumberText);
@@ -258,6 +308,20 @@ WebdriverWaits waits=new WebdriverWaits();
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordFieldField(confirmPasswordFieldText);
         clickOn_DontSave();
+    }
+    //****************Diagnostician is checking todays appointments**************
+    public void today_Appointment(String summaryText) throws InterruptedException {
+        WebdriverWaits.WaitUntilVisible(dashboard);
+        validate_text(dashboard, "Dashboard");
 
+//        WebdriverWaits.WaitUntilVisible(appointmentUserName);
+//        validate_text(appointmentUserName, "Dashboard");
+
+        clickOn_Today_Appointment();
+        clickOn_ViewDetail();
+        clickOn_StartAssesment();
+        clickOn_NoPaymentButton();
+        clickOn_CheckBox();
+        writing_Summary(summaryText);
     }
 }
