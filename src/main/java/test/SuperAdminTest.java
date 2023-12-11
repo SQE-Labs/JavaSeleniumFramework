@@ -2,10 +2,7 @@ package test;
 
 import org.automation.base.BaseTest;
 import org.automation.logger.Log;
-import org.automation.pageObjects.AppointmentsPage;
-import org.automation.pageObjects.Diagnostician;
-import org.automation.pageObjects.DirectorPage;
-import org.automation.pageObjects.LoginPage;
+import org.automation.pageObjects.*;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomStrings;
 import org.automation.utilities.WebdriverWaits;
@@ -25,7 +22,7 @@ public class SuperAdminTest extends BaseTest {
     public String directorEmailAddress;
     public String directorUserName;
 
-
+LoginPage login = new LoginPage();
 
     @Test(priority = 0, enabled = true, description = "SuperAdmin is able to create Diagnostician")
     public void create_Diagnostician() throws InterruptedException {
@@ -102,7 +99,7 @@ public class SuperAdminTest extends BaseTest {
     @Test(priority = 5,enabled = true,description="verify that diagnostician is able to edit or not after clicking Dont save button")
     public void verify_DontSaveBtn() throws InterruptedException {
         Diagnostician diagnostician=new Diagnostician();
-        diagnostician.not_Edit_Diagnostician("5659865589",diagnosticianEmailAddress,"123456","123456");
+        diagnostician.verify_DontSave("5659865589",diagnosticianEmailAddress,"123456","123456");
         validate_text(diagnostician.UserNameGetText,diagnosticianUserName);
     }
 
@@ -128,7 +125,7 @@ public class SuperAdminTest extends BaseTest {
         String directorEmailAddress1 = directorFirstName + "12@yopmail.com";
         DirectorPage director = new DirectorPage();
         //director changing the password.
-        director.edit_Director("2456789548", directorEmailAddress1, "12345678", "12345678");
+        director.edit_Director( directorEmailAddress1, "12345678", "12345678");
         validate_text(director.edit_SuccMsg, "Director details updated successfully.");
         Log.info("Successfully Edited the created director");
     }
@@ -156,7 +153,7 @@ public class SuperAdminTest extends BaseTest {
     @Test(priority = 12,enabled = true,description="verify that diagnostician is able to edit or not after clicking dont save button")
     public void not_Creating_Director() throws InterruptedException {
         DirectorPage director = new DirectorPage();
-        director.not_Edit_Director("5659865589", directorEmailAddress, "123456", "123456");
+        director.not_Edit_Director( directorEmailAddress, "123456", "123456");
         validate_text(director.UserNameGetText, directorUserName);
     }
 
@@ -165,7 +162,7 @@ public class SuperAdminTest extends BaseTest {
     public void Appointments_Page() throws InterruptedException {
         AppointmentsPage appointment=new AppointmentsPage();
         LoginPage login =new LoginPage();
-        login.validLogin();
+        login.superAdminLogin();
         appointment.allAppointmentsPage("Hazel Rogers","04-12-2023","04-12-2023");
     }
 

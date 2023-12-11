@@ -14,7 +14,7 @@ public class Diagnostician extends BasePage {
     public By diagnostician_MobileNumber = By.xpath("//input[@placeholder='(999) 999-9999']");
     public By diagnostician_Email = By.xpath("//input[@placeholder='Email']");
     public By assignLocation = By.xpath("//select[@id='testingLocation']");
-    public By locationName = By.xpath("//option[text()='Plano']");
+    public By locationName = By.xpath("//option[text()='Woodlands']");
     public By userName = By.xpath("//input[@placeholder='Username']");
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
@@ -53,7 +53,7 @@ public class Diagnostician extends BasePage {
     public By PasswordField = By.xpath("//input[@placeholder='Password']");
     public By login = By.id("loginFormSubmit");
     public  By validation_Msg=By.xpath("//small[text()='Username or password is incorrect']");
-
+    public By spinner= By.cssSelector("div.ngx-spinner-overlay");
 
 WebdriverWaits waits=new WebdriverWaits();
 
@@ -118,6 +118,8 @@ WebdriverWaits waits=new WebdriverWaits();
     //*************search created diagnostician***************
 
     public void click_filterButton() {
+        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.WaitUntilVisible(filterButton);
         click_custom(filterButton);
     }
 
@@ -128,7 +130,8 @@ WebdriverWaits waits=new WebdriverWaits();
     //+++++++++++++++++EDIT DIAGNOSTICIAN++++++++++++++
 
     public void click_On_EditButton() {
-        waits.WaitUntilVisible(editButton);
+        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.WaitUntilVisible(editButton);
         click_custom(editButton);
     }
 
@@ -227,6 +230,8 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     public void Relogin_With_newPassword(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
+        DashBoardPanelPage logout = new DashBoardPanelPage();
+        logout.click_LogOutLink();
         clickOn_Login_UsernameField(userNameFieldText);
         clickOn_Login_PasswordField(PasswordFieldText);
         clickOn_Login_Button();

@@ -12,7 +12,6 @@ public class LoginPage extends BasePage {
     public By login = By.id("loginFormSubmit");
 
 
-
     public void enterUsername(String userNameText) {
         sendKeys_custom(userNameField, userNameText);
     }
@@ -26,28 +25,29 @@ public class LoginPage extends BasePage {
     }
 
 
-    public void superAdminLogin()   {
+    public void superAdminLogin() {
         sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("userName"));
         sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("password"));
         clickBtn_custom(login);
     }
+
     public void diagnosticianLogin(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
         enterUsername(userNameFieldText);
         enterPassword(PasswordFieldText);
         click_custom(login);
     }
-    public void validLogin(String username,String password){
+
+    public void validLogin(String username, String password) {
         enterUsername(username);
         enterPassword(password);
         clickLoginBtn();
     }
-    public void directorLogin(String userNameFieldText, String PasswordFieldText){
+
+    public void directorLogin(String userNameFieldText, String PasswordFieldText) {
         enterUsername(userNameFieldText);
         enterPassword(PasswordFieldText);
         click_custom(login);
-    public void validLogin()   {
-        sendKeys_custom(userNameField, PropertiesUtil.getPropertyValue("userName"));
-        sendKeys_custom(PasswordField, PropertiesUtil.getPropertyValue("password"));
-        clickBtn_custom(login);
+
+
     }
 }
