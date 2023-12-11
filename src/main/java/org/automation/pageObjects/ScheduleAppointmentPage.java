@@ -334,7 +334,7 @@ public class ScheduleAppointmentPage extends BasePage {
         Thread.sleep(8000);
             click_custom(slot);
             Thread.sleep(4000);
-        scrollIntoHorizontally(slot1);
+       // scrollIntoHorizontally(slot1);
             click_custom(slot1);
         click_custom(slot2);
             click_custom(slot4);

@@ -27,6 +27,7 @@ public class Diagnostician extends BasePage {
     public  By actualText = By.xpath("(//td)[2]");
     public By backButton = By.xpath("//button[text()='Back']");
     public  By diagnosticianDashBoardPage = By.xpath("//h3[text()='Dashboard']");
+    public By back_Button=By.xpath("//a[text()='Back']");
 
 
 
@@ -70,11 +71,14 @@ public class Diagnostician extends BasePage {
     public By difficulty_Sitting=By.xpath("(//div[@class='custom-control custom-checkbox'])[14]");
     public By Playing_with_hair=By.xpath("(//div[@class='custom-control custom-checkbox'])[13]");
     public By excessive_Talking=By.xpath("(//div[@class='custom-control custom-checkbox'])[16]");
-    public By summary=By.xpath("//textarea[@class='custom-input border border-danger ng-pristine ng-valid ng-touched']");
+    public By summary=By.xpath("//textarea[@class='custom-input border border-danger ng-untouched ng-pristine ng-valid']");
     public By dashboard=By.xpath("//h3[text()='Dashboard']");
     public By appointmentUserName=By.xpath("//h3[text()=' Randy Walker ']");
     public By appointmentsTab= By.xpath("//a[text()=' Appointments ']");
     public By viewAllTab=By.xpath("(//a)[3]");
+    public By appointmentDetail=By.xpath("//h3[text()='Krillin Dash Details']");
+    public By paymentDetails=By.xpath("//h4[text()='Payment Details']");
+    public By userAssesment=By.xpath("//h3[text()='Krillin Dash Assessment']");
 
 
 
@@ -140,6 +144,7 @@ WebdriverWaits waits=new WebdriverWaits();
         waits.WaitUntilPresent(backButton);
         click_custom(backButton);
     }
+
 
     //*************search created diagnostician***************
 
@@ -230,9 +235,14 @@ WebdriverWaits waits=new WebdriverWaits();
         click_custom(excessive_Talking);
     }
     public void writing_Summary(String summaryText){
-        WebdriverWaits.WaitUntilVisible(summary);
         scrollIntoView(summary);
+        WebdriverWaits.WaitUntilVisible(summary);
         sendKeys_withClear(summary,summaryText);
+    }
+    public void clickOn_BackButton(){
+        scrolltoUp();
+        WebdriverWaits.WaitUntilVisible(back_Button);
+        click_custom(back_Button);
     }
 
 
@@ -314,13 +324,20 @@ WebdriverWaits waits=new WebdriverWaits();
         WebdriverWaits.WaitUntilVisible(dashboard);
         validate_text(dashboard, "Dashboard");
 
-//        WebdriverWaits.WaitUntilVisible(appointmentUserName);
-//        validate_text(appointmentUserName, "Dashboard");
-
         clickOn_Today_Appointment();
+
         clickOn_ViewDetail();
+        WebdriverWaits.WaitUntilVisible(appointmentDetail);
+       validate_text(appointmentDetail, "Krillin Dash Details");
+
         clickOn_StartAssesment();
+        WebdriverWaits.WaitUntilVisible(paymentDetails);
+        validate_text(paymentDetails, "Payment Details");
+
         clickOn_NoPaymentButton();
+        WebdriverWaits.WaitUntilVisible(userAssesment);
+        validate_text(userAssesment, "Krillin Dash Assessment");
+
         clickOn_CheckBox();
         writing_Summary(summaryText);
     }

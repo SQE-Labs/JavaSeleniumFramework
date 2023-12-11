@@ -2,14 +2,16 @@ package test;
 
 import org.automation.base.BaseTest;
 import org.automation.logger.Log;
+import org.automation.pageObjects.DashBoardPanelPage;
 import org.automation.pageObjects.Diagnostician;
 
 import org.automation.pageObjects.LoginPage;
 import org.automation.utilities.Assertions;
 
+import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.Test;
 import static org.automation.pageObjects.Diagnostician.*;
-
+import static org.automation.utilities.Assertions.validate_text;
 
 
 public class DiagnosticianTest extends BaseTest {
@@ -19,6 +21,8 @@ public class DiagnosticianTest extends BaseTest {
         LoginPage login =new LoginPage();
         login.superAdminLogin();
         diagnostician.today_Appointment("Diognostician doing simple testing");
+        diagnostician.clickOn_BackButton();
+        WebdriverWaits.WaitUntilVisible(diagnostician.appointmentDetail);
+        validate_text(diagnostician.appointmentDetail, "Krillin Dash Details");
     }
-
 }
