@@ -8,7 +8,6 @@ import static org.automation.utilities.Assertions.validate_text;
 
 
 public class Diagnostician extends BasePage {
-
     public By diagnosticianLink = By.xpath("//a[text()='Diagnosticians']");
     public By createDiagnostician = By.xpath("//button[text()='Create Diagnostician']");
     public By loginLoading=By.cssSelector("div.ngx-spinner-overlay");

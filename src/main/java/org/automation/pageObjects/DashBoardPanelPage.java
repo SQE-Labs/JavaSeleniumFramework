@@ -3,6 +3,7 @@ package org.automation.pageObjects;
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import test.SuperAdminTest;
 
 import java.io.File;
 
@@ -17,6 +18,8 @@ public class DashBoardPanelPage extends BasePage {
     public By paymentButton=By.xpath("//a[text()='Payments']");
     public By backButton=By.xpath("//button[text()='Back']");
     public By exportCSVButton=By.xpath("//button[text()='Export to CSV']");
+
+
 
     public void click_LogOutLink() {
         WebdriverWaits.WaitUntilVisible(logOutLink);
@@ -34,12 +37,12 @@ public class DashBoardPanelPage extends BasePage {
         WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(diagnosticianLink);
     }
-    public void click_On_AdminButton(){
+    public void click_On_AdminTab(){
         WebdriverWaits.WaitUntilVisible(adminButton);
         WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(adminButton);
     }
-    public void click_On_PaymentButton(){
+    public void click_On_PaymentTab(){
         WebdriverWaits.WaitUntilVisible(paymentButton);
         WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(paymentButton);

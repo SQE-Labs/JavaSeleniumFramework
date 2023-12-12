@@ -4,6 +4,7 @@ import org.automation.base.BasePage;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import test.SuperAdminTest;
 
 
 public class LoginPage extends BasePage {
@@ -30,11 +31,13 @@ public class LoginPage extends BasePage {
     public void superAdminLogin()   {
         WebdriverWaits.WaitUntilVisible(userNameField);
         sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("userName"));
+        WebdriverWaits.WaitUntilVisible(PasswordField);
         sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("password"));
         clickBtn_custom(login);
     }
-    public void diagnosticianLogin(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
-        enterUsername(userNameFieldText);
+    public void diagnosticianLogin(String diagnosticianUserName,String PasswordFieldText) throws InterruptedException {
+        SuperAdminTest superadmin=new SuperAdminTest();
+        enterUsername(diagnosticianUserName);
         enterPassword(PasswordFieldText);
         click_custom(login);
     }
@@ -44,6 +47,11 @@ public class LoginPage extends BasePage {
         clickLoginBtn();
     }
     public void directorLogin(String userNameFieldText, String PasswordFieldText){
+        enterUsername(userNameFieldText);
+        enterPassword(PasswordFieldText);
+        click_custom(login);
+    }
+    public void re_Login(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
         enterUsername(userNameFieldText);
         enterPassword(PasswordFieldText);
         click_custom(login);
