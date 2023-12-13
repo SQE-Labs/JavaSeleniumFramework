@@ -44,11 +44,6 @@ public class WebdriverWaits extends BaseTest {
         WebElement e = wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-//    public static WebElement waitForElementUntilVisible(By locator, int waitTime) {
-//        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
-//        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-//        return e;
-//    }
     public static void waitForElementNotVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
@@ -85,22 +80,6 @@ public class WebdriverWaits extends BaseTest {
         }
     }
 
-    public static void fluentWait_ElementLocated( ) {
-//        Wait<WebDriver> wait = new FluentWait<>(getDriver())
-//                .withTimeout(waitTimeForTimeout, TimeUnit.SECONDS)
-//                .pollingEvery(waitTimeForPolling, TimeUnit.SECONDS)
-//                .ignoring(NoSuchElementException.class);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
-                .withTimeout(Duration.ofSeconds(15))
-                .pollingEvery(Duration.ofSeconds(15))
-                .ignoring(NoSuchElementException.class);
-
-    }
-
-//    public static void WaitUntilVisible(By element) {
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
-//    }
 
     public static void SwitchToNewTab() throws InterruptedException {
         String originalHandle = getDriver().getWindowHandle();
@@ -193,6 +172,15 @@ public class WebdriverWaits extends BaseTest {
         } catch (WebDriverException e) {
             return false;
         }
+    }
+    public static void Refresh_Page(){
+        getDriver().navigate().refresh();
+    }
+    public void Back_To_Page(){
+        getDriver().navigate().back();
+    }
+    public static void WaitForPageLoadTime(long time) {
+        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(time));
     }
 }
 

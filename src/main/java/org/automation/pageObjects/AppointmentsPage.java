@@ -58,9 +58,10 @@ public class AppointmentsPage extends BasePage {
     public void enter_Dates(String dateFromText,String toDateText) throws InterruptedException {
         click_custom(dateFrom);
         sendKeys_withClear(dateFrom,dateFromText);
-        wait.WaitUntilPresent(toDate);
+    wait. WaitUntilVisible(toDate);
         click_custom(toDate);
         sendKeys_withClear(toDate,toDateText);
+        wait.WaitUntilVisible(searchButton);
         click_custom(searchButton);
     }
     public void clickOn_ViewDetails(){

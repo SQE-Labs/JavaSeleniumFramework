@@ -3,13 +3,14 @@ package test;
 import org.automation.base.BaseTest;
 import org.automation.logger.Log;
 
+import org.automation.pageObjects.DashBoardPanelPage;
 import org.automation.pageObjects.DirectorPage;
 import org.automation.pageObjects.LoginPage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomStrings;
 import org.testng.annotations.Test;
 
-
+import static org.automation.utilities.Assertions.validate_text;
 
 
 public class DirectorTest extends BaseTest {

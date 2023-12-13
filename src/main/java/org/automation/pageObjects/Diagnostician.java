@@ -9,20 +9,23 @@ public class Diagnostician extends BasePage {
 
     public By diagnosticianLink = By.xpath("//a[text()='Diagnosticians']");
     public By createDiagnostician = By.xpath("//button[text()='Create Diagnostician']");
+    public By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
     public By diagnostician_FirstName = By.xpath("//input[@placeholder='First Name']");
     public By diagnostician_LastName = By.xpath("//input[@placeholder='Last Name']");
     public By diagnostician_MobileNumber = By.xpath("//input[@placeholder='(999) 999-9999']");
     public By diagnostician_Email = By.xpath("//input[@placeholder='Email']");
     public By assignLocation = By.xpath("//select[@id='testingLocation']");
-    public By locationName = By.xpath("//option[text()='Woodlands']");
+    public By locationName = By.xpath("//option[text()='Plano']");
     public By userName = By.xpath("//input[@placeholder='Username']");
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
     public By createDiagnosticianButton = By.xpath("//button[text()='Create Diagnostician']");
+    public By validationMsg=By.xpath("//div[text()=' An error occurred. Please try again. ']");
 
     public  By actualText = By.xpath("(//td)[2]");
     public By backButton = By.xpath("//button[text()='Back']");
     public  By diagnosticianDashBoardPage = By.xpath("//h3[text()='Dashboard']");
+    public By back_Button=By.xpath("//a[text()='Back']");
 
 
 
@@ -53,7 +56,7 @@ public class Diagnostician extends BasePage {
     public By PasswordField = By.xpath("//input[@placeholder='Password']");
     public By login = By.id("loginFormSubmit");
     public  By validation_Msg=By.xpath("//small[text()='Username or password is incorrect']");
-    public By spinner= By.cssSelector("div.ngx-spinner-overlay");
+
 
 WebdriverWaits waits=new WebdriverWaits();
 
@@ -84,15 +87,18 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     public void enter_Diagnostician_Email(String diagnostician_EmailText) {
-        waits. WaitUntilPresent(diagnostician_Email);
+        waits. WaitUntilVisible(diagnostician_Email);
         sendKeys_withClear(diagnostician_Email, diagnostician_EmailText);
     }
     public void click_AssignLocation() {
+        WebdriverWaits.WaitUntilVisible(assignLocation);
         click_custom(assignLocation);
+        WebdriverWaits.WaitUntilVisible(locationName);
         click_custom(locationName);
     }
 
     public void userNameField(String userNameText) {
+        WebdriverWaits.WaitUntilVisible(userName);
         sendKeys_withClear(userName, userNameText);
     }
 
@@ -118,25 +124,26 @@ WebdriverWaits waits=new WebdriverWaits();
     //*************search created diagnostician***************
 
     public void click_filterButton() {
-        WebdriverWaits.WaitUntilInvisible(spinner);
         WebdriverWaits.WaitUntilVisible(filterButton);
+        WebdriverWaits.WaitUntilInvisible(loginLoading);
+
         click_custom(filterButton);
     }
 
     public void enterInSearchField(String searchFieldText) {
+        WebdriverWaits.WaitUntilVisible(searchField);
         sendKeys_withClear(searchField, searchFieldText);
     }
 
     //+++++++++++++++++EDIT DIAGNOSTICIAN++++++++++++++
 
     public void click_On_EditButton() {
-        WebdriverWaits.WaitUntilInvisible(spinner);
         WebdriverWaits.WaitUntilVisible(editButton);
         click_custom(editButton);
     }
 
     public void enter_CellNumber(String cellNumberText) {
-        waits. WaitUntilPresent(cellNumber);
+        waits.WaitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
