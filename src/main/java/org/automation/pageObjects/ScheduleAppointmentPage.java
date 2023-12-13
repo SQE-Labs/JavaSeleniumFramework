@@ -40,7 +40,7 @@ public class ScheduleAppointmentPage extends BasePage {
     public By headerResource = By.xpath("//div[@class='header-resource-name']");
     //(//div[@class='mbsc-flex ng-star-inserted'])[1]
     public By selectingtoday=By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-selected ng-star-inserted']");
-    public By clickOnBox = By.xpath("(//div[@class ='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[1]");
+    public By clickOnBox = By.xpath("(//div[@class ='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[8]");
     public By saveButton = By.xpath("//mbsc-button[text()=' Save ']");
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
     public By totalBoxes=By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
@@ -102,6 +102,10 @@ public class ScheduleAppointmentPage extends BasePage {
     public By logOutLink=By.xpath("//a[text()='Log Out']");
     public By spinner= By.cssSelector("div.ngx-spinner-overlay");
     public By actualText=By.xpath("//h4[text()='Appointment Scheduled!!']");
+    public By goBack = By.xpath("//a[text()='Go Back']");
+    public By fullName = By.xpath("(//div /p)[9]");
+    public By editAss = By.xpath("//a[@text()='Edit Assessment Type']");
+    public By getSearch = By.xpath("(//td[@class='tablewidth'])[1]");
 
 
 
@@ -237,7 +241,7 @@ public class ScheduleAppointmentPage extends BasePage {
         selectDropDownByIndex_custom(SchoolType,schoolTypeOption);
     }
     public void enterCellNumber(String cellNumberText){
-        sendKeys_withClear(cellNumber,cellNumberText);
+        sendKeys_custom(cellNumber,cellNumberText);
     }
     public void enterPhoneNumber(String phoneNumberText){
         sendKeys_withClear(phoneNumber,phoneNumberText);
@@ -289,7 +293,7 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(viewDetails);
     }
     public void enterInsearchBox(String CustomerFirstName )
-    {
+    {    WebdriverWaits.WaitUntilVisible(searchBox);
         sendKeys_withClear(searchBox,CustomerFirstName);
     }
     public void clickOnviewLink(){
@@ -297,6 +301,7 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(viewlink);
     }
     public void clickOnFilterbutton(){
+        WebdriverWaits.WaitUntilVisible(filter);
         click_custom(filter);
     }
 
@@ -362,6 +367,11 @@ public class ScheduleAppointmentPage extends BasePage {
     public void click_On_Delete(){
         click_custom(delete);
     }
+    public void click_GoBack(){
+        WebdriverWaits.WaitUntilVisible(goBack);
+        click_custom(goBack);
+    }
+
 
 
 
@@ -395,10 +405,8 @@ public class ScheduleAppointmentPage extends BasePage {
             selectGradeType(gradeType);
             enterInDateField( dateOfBirthText);
             selectSchoolType(schoolTypeOption);
-            WebdriverWaits.sleep(1000);
             enterCellNumber(cellNumber);
            // enterPhoneNumber( phoneNumberText);
-            WebdriverWaits.sleep(1000);
             enterEmialAddress(EmailAddress);
             reasonForCallDropDown(reasonForCallText);
             //enterAdress1(address1Text);
@@ -419,9 +427,7 @@ public class ScheduleAppointmentPage extends BasePage {
 
         public void search_ScheduledAppointment (String CustomerFirstName) throws InterruptedException {
             clickOnviewLink();
-            Thread.sleep(4000);
             clickOnFilterbutton();
-            Thread.sleep(3000);
             enterInsearchBox(CustomerFirstName);
             click_ViewDetailLink();
 //           click_CancelAppointmentBtn();
@@ -461,6 +467,8 @@ public class ScheduleAppointmentPage extends BasePage {
             click_custom(diagnosticianSaveButton);
             click_custom(logOutLink);
         }
+
+
 
     }
 

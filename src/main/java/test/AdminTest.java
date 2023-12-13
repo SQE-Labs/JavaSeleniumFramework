@@ -3,9 +3,17 @@ package test;
 import org.automation.base.BaseTest;
 import org.automation.logger.Log;
 import org.automation.pageObjects.*;
+import org.automation.utilities.ActionEngine;
+import org.automation.utilities.DateGenerator;
 import org.automation.utilities.RandomStrings;
 import org.automation.utilities.WebdriverWaits;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import static org.automation.utilities.Assertions.validate_text;
 
@@ -23,10 +31,12 @@ public class AdminTest extends BaseTest {
     public String directorUserName;
     public String clientFirstName;
     public String clientLastName;
+    public  String clientCellNumber;
+    public String clientEmail;
 
 
 
-    @Test(priority=0,enabled=true,description = "Create Diagnosticians by admin")
+    @Test(priority=0,enabled=false,description = "Create Diagnosticians by admin")
     public void create_Diagnosticians() throws InterruptedException {
         // Login as 'Admin'.
         LoginPage login = new LoginPage();
@@ -40,7 +50,7 @@ public class AdminTest extends BaseTest {
         diagnostician.create_Diagnostician(diagnosticianFirstName,diagnosticianLastName,"8564234568",diagnosticianEmailAddress,diagnosticianUserName,"123456","123456");
         logout.click_LogOutLink();
     }
-    @Test(priority = 1,enabled = true ,description = "Diagnostician setting availability")
+    @Test(priority = 1,enabled = false ,description = "Diagnostician setting availability")
     public void diagnostician_Availability() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         DashBoardPanelPage logout = new DashBoardPanelPage();
@@ -50,7 +60,7 @@ public class AdminTest extends BaseTest {
         schedule.deleting_Availability();
         logout.click_LogOutLink();
     }
-    @Test(priority = 2, enabled = true, description = "To verify schedule appointment")
+    @Test(priority = 2, enabled = false, description = "To verify schedule appointment")
     public void scheduleAppointment_Admin() throws InterruptedException {
         LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
@@ -58,37 +68,103 @@ public class AdminTest extends BaseTest {
         dashboard.clickScheduleAppointment();
     }
 
-    @Test(priority = 3, enabled = true, description = "selecting date for appointment")
+    @Test(priority = 3, enabled = false, description = "selecting date for appointment")
     public void appointmentCalender() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         schedule.scheduleAppointment("Woodlands");
         schedule.appointmentDateSelecting(2);
     }
 
-    @Test(priority = 4, enabled = true, description = "Filling client details")
-    public void fillClientDetails() throws InterruptedException {
+    @Test(priority = 4, enabled = false, description = "Filling client details")
+     public void fillClientDetails() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-
-        schedule.enteringClientDetails( "Andrew", "Willams", 2, "19-11-1997",1 , "7495787453", "smith@yopmail.com", "Other", "1000", "1000");
+        clientFirstName=RandomStrings.requiredCharacters(6);
+        clientLastName=RandomStrings.requiredCharacters(6);
+        //clientCellNumber=RandomStrings.requiredDigits(10);
+        clientEmail=clientFirstName+ "@yopmail.com";
+        schedule.enteringClientDetails( clientFirstName, clientLastName, 2, "19-11-2000",1 , "7654436788", clientEmail, "Other", "1000", "1000");
         validate_text(schedule.actualText,"Appointment Scheduled!!");
 
 
+
     }
-    @Test(priority = 5, enabled = true, description = "Verify View client details button on Schedule Appointment button")
+    @Test(priority = 5, enabled = false, description = "Verify View client details button on Schedule Appointment popup")
     public void verifyViewDetails() throws InterruptedException{
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         schedule.clickOnviewLink();
+        String expectedName = clientFirstName+" "+clientLastName;
+        validate_text(schedule.fullName,expectedName);
+
+    }
+
+    @Test(priority = 0, enabled = true, description = "Verify All Appointment page.")
+    public void verify_AllAppointmentsPage() throws InterruptedException {
+        LoginPage login = new LoginPage();
+        AppointmentsPage appPage= new AppointmentsPage();
+        login.validLogin("Allen", "123456");
+        appPage.View_AllAppointmentsPage();
+        validate_text(appPage.viewAllActualText,"All Appointments");
+
+    }
+    @Test(priority = 1, enabled = true, description = "Verify search textbox")
+    public void filter_CreatedAppointment() throws InterruptedException{
+        AppointmentsPage appPage= new AppointmentsPage();
+        appPage.click_FilterButton();
+        //appPage.click_SearchField("Bebe Rexa");
+       // WebdriverWaits.WaitUntilVisible(appPage.actualSearchedText);
+       // validate_text(appPage.actualSearchedText,"Bebe Rexa");
+
+    }
+    @Test(priority = 2, enabled = false, description = "Verify CSV file gets exported")
+    public void verify_ExportCsvbtn() throws InterruptedException{
+        AppointmentsPage appPage= new AppointmentsPage();
+        appPage.exportCSV_Button();
+    }
+    @Test(priority = 3, enabled = false, description = "Validate file is downloaded")
+    public void validate_DownloadedFile() throws InterruptedException{
+        AppointmentsPage appPage= new AppointmentsPage();
+        appPage.validateDownloadedFile();
+
+    }
+    @Test(priority = 4, enabled = false, description = "Validate file is downloaded")
+    public void is_Downloaded() throws InterruptedException{
+        AppointmentsPage appPage= new AppointmentsPage();
+        appPage.validateDownloadedFile();
+    }
+    @Test(priority = 2, enabled = true, description = "Verify search fromDate and toDate")
+    public void verify_FromAndToDate() throws InterruptedException{
+        AppointmentsPage appPage= new AppointmentsPage();
+        ActionEngine engine=new ActionEngine();
+        String toDate= DateGenerator.getCurrentDate();
+        String FromDate= DateGenerator.getDateWithDays("yyyy-MM-dd",-2);
+        appPage.enter_Dates(FromDate,toDate);
+        WebdriverWaits.WaitUntilVisible(appPage.dateElements);
+        List <WebElement> my_list = engine.getWebElements(appPage.dateElements);
+        HashSet<WebElement> dateSet = new HashSet<>(my_list);
+
+        LocalDate toDateLocal= LocalDate.parse(toDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate fromDateLocal= LocalDate.parse(FromDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        boolean result = true;
+                for (WebElement i:dateSet){
+            String date =i.getText();
+            LocalDate inputDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("MMM dd, yyyy"));
+            System.out.println(inputDate);
+            if( !(DateGenerator.isDateWithinRange(fromDateLocal,toDateLocal,inputDate))){
+               result=false;
+                break;
+            }
+        }
+
+        Assert.assertTrue(result);
+
+
+
+
+
 
     }
 
 
-
-
-    @Test(priority = 5, enabled = false, description = "filter and viewing created appointment in detail")
-    public void filter_CreatedAppointment() throws InterruptedException {
-        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-        schedule.search_ScheduledAppointment(diagnosticianFirstName);
-    }
 
     @Test(priority = 6, enabled = false, description = "creating TestPlan for the created appointment")
     public void testPlanFor_scheduled_Appointment() throws InterruptedException {
