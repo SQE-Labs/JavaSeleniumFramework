@@ -60,7 +60,9 @@ public class AdminPage extends BasePage
 
 
     public void clickOn_createAdminButton(){
-    click_custom(createAdminButton);
+        WebdriverWaits.WaitUntilVisible(createAdminButton);
+      //  WebdriverWaits.WaitUntilInvisible(createAdminButton);
+        click_custom(createAdminButton);
         }
 
     public void enter_admin_FirstName(String CustomerFirstName) throws InterruptedException {

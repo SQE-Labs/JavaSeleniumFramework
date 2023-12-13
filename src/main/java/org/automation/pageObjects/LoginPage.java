@@ -35,13 +35,12 @@ public class LoginPage extends BasePage {
         sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("password"));
         clickBtn_custom(login);
     }
-    public void diagnosticianLogin(String diagnosticianUserName,String PasswordFieldText) throws InterruptedException {
-        SuperAdminTest superadmin=new SuperAdminTest();
-        enterUsername(diagnosticianUserName);
+    public void diagnosticianLogin( String username,String PasswordFieldText ) throws InterruptedException {
+        enterUsername(username);
         enterPassword(PasswordFieldText);
         click_custom(login);
     }
-    public void validLogin(String username,String password){
+    public void adminLogin(String username,String password){
         enterUsername(username);
         enterPassword(password);
         clickLoginBtn();

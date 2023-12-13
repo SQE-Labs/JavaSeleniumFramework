@@ -18,6 +18,8 @@ public class DashBoardPanelPage extends BasePage {
     public By paymentButton=By.xpath("//a[text()='Payments']");
     public By backButton=By.xpath("//button[text()='Back']");
     public By exportCSVButton=By.xpath("//button[text()='Export to CSV']");
+    public By AppointmentsTab=By.xpath("//a[text()=' Appointments ']");
+    public By availabilityTab=By.xpath("//a[text()='Availability']");
 
 
 
@@ -77,5 +79,14 @@ public class DashBoardPanelPage extends BasePage {
     public void clickOn_ExportCSVButton(){
         WebdriverWaits.WaitUntilVisible(exportCSVButton);
         click_custom(exportCSVButton);
+    }
+    public void clickOn_AppointmentsTab(){
+        WebdriverWaits.WaitUntilVisible(AppointmentsTab);
+        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+        click_custom(AppointmentsTab);
+    }
+    public void clickOn_AvailabilityTab(){
+        WebdriverWaits.WaitUntilVisible(availabilityTab);
+        click_custom(availabilityTab);
     }
 }

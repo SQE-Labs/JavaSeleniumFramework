@@ -5,6 +5,7 @@ import org.automation.logger.Log;
 import org.automation.pageObjects.*;
 import org.automation.utilities.RandomStrings;
 import org.automation.utilities.WebdriverWaits;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.automation.utilities.Assertions.validate_text;
@@ -120,7 +121,7 @@ public String diagnosticianLastName;
     public void create_Diagnostician() throws InterruptedException {
         Diagnostician diagnostician = new Diagnostician();
         diagnosticianFirstName = "AU_Nate" + RandomStrings.requiredCharacters(2);
-        String diagnosticianLastName = "AU_Connor" + RandomStrings.requiredCharacters(2);
+         diagnosticianLastName = "AU_Connor" + RandomStrings.requiredCharacters(2);
         diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
         diagnosticianUserName = "AU_Wints" + RandomStrings.requiredCharacters(2);
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
@@ -135,8 +136,6 @@ public String diagnosticianLastName;
         WebdriverWaits.WaitUntilVisible(diagnostician.validationMsg);
         validate_text(diagnostician.validationMsg, "Duplicate UserName value not accepted");
         panelPage.clickOn_BackButton();
-
-
     }
 
     @Test(priority = 9, enabled = true, description = "SuperAdmin is able to search created diagnostician or not")
@@ -191,14 +190,57 @@ public String diagnosticianLastName;
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         panelPage.click_LogOutLink();
         // Login with Diagnostician new password
-        login.re_Login(diagnosticianUserName, "12345678");
+        login.diagnosticianLogin(diagnosticianUserName, "12345678");
         WebdriverWaits.WaitUntilVisible(diagnostician.diagnosticianDashBoardPage);
         validate_text(diagnostician.diagnosticianDashBoardPage, "Dashboard");
     }
 
-    @Test(priority = 15, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
-    public void diagnostician_login_With_OldPassword() throws InterruptedException {
+    @Test(priority = 15,enabled = true,description = "diagnostician Scheduling availability")
+    public void diagnostician_Availability() throws InterruptedException {
+        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+        DashBoardPanelPage panelpage=new DashBoardPanelPage();
+        LoginPage login=new LoginPage();
+        AdminTest admin=new AdminTest();
+        SuperAdminTest Superadmin = new SuperAdminTest();
+      //  login.diagnosticianLogin(Superadmin.diagnosticianUserName,"12345678");
+        schedule.checking_Availability();
+        schedule.cancel_Availability();
+        schedule.deleting_Availability();
+    }
+    @Test(priority =16, enabled = true, description = "To verify schedule appointment")
+    public void scheduleAppointment_Admin() throws InterruptedException {
+        LoginPage login = new LoginPage();
+        DashboardPage dashboard = new DashboardPage();
+        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+        //login.validLogin();
+        Thread.sleep(5000);
+        login.adminLogin(adminUserName,"12345678");
+        Thread.sleep(5000);
+        dashboard.clickScheduleAppointment();
+        Thread.sleep(5000);
+    }
 
+    @Test(priority = 17, enabled = true, description = "selecting date for appointment")
+    public void appointmentCalender() throws InterruptedException {
+        LoginTest login = new LoginTest();
+        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+
+        // login.ValidLogin();
+        schedule.scheduleAppointment("Plano");
+        schedule.appointmentDateSelecting(2);
+    }
+
+    @Test(priority = 18, enabled = true, description = "Filling client details")
+    public void fillClientDetails() throws InterruptedException {
+        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+        DashBoardPanelPage panelpage=new DashBoardPanelPage();
+        SuperAdminTest Superadmin = new SuperAdminTest();
+        schedule.enteringClientDetails( diagnosticianFirstName,diagnosticianLastName, 2, "19-11-1997",2, "4567892658",diagnosticianEmailAddress, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
+
+    }
+
+    @Test(priority = 15, enabled = false, description = "Verify that diagnostician is able to login with old password or not")
+    public void diagnostician_login_With_OldPassword() throws InterruptedException {
         Diagnostician diagnostician = new Diagnostician();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         panelPage.click_LogOutLink();
@@ -210,17 +252,18 @@ public String diagnosticianLastName;
 
     //DIRECTOR-----------------------------------------------------------------------------------
 
-    @Test(priority = 16, enabled = true, description = "verify that SuperAdmin is able to create Director or not")
+    @Test(priority = 19, enabled = true, description = "verify that SuperAdmin is able to create Director or not")
     public void create_Directors() throws InterruptedException {
         directorFirstName = "AU_Bella" + RandomStrings.requiredCharacters(1);
         directorLastName = "AU_Eggers" + RandomStrings.requiredCharacters(1);
         directorEmailAddress = directorFirstName + "@yopmail.com";
         directorUserName = "AU_Hulk" + RandomStrings.requiredCharacters(1);
         DirectorPage director = new DirectorPage();
+        DashBoardPanelPage panelPage=new DashBoardPanelPage();
         LoginPage login = new LoginPage();
+        panelPage.click_LogOutLink();
         //Login with super Admin credentials
         login.superAdminLogin();//login
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
         panelPage.click_DirectorTab();
         director.create_Director(directorFirstName, directorLastName, "5236458965", directorEmailAddress, directorUserName, "123456", "123456");
         validate_text(director.directorListPage, "Directors List");
@@ -228,8 +271,26 @@ public String diagnosticianLastName;
         validate_text(director.validationMsg, "Duplicate UserName value not accepted");
         // panelPage.clickOn_BackButton();
     }
+    @Test(priority=20,enabled = true,description = "Verify that Director is able to login with valid credentials or not")
+    public void director_Availability() throws InterruptedException {
+        LoginPage login=new LoginPage();
+        SuperAdminTest adminTest=new SuperAdminTest();
+        DashBoardPanelPage panelPage=new DashBoardPanelPage();
+        DirectorPage director=new DirectorPage();
+      //  login.directorLogin("AU_Hulkx","12345678");
+        validate_text(director.dashboardPage, "Dashboard");
+        panelPage.clickOn_AppointmentsTab();
+        validate_text(director.viewAll, "View All");
+        panelPage.clickOn_AvailabilityTab();
+        validate_text(director.monthHeader, "December");
+        validate_text(director.yearHeader, "2023");
+        validate_text(director.dateHeader, "13");
+        director.director_Availability();
+        panelPage.click_LogOutLink();
 
-    @Test(priority = 17, enabled = true, description = "Super admin is able to edit the created diagnostician or not")
+    }
+
+    @Test(priority = 21, enabled = true, description = "Super admin is able to edit the created diagnostician or not")
     public void edit_Director() throws InterruptedException {
         String directorEmailAddress1 = directorFirstName + "12@yopmail.com";
         DirectorPage director = new DirectorPage();
@@ -240,14 +301,14 @@ public String diagnosticianLastName;
         validate_text(director.edit_SuccMsg, "Director details updated successfully.");
         Log.info("Successfully Edited the created director");
     }
-    @Test(priority = 18, enabled = true, description = "verify that superadmin is able to check toggle button is enable or disable")
+    @Test(priority = 22, enabled = true, description = "verify that superadmin is able to check toggle button is enable or disable")
     public void director_checking_Toggle_Off() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         director.cheking_DisableUser();
         validate_text(director.enableUser, "Enable User");
     }
 
-    @Test(priority = 19, enabled = true, description = "Verify that Superadmin is able to Enable the user or not")
+    @Test(priority = 23, enabled = true, description = "Verify that Superadmin is able to Enable the user or not")
     public void director_enable_User() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         director.enable_Director();
@@ -255,7 +316,7 @@ public String diagnosticianLastName;
         Log.info("Successfully Edited the created director");
     }
 
-    @Test(priority = 20, enabled = true, description = "verify that diagnostician is able to edit or not after clicking dont save button")
+    @Test(priority = 24, enabled = true, description = "verify that diagnostician is able to edit or not after clicking dont save button")
     public void Verify_Dir_DntSaveBtn() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
@@ -264,7 +325,7 @@ public String diagnosticianLastName;
         panelPage.click_LogOutLink();
     }
 
-    @Test(priority = 21, enabled = true, description = "Verify Diagnostician is able to login with new password or not")
+    @Test(priority = 25, enabled = true, description = "Verify Diagnostician is able to login with new password or not")
     public void director_Relogin() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
@@ -274,7 +335,7 @@ public String diagnosticianLastName;
         panelPage.click_LogOutLink();
     }
 
-    @Test(priority = 22, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
+    @Test(priority = 26, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
     public void login_With_OldPassword() throws InterruptedException {
         DirectorPage director = new DirectorPage();
        DashBoardPanelPage panelPage=new DashBoardPanelPage();
@@ -285,9 +346,73 @@ public String diagnosticianLastName;
         panelPage.click_LogOutLink();
     }
 
+    @Test(priority = 27, enabled = true, description = "Verify that SuperAdmin is able to view appointments or not")
+    public void Appointments_Page() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        LoginPage login = new LoginPage();
+        login.superAdminLogin();
+        appointment.viewAllAppointmentsPage("Keymen Sloting", "04-12-2023", "04-12-2023");
+    }
 
+    @Test(priority = 28, enabled = true, description = "Verify that 'Appointment Details' page opens up on clicking 'View Detail' link")
+    public void view_Details_Page() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        appointment.View_DetailsPage();
+        WebdriverWaits.WaitUntilVisible(appointment.App_Text);
+        validate_text(appointment.App_Text, "Keymen Sloting Details");
+        WebdriverWaits.WaitUntilVisible(appointment.viewStudentObservationButton);
+        validate_text(appointment.viewStudentObservationButton, "View Student Observation");
+        WebdriverWaits.WaitUntilVisible(appointment.viewDocumentsButton);
+        validate_text(appointment.viewDocumentsButton, "View Documents");
+    }
 
+    @Test(priority = 29, enabled = true, description = "Verify that superAdmin is able to view ClientObservation Page or not")
+    public void view_ClientObservation_Page() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        appointment.view_ClientObservation_Page();
+    }
 
+    @Test(priority = 30, enabled = true, description = "Verify that CSV file gets downloaded after clicking 'Export to CSV' button, on 'All Appointments' page")
+    public void download_CSV_File() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelpage = new DashBoardPanelPage();
+        appointment.exportCSV_Button();
+        //Download exportCSV File and Check file is downloaded or not
+        String downloadFile = panelpage.getDownloadFileName();
+        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
+    }
+
+    //**********************SuperAdmin is viewing Payments page********************
+    @Test(priority = 31, enabled = true, description = "Verify that superAdmin is able to view payment page or not")
+    public void view_Payments_Page() throws InterruptedException {
+        WebdriverWaits wait = new WebdriverWaits();
+        PaymentPage payment = new PaymentPage();
+        wait.Back_To_Page();
+        payment.clickOn_PaymentTab();
+        WebdriverWaits.WaitUntilVisible(payment.paymentListPage);
+        validate_text(payment.paymentListPage, "Payments List");
+    }
+
+    @Test(priority = 32, enabled = true, description = "Verify that superAdmin is able to search perticular payment or not")
+    public void search_Payment() throws InterruptedException {
+        PaymentPage payment = new PaymentPage();
+        payment.click_filterButton();
+        payment.enterInSearchField("Guard");
+        WebdriverWaits.WaitUntilVisible(payment.cust_Name);
+        validate_text(payment.cust_Name, "Guard Bittle");
+    }
+
+    @Test(priority = 33, enabled = true, description = "Verify admin is able to download csv file or not")
+    public void download_ExportCSV_File() throws InterruptedException {
+        DashBoardPanelPage panelpage = new DashBoardPanelPage();
+        WebdriverWaits wait = new WebdriverWaits();
+        panelpage.clickOn_ExportCSVButton();
+        //Download exportCSV File and Check file is downloaded or not
+        String downloadFile = panelpage.getDownloadFileName();
+        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
+        wait.Back_To_Page();
+        panelpage.click_LogOutLink();
+    }
 }
 
 

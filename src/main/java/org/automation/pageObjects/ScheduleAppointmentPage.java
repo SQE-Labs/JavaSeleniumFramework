@@ -40,7 +40,7 @@ public class ScheduleAppointmentPage extends BasePage {
     public By headerResource = By.xpath("//div[@class='header-resource-name']");
     //(//div[@class='mbsc-flex ng-star-inserted'])[1]
     public By selectingtoday=By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-selected ng-star-inserted']");
-    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[8]");
+    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[1]");
     public By saveButton = By.xpath("//mbsc-button[text()=' Save ']");
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
     public By totalBoxes=By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
@@ -216,6 +216,7 @@ public class ScheduleAppointmentPage extends BasePage {
         sendKeys_withClear(clientFirstName,cilentFirstNameText);
     }
     public void enterLastName(String cilentLastNameText){
+        WebdriverWaits.WaitUntilVisible(clientLastName);
         sendKeys_withClear(clientLastName,cilentLastNameText);
     }
     public void selectGradeType(int gradeType){
@@ -227,6 +228,7 @@ public class ScheduleAppointmentPage extends BasePage {
         selectDropDownByIndex_custom(SchoolType,schoolTypeOption);
     }
     public void enterCellNumber(String cellNumberText){
+        WebdriverWaits.WaitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber,cellNumberText);
     }
     public void enterPhoneNumber(String phoneNumberText){
@@ -255,6 +257,7 @@ public class ScheduleAppointmentPage extends BasePage {
     }
 
     public void enterTestAmount(String testAmountText){
+        WebdriverWaits.WaitUntilVisible(testAmount);
         sendKeys_withClear(testAmount,testAmountText);
     }
     public void clickOnContinueToDepositButton(){
@@ -262,11 +265,12 @@ public class ScheduleAppointmentPage extends BasePage {
     }
     public void enterInDateField(String dateOfBirthText) throws InterruptedException {
         click_custom(dateOfBirth);
-        Thread.sleep(2000);
+        WebdriverWaits.WaitUntilVisible(dateOfBirth);
         sendKeys_withClear(dateOfBirth,dateOfBirthText);
     }
     public void enterAmount(String enterAmountText) throws InterruptedException {
-//         waitForElementVisible(enterAmountField,10);
+        WebdriverWaits.WaitUntilInvisible(enterAmountField);
+        WebdriverWaits.WaitUntilVisible(enterAmountField);
         click_custom(enterAmountField);
         sendKeys_withClear(enterAmountField,enterAmountText);
     }
@@ -274,7 +278,8 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(collectDeposit);
     }
     public void clickOnViewDetailsButton(){
-
+        WebdriverWaits.WaitUntilInvisible(viewDetails);
+       WebdriverWaits.WaitUntilVisible(viewDetails);
         click_custom(viewDetails);
     }
     public void enterInsearchBox(String CustomerFirstName )
@@ -380,31 +385,31 @@ public class ScheduleAppointmentPage extends BasePage {
             Thread.sleep(3000);
             clickOnAssesmentType(Type);
         }
-        public String enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address1Text, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
+        public void enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address1Text, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
             enterFirstName(CustomerFirstName);
             enterLastName(CustomerLastName);
-            Thread.sleep(2000);
+
             enterInDateField( dateOfBirthText);
             selectGradeType(gradeType);
             selectSchoolType(schoolTypeOption);
-            Thread.sleep(2000);
+
             enterCellNumber(cellNumber);
            // enterPhoneNumber( phoneNumberText);
             enterEmialAddress(EmailAddress);
             reasonForCallDropDown(reasonForCallText);
-            enterAdress1(address1Text);
-            enterAdress2(address2Text);
-            enterCity( cityText);
-            enterState(stateText);
-            enterZipCode(zipCodeText);
+//            enterAdress1(address1Text);
+//            enterAdress2(address2Text);
+//            enterCity( cityText);
+//            enterState(stateText);
+//            enterZipCode(zipCodeText);
             enterTestAmount(testAmountText);
             clickOnContinueToDepositButton();
-            Thread.sleep(3000);
+
             enterAmount(enterAmountText);
             clickOnCollectDepositButton();
-            Thread.sleep(8000);
+
             clickOnViewDetailsButton();
-            return CustomerFirstName;
+
         }
 
 
