@@ -125,6 +125,11 @@ public class DirectorPage extends BasePage {
         wait.WaitUntilVisible(directorsUserName);
         sendKeys_withClear(directorsUserName, directorsUserNameText);
     }
+    public void click_LogOutLink() {
+          WebdriverWaits.WaitUntilInvisible(logOutLink);
+        WebdriverWaits.WaitUntilVisible(logOutLink);
+        click_custom(logOutLink);
+    }
 
     public void click_passwordField(String password_FieldText) {
         wait.WaitUntilVisible(password_Field);
@@ -201,10 +206,7 @@ public class DirectorPage extends BasePage {
         click_custom(login);
     }
 
-    public void click_LogOutLink() {
-        wait.WaitUntilVisible(logOutLink);
-        click_custom(logOutLink);
-    }
+
     public void clickOn_YearHeader(){
         wait.WaitUntilVisible(yearHeader);
         click_custom(yearHeader);

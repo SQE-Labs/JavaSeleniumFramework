@@ -24,6 +24,7 @@ public class DashBoardPanelPage extends BasePage {
 
 
     public void click_LogOutLink() {
+      //  WebdriverWaits.WaitUntilInvisible(logOutLink);
         WebdriverWaits.WaitUntilVisible(logOutLink);
         click_custom(logOutLink);
     }

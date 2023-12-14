@@ -1,5 +1,6 @@
 package org.automation.utilities;
 
+import com.relevantcodes.extentreports.LogStatus;
 import org.automation.base.BaseTest;
 import org.automation.elements.Element;
 import org.automation.logger.Log;
@@ -182,7 +183,15 @@ public class WebdriverWaits extends BaseTest {
     public static void WaitForPageLoadTime(long time) {
         getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(time));
     }
-}
+    public static void scrollToRight() {
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(6000,2000)");
+        extentTest.log(LogStatus.PASS, "Scrolled to Right");
+    }
+
+
+    }
 
 
 

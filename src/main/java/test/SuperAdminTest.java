@@ -25,6 +25,9 @@ public class SuperAdminTest extends BaseTest {
     public String adminEmailAddress;
 public String adminLastName;
 public String diagnosticianLastName;
+public String admin_cell_Number;
+    public String dir_Cell_Number;
+    public String dia_Cell_Number;
 
     LoginPage login = new LoginPage();
 
@@ -35,6 +38,7 @@ public String diagnosticianLastName;
          adminLastName = "AU_Geake" + RandomStrings.requiredCharacters(2);
         adminEmailAddress = adminFirstName + "@yopmail.com";
         adminUserName = "AU_Snack" + RandomStrings.requiredCharacters(2);
+        admin_cell_Number=RandomStrings.requiredDigits(10);
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login =new LoginPage();
 
@@ -45,7 +49,7 @@ public String diagnosticianLastName;
         WebdriverWaits.WaitUntilVisible(admin.dashboardPage );
         validate_text(admin.dashboardPage, "Admins List");
 
-        admin.create_Admin(adminFirstName,adminLastName, "8564234568", adminEmailAddress, adminUserName, "123456", "123456");
+        admin.create_Admin(adminFirstName,adminLastName,  admin_cell_Number, adminEmailAddress, adminUserName, "123456", "123456");
         WebdriverWaits.WaitUntilVisible(admin.succ_Msg );
         validate_text(admin.succ_Msg, "Admin Created Successfully");
     }
@@ -112,7 +116,7 @@ public String diagnosticianLastName;
     public void Verify_Duplicate_UserName() throws InterruptedException {
         AdminPage admin = new AdminPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        admin.create_Admin(adminFirstName,adminLastName, "8564234568", adminEmailAddress, adminUserName, "123456", "123456");
+        admin.create_Admin(adminFirstName,adminLastName,  admin_cell_Number, adminEmailAddress, adminUserName, "123456", "123456");
         WebdriverWaits.WaitUntilVisible(admin.Error_Msg);
         validate_text(admin.Error_Msg, "An error occurred while creating the admin. Error: Username is already exist!");
         panelPage.clickOn_BackButton();
@@ -124,17 +128,18 @@ public String diagnosticianLastName;
          diagnosticianLastName = "AU_Connor" + RandomStrings.requiredCharacters(2);
         diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
         diagnosticianUserName = "AU_Wints" + RandomStrings.requiredCharacters(2);
+        dia_Cell_Number=RandomStrings.requiredDigits(10);
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         //Login by using superAdmin credentials
        // login.superAdminLogin();
         panelPage.click_DiagnosticianTab();
-        diagnostician.create_Diagnostician(diagnosticianFirstName, diagnosticianLastName, "8564234568", diagnosticianEmailAddress, diagnosticianUserName, "123456", "123456");
+        diagnostician.create_Diagnostician(diagnosticianFirstName, diagnosticianLastName, dia_Cell_Number, diagnosticianEmailAddress, diagnosticianUserName, "123456", "123456");
         WebdriverWaits.WaitUntilVisible(diagnostician.actualText);
         validate_text(diagnostician.actualText, diagnosticianUserName);
         Log.info("Successfully SuperAdmin Created diagnostician");
         diagnostician.Verify_Duplicate_Diagnostician(diagnosticianFirstName, diagnosticianLastName, "8564234568", diagnosticianEmailAddress, diagnosticianUserName, "123456", "123456");
         WebdriverWaits.WaitUntilVisible(diagnostician.validationMsg);
-        validate_text(diagnostician.validationMsg, "Duplicate UserName value not accepted");
+        validate_text(diagnostician.validationMsg, "An error occurred while creating the admin. Username already exists!");
         panelPage.clickOn_BackButton();
     }
 
@@ -213,11 +218,11 @@ public String diagnosticianLastName;
         DashboardPage dashboard = new DashboardPage();
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         //login.validLogin();
-        Thread.sleep(5000);
+
         login.adminLogin(adminUserName,"12345678");
-        Thread.sleep(5000);
+
         dashboard.clickScheduleAppointment();
-        Thread.sleep(5000);
+
     }
 
     @Test(priority = 17, enabled = true, description = "selecting date for appointment")
@@ -227,16 +232,18 @@ public String diagnosticianLastName;
 
         // login.ValidLogin();
         schedule.scheduleAppointment("Plano");
+
         schedule.appointmentDateSelecting(2);
     }
 
     @Test(priority = 18, enabled = true, description = "Filling client details")
     public void fillClientDetails() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+        DirectorPage director=new DirectorPage();
         DashBoardPanelPage panelpage=new DashBoardPanelPage();
         SuperAdminTest Superadmin = new SuperAdminTest();
         schedule.enteringClientDetails( diagnosticianFirstName,diagnosticianLastName, 2, "19-11-1997",2, "4567892658",diagnosticianEmailAddress, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
-
+        director.click_LogOutLink();
     }
 
     @Test(priority = 15, enabled = false, description = "Verify that diagnostician is able to login with old password or not")
@@ -261,15 +268,17 @@ public String diagnosticianLastName;
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage=new DashBoardPanelPage();
         LoginPage login = new LoginPage();
-        panelPage.click_LogOutLink();
+
         //Login with super Admin credentials
         login.superAdminLogin();//login
         panelPage.click_DirectorTab();
-        director.create_Director(directorFirstName, directorLastName, "5236458965", directorEmailAddress, directorUserName, "123456", "123456");
+        director.create_Director(directorFirstName, directorLastName, dir_Cell_Number, directorEmailAddress, directorUserName, "123456", "123456");
         validate_text(director.directorListPage, "Directors List");
-        director.Verify_Duplicate_Director(directorFirstName, directorLastName, "8564234568", directorEmailAddress, directorUserName, "123456", "123456");
+        director.Verify_Duplicate_Director(directorFirstName, directorLastName, dir_Cell_Number, directorEmailAddress, directorUserName, "123456", "123456");
         validate_text(director.validationMsg, "Duplicate UserName value not accepted");
-        // panelPage.clickOn_BackButton();
+         panelPage.clickOn_BackButton();
+        panelPage.click_LogOutLink();
+
     }
     @Test(priority=20,enabled = true,description = "Verify that Director is able to login with valid credentials or not")
     public void director_Availability() throws InterruptedException {
@@ -277,7 +286,7 @@ public String diagnosticianLastName;
         SuperAdminTest adminTest=new SuperAdminTest();
         DashBoardPanelPage panelPage=new DashBoardPanelPage();
         DirectorPage director=new DirectorPage();
-      //  login.directorLogin("AU_Hulkx","12345678");
+        login.directorLogin(directorUserName,"123456");
         validate_text(director.dashboardPage, "Dashboard");
         panelPage.clickOn_AppointmentsTab();
         validate_text(director.viewAll, "View All");
@@ -295,7 +304,9 @@ public String diagnosticianLastName;
         String directorEmailAddress1 = directorFirstName + "12@yopmail.com";
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        panelPage.clickOn_BackButton();
+        LoginPage login=new LoginPage();
+        login.directorLogin(directorUserName,"123456");
+        //panelPage.clickOn_BackButton();
         //director changing the password.
         director.edit_Director(directorEmailAddress1, "12345678", "12345678");
         validate_text(director.edit_SuccMsg, "Director details updated successfully.");
@@ -320,7 +331,7 @@ public String diagnosticianLastName;
     public void Verify_Dir_DntSaveBtn() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        director.not_Edit_Director("5659865589", directorEmailAddress, "123456", "123456");
+        director.not_Edit_Director(dir_Cell_Number, directorEmailAddress, "123456", "123456");
         validate_text(director.UserNameGetText, directorUserName);
         panelPage.click_LogOutLink();
     }

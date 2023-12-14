@@ -91,10 +91,15 @@ public class ScheduleAppointmentPage extends BasePage {
     public By totalSlots=By.xpath("//div[@class='mbsc-timeline-events']");
     public By availability=By.xpath("//a[text()='Availability']");
     public By slot=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[1]");
-    public By slot1=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[3]");
-    public By slot2=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[5]");
-    public By slot3=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[7]");
+    public By slot1=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[2]");
+  //  public By slot2=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[3]");
+  //  public By slot3=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[4]");
     public By slot4=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[9]");
+    public By slot5=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[10]");
+    public By slot6=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[11]");
+    public By slot7=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[12]");
+    public By slot8=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[13]");
+    public By slot9=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[14]");
     public By diagnosticianSaveButton=By.xpath("//button[text()='Save']");
     public By todayLink=By.xpath("//mbsc-button[text()=' Today ']");
     public By delete=By.xpath("//mbsc-button[text()=' Delete ']");
@@ -205,6 +210,8 @@ public class ScheduleAppointmentPage extends BasePage {
         int colCount = getColumnCount();
         int expLocatorPos = (colCount - 1) * 7 + 1;
         System.out.println(expLocatorPos);
+        WebdriverWaits.WaitUntilVisible(clickOnBox);
+        WebdriverWaits.scrollToRight();
         click_custom(clickOnBox);
     }
 
@@ -337,13 +344,18 @@ public class ScheduleAppointmentPage extends BasePage {
     }
     public void click_On_Slot() throws InterruptedException {
         Thread.sleep(8000);
-            click_custom(slot);
+           // click_custom(slot);
             Thread.sleep(4000);
        // scrollIntoHorizontally(slot1);
-            click_custom(slot1);
-        click_custom(slot2);
+         //   click_custom(slot1);
+      //  click_custom(slot2);
             click_custom(slot4);
-            click_custom(slot3);
+        click_custom(slot9);
+        click_custom(slot6);
+        click_custom(slot7);
+        click_custom(slot8);
+          //  click_custom(slot3);
+        click_custom(slot5);
             click_custom(diagnosticianSaveButton);
            // click_custom(logOutLink);
     }
@@ -379,6 +391,7 @@ public class ScheduleAppointmentPage extends BasePage {
                 getTotalColumnCount();
                 Thread.sleep(3000);
                 //  schedule.clickOnColumn();
+
                 clickOnSaveButton();
             Thread.sleep(3000);
                 clickOnAppSaveButton();
@@ -445,18 +458,17 @@ public class ScheduleAppointmentPage extends BasePage {
             click_On_Slot();
         }
         public void deleting_Availability() throws InterruptedException {
-            click_custom(slot1);
+            click_custom(slot9);
             Thread.sleep(3000);
             click_On_Delete();
             click_custom(diagnosticianSaveButton);
-          //  click_custom(logOutLink);
+           click_custom(logOutLink);
         }
         public void cancel_Availability() throws InterruptedException {
-        click_custom(slot2);
+        click_custom(slot9);
         Thread.sleep(3000);
         click_custom(cancel);
             click_custom(diagnosticianSaveButton);
-            click_custom(logOutLink);
         }
 
     }

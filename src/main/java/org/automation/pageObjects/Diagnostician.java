@@ -21,7 +21,7 @@ public class Diagnostician extends BasePage {
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
     public By createDiagnosticianButton = By.xpath("//button[text()='Create Diagnostician']");
-    public By validationMsg=By.xpath("//div[text()=' An error occurred. Please try again. ']");
+    public By validationMsg=By.xpath("//div[text()=' An error occurred while creating the admin. Username already exists! ']");
 
     public  By actualText = By.xpath("(//td)[2]");
     public By backButton = By.xpath("//button[text()='Back']");
@@ -100,17 +100,17 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     public void enter_diagnostician_LastName(String CustomerLastName) {
-        waits.WaitUntilVisible(diagnostician_LastName);
+        WebdriverWaits.WaitUntilVisible(diagnostician_LastName);
         sendKeys_withClear(diagnostician_LastName, CustomerLastName);
     }
 
     public void enter_Diagnostician_MobileNumber(String diagnostician_MobileNumberText) {
-        waits.WaitUntilVisible(diagnostician_MobileNumber);
+        WebdriverWaits.WaitUntilVisible(diagnostician_MobileNumber);
         sendKeys_withClear(diagnostician_MobileNumber, diagnostician_MobileNumberText);
     }
 
     public void enter_Diagnostician_Email(String diagnostician_EmailText) {
-        waits. WaitUntilVisible(diagnostician_Email);
+        WebdriverWaits. WaitUntilVisible(diagnostician_Email);
         sendKeys_withClear(diagnostician_Email, diagnostician_EmailText);
     }
     public void click_AssignLocation() {
