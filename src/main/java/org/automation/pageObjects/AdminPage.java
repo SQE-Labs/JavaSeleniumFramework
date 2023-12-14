@@ -52,6 +52,15 @@ public class AdminPage extends BasePage
 
     //***********DASH BOARD PAGE**********
     public By dashboard=By.xpath("//h3[text()='Dashboard']");
+    //*********** EDIT ASSESSMENT TYPE ********//
+    public By editAss= By.xpath("//a[text()='Edit Assessment Type']");
+    public By assType= By.xpath("//h5[text()='Change Assement Type']");
+    public By assestmentType = By.xpath("//select[@id='assesmentType']");
+    public By updateBtn = By.xpath("(//button[text()='Update'])[1]");
+    public By spinner= By.cssSelector("div.ngx-spinner-overlay");
+    public By clientAsses=By.xpath("//p[text()='IQ']");
+    public By dontSaveAsses= By.xpath("//a[text()='Don’t Save']");
+
 
 
 
@@ -219,6 +228,27 @@ public class AdminPage extends BasePage
         clickOn_confirmPasswordFieldField(confirmPasswordFieldText);
         clickOn_DontSave();
     }
-
-
+public void click_EditAssessment(){
+        WebdriverWaits.WaitUntilVisible(editAss);
+        click_custom(editAss);
 }
+public void click_UpdateBtn(){
+        WebdriverWaits.WaitUntilVisible(updateBtn);
+        click_custom(updateBtn);
+}
+public void edit_AssessmentType(String assestmentTypeTexts) throws InterruptedException {
+        WebdriverWaits.WaitUntilVisible(assestmentType);
+        WebdriverWaits.WaitUntilInvisible(spinner);
+        click_custom(assestmentType);
+        selectDropDownByVisibleText_custom(assestmentType,"IQ");
+
+    }
+    public void  click_DontSave(){
+        WebdriverWaits.WaitUntilVisible(assestmentType);
+        WebdriverWaits.WaitUntilVisible(dontSaveAsses);
+        click_custom(dontSaveAsses);
+
+    }
+}
+
+

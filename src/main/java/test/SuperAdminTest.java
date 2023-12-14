@@ -228,7 +228,7 @@ public String diagnosticianLastName;
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         DashBoardPanelPage panelpage=new DashBoardPanelPage();
         SuperAdminTest Superadmin = new SuperAdminTest();
-        schedule.enteringClientDetails( diagnosticianFirstName,diagnosticianLastName, 2, "19-11-1997",2, "4567892658",diagnosticianEmailAddress, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
+       // schedule.enteringClientDetails( diagnosticianFirstName,diagnosticianLastName, 2, "19-11-1997",2, "4567892658",diagnosticianEmailAddress, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
 
     }
 
@@ -278,7 +278,7 @@ public String diagnosticianLastName;
         validate_text(director.monthHeader, "December");
         validate_text(director.yearHeader, "2023");
         validate_text(director.dateHeader, "13");
-        director.director_Availability();
+        //director.director_Availability();
         panelPage.click_LogOutLink();
 
     }

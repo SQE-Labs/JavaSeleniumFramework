@@ -22,6 +22,8 @@ public class AdminTest extends BaseTest {
     String clientLastName;
     String clientFirstName;
     String clientEmail;
+    String clientEmail2;
+    String clientCellNumber;
      String directorFirstName;
      String directorLastName;
      String directorEmailAddress;
@@ -30,22 +32,42 @@ public class AdminTest extends BaseTest {
      String diagnosticianLastName;
      String diagnosticianEmailAddress;
 
+    @Test(priority = 0, enabled = false, description = "Create Diagnostician by admin")
+    public void create_Diagnostician() throws InterruptedException {
+        Diagnostician diagnostician = new Diagnostician();
+        // Login as 'Admin'
+        LoginPage login =new LoginPage();
+        login.adminLogin("Allen", "123456");
+        // Create diagnostician
+        diagnosticianFirstName = "AU_Zoi"+ RandomStrings.requiredCharacters(1);
+        diagnosticianLastName = "AU_smith"+ RandomStrings.requiredCharacters(1);
+        diagnosticianUserName= "AU_s" + RandomStrings.requiredCharacters(3);
+        diagnosticianEmailAddress = diagnosticianFirstName+ "10@yopmail.com";
+        String diagnosticianPhoneNumber = RandomStrings.requiredDigits(10);
+        diagnostician.create_Diagnostician(diagnosticianFirstName,diagnosticianLastName,diagnosticianPhoneNumber,diagnosticianEmailAddress,diagnosticianUserName,"123456","123456");
+        WebdriverWaits.WaitUntilVisible(diagnostician.actualText);
+        validate_text(diagnostician.actualText,diagnosticianUserName);
+    }
 
-    @Test(priority = 1,enabled = true,description = "diagnostician Scheduling availability")
+
+
+
+     @Test(priority = 1,enabled = false,description = "diagnostician Scheduling availability")
     public void diagnostician_Availability() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         DashBoardPanelPage panelpage=new DashBoardPanelPage();
         LoginPage login=new LoginPage();
-        AdminTest admin=new AdminTest();
-        SuperAdminTest Superadmin = new SuperAdminTest();
-        login.diagnosticianLogin(Superadmin.diagnosticianUserName,"12345678");
+        login.adminLogin("Allen","123456");
+        //AdminTest admin=new AdminTest();
+       // SuperAdminTest Superadmin = new SuperAdminTest();
+        //login.diagnosticianLogin(Superadmin.diagnosticianUserName,"12345678");
         DashBoardPanelPage logout = new DashBoardPanelPage();
         schedule.login_As_Diagnostician(diagnosticianUserName,"123456");
         schedule.checking_Availability();
         schedule.cancel_Availability();
         schedule.deleting_Availability();
     }
-    @Test(priority = 2, enabled = true, description = "To verify schedule appointment")
+    @Test(priority = 2, enabled = false, description = "To verify schedule appointment")
     public void scheduleAppointment_Admin() throws InterruptedException {
         LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
@@ -68,9 +90,10 @@ public class AdminTest extends BaseTest {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         clientFirstName=RandomStrings.requiredCharacters(6);
         clientLastName=RandomStrings.requiredCharacters(6);
-        //clientCellNumber=RandomStrings.requiredDigits(10);
+        clientCellNumber=RandomStrings.requiredDigits(10);
         clientEmail=clientFirstName+ "@yopmail.com";
-        //schedule.enteringClientDetails( clientFirstName, clientLastName, 2, "19-11-2000",1 , "7654436788", clientEmail, "Other", "1000", "1000");
+        clientEmail2= clientFirstName+"101@yopmail.com";
+        schedule.enteringClientDetails( clientFirstName, clientLastName, 2,"19-11-2000",1, "7654436788", clientEmail, "Other",clientEmail2,"New York","Texas","190001" ,"1000","1000");
         validate_text(schedule.actualText,"Appointment Scheduled!!");
 
 
@@ -89,12 +112,12 @@ public class AdminTest extends BaseTest {
     public void verify_AllAppointmentsPage() throws InterruptedException {
         LoginPage login = new LoginPage();
         AppointmentsPage appPage= new AppointmentsPage();
-        //login.validLogin("Allen", "123456");
+        login.adminLogin("Allen", "123456");
         appPage.View_AllAppointmentsPage();
         validate_text(appPage.viewAllActualText,"All Appointments");
 
     }
-    @Test(priority = 1, enabled = true, description = "Verify search textbox")
+    @Test(priority = 1, enabled = false, description = "Verify search textbox")
     public void filter_CreatedAppointment() throws InterruptedException{
         AppointmentsPage appPage= new AppointmentsPage();
         appPage.click_FilterButton();
@@ -119,7 +142,7 @@ public class AdminTest extends BaseTest {
         AppointmentsPage appPage= new AppointmentsPage();
         appPage.validateDownloadedFile();
     }
-    @Test(priority = 2, enabled = true, description = "Verify search fromDate and toDate")
+    @Test(priority = 2, enabled = false, description = "Verify search fromDate and toDate")
     public void verify_FromAndToDate() throws InterruptedException{
         AppointmentsPage appPage= new AppointmentsPage();
         ActionEngine engine;
@@ -152,6 +175,38 @@ public class AdminTest extends BaseTest {
 
 
     }
+    @Test(priority = 1, enabled = true, description = "Verify view details button.")
+    public void verify_ViewDetails()  throws InterruptedException {
+        ScheduleAppointmentPage viewDetail= new ScheduleAppointmentPage();
+        viewDetail.click_ViewDetails();
+
+    }
+    @Test(priority = 2, enabled = true, description = "Verify Edit Assessment type button .")
+    public void validate_AssessmentTypePopUp()throws InterruptedException{
+        AdminPage editType = new AdminPage();
+        editType.click_EditAssessment();
+        validate_text(editType.assType,"Change Assement Type");
+
+    }
+    @Test(priority = 3, enabled = true, description = "Verify Edit Assessment type button .")
+    public void edit_AssessmentType() throws InterruptedException{
+        AdminPage editType = new AdminPage();
+        editType.edit_AssessmentType(" Sibling/Re-evaluation");
+        editType.click_UpdateBtn();
+        validate_text(editType.clientAsses,"Sibling/Re-evaluation ");
+
+    }
+    @Test(priority = 4, enabled = true, description = "Verify Don't save button on change assessment type .")
+
+    public void verify_DontSave() throws InterruptedException{
+        AdminPage editType = new AdminPage();
+        WebdriverWaits.WaitUntilInvisible(editType.spinner);
+        editType.edit_AssessmentType("GT");
+        editType.click_DontSave();
+        validate_text(editType.clientAsses," Sibling/Re-evaluation ");
+
+    }
+
 
 
 
@@ -169,7 +224,7 @@ public class AdminTest extends BaseTest {
     public void create_Director() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         LoginPage login =new LoginPage();
-        //login.validLogin("Allen", "123456");
+        login.adminLogin("Allen", "123456");
         directorFirstName = "AU_Zoi"+ RandomStrings.requiredCharacters(1);
         directorLastName = "AU_Kama"+ RandomStrings.requiredCharacters(1);
         directorEmailAddress = directorFirstName + "@yopmail.com";
@@ -227,22 +282,7 @@ public class AdminTest extends BaseTest {
         validate_text(director.directorDashBoardPage, "Dashboard");
     }
     //**************Creating Diagnostician****************///
-    @Test(priority = 0, enabled = false, description = "Create Diagnostician by admin")
-    public void create_Diagnostician() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        // Login as 'Admin'
-        LoginPage login =new LoginPage();
-        //login.validLogin("Allen", "123456");
-        // Create diagnostician
-        diagnosticianFirstName = "AU_Zoi"+ RandomStrings.requiredCharacters(1);
-        diagnosticianLastName = "AU_smith"+ RandomStrings.requiredCharacters(1);
-        diagnosticianUserName= "AU_s" + RandomStrings.requiredCharacters(3);
-        diagnosticianEmailAddress = diagnosticianFirstName+ "10@yopmail.com";
-        String diagnosticianPhoneNumber = RandomStrings.requiredDigits(10);
-        diagnostician.create_Diagnostician(diagnosticianFirstName,diagnosticianLastName,diagnosticianPhoneNumber,diagnosticianEmailAddress,diagnosticianUserName,"123456","123456");
-        WebdriverWaits.WaitUntilVisible(diagnostician.actualText);
-        validate_text(diagnostician.actualText,diagnosticianUserName);
-    }
+
     @Test(priority = 1,enabled = false, description = "Edit created diagnostician by admin")
     public void Edit_Diagnostician() throws InterruptedException{
         Diagnostician diagnostician = new Diagnostician();

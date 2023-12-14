@@ -106,7 +106,7 @@ public class ScheduleAppointmentPage extends BasePage {
     public By fullName = By.xpath("(//div /p)[9]");
     public By editAss = By.xpath("//a[@text()='Edit Assessment Type']");
     public By getSearch = By.xpath("(//td[@class='tablewidth'])[1]");
-
+    public By viewDetailsClient= By.xpath("(//a[text()='View Detail'])[1]");
 
 
     public void click_LogOutLink(){
@@ -152,6 +152,10 @@ public class ScheduleAppointmentPage extends BasePage {
 //        click_custom(cancelRadioBtn);
 //        Thread.sleep(3000);
         click_custom(yesCancelBtn);
+    }
+    public void click_ViewDetails() throws InterruptedException{
+        WebdriverWaits.WaitUntilVisible(viewDetailsClient);
+        click_custom(viewDetailsClient);
     }
 
 
@@ -407,7 +411,7 @@ public class ScheduleAppointmentPage extends BasePage {
             Thread.sleep(3000);
             clickOnAssesmentType(Type);
         }
-        public String enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address1Text, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
+        public String enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
             enterFirstName(CustomerFirstName);
             enterLastName(CustomerLastName);
             Thread.sleep(2000);
@@ -419,7 +423,7 @@ public class ScheduleAppointmentPage extends BasePage {
            // enterPhoneNumber( phoneNumberText);
             enterEmialAddress(EmailAddress);
             reasonForCallDropDown(reasonForCallText);
-            enterAdress1(address1Text);
+            //enterAdress1(address1Text);
             enterAdress2(address2Text);
             enterCity( cityText);
             enterState(stateText);

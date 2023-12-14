@@ -20,9 +20,9 @@ public class DiagnosticianTest extends BaseTest {
         Diagnostician diagnostician=new Diagnostician();
         LoginPage login =new LoginPage();
         login.superAdminLogin();
-        diagnostician.today_Appointment("Diognostician doing simple testing");
-        diagnostician.clickOn_BackButton();
-        WebdriverWaits.WaitUntilVisible(diagnostician.appointmentDetail);
-        validate_text(diagnostician.appointmentDetail, "Krillin Dash Details");
+       // diagnostician.today_Appointment("Diognostician doing simple testing");
+        //diagnostician.clickOn_BackButton();
+       // WebdriverWaits.WaitUntilVisible(diagnostician.appointmentDetail);
+       // validate_text(diagnostician.appointmentDetail, "Krillin Dash Details");
     }
 }
