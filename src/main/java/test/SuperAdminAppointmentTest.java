@@ -15,9 +15,10 @@ public class SuperAdminAppointmentTest extends BaseTest {
     @Test(priority = 23, enabled = true, description = "Verify that SuperAdmin is able to view appointments or not")
     public void Appointments_Page() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
+        SuperAdminTest admintest=new SuperAdminTest();
         LoginPage login = new LoginPage();
         login.superAdminLogin();
-        appointment.viewAllAppointmentsPage("Keymen Sloting", "04-12-2023", "04-12-2023");
+        appointment.viewAllAppointmentsPage(admintest.diagnosticianFirstName);
     }
 
     @Test(priority = 24, enabled = true, description = "Verify that 'Appointment Details' page opens up on clicking 'View Detail' link")

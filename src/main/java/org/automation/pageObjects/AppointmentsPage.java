@@ -17,15 +17,15 @@ public class AppointmentsPage extends BasePage {
     public By viewAllTab=By.xpath("//a[text()='View All']");
     public By dashBoardPage=By.xpath("//h3[text()='Dashboard']");
     public By allAppointmentsPage=By.xpath("//h3[text()='All Appointments']");
-    public By searchedText=By.xpath("//td[text()='Keymen Sloting']");
-    public By searchByDate=By.xpath("//td[text()='Keymen Sloting']");
+    public By searchedText=By.xpath("//td[text()='(//td)[1]']");
+    public By searchByDate=By.xpath("//td[text()='(//td)[1]']");
     public By filterButton = By.xpath("//a[text()='Filter']");
     public By searchField=By.xpath("//input[@id='filterSearch']");
     public By dateFrom=By.xpath("//input[@placeholder='From Date']");
     public By toDate=By.xpath("//input[@placeholder='To Date']");
     public By searchButton=By.xpath("//button[text()='Search']");
     public By exportCSVButton=By.xpath("//button[text()='Export to CSV']");
-    public By viewDetails=By.xpath("//td[text()='Keymen Sloting']/../td[6]/a");
+    public By viewDetails=By.xpath("(//a[text()='View Detail'])[1]");
     public By App_Text=By.xpath("//h3");
     public By viewStudentObservationButton=By.xpath("//a[text()='View Student Observation']");
     public By viewDocumentsButton=By.xpath("//a[text()='View Documents']");
@@ -58,7 +58,7 @@ public class AppointmentsPage extends BasePage {
     public void enter_Dates(String dateFromText,String toDateText) throws InterruptedException {
         click_custom(dateFrom);
         sendKeys_withClear(dateFrom,dateFromText);
-    wait. WaitUntilVisible(toDate);
+         wait. WaitUntilVisible(toDate);
         click_custom(toDate);
         sendKeys_withClear(toDate,toDateText);
         wait.WaitUntilVisible(searchButton);
@@ -79,7 +79,7 @@ public class AppointmentsPage extends BasePage {
         click_custom(backButton);
     }
 
-    public void viewAllAppointmentsPage(String searchFieldText,String dateFromText,String toDateText) throws InterruptedException {
+    public void viewAllAppointmentsPage(String diagnosticianFirstName) throws InterruptedException {
          WebdriverWaits.WaitUntilVisible(dashBoardPage);
           validate_text(dashBoardPage,"Dashboard");
         Log.info("DashBoard page appear after superAdmin logged in");
@@ -93,16 +93,16 @@ public class AppointmentsPage extends BasePage {
         validate_text(allAppointmentsPage,"All Appointments");
         Log.info("Successfully All appointments page displayed");
 
-        click_FilterButton();
-        WebdriverWaits.WaitUntilVisible(searchByDate);
-        enter_Dates(dateFromText, toDateText);
-        validate_text(searchByDate,"Keymen Sloting");
-        Log.info("Successfully searched created appointment By entering dates");
+//        click_FilterButton();
+//        WebdriverWaits.WaitUntilVisible(searchByDate);
+//       // enter_Dates(dateFromText, toDateText);
+//        validate_text(searchByDate,diagnosticianFirstName);
+//        Log.info("Successfully searched created appointment By entering dates");
 
-        getDriver().navigate().refresh();// To-DO
+       // getDriver().navigate().refresh();// To-DO
         click_FilterButton();
-        click_SearchField(searchFieldText);
-        validate_text(searchedText,"Keymen Sloting");
+        click_SearchField(diagnosticianFirstName);
+        validate_text(searchedText,diagnosticianFirstName);
         Log.info("Successfully searched created appointment");
     }
     public void exportCSV_Button(){

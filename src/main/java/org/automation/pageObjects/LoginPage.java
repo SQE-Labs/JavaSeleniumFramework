@@ -16,14 +16,17 @@ public class LoginPage extends BasePage {
 
 
     public void enterUsername(String userNameText) {
-        sendKeys_custom(userNameField, userNameText);
+        WebdriverWaits.WaitUntilVisible(userNameField);
+        sendKeys_withClear(userNameField, userNameText);
     }
 
     public void enterPassword(String passNameText) {
-        sendKeys_custom(PasswordField, passNameText);
+        WebdriverWaits.WaitUntilVisible(PasswordField);
+        sendKeys_withClear(PasswordField, passNameText);
     }
 
     public void clickLoginBtn() {
+        WebdriverWaits.WaitUntilVisible(login);
         clickBtn_custom(login);
     }
 
@@ -46,6 +49,7 @@ public class LoginPage extends BasePage {
         clickLoginBtn();
     }
     public void directorLogin(String userNameFieldText, String PasswordFieldText){
+
         enterUsername(userNameFieldText);
         enterPassword(PasswordFieldText);
         click_custom(login);
