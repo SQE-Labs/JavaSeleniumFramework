@@ -20,6 +20,7 @@ public class DashBoardPanelPage extends BasePage {
     public By exportCSVButton=By.xpath("//button[text()='Export to CSV']");
     public By AppointmentsTab=By.xpath("//a[text()=' Appointments ']");
     public By availabilityTab=By.xpath("//a[text()='Availability']");
+    public By editButton=By.xpath("(//a[text()='Edit'])[1]");
 
 
 
@@ -50,6 +51,9 @@ public class DashBoardPanelPage extends BasePage {
         WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(paymentButton);
     }
+    public void edit_Director(){
+        click_custom(editButton);
+    }
     public void clickOn_BackButton(){
         WebdriverWaits.WaitUntilVisible(backButton);
         click_custom(backButton);
@@ -67,7 +71,6 @@ public class DashBoardPanelPage extends BasePage {
         } else {
             System.out.println(file_with_location + " is not present");
             extentTest.log(FAIL, file_with_location + " is not  present ");
-
             return false;
         }
     }

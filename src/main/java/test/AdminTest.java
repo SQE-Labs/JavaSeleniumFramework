@@ -39,7 +39,7 @@ public class AdminTest extends BaseTest {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
 
         // login.ValidLogin();
-        schedule.scheduleAppointment("Plano");
+        schedule.createAppointment("Plano");
         schedule.appointmentDateSelecting(2);
     }
 

@@ -17,7 +17,7 @@ public class AppointmentsPage extends BasePage {
     public By viewAllTab=By.xpath("//a[text()='View All']");
     public By dashBoardPage=By.xpath("//h3[text()='Dashboard']");
     public By allAppointmentsPage=By.xpath("//h3[text()='All Appointments']");
-    public By searchedText=By.xpath("//td[text()='(//td)[1]']");
+    public By searchedText=By.xpath("( //table[@id='appointmentTable']//td[contains(text(),'AU_Trent')])[1]");
     public By searchByDate=By.xpath("//td[text()='(//td)[1]']");
     public By filterButton = By.xpath("//a[text()='Filter']");
     public By searchField=By.xpath("//input[@id='filterSearch']");
@@ -102,7 +102,7 @@ public class AppointmentsPage extends BasePage {
        // getDriver().navigate().refresh();// To-DO
         click_FilterButton();
         click_SearchField(diagnosticianFirstName);
-        validate_text(searchedText,diagnosticianFirstName);
+        validate_text(searchedText,diagnosticianFirstName+diagnosticianFirstName);
         Log.info("Successfully searched created appointment");
     }
     public void exportCSV_Button(){

@@ -10,9 +10,10 @@ public class PaymentPage extends BasePage {
     public By filterButton = By.xpath("//a[text()='Filter']");
     public By searchField = By.xpath("//input[@id='filterSearch']");
     public By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
-    public By cust_Name=By.xpath("//td[text()='Guard Bittle ']");
+    public By cust_Name=By.xpath("(//table[@id='paymentTable']//tbody//td[contains(text(),'AU_Trent')])[5]");
     public By fromDateField=By.xpath("//input[@placeholder='From Date']");
     public By toDateField=By.xpath("//input[@placeholder='To Date']");
+  //  (//table[@id='appointmentTable']//td[contains(text(),'AU_Trent')]//following-sibling::td//a)[1]
 
     public void clickOn_PaymentTab(){
         WebdriverWaits.WaitUntilVisible(paymentTab);

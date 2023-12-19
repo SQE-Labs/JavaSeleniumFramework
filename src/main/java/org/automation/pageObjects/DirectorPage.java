@@ -56,13 +56,13 @@ public class DirectorPage extends BasePage {
     public By dateHeader = By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-schedule-header-day-today mbsc-selected ng-star-inserted']");
     public By yearsCalender = By.xpath("//mbsc-button[text()=' 2023 - 2034 ']");
     public By hihglihgtedYear=By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios ng-star-inserted'])[13]");
-    public By clickOnBox=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[2]");
-    public By clickOnBox1=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[3]");
-    public By clickOnBox2=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[4]");
-    public By clickOnBox3=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[5]");
-    public By clickOnBox4=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[6]");
-    public By clickOnBox5=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[7]");
-   public By clickOnBox6=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[8]");
+    public By clickOnBox=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[9]");
+    public By clickOnBox1=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[10]");
+    public By clickOnBox2=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[11]");
+    public By clickOnBox3=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[12]");
+    public By clickOnBox4=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[13]");
+    public By clickOnBox5=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[14]");
+   public By clickOnBox6=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[15]");
     public By availableText=By.xpath("//div[text()='Available']");
     public By saveButton=By.xpath("//button[text()='Save']");
 
@@ -323,6 +323,7 @@ public class DirectorPage extends BasePage {
         clickOn_Login_Button();
     }
 public void director_Availability() throws InterruptedException {
+
     clickOn_YearHeader();
     WebdriverWaits.WaitUntilVisible(yearsCalender);
     validate_text(yearsCalender, "2023 - 2034");
@@ -333,5 +334,6 @@ public void director_Availability() throws InterruptedException {
     WebdriverWaits.WaitUntilVisible(availableText);
     validate_text(availableText, "Available");
     clickOn_SaveButton();
+
 }
 }

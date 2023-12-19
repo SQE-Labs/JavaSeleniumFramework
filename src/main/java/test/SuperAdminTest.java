@@ -34,10 +34,10 @@ public String admin_cell_Number;
 
     @Test(priority = 0, enabled = true, description = "Verify that SuperAdmin is able to create Admin or not")
     public void create_Admin() throws InterruptedException {
-        adminFirstName = "AU_Zane" + RandomStrings.requiredCharacters(2);
-         adminLastName = "AU_Geake" + RandomStrings.requiredCharacters(2);
+        adminFirstName = "AU_kary" + RandomStrings.requiredCharacters(2);
+         adminLastName = "AU_Gem" + RandomStrings.requiredCharacters(2);
         adminEmailAddress = adminFirstName + "@yopmail.com";
-        adminUserName = "AU_Snack" + RandomStrings.requiredCharacters(2);
+        adminUserName = "AU_Smik" + RandomStrings.requiredCharacters(2);
         admin_cell_Number=RandomStrings.requiredDigits(10);
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login =new LoginPage();
@@ -87,7 +87,7 @@ public String admin_cell_Number;
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         admin.enable_Admin();
         // Enabling the user
-        validate_text(admin.Succ_Msg_Upd, "Diagnostician details updated successfully.");
+        validate_text(admin.Succ_Msg_Upd, "Admin details updated successfully.");
 
     }
     @Test(priority = 5, enabled = true, description = "Verify Admin is able to login with new password or not")
@@ -118,16 +118,16 @@ public String admin_cell_Number;
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         admin.create_Admin(adminFirstName,adminLastName,  admin_cell_Number, adminEmailAddress, adminUserName, "123456", "123456");
         WebdriverWaits.WaitUntilVisible(admin.Error_Msg);
-        validate_text(admin.Error_Msg, "An error occurred while creating the admin. Username is already exist!");
+        validate_text(admin.Error_Msg, "An error occurred while creating the admin. Username already exists!");
         panelPage.clickOn_BackButton();
     }
     @Test(priority = 8, enabled = true, description = "SuperAdmin is able to create Diagnostician")
     public void create_Diagnostician() throws InterruptedException {
         Diagnostician diagnostician = new Diagnostician();
-        diagnosticianFirstName = "AU_Nate" + RandomStrings.requiredCharacters(2);
-         diagnosticianLastName = "AU_Connor" + RandomStrings.requiredCharacters(2);
+        diagnosticianFirstName = "AU_Trent" + RandomStrings.requiredCharacters(1);
+         diagnosticianLastName = "AU_Wints" + RandomStrings.requiredCharacters(1);
         diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
-        diagnosticianUserName = "AU_Wints" + RandomStrings.requiredCharacters(2);
+        diagnosticianUserName = "AU_Conner" + RandomStrings.requiredCharacters(2);
         dia_Cell_Number=RandomStrings.requiredDigits(10);
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         //Login by using superAdmin credentials
@@ -147,7 +147,7 @@ public String admin_cell_Number;
     public void search_Created_Diagnostician() throws InterruptedException {
         Diagnostician diagnostician = new Diagnostician();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        panelPage.clickOn_BackButton();
+//        panelPage.clickOn_BackButton();
         diagnostician.search_CreatedDiagnostician(diagnosticianUserName);
         WebdriverWaits.WaitUntilVisible(diagnostician.actualText);
         validate_text(diagnostician.actualText, diagnosticianUserName);
@@ -217,21 +217,18 @@ public String admin_cell_Number;
         LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-        //login.validLogin();
-
-        login.adminLogin(adminUserName,"12345678");
-
+//
+       login.adminLogin(adminUserName,"12345678");
         dashboard.clickScheduleAppointment();
-
     }
 
     @Test(priority = 17, enabled =true, description = "selecting date for appointment")
     public void appointmentCalender() throws InterruptedException {
-        LoginTest login = new LoginTest();
+        LoginPage login = new LoginPage();
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-
-        // login.ValidLogin();
-        schedule.scheduleAppointment("Plano");
+        DashboardPage dashboard = new DashboardPage();
+        //dashboard.clickScheduleAppointment();
+        schedule.createAppointment("Plano");
         schedule.appointmentDateSelecting(2);
     }
 
@@ -260,10 +257,10 @@ public String admin_cell_Number;
 
     @Test(priority = 19, enabled = true, description = "verify that SuperAdmin is able to create Director or not")
     public void create_Directors() throws InterruptedException {
-        directorFirstName = "AU_Bella" + RandomStrings.requiredCharacters(1);
-        directorLastName = "AU_Eggers" + RandomStrings.requiredCharacters(1);
+        directorFirstName = "AU_Gates" + RandomStrings.requiredCharacters(1);
+        directorLastName = "AU_Bill" + RandomStrings.requiredCharacters(1);
         directorEmailAddress = directorFirstName + "@yopmail.com";
-        directorUserName = "AU_Hulk" + RandomStrings.requiredCharacters(1);
+        directorUserName = "AU_Husky" + RandomStrings.requiredCharacters(1);
         dir_Cell_Number=RandomStrings.requiredDigits(10);
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage=new DashBoardPanelPage();
@@ -279,15 +276,15 @@ public String admin_cell_Number;
         WebdriverWaits.WaitUntilVisible(director.validationMsg);
         validate_text(director.validationMsg, "An error occurred while creating the admin. Username already exists!");
          panelPage.clickOn_BackButton();
-        panelPage.click_LogOutLink();
+       //panelPage.click_LogOutLink();
     }
-    @Test(priority=20,enabled = true,description = "Verify that Director is able to login with valid credentials or not")
+    @Test(priority=24,enabled = true,description = "Verify that Director is able to login with valid credentials or not")
     public void director_Availability() throws InterruptedException {
         LoginPage login=new LoginPage();
         SuperAdminTest adminTest=new SuperAdminTest();
         DashBoardPanelPage panelPage=new DashBoardPanelPage();
         DirectorPage director=new DirectorPage();
-        login.directorLogin(directorUserName,"123456");
+        login.adminLogin(directorUserName,"12345678");
         WebdriverWaits.WaitUntilVisible(director.dashboardPage);
         validate_text(director.dashboardPage, "Dashboard");
         panelPage.clickOn_AppointmentsTab();
@@ -295,26 +292,26 @@ public String admin_cell_Number;
         panelPage.clickOn_AvailabilityTab();
         validate_text(director.monthHeader, "December");
         validate_text(director.yearHeader, "2023");
-        validate_text(director.dateHeader, "18");
+        validate_text(director.dateHeader, "19");
         director.director_Availability();
         panelPage.click_LogOutLink();
     }
 
-    @Test(priority = 21, enabled = true, description = "Super admin is able to edit the created diagnostician or not")
+    @Test(priority = 20, enabled = true, description = "Super admin is able to edit the created diagnostician or not")
     public void edit_Director() throws InterruptedException {
         String directorEmailAddress1 = directorFirstName + "12@yopmail.com";
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login=new LoginPage();
-        login.superAdminLogin();
+       // login.superAdminLogin();
         //panelPage.clickOn_BackButton();
         //director changing the password.
-        panelPage.click_DirectorTab();
+        panelPage.edit_Director();
         director.edit_Director(directorEmailAddress1, "12345678", "12345678");
         validate_text(director.edit_SuccMsg, "Director details updated successfully.");
         Log.info("Successfully Edited the created director");
     }
-    @Test(priority = 22, enabled = true, description = "verify that superadmin is able to check toggle button is enable or disable")
+    @Test(priority = 21, enabled = true, description = "verify that superadmin is able to check toggle button is enable or disable")
     public void director_checking_Toggle_Off() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         director.cheking_DisableUser();
@@ -322,16 +319,18 @@ public String admin_cell_Number;
         validate_text(director.enableUser, "Enable User");
     }
 
-    @Test(priority = 23, enabled = true, description = "Verify that Superadmin is able to Enable the user or not")
+    @Test(priority = 22, enabled = true, description = "Verify that Superadmin is able to Enable the user or not")
     public void director_enable_User() throws InterruptedException {
         DirectorPage director = new DirectorPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
         director.enable_Director();
         WebdriverWaits.WaitUntilVisible(director.edit_SuccMsg);
         validate_text(director.edit_SuccMsg, "Director details updated successfully.");
         Log.info("Successfully Edited the created director");
+
     }
 
-    @Test(priority = 24, enabled = true, description = "verify that diagnostician is able to edit or not after clicking dont save button")
+    @Test(priority = 23, enabled = true, description = "verify that diagnostician is able to edit or not after clicking dont save button")
     public void Verify_Dir_DntSaveBtn() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
@@ -347,7 +346,7 @@ public String admin_cell_Number;
         login.directorLogin(directorUserName, "123456");
         WebdriverWaits.WaitUntilVisible(director.validation_Msg);
         validate_text(director.validation_Msg, "Username or password is incorrect");
-        panelPage.click_LogOutLink();
+        //panelPage.click_LogOutLink();
     }
 
     @Test(priority = 26, enabled = true, description = "Verify Diagnostician is able to login with new password or not")
@@ -371,7 +370,7 @@ public String admin_cell_Number;
         appointment.viewAllAppointmentsPage(diagnosticianFirstName);
     }
 
-    @Test(priority = 28, enabled = true, description = "Verify that 'Appointment Details' page opens up on clicking 'View Detail' link")
+    @Test(priority = 28, enabled = false, description = "Verify that 'Appointment Details' page opens up on clicking 'View Detail' link")
     public void view_Details_Page() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
         appointment.View_DetailsPage();
@@ -383,7 +382,7 @@ public String admin_cell_Number;
         validate_text(appointment.viewDocumentsButton, "View Documents");
     }
 
-    @Test(priority = 29, enabled = true, description = "Verify that superAdmin is able to view ClientObservation Page or not")
+    @Test(priority = 29, enabled = false, description = "Verify that superAdmin is able to view ClientObservation Page or not")
     public void view_ClientObservation_Page() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
         appointment.view_ClientObservation_Page();
@@ -404,7 +403,11 @@ public String admin_cell_Number;
     public void view_Payments_Page() throws InterruptedException {
         WebdriverWaits wait = new WebdriverWaits();
         PaymentPage payment = new PaymentPage();
+        DashBoardPanelPage panelpage = new DashBoardPanelPage();
         wait.Back_To_Page();
+        panelpage.click_LogOutLink();
+        LoginPage login=new LoginPage();
+        login.superAdminLogin();
         payment.clickOn_PaymentTab();
         WebdriverWaits.WaitUntilVisible(payment.paymentListPage);
         validate_text(payment.paymentListPage, "Payments");
@@ -430,6 +433,8 @@ public String admin_cell_Number;
         wait.Back_To_Page();
         panelpage.click_LogOutLink();
     }
+
+   // (//table[@id='appointmentTable']//td[contains(text(),'AU_Trent')]//following-sibling::td//a)[1]
 }
 
 

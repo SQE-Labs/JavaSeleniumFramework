@@ -5,6 +5,7 @@ import org.automation.base.BaseTest;
 import org.automation.elements.Element;
 import org.automation.logger.Log;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -189,9 +190,33 @@ public class WebdriverWaits extends BaseTest {
         js.executeScript("window.scrollBy(6000,2000)");
         extentTest.log(LogStatus.PASS, "Scrolled to Right");
     }
-
-
+    public static void WaitForElementInteractable(WebElement element) {
+        try {
+            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(ElementClickInterceptedException.class, ElementNotInteractableException.class);
+            fluentWait1.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (WebDriverException e) {
+        }
     }
+    public static void ClickByJsExecuter(By element) {
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        WebElement ele = getDriver().findElement(element);
+        try {
+            jse.executeScript("arguments[0].click();", ele);
+            extentTest.log(LogStatus.PASS, "Clicked on the : "+element);
+        } catch (Exception E) {
+            extentTest.log(LogStatus.FAIL, "Clicked failed on the : "+element);
+            throw new RuntimeException (E);
+        }
+    }
+    public static void moveToElement(By element) {
+        WebElement ele = getDriver() .findElement(element);
+        Actions act = new Actions(getDriver());
+        act.moveToElement(ele).click().build().perform();
+    }
+
+
+
+}
 
 
 
