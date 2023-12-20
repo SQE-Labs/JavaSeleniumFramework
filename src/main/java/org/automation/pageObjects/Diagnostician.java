@@ -95,7 +95,7 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     public void enter_diagnostician_FirstName(String CustomerFirstName) throws InterruptedException {
-        waits.WaitUntilVisible(diagnostician_FirstName);
+        WebdriverWaits.WaitUntilVisible(diagnostician_FirstName);
         sendKeys_withClear(diagnostician_FirstName, CustomerFirstName);
     }
 
@@ -243,11 +243,6 @@ WebdriverWaits waits=new WebdriverWaits();
         WebdriverWaits.WaitUntilVisible(back_Button);
         click_custom(back_Button);
     }
-
-
-
-
-
 
 
 

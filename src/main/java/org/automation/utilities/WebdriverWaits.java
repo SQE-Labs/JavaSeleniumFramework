@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
@@ -154,12 +155,14 @@ public class WebdriverWaits extends BaseTest {
                 // throw new RuntimeException (e);
             }
         }
-
     }
 
     public static void WaitUntilVisible(By element) {
         try {
-            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(NoSuchElementException.class, ElementNotInteractableException.class);
+            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver())
+                    .withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20"))))
+                    .pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5"))))
+                    .ignoring(NoSuchElementException.class, ElementNotInteractableException.class);
             fluentWait1.until(ExpectedConditions.visibilityOfElementLocated(element));
         } catch (Exception e) {
 
@@ -213,10 +216,15 @@ public class WebdriverWaits extends BaseTest {
         Actions act = new Actions(getDriver());
         act.moveToElement(ele).click().build().perform();
     }
+    public static String SelectorFormate(String selector,String... values){
+        return String.format(selector,values);
+    }
+
+
+        }
 
 
 
-}
 
 
 

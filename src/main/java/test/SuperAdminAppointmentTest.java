@@ -18,7 +18,7 @@ public class SuperAdminAppointmentTest extends BaseTest {
         SuperAdminTest admintest=new SuperAdminTest();
         LoginPage login = new LoginPage();
         login.superAdminLogin();
-        appointment.viewAllAppointmentsPage(admintest.diagnosticianFirstName);
+        appointment.viewAllAppointmentsPage(admintest.diagnosticianFirstName, admintest.diagnosticianLastName);
     }
 
     @Test(priority = 24, enabled = true, description = "Verify that 'Appointment Details' page opens up on clicking 'View Detail' link")

@@ -44,6 +44,8 @@ public class Assertions {
         softAssert.assertEquals(actual, expected);
         softAssert.assertAll();
     }
+
+
     public  void validate_SuccessTXTByString(By element, String expected) throws InterruptedException {
 //        SoftAssert softAssert = new SoftAssert();
 //        String actual = Assertions.getText_custom();

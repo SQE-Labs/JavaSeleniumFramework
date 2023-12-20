@@ -56,13 +56,13 @@ public class DirectorPage extends BasePage {
     public By dateHeader = By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-schedule-header-day-today mbsc-selected ng-star-inserted']");
     public By yearsCalender = By.xpath("//mbsc-button[text()=' 2023 - 2034 ']");
     public By hihglihgtedYear=By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios ng-star-inserted'])[13]");
-    public By clickOnBox=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[9]");
-    public By clickOnBox1=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[10]");
-    public By clickOnBox2=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[11]");
-    public By clickOnBox3=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[12]");
-    public By clickOnBox4=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[13]");
-    public By clickOnBox5=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[14]");
-   public By clickOnBox6=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[15]");
+    public By clickOnBox=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[16]");
+    public By clickOnBox1=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[17]");
+    public By clickOnBox2=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[18]");
+    public By clickOnBox3=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[19]");
+    public By clickOnBox4=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[20]");
+    public By clickOnBox5=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[21]");
+   public By clickOnBox6=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[22]");
     public By availableText=By.xpath("//div[text()='Available']");
     public By saveButton=By.xpath("//button[text()='Save']");
 
@@ -126,7 +126,7 @@ public class DirectorPage extends BasePage {
         sendKeys_withClear(directorsUserName, directorsUserNameText);
     }
     public void click_LogOutLink() {
-          WebdriverWaits.WaitUntilInvisible(logOutLink);
+      //    WebdriverWaits.WaitUntilInvisible(logOutLink);
         WebdriverWaits.WaitUntilVisible(logOutLink);
         click_custom(logOutLink);
     }

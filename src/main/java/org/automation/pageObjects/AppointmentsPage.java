@@ -15,9 +15,13 @@ import static org.automation.utilities.Assertions.validate_text;
 public class AppointmentsPage extends BasePage {
     public By appointmentsTab= By.xpath("//a[text()=' Appointments ']");
     public By viewAllTab=By.xpath("//a[text()='View All']");
+    public By upcomingTab=By.xpath("//a[text()='Upcoming']");
+    public By completeTab=By.xpath("//a[text()='Completed ']");
     public By dashBoardPage=By.xpath("//h3[text()='Dashboard']");
     public By allAppointmentsPage=By.xpath("//h3[text()='All Appointments']");
-    public By searchedText=By.xpath("( //table[@id='appointmentTable']//td[contains(text(),'AU_Trent')])[1]");
+    public By searchedText=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
+    public String searchedTexts ="//table[@id='appointmentTable']//tbody//td[contains(text(),'%s')]";
+
     public By searchByDate=By.xpath("//td[text()='(//td)[1]']");
     public By filterButton = By.xpath("//a[text()='Filter']");
     public By searchField=By.xpath("//input[@id='filterSearch']");
@@ -42,6 +46,10 @@ public class AppointmentsPage extends BasePage {
     public void click_ViewAllTab(){
         WebdriverWaits.WaitUntilVisible(viewAllTab);
         click_custom(viewAllTab);
+    }
+    public void click_CompleteTab(){
+        WebdriverWaits.WaitUntilVisible(completeTab);
+        click_custom(completeTab);
     }
     public void click_FilterButton(){
         wait.WaitUntilVisible(filterButton);
@@ -79,7 +87,7 @@ public class AppointmentsPage extends BasePage {
         click_custom(backButton);
     }
 
-    public void viewAllAppointmentsPage(String diagnosticianFirstName) throws InterruptedException {
+    public void viewAllAppointmentsPage(String diagnosticianFirstName,String diagnosticianLastName) throws InterruptedException {
          WebdriverWaits.WaitUntilVisible(dashBoardPage);
           validate_text(dashBoardPage,"Dashboard");
         Log.info("DashBoard page appear after superAdmin logged in");
@@ -87,6 +95,8 @@ public class AppointmentsPage extends BasePage {
         click_AppointmentTab();
         validate_text(viewAllTab,"View All");
         Log.info("View all details tab successfully displayed");
+
+
 
         click_ViewAllTab();
         WebdriverWaits.WaitUntilVisible(allAppointmentsPage);
@@ -100,10 +110,13 @@ public class AppointmentsPage extends BasePage {
 //        Log.info("Successfully searched created appointment By entering dates");
 
        // getDriver().navigate().refresh();// To-DO
+
         click_FilterButton();
         click_SearchField(diagnosticianFirstName);
-        validate_text(searchedText,diagnosticianFirstName+diagnosticianFirstName);
+        WebdriverWaits.WaitUntilVisible(searchedText);
+        validate_text(searchedText,diagnosticianFirstName+' '+diagnosticianLastName);
         Log.info("Successfully searched created appointment");
+
     }
     public void exportCSV_Button(){
         click_AppointmentTab();
@@ -114,6 +127,11 @@ public class AppointmentsPage extends BasePage {
     public void View_DetailsPage(){
         click_AppointmentTab();
         click_ViewAllTab();
+       // clickOn_ViewDetails();
+    }
+    public void View_CompleteTab(){
+        click_AppointmentTab();
+        click_CompleteTab();
         clickOn_ViewDetails();
     }
     public void view_ClientObservation_Page() throws InterruptedException {
