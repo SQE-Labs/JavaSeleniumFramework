@@ -23,7 +23,7 @@ public class DirectorPage extends BasePage {
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
     public By createDirectorsButton = By.xpath("//button[text()='Create Director']");
-    public By validationMsg = By.xpath("//div[text()=' An error occurred while creating the admin. Username already exists! ']");
+    public By validationMsg = By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
 
     //**************Search created director***************
     public By filterButton = By.xpath("//a[text()='Filter']");
@@ -41,7 +41,7 @@ public class DirectorPage extends BasePage {
 
     public By passwordTextField = By.xpath("//input[@formcontrolname='password']");
     public By confirmPasswordField = By.xpath("(//input[@type='password'])[2]");
-    public By edit_SuccMsg = By.xpath("//div[text()=' Director details updated successfully. ']");
+    public By edit_SuccMsg = By.xpath("//div[@class='alert alert-success ng-star-inserted']");
     public By UserNameGetText = By.xpath("(//td)[2]");
     public By disableUser = By.xpath("//label[text()='Enable User']");
     public By toggle = By.xpath("//span[@class='slider round']");
@@ -74,20 +74,19 @@ public class DirectorPage extends BasePage {
     public By login = By.id("loginFormSubmit");
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public By directorDashBoardPage = By.xpath("//h3[text()='Dashboard']");
-    public By validation_Msg = By.xpath("//small[text()='Username or password is incorrect']");
+    public By validation_Msg = By.xpath("//p[@class='text-danger']");
     public By loginLoading = By.cssSelector("div.ngx-spinner-overlay");
 
 
     public void click_DirectorTab() throws InterruptedException {
         WebdriverWaits.SwitchToNewTab();
-        WebdriverWaits.WaitUntilVisible(directorsTab);
+        WebdriverWaits.waitUntilVisible(directorsTab);
         WebdriverWaits.WaitUntilInvisible(loginLoading);
-
         click_custom(directorsTab);
     }
 
     public void click_CreateDirectorsButton() {
-        WebdriverWaits.WaitUntilVisible(createDirectorButton);
+        WebdriverWaits.waitUntilVisible(createDirectorButton);
         WebdriverWaits.WaitUntilInvisible(loginLoading);
         //  wait.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
 
@@ -95,44 +94,44 @@ public class DirectorPage extends BasePage {
     }
 
     public void click_directorsFirstNameField(String directorsFirstNameText) {
-        WebdriverWaits.WaitUntilVisible(directorsFirstName);
+        WebdriverWaits.waitUntilVisible(directorsFirstName);
         sendKeys_withClear(directorsFirstName, directorsFirstNameText);
     }
 
     public void click_directorsLastNameField(String directorsLastNameText) {
-        WebdriverWaits.WaitUntilVisible(directorsLastName);
+        WebdriverWaits.waitUntilVisible(directorsLastName);
         sendKeys_withClear(directorsLastName, directorsLastNameText);
     }
 
     public void click_directorsMobileNumberField(String directorsMobileNumberText) {
-        WebdriverWaits.WaitUntilVisible(directorsMobileNumber);
+        WebdriverWaits.waitUntilVisible(directorsMobileNumber);
         sendKeys_withClear(directorsMobileNumber, directorsMobileNumberText);
     }
 
     public void click_directorsdirectorsEmailField(String directorsEmailText) {
-        WebdriverWaits.WaitUntilVisible(directorsEmail);
+        WebdriverWaits.waitUntilVisible(directorsEmail);
         sendKeys_withClear(directorsEmail, directorsEmailText);
     }
 
     public void click_directorsassignLocationField() {
-        WebdriverWaits.WaitUntilVisible(assignLocation);
+
         click_custom(assignLocation);
-        WebdriverWaits.WaitUntilVisible(directorsLocationName);
+
         click_custom(directorsLocationName);
     }
 
     public void click_directorsUserNameField(String directorsUserNameText) {
-        WebdriverWaits.WaitUntilVisible(directorsUserName);
+        WebdriverWaits.waitUntilVisible(directorsUserName);
         sendKeys_withClear(directorsUserName, directorsUserNameText);
     }
     public void click_LogOutLink() {
       //    WebdriverWaits.WaitUntilInvisible(logOutLink);
-        WebdriverWaits.WaitUntilVisible(logOutLink);
+        WebdriverWaits.waitUntilVisible(logOutLink);
         click_custom(logOutLink);
     }
 
     public void click_passwordField(String password_FieldText) {
-        WebdriverWaits.WaitUntilVisible(password_Field);
+        WebdriverWaits.waitUntilVisible(password_Field);
         sendKeys_withClear(password_Field, password_FieldText);
     }
 
@@ -147,7 +146,7 @@ public class DirectorPage extends BasePage {
     //***************search created diagnostician******************
 
     public void click_filterButton() {
-        WebdriverWaits.WaitUntilVisible(filterButton);
+        WebdriverWaits.waitUntilVisible(filterButton);
         click_custom(filterButton);
     }
 
@@ -157,12 +156,12 @@ public class DirectorPage extends BasePage {
 
     //***************edit created director*****************
     public void click_On_EditButton() {
-        WebdriverWaits.WaitUntilVisible(editButton);
+
         click_custom(editButton);
     }
 
     public void enter_CellNumber(String cellNumberText) {
-        WebdriverWaits.WaitUntilVisible(cellNumber);
+        WebdriverWaits.waitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -188,7 +187,7 @@ public class DirectorPage extends BasePage {
     }
 
     public void clickOn_DontSave() {
-        WebdriverWaits.WaitUntilVisible(dontSaveButton);
+
         click_custom(dontSaveButton);
     }
 
@@ -208,11 +207,11 @@ public class DirectorPage extends BasePage {
 
 
     public void clickOn_YearHeader(){
-        wait.WaitUntilVisible(yearHeader);
+
         click_custom(yearHeader);
     }
     public void clickOn_availableBox(){
-        WebdriverWaits.WaitUntilVisible(clickOnBox);
+
         click_custom(clickOnBox);
         click_custom(clickOnBox1);
         click_custom(clickOnBox2);
@@ -222,7 +221,7 @@ public class DirectorPage extends BasePage {
         click_custom(clickOnBox6);
     }
     public void clickOn_SaveButton(){
-        WebdriverWaits.WaitUntilVisible(saveButton);
+
         click_custom(saveButton);
     }
 
@@ -325,13 +324,13 @@ public class DirectorPage extends BasePage {
 public void director_Availability() throws InterruptedException {
 
     clickOn_YearHeader();
-    WebdriverWaits.WaitUntilVisible(yearsCalender);
+    WebdriverWaits.waitUntilVisible(yearsCalender);
     validate_text(yearsCalender, "2023 - 2034");
-    WebdriverWaits.WaitUntilVisible(hihglihgtedYear);
+
     validate_text(hihglihgtedYear, "2023");
     clickOn_YearHeader();
     clickOn_availableBox();
-    WebdriverWaits.WaitUntilVisible(availableText);
+
     validate_text(availableText, "Available");
     clickOn_SaveButton();
 

@@ -2,6 +2,7 @@ package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
 import org.automation.logger.Log;
+import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
@@ -36,28 +37,29 @@ public class AppointmentsPage extends BasePage {
     public By clientObservation=By.xpath("//h4[text()='Client Observation']");
     public By attachedDocument=By.xpath("//h5[text()='Attached Documents']");
     public By backButton=By.xpath("//a[text()='Back']");
+    public By spinner=By.cssSelector("div.ngx-spinner-overlay");
     WebdriverWaits wait=new WebdriverWaits();
+    ActionEngine action=new ActionEngine();
 
     public void click_AppointmentTab(){
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("ngx-spinner-overlay"));
-        WebdriverWaits.WaitUntilVisible(appointmentsTab);
+        WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(appointmentsTab);
     }
     public void click_ViewAllTab(){
-        WebdriverWaits.WaitUntilVisible(viewAllTab);
+
         click_custom(viewAllTab);
     }
     public void click_CompleteTab(){
-        WebdriverWaits.WaitUntilVisible(completeTab);
+
         click_custom(completeTab);
     }
     public void click_FilterButton(){
-        wait.WaitUntilVisible(filterButton);
+
          click_custom(filterButton);
     }
     public void clickOn_ExportCSVButton(){
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("ngx-spinner-overlay"));
-        WebdriverWaits.WaitUntilVisible(exportCSVButton);
+        WebdriverWaits.WaitUntilInvisible(spinner);
+
         click_custom(exportCSVButton);
     }
     public void click_SearchField(String searchFieldText){
@@ -66,10 +68,10 @@ public class AppointmentsPage extends BasePage {
     public void enter_Dates(String dateFromText,String toDateText) throws InterruptedException {
         click_custom(dateFrom);
         sendKeys_withClear(dateFrom,dateFromText);
-         wait. WaitUntilVisible(toDate);
+
         click_custom(toDate);
         sendKeys_withClear(toDate,toDateText);
-        wait.WaitUntilVisible(searchButton);
+
         click_custom(searchButton);
     }
     public void clickOn_ViewDetails(){
@@ -82,13 +84,12 @@ public class AppointmentsPage extends BasePage {
         click_custom(viewDocumentsButton);
     }
     public void clickOn_BackButton(){
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
-        WebdriverWaits.WaitUntilVisible(backButton);
+        WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(backButton);
     }
 
     public void viewAllAppointmentsPage(String diagnosticianFirstName,String diagnosticianLastName) throws InterruptedException {
-         WebdriverWaits.WaitUntilVisible(dashBoardPage);
+
           validate_text(dashBoardPage,"Dashboard");
         Log.info("DashBoard page appear after superAdmin logged in");
 
@@ -96,10 +97,7 @@ public class AppointmentsPage extends BasePage {
         validate_text(viewAllTab,"View All");
         Log.info("View all details tab successfully displayed");
 
-
-
         click_ViewAllTab();
-        WebdriverWaits.WaitUntilVisible(allAppointmentsPage);
         validate_text(allAppointmentsPage,"All Appointments");
         Log.info("Successfully All appointments page displayed");
 
@@ -113,7 +111,7 @@ public class AppointmentsPage extends BasePage {
 
         click_FilterButton();
         click_SearchField(diagnosticianFirstName);
-        WebdriverWaits.WaitUntilVisible(searchedText);
+
         validate_text(searchedText,diagnosticianFirstName+' '+diagnosticianLastName);
         Log.info("Successfully searched created appointment");
 
@@ -136,12 +134,12 @@ public class AppointmentsPage extends BasePage {
     }
     public void view_ClientObservation_Page() throws InterruptedException {
         clickOn_viewStudentObservationButton();
-        WebdriverWaits.WaitUntilVisible(clientObservation);
+        WebdriverWaits.waitUntilVisible(clientObservation);
         validate_text(clientObservation,"Client Observation");
         clickOn_viewDocumentsButton();
-        WebdriverWaits.WaitUntilVisible(attachedDocument);
+        WebdriverWaits.waitUntilVisible(attachedDocument);
         validate_text(attachedDocument,"Attached Documents");
-        WebdriverWaits.Refresh_Page();
+        action.Refresh_Page();
         clickOn_BackButton();
     }
 }

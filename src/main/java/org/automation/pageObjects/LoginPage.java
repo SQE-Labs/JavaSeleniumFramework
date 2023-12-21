@@ -16,25 +16,25 @@ public class LoginPage extends BasePage {
 
 
     public void enterUsername(String userNameText) {
-        WebdriverWaits.WaitUntilVisible(userNameField);
+        WebdriverWaits.waitUntilVisible(userNameField);
         sendKeys_withClear(userNameField, userNameText);
     }
 
     public void enterPassword(String passNameText) {
-        WebdriverWaits.WaitUntilVisible(PasswordField);
+        WebdriverWaits.waitUntilVisible(PasswordField);
         sendKeys_withClear(PasswordField, passNameText);
     }
 
     public void clickLoginBtn() {
-        WebdriverWaits.WaitUntilVisible(login);
+
         clickBtn_custom(login);
     }
 
 
     public void superAdminLogin()   {
-        WebdriverWaits.WaitUntilVisible(userNameField);
+        WebdriverWaits.waitUntilVisible(userNameField);
         sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("userName"));
-        WebdriverWaits.WaitUntilVisible(PasswordField);
+        WebdriverWaits.waitUntilVisible(PasswordField);
         sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("password"));
         clickBtn_custom(login);
     }

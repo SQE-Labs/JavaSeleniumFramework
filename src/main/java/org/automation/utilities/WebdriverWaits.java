@@ -140,7 +140,7 @@ public class WebdriverWaits extends BaseTest {
             return false;
         }
     }
-    public void WaitUntilPresent(By element) {
+    public void waitUntilPresent(By element) {
             Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(NoSuchElementException.class, ElementNotInteractableException.class);
             fluentWait1.until(ExpectedConditions.presenceOfElementLocated(element));
         }
@@ -157,8 +157,9 @@ public class WebdriverWaits extends BaseTest {
         }
     }
 
-    public static void WaitUntilVisible(By element) {
+    public static void waitUntilVisible(By element) {
         try {
+
             Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver())
                     .withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20"))))
                     .pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5"))))
@@ -168,7 +169,7 @@ public class WebdriverWaits extends BaseTest {
 
         }
     }
-    public static Boolean WaitForElementInteractable(By element) {
+    public static Boolean waitForElementInteractable(By element) {
 
         try {
             Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(ElementClickInterceptedException.class, ElementNotInteractableException.class);
@@ -178,29 +179,15 @@ public class WebdriverWaits extends BaseTest {
             return false;
         }
     }
-    public static void Refresh_Page(){
-        getDriver().navigate().refresh();
-    }
-    public void Back_To_Page(){
-        getDriver().navigate().back();
-    }
-    public static void WaitForPageLoadTime(long time) {
-        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(time));
-    }
-    public static void scrollToRight() {
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(6000,2000)");
-        extentTest.log(LogStatus.PASS, "Scrolled to Right");
-    }
-    public static void WaitForElementInteractable(WebElement element) {
+    public static void waitForElementInteractable(WebElement element) {
         try {
             Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5")))).ignoring(ElementClickInterceptedException.class, ElementNotInteractableException.class);
             fluentWait1.until(ExpectedConditions.elementToBeClickable(element));
         } catch (WebDriverException e) {
         }
     }
-    public static void ClickByJsExecuter(By element) {
+    public static void clickByJsExecuter(By element) {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         WebElement ele = getDriver().findElement(element);
         try {

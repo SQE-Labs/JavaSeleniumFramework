@@ -2,6 +2,7 @@ package test;
 
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.*;
+import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,7 +11,7 @@ import static org.automation.utilities.Assertions.validate_text;
 
 
 public class SuperAdminAppointmentTest extends BaseTest {
-
+DiagnosticianTest dia=new DiagnosticianTest();
     //*********************Creating appointment page****************************
     @Test(priority = 23, enabled = true, description = "Verify that SuperAdmin is able to view appointments or not")
     public void Appointments_Page() throws InterruptedException {
@@ -18,18 +19,18 @@ public class SuperAdminAppointmentTest extends BaseTest {
         SuperAdminTest admintest=new SuperAdminTest();
         LoginPage login = new LoginPage();
         login.superAdminLogin();
-        appointment.viewAllAppointmentsPage(admintest.diagnosticianFirstName, admintest.diagnosticianLastName);
+        appointment.viewAllAppointmentsPage(dia.diagnosticianFirstName, dia.diagnosticianLastName);
     }
 
     @Test(priority = 24, enabled = true, description = "Verify that 'Appointment Details' page opens up on clicking 'View Detail' link")
     public void view_Details_Page() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
         appointment.View_DetailsPage();
-        WebdriverWaits.WaitUntilVisible(appointment.App_Text);
+        WebdriverWaits.waitUntilVisible(appointment.App_Text);
         validate_text(appointment.App_Text, "Keymen Sloting Details");
-        WebdriverWaits.WaitUntilVisible(appointment.viewStudentObservationButton);
+        WebdriverWaits.waitUntilVisible(appointment.viewStudentObservationButton);
         validate_text(appointment.viewStudentObservationButton, "View Student Observation");
-        WebdriverWaits.WaitUntilVisible(appointment.viewDocumentsButton);
+        WebdriverWaits.waitUntilVisible(appointment.viewDocumentsButton);
         validate_text(appointment.viewDocumentsButton, "View Documents");
     }
 
@@ -54,10 +55,12 @@ public class SuperAdminAppointmentTest extends BaseTest {
     public void view_Payments_Page() throws InterruptedException {
         WebdriverWaits wait = new WebdriverWaits();
         PaymentPage payment = new PaymentPage();
-        wait.Back_To_Page();
+        ActionEngine action=new ActionEngine();
+        action.Back_To_Page();
         payment.clickOn_PaymentTab();
-        WebdriverWaits.WaitUntilVisible(payment.paymentListPage);
+        WebdriverWaits.waitUntilVisible(payment.paymentListPage);
         validate_text(payment.paymentListPage, "Payments List");
+
     }
 
     @Test(priority = 28, enabled = true, description = "Verify that superAdmin is able to search perticular payment or not")
@@ -65,7 +68,7 @@ public class SuperAdminAppointmentTest extends BaseTest {
         PaymentPage payment = new PaymentPage();
         payment.click_filterButton();
         payment.enterInSearchField("Guard");
-        WebdriverWaits.WaitUntilVisible(payment.cust_Name);
+        WebdriverWaits.waitUntilVisible(payment.cust_Name);
         validate_text(payment.cust_Name, "Guard Bittle");
     }
 
@@ -74,10 +77,11 @@ public class SuperAdminAppointmentTest extends BaseTest {
         DashBoardPanelPage panelpage = new DashBoardPanelPage();
         WebdriverWaits wait = new WebdriverWaits();
         panelpage.clickOn_ExportCSVButton();
+        ActionEngine action=new ActionEngine();
         //Download exportCSV File and Check file is downloaded or not
         String downloadFile = panelpage.getDownloadFileName();
         Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
-        wait.Back_To_Page();
+        action.Back_To_Page();
         panelpage.click_LogOutLink();
     }
 

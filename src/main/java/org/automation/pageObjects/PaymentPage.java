@@ -17,17 +17,17 @@ public class PaymentPage extends BasePage {
   //  (//table[@id='appointmentTable']//td[contains(text(),'AU_Trent')]//following-sibling::td//a)[1]
 
     public void clickOn_PaymentTab(){
-        WebdriverWaits.WaitUntilVisible(paymentTab);
+        WebdriverWaits.waitUntilVisible(paymentTab);
         WebdriverWaits.WaitUntilInvisible(paymentTab);
         click_custom(paymentTab);
     }
     public void click_filterButton() {
         WebdriverWaits.WaitUntilInvisible(loginLoading);
-        WebdriverWaits.WaitUntilVisible(filterButton);
+        WebdriverWaits.waitUntilVisible(filterButton);
         click_custom(filterButton);
     }
     public void enterInSearchField(String searchFieldText) {
-        WebdriverWaits.WaitUntilVisible(searchField);
+        WebdriverWaits.waitUntilVisible(searchField);
         sendKeys_withClear(searchField, searchFieldText);
     }
     public void search_CreatedDiagnostician(String UserName) throws InterruptedException {

@@ -46,7 +46,7 @@ public class AdminPage extends BasePage
     public By dontSaveButton=By.xpath("//a[text()='Don’t Save']");
     public By editUserPop_Up=By.xpath("//h5[text()='Edit User']");
     public By userNameText=By.xpath("(//td[2])[1]");
-    public By Error_Msg=By.xpath("//div[text()='An error occurred while creating the admin. Username already exists!']");
+    public By Error_Msg=By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
 
 
 
@@ -60,32 +60,32 @@ public class AdminPage extends BasePage
 
 
     public void clickOn_createAdminButton(){
-        WebdriverWaits.WaitUntilVisible(createAdminButton);
+
        // WebdriverWaits.WaitUntilInvisible(createAdminButton);
         click_custom(createAdminButton);
         }
 
     public void enter_admin_FirstName(String CustomerFirstName) throws InterruptedException {
-        WebdriverWaits.WaitUntilVisible(admin_FirstName);
+        WebdriverWaits.waitUntilVisible(admin_FirstName);
         sendKeys_withClear(admin_FirstName, CustomerFirstName);
     }
 
     public void enter_admin_LastName(String CustomerLastName) {
-        WebdriverWaits.WaitUntilVisible(admin_LastName);
+        WebdriverWaits.waitUntilVisible(admin_LastName);
         sendKeys_withClear(admin_LastName, CustomerLastName);
     }
 
     public void enter_admin_MobileNumber(String diagnostician_MobileNumberText) {
-        WebdriverWaits.WaitUntilVisible(admin_MobileNumber);
+        WebdriverWaits.waitUntilVisible(admin_MobileNumber);
         sendKeys_withClear(admin_MobileNumber, diagnostician_MobileNumberText);
     }
 
     public void enter_admin_Email(String diagnostician_EmailText) {
-        WebdriverWaits. WaitUntilVisible(admin_Email);
+        WebdriverWaits. waitUntilVisible(admin_Email);
         sendKeys_withClear(admin_Email, diagnostician_EmailText);
     }
     public void userNameField(String userNameText) {
-        WebdriverWaits.WaitUntilVisible(userName);
+        WebdriverWaits.waitUntilVisible(userName);
         sendKeys_withClear(userName, userNameText);
     }
 
@@ -105,20 +105,20 @@ public class AdminPage extends BasePage
 
 
     public void click_filterButton() {
-        WebdriverWaits.WaitUntilVisible(filterButton);
+        WebdriverWaits.waitUntilVisible(filterButton);
         WebdriverWaits.WaitUntilInvisible(loginLoading);
         click_custom(filterButton);
     }
 
     public void enterInSearchField(String searchFieldText) {
-        WebdriverWaits.WaitUntilVisible(searchField);
+        WebdriverWaits.waitUntilVisible(searchField);
         sendKeys_withClear(searchField, searchFieldText);
     }
 
     //+++++++++++++++++EDIT Admin++++++++++++++
 
     public void click_On_EditButton() {
-        WebdriverWaits.WaitUntilVisible(editButton);
+        WebdriverWaits.waitUntilVisible(editButton);
         WebdriverWaits.WaitUntilInvisible(loginLoading);
         click_custom(editButton);
     }
@@ -136,22 +136,22 @@ public class AdminPage extends BasePage
     }
 
     public void enter_Diagnostician_Email1(String diagnostician_EmailText1) {
-        WebdriverWaits.WaitUntilVisible(emailField);
+        WebdriverWaits.waitUntilVisible(emailField);
         sendKeys_withClear(emailField, diagnostician_EmailText1);
     }
 
     public void clickOn_PasswordField(String passwordTextFieldText) {
-        WebdriverWaits.WaitUntilVisible(passwordTextField);
+        WebdriverWaits.waitUntilVisible(passwordTextField);
         sendKeys_withClear(passwordTextField, passwordTextFieldText);
     }
 
     public void clickOn_confirmPasswordFieldField(String confirmPasswordFieldText) {
-        WebdriverWaits.WaitUntilVisible(confirmPasswordField);
+        WebdriverWaits.waitUntilVisible(confirmPasswordField);
         sendKeys_withClear(confirmPasswordField, confirmPasswordFieldText);
     }
     public void clickOn_DontSave()
     {
-        WebdriverWaits.WaitUntilVisible(dontSaveButton);
+        WebdriverWaits.waitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -185,7 +185,7 @@ public class AdminPage extends BasePage
 
     public void edit_Admin( String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-        WebdriverWaits.WaitUntilVisible(editUserPop_Up);
+        WebdriverWaits.waitUntilVisible(editUserPop_Up);
         validate_text(editUserPop_Up, "Edit User");
         // enter_CellNumber(cellNumberText);
         enter_Admin_Email1(EmailAddress1);

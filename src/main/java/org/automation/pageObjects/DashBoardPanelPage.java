@@ -21,41 +21,44 @@ public class DashBoardPanelPage extends BasePage {
     public By AppointmentsTab=By.xpath("//a[text()=' Appointments ']");
     public By availabilityTab=By.xpath("//a[text()='Availability']");
     public By editButton=By.xpath("(//a[text()='Edit'])[1]");
+    public By viewAllTab=By.xpath("//a[text()='View All']");
+    public By spinner=By.cssSelector("div.ngx-spinner-overlay");
+    public By viewDetailLink=By.xpath("tr:not([style='display: none;' ]) td:nth-child(1)");
 
 
 
     public void click_LogOutLink() {
-        WebdriverWaits.WaitUntilInvisible(logOutLink);
-        WebdriverWaits.WaitUntilVisible(logOutLink);
+
         click_custom(logOutLink);
+    }
+    public void click_ViewAllTab(){
+        click_custom(viewAllTab);
     }
 
     public void click_DirectorTab()     {
-        WebdriverWaits.WaitUntilVisible(directorsTab);
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+        WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(directorsTab);
     }
 
     public void click_DiagnosticianTab() {
-        WebdriverWaits.WaitUntilVisible(diagnosticianLink);
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+        WebdriverWaits.waitUntilVisible(diagnosticianLink);
+        WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(diagnosticianLink);
     }
     public void click_On_AdminTab(){
-        WebdriverWaits.WaitUntilVisible(adminButton);
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+  WebdriverWaits.waitUntilVisible(adminButton);
+        WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(adminButton);
     }
     public void click_On_PaymentTab(){
-        WebdriverWaits.WaitUntilVisible(paymentButton);
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+
+        WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(paymentButton);
     }
     public void edit_Director(){
         click_custom(editButton);
     }
     public void clickOn_BackButton(){
-        WebdriverWaits.WaitUntilVisible(backButton);
         click_custom(backButton);
     }
     public boolean isFileDownloaded(String fileName) throws InterruptedException {
@@ -81,16 +84,16 @@ public class DashBoardPanelPage extends BasePage {
         return downloadedFile;
     }
     public void clickOn_ExportCSVButton(){
-        WebdriverWaits.WaitUntilVisible(exportCSVButton);
+
         click_custom(exportCSVButton);
     }
     public void clickOn_AppointmentsTab(){
-        WebdriverWaits.WaitUntilVisible(AppointmentsTab);
+
         WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(AppointmentsTab);
     }
     public void clickOn_AvailabilityTab(){
-        WebdriverWaits.WaitUntilVisible(availabilityTab);
+
         click_custom(availabilityTab);
     }
 }
