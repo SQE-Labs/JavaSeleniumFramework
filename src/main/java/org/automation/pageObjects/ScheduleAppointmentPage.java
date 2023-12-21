@@ -100,7 +100,13 @@ public class ScheduleAppointmentPage extends BasePage {
     public By delete=By.xpath("//mbsc-button[text()=' Delete ']");
     public By cancel=By.xpath("//mbsc-button[text()=' Cancel ']");
     public By logOutLink=By.xpath("//a[text()='Log Out']");
-
+    public By spinner= By.cssSelector("div.ngx-spinner-overlay");
+    public By actualText=By.xpath("//h4[text()='Appointment Scheduled!!']");
+    public By goBack = By.xpath("//a[text()='Go Back']");
+    public By fullName = By.xpath("(//div /p)[9]");
+    public By editAss = By.xpath("//a[@text()='Edit Assessment Type']");
+    public By getSearch = By.xpath("(//td[@class='tablewidth'])[1]");
+    public By viewDetailsClient= By.xpath("(//a[text()='View Detail'])[1]");
 
 
     public void click_LogOutLink(){
@@ -111,10 +117,13 @@ public class ScheduleAppointmentPage extends BasePage {
     }
 
     public void selectAssessmentDate() {
+        WebdriverWaits.WaitUntilInvisible(spinner);
         clickBtn_custom(assessmentDate);
     }
 
     public void selectTestinglocation(String chooseLocationText) {
+        WebdriverWaits.WaitUntilVisible(chooseTestingLocation);
+        WebdriverWaits.WaitUntilInvisible(spinner);
         clickBtn_custom(chooseTestingLocation, "ChooseLocation");
         selectDropDownByVisibleText_custom(chooseTestingLocation, chooseLocationText, "ChooseLocation");
 
@@ -144,13 +153,16 @@ public class ScheduleAppointmentPage extends BasePage {
 //        Thread.sleep(3000);
         click_custom(yesCancelBtn);
     }
+    public void click_ViewDetails() throws InterruptedException{
+        WebdriverWaits.WaitUntilVisible(viewDetailsClient);
+        click_custom(viewDetailsClient);
+    }
 
 
 
 
     public void createAppointment(String chooseLocationText) throws InterruptedException {
         selectTestinglocation(chooseLocationText);
-        Thread.sleep(7000);
         selectAssessmentDate();
     }
 
@@ -175,6 +187,7 @@ public class ScheduleAppointmentPage extends BasePage {
 
 
     public void clickOnAppSaveButton() {
+        WebdriverWaits.WaitUntilVisible(appointmentSaveButtonButton);
         click_custom(appointmentSaveButtonButton);
     }
 
@@ -205,17 +218,23 @@ public class ScheduleAppointmentPage extends BasePage {
         int colCount = getColumnCount();
         int expLocatorPos = (colCount - 1) * 7 + 1;
         System.out.println(expLocatorPos);
+        WebdriverWaits.WaitUntilVisible(clickOnBox);
         click_custom(clickOnBox);
     }
 
     public void clickOnAssesmentType(int assestmentTypeTexts){
+        WebdriverWaits.WaitUntilVisible(assestmentType);
+        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.WaitForElementInteractable(assestmentType);
         click_custom(assestmentType);
         selectDropDownByIndex_custom(assestmentType,assestmentTypeTexts);
     }
     public void enterFirstName(String cilentFirstNameText){
+        WebdriverWaits.WaitUntilVisible(clientFirstName);
         sendKeys_withClear(clientFirstName,cilentFirstNameText);
     }
     public void enterLastName(String cilentLastNameText){
+        WebdriverWaits.WaitUntilVisible(clientLastName);
         sendKeys_withClear(clientLastName,cilentLastNameText);
     }
     public void selectGradeType(int gradeType){
@@ -227,7 +246,7 @@ public class ScheduleAppointmentPage extends BasePage {
         selectDropDownByIndex_custom(SchoolType,schoolTypeOption);
     }
     public void enterCellNumber(String cellNumberText){
-        sendKeys_withClear(cellNumber,cellNumberText);
+        sendKeys_custom(cellNumber,cellNumberText);
     }
     public void enterPhoneNumber(String phoneNumberText){
         sendKeys_withClear(phoneNumber,phoneNumberText);
@@ -255,18 +274,21 @@ public class ScheduleAppointmentPage extends BasePage {
     }
 
     public void enterTestAmount(String testAmountText){
+        WebdriverWaits.WaitUntilVisible(testAmount);
         sendKeys_withClear(testAmount,testAmountText);
     }
     public void clickOnContinueToDepositButton(){
         click_custom(continueToDeposit);
     }
     public void enterInDateField(String dateOfBirthText) throws InterruptedException {
+        WebdriverWaits.WaitUntilVisible(dateOfBirth);
         click_custom(dateOfBirth);
-        Thread.sleep(2000);
+        WebdriverWaits.WaitUntilVisible(dateOfBirth);
         sendKeys_withClear(dateOfBirth,dateOfBirthText);
     }
     public void enterAmount(String enterAmountText) throws InterruptedException {
-//         waitForElementVisible(enterAmountField,10);
+        WebdriverWaits.WaitUntilInvisible(enterAmountField);
+        WebdriverWaits.WaitUntilVisible(enterAmountField);
         click_custom(enterAmountField);
         sendKeys_withClear(enterAmountField,enterAmountText);
     }
@@ -274,17 +296,20 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(collectDeposit);
     }
     public void clickOnViewDetailsButton(){
-
+        WebdriverWaits.WaitUntilInvisible(viewDetails);
+       WebdriverWaits.WaitUntilVisible(viewDetails);
         click_custom(viewDetails);
     }
     public void enterInsearchBox(String CustomerFirstName )
-    {
+    {    WebdriverWaits.WaitUntilVisible(searchBox);
         sendKeys_withClear(searchBox,CustomerFirstName);
     }
     public void clickOnviewLink(){
+        WebdriverWaits.WaitUntilVisible(viewlink);
         click_custom(viewlink);
     }
     public void clickOnFilterbutton(){
+        WebdriverWaits.WaitUntilVisible(filter);
         click_custom(filter);
     }
 
@@ -328,15 +353,16 @@ public class ScheduleAppointmentPage extends BasePage {
 
 //******************checking availability*************
     public void click_On_Availablity(){
+        WebdriverWaits.WaitUntilVisible(availability);
+        WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(availability);
     }
     public void click_On_Slot() throws InterruptedException {
-        Thread.sleep(8000);
+            WebdriverWaits.WaitUntilVisible(slot);
             click_custom(slot);
-            Thread.sleep(4000);
-        scrollIntoHorizontally(slot1);
+        //scrollIntoHorizontally(slot1);
             click_custom(slot1);
-        click_custom(slot2);
+            click_custom(slot2);
             click_custom(slot4);
             click_custom(slot3);
             click_custom(diagnosticianSaveButton);
@@ -349,6 +375,11 @@ public class ScheduleAppointmentPage extends BasePage {
     public void click_On_Delete(){
         click_custom(delete);
     }
+    public void click_GoBack(){
+        WebdriverWaits.WaitUntilVisible(goBack);
+        click_custom(goBack);
+    }
+
 
 
 
@@ -380,7 +411,7 @@ public class ScheduleAppointmentPage extends BasePage {
             Thread.sleep(3000);
             clickOnAssesmentType(Type);
         }
-        public String enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address1Text, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
+        public String enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
             enterFirstName(CustomerFirstName);
             enterLastName(CustomerLastName);
             Thread.sleep(2000);
@@ -392,7 +423,7 @@ public class ScheduleAppointmentPage extends BasePage {
            // enterPhoneNumber( phoneNumberText);
             enterEmialAddress(EmailAddress);
             reasonForCallDropDown(reasonForCallText);
-            enterAdress1(address1Text);
+            //enterAdress1(address1Text);
             enterAdress2(address2Text);
             enterCity( cityText);
             enterState(stateText);
@@ -453,6 +484,8 @@ public class ScheduleAppointmentPage extends BasePage {
             click_custom(diagnosticianSaveButton);
             click_custom(logOutLink);
         }
+
+
 
     }
 

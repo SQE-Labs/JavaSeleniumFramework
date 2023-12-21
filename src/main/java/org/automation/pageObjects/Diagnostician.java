@@ -9,6 +9,7 @@ public class Diagnostician extends BasePage {
 
     public By diagnosticianLink = By.xpath("//a[text()='Diagnosticians']");
     public By createDiagnostician = By.xpath("//button[text()='Create Diagnostician']");
+    public By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
     public By diagnostician_FirstName = By.xpath("//input[@placeholder='First Name']");
     public By diagnostician_LastName = By.xpath("//input[@placeholder='Last Name']");
     public By diagnostician_MobileNumber = By.xpath("//input[@placeholder='(999) 999-9999']");
@@ -19,10 +20,12 @@ public class Diagnostician extends BasePage {
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
     public By createDiagnosticianButton = By.xpath("//button[text()='Create Diagnostician']");
+    public By validationMsg=By.xpath("//div[text()=' An error occurred. Please try again. ']");
 
     public  By actualText = By.xpath("(//td)[2]");
     public By backButton = By.xpath("//button[text()='Back']");
     public  By diagnosticianDashBoardPage = By.xpath("//h3[text()='Dashboard']");
+    public By back_Button=By.xpath("//a[text()='Back']");
 
 
 
@@ -84,15 +87,18 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     public void enter_Diagnostician_Email(String diagnostician_EmailText) {
-        waits. WaitUntilPresent(diagnostician_Email);
+        waits. WaitUntilVisible(diagnostician_Email);
         sendKeys_withClear(diagnostician_Email, diagnostician_EmailText);
     }
     public void click_AssignLocation() {
+        WebdriverWaits.WaitUntilVisible(assignLocation);
         click_custom(assignLocation);
+        WebdriverWaits.WaitUntilVisible(locationName);
         click_custom(locationName);
     }
 
     public void userNameField(String userNameText) {
+        WebdriverWaits.WaitUntilVisible(userName);
         sendKeys_withClear(userName, userNameText);
     }
 
@@ -118,22 +124,26 @@ WebdriverWaits waits=new WebdriverWaits();
     //*************search created diagnostician***************
 
     public void click_filterButton() {
+        WebdriverWaits.WaitUntilVisible(filterButton);
+        WebdriverWaits.WaitUntilInvisible(loginLoading);
+
         click_custom(filterButton);
     }
 
     public void enterInSearchField(String searchFieldText) {
+        WebdriverWaits.WaitUntilVisible(searchField);
         sendKeys_withClear(searchField, searchFieldText);
     }
 
     //+++++++++++++++++EDIT DIAGNOSTICIAN++++++++++++++
 
     public void click_On_EditButton() {
-        waits.WaitUntilVisible(editButton);
+        WebdriverWaits.WaitUntilVisible(editButton);
         click_custom(editButton);
     }
 
     public void enter_CellNumber(String cellNumberText) {
-        waits. WaitUntilPresent(cellNumber);
+        waits.WaitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -227,6 +237,8 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     public void Relogin_With_newPassword(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
+        DashBoardPanelPage logout = new DashBoardPanelPage();
+        logout.click_LogOutLink();
         clickOn_Login_UsernameField(userNameFieldText);
         clickOn_Login_PasswordField(PasswordFieldText);
         clickOn_Login_Button();
