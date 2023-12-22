@@ -11,7 +11,7 @@ import static org.automation.utilities.Assertions.validate_text;
 
 public class DirectorPage extends BasePage {
     WebdriverWaits wait = new WebdriverWaits();
-    public By directorsTab = By.xpath("//li[@id='Directors']");
+    public By directorsTab = By.xpath("//a[text()='Directors']");
     public By createDirectorButton = By.xpath("//button[text()='Create Director']");
     public By directorsFirstName = By.xpath("//input[@placeholder='First Name']");
     public By directorsLastName = By.xpath("//input[@placeholder='Last Name']");
@@ -23,7 +23,6 @@ public class DirectorPage extends BasePage {
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
     public By createDirectorsButton = By.xpath("//button[text()='Create Director']");
-    public By validationMsg = By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
 
     //**************Search created director***************
     public By filterButton = By.xpath("//a[text()='Filter']");
@@ -41,7 +40,7 @@ public class DirectorPage extends BasePage {
 
     public By passwordTextField = By.xpath("//input[@formcontrolname='password']");
     public By confirmPasswordField = By.xpath("(//input[@type='password'])[2]");
-    public By edit_SuccMsg = By.xpath("//div[@class='alert alert-success ng-star-inserted']");
+    public By edit_SuccMsg = By.xpath("//div[text()=' Director details updated successfully. ']");
     public By UserNameGetText = By.xpath("(//td)[2]");
     public By disableUser = By.xpath("//label[text()='Enable User']");
     public By toggle = By.xpath("//span[@class='slider round']");
@@ -55,16 +54,16 @@ public class DirectorPage extends BasePage {
     public By yearHeader = By.xpath("//span[text()=' 2023 ']");
     public By dateHeader = By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-schedule-header-day-today mbsc-selected ng-star-inserted']");
     public By yearsCalender = By.xpath("//mbsc-button[text()=' 2023 - 2034 ']");
-    public By hihglihgtedYear=By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios ng-star-inserted'])[13]");
-    public By clickOnBox=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[16]");
-    public By clickOnBox1=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[17]");
-    public By clickOnBox2=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[18]");
-    public By clickOnBox3=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[19]");
-    public By clickOnBox4=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[20]");
-    public By clickOnBox5=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[21]");
-   public By clickOnBox6=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[22]");
-    public By availableText=By.xpath("//div[text()='Available']");
-    public By saveButton=By.xpath("//button[text()='Save']");
+    public By hihglihgtedYear = By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios ng-star-inserted'])[13]");
+    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[15]");
+    public By clickOnBox1 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[16]");
+    public By clickOnBox2 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[17]");
+    public By clickOnBox3 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[18]");
+    public By clickOnBox4 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[19]");
+    public By clickOnBox5 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[20]");
+    // public By clickOnBox6=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[21]");
+    public By availableText = By.xpath("//div[text()='Available']");
+    public By saveButton = By.xpath("//button[text()='Save']");
 
 
     //**************relogin with new password***********
@@ -74,64 +73,56 @@ public class DirectorPage extends BasePage {
     public By login = By.id("loginFormSubmit");
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public By directorDashBoardPage = By.xpath("//h3[text()='Dashboard']");
-    public By validation_Msg = By.xpath("//p[@class='text-danger']");
-    public By loginLoading = By.cssSelector("div.ngx-spinner-overlay");
+    public By validation_Msg = By.xpath("//small[text()='Username or password is incorrect']");
+    public By spinner = By.cssSelector("div.ngx-spinner-overlay");
 
 
-    public void click_DirectorTab() throws InterruptedException {
-        WebdriverWaits.SwitchToNewTab();
-        WebdriverWaits.waitUntilVisible(directorsTab);
-        WebdriverWaits.WaitUntilInvisible(loginLoading);
+    public void click_DirectorTab() {
+        WebdriverWaits.WaitUntilVisible(directorsTab);
+        WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(directorsTab);
     }
 
     public void click_CreateDirectorsButton() {
-        WebdriverWaits.waitUntilVisible(createDirectorButton);
-        WebdriverWaits.WaitUntilInvisible(loginLoading);
-        //  wait.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
-
+        WebdriverWaits.WaitUntilVisible(createDirectorButton);
+        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(createDirectorButton);
     }
 
     public void click_directorsFirstNameField(String directorsFirstNameText) {
-        WebdriverWaits.waitUntilVisible(directorsFirstName);
+        wait.WaitUntilVisible(directorsFirstName);
         sendKeys_withClear(directorsFirstName, directorsFirstNameText);
     }
 
     public void click_directorsLastNameField(String directorsLastNameText) {
-        WebdriverWaits.waitUntilVisible(directorsLastName);
+        wait.WaitUntilVisible(directorsLastName);
         sendKeys_withClear(directorsLastName, directorsLastNameText);
     }
 
     public void click_directorsMobileNumberField(String directorsMobileNumberText) {
-        WebdriverWaits.waitUntilVisible(directorsMobileNumber);
+        wait.WaitUntilVisible(directorsMobileNumber);
         sendKeys_withClear(directorsMobileNumber, directorsMobileNumberText);
     }
 
     public void click_directorsdirectorsEmailField(String directorsEmailText) {
-        WebdriverWaits.waitUntilVisible(directorsEmail);
+        wait.WaitUntilVisible(directorsEmail);
         sendKeys_withClear(directorsEmail, directorsEmailText);
     }
 
     public void click_directorsassignLocationField() {
-
+        wait.WaitUntilVisible(assignLocation);
         click_custom(assignLocation);
-
+        wait.WaitUntilVisible(directorsLocationName);
         click_custom(directorsLocationName);
     }
 
     public void click_directorsUserNameField(String directorsUserNameText) {
-        WebdriverWaits.waitUntilVisible(directorsUserName);
+        wait.WaitUntilVisible(directorsUserName);
         sendKeys_withClear(directorsUserName, directorsUserNameText);
-    }
-    public void click_LogOutLink() {
-      //    WebdriverWaits.WaitUntilInvisible(logOutLink);
-        WebdriverWaits.waitUntilVisible(logOutLink);
-        click_custom(logOutLink);
     }
 
     public void click_passwordField(String password_FieldText) {
-        WebdriverWaits.waitUntilVisible(password_Field);
+        wait.WaitUntilVisible(password_Field);
         sendKeys_withClear(password_Field, password_FieldText);
     }
 
@@ -146,7 +137,7 @@ public class DirectorPage extends BasePage {
     //***************search created diagnostician******************
 
     public void click_filterButton() {
-        WebdriverWaits.waitUntilVisible(filterButton);
+        wait.WaitUntilVisible(filterButton);
         click_custom(filterButton);
     }
 
@@ -156,12 +147,12 @@ public class DirectorPage extends BasePage {
 
     //***************edit created director*****************
     public void click_On_EditButton() {
-
+        wait.WaitUntilVisible(editButton);
         click_custom(editButton);
     }
 
     public void enter_CellNumber(String cellNumberText) {
-        WebdriverWaits.waitUntilVisible(cellNumber);
+        wait.WaitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -187,7 +178,7 @@ public class DirectorPage extends BasePage {
     }
 
     public void clickOn_DontSave() {
-
+        wait.WaitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -205,33 +196,16 @@ public class DirectorPage extends BasePage {
         click_custom(login);
     }
 
-
-    public void clickOn_YearHeader(){
-
-        click_custom(yearHeader);
+    public void click_LogOutLink() {
+        wait.WaitUntilVisible(logOutLink);
+        click_custom(logOutLink);
     }
-    public void clickOn_availableBox(){
-
-        click_custom(clickOnBox);
-        click_custom(clickOnBox1);
-        click_custom(clickOnBox2);
-        click_custom(clickOnBox3);
-        click_custom(clickOnBox4);
-        click_custom(clickOnBox5);
-        click_custom(clickOnBox6);
-    }
-    public void clickOn_SaveButton(){
-
-        click_custom(saveButton);
-    }
-
-
-
-
 
 
     //*********Create director**************
     public void create_Director(String directorsFirstNameText, String directorsLastNameText, String directorsMobileNumberText, String directorsEmailText, String directorsUserNameText, String password_FieldText, String confirmPasswordFieldText) throws InterruptedException {
+
+        click_DirectorTab();
         click_CreateDirectorsButton();
         click_directorsFirstNameField(directorsFirstNameText);
         click_directorsLastNameField(directorsLastNameText);
@@ -295,9 +269,9 @@ public class DirectorPage extends BasePage {
     }
     //**************Not Editing created director**************
 
-    public void not_Edit_Director(String cellNumberText, String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
+    public void not_Edit_Director(String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-        enter_CellNumber(cellNumberText);
+        // enter_CellNumber(cellNumberText);
         enter_Director_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordField(confirmPasswordFieldText);
@@ -312,6 +286,8 @@ public class DirectorPage extends BasePage {
         clickOn_Login_UsernameField(userNameFieldText);
         clickOn_Login_PasswordField(PasswordFieldText);
         clickOn_Login_Button();
+
+
     }
 
     //************director login with old Password***********
@@ -319,20 +295,8 @@ public class DirectorPage extends BasePage {
         click_LogOutLink();
         clickOn_Login_UsernameField(userNameFieldText);
         clickOn_Login_PasswordField(PasswordFieldText);
+
         clickOn_Login_Button();
     }
-public void director_Availability() throws InterruptedException {
 
-    clickOn_YearHeader();
-    WebdriverWaits.waitUntilVisible(yearsCalender);
-    validate_text(yearsCalender, "2023 - 2034");
-
-    validate_text(hihglihgtedYear, "2023");
-    clickOn_YearHeader();
-    clickOn_availableBox();
-
-    validate_text(availableText, "Available");
-    clickOn_SaveButton();
-
-}
 }
