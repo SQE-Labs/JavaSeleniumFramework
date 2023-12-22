@@ -23,6 +23,7 @@ public class SuperAdminTest extends BaseTest {
     public String adminUserName;
     public String adminFirstName;
     public String adminEmailAddress;
+
 public String adminLastName;
 
 public String admin_cell_Number;
@@ -31,6 +32,7 @@ public String admin_cell_Number;
 
     LoginPage login = new LoginPage();
     DiagnosticianTest dia=new DiagnosticianTest();
+    DirectorTest director=new DirectorTest();
 
 
     @Test(priority = 0, enabled = true, description = "Verify that SuperAdmin is able to create Admin or not")
@@ -121,259 +123,129 @@ public String admin_cell_Number;
         admin.create_Admin(adminFirstName,adminLastName,  admin_cell_Number, adminEmailAddress, adminUserName, "123456", "123456");
         WebdriverWaits.waitUntilVisible(admin.Error_Msg);
         validate_text(admin.Error_Msg, "An error occurred while creating the admin. Username already exists!");
-        panelPage.clickOn_BackButton();
+        panelPage.click_LogOutLink();
     }
     @Test(priority = 8, enabled = true, description = "SuperAdmin is able to create Diagnostician")
-    public void create_Diagnostician() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        DiagnosticianTest dia=new DiagnosticianTest();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+    public void create_Diagnostician_By_SuperAdmin() throws InterruptedException {
         //Login by using superAdmin credentials
-       // login.superAdminLogin();
-        panelPage.click_DiagnosticianTab();
-       diagnostician.create_Diagnostician(dia.diagnosticianFirstName, dia.diagnosticianLastName, dia.dia_Cell_Number, dia.diagnosticianEmailAddress, dia.diagnosticianUserName, "123456", "123456");
-        WebdriverWaits.waitUntilVisible(diagnostician.actualText);
-        validate_text(diagnostician.actualText, dia.diagnosticianUserName);
-        Log.info("Successfully SuperAdmin Created diagnostician");
-        diagnostician.Verify_Duplicate_Diagnostician(dia.diagnosticianFirstName, dia.diagnosticianLastName, "8564234568", dia.diagnosticianEmailAddress, dia.diagnosticianUserName, "123456", "123456");
-        WebdriverWaits.waitUntilVisible(diagnostician.validationMsg);
-        validate_text(diagnostician.validationMsg, "An error occurred while creating the admin. Username already exists!");
-        panelPage.clickOn_BackButton();
+        login.superAdminLogin();
+        dia.create_Diagnostician();
     }
 
     @Test(priority = 9, enabled = true, description = "SuperAdmin is able to search created diagnostician or not")
-    public void search_Created_Diagnostician() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-//        panelPage.clickOn_BackButton();
-        diagnostician.search_CreatedDiagnostician(dia.diagnosticianUserName);
-        WebdriverWaits.waitUntilVisible(diagnostician.actualText);
-        validate_text(diagnostician.actualText, dia.diagnosticianUserName);
-        Log.info("Created Diagnostician Displayed In The Diagnostician ListPage");
+    public void search_Created_Diagnostician_In_SuperAdmin() throws InterruptedException {
+        dia.search_Created_Diagnostician();
     }
 
     @Test(priority = 10, enabled = true, description = "Super admin is able to edit the created diagnostician or not")
-    public void edit_Diagnostician() throws InterruptedException {
-        String diagnosticianEmailAddress1 = dia.diagnosticianFirstName + "12@yopmail.com";
-        Diagnostician diagnostician = new Diagnostician();
-        //In Edit-Diagnostician password also changed
-        diagnostician.edit_Diagnostician(diagnosticianEmailAddress1, "12345678", "12345678");
-        WebdriverWaits.waitUntilVisible(diagnostician.edit_Succ_Msg);
-        validate_text(diagnostician.edit_Succ_Msg, "Diagnostician details updated successfully.");
-        Log.info("Successfully Edited the created diagnostician");
+    public void edit_Diagnostician_By_SuperAdmin() throws InterruptedException {
+        dia.edit_Diagnostician();
     }
     @Test(priority = 11, enabled = true, description = "verify that toggle is off or not")
-    public void checking_Toggle_Off() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        //checking user is disable or not
-        diagnostician.cheking_DisableUser();
-        WebdriverWaits.waitUntilVisible(diagnostician.enableUser);
-        validate_text(diagnostician.enableUser, "Enable User");
+    public void verifying_Toggle_Off_diag_By_SuperAdmin() throws InterruptedException {
+        dia.checking_Toggle_Off();
     }
     @Test(priority = 12, enabled = true, description = "Verify that Superadmin is able to diable the user or not")
-    public void enable_User() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        diagnostician.enable_DiagnosticianUser();
-        // Enabling the user
-        WebdriverWaits.waitUntilVisible(diagnostician.edit_Succ_Msg);
-        validate_text(diagnostician.edit_Succ_Msg, "Diagnostician details updated successfully.");
-        Log.info("Successfully Edited the created diagnostician");
-       // panelPage.click_LogOutLink();
+    public void enable_ToggleOfDia_By_SuperAdmin() throws InterruptedException {
+       dia.enable_User();
     }
     @Test(priority = 13, enabled = true, description = "verify that diagnostician is able to edit or not after clicking Dont save button")
     public void verify_Dia_DontSaveBtn() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        diagnostician.verify_DontSave("5659865589", dia.diagnosticianEmailAddress, "123456", "123456");
-        validate_text(diagnostician.UserNameGetText, dia.diagnosticianUserName);
+        dia.verify_Dia_DontSaveBtn();
     }
     @Test(priority = 14, enabled = true, description = "Verify Diagnostician is able to login with new password or not")
     public void diagnostician_Relogin() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        panelPage.click_LogOutLink();
-        // Login with Diagnostician new password
-        login.diagnosticianLogin(dia.diagnosticianUserName, "12345678");
-        WebdriverWaits.waitUntilVisible(diagnostician.diagnosticianDashBoardPage);
-        validate_text(diagnostician.diagnosticianDashBoardPage, "Dashboard");
+       dia.diagnostician_Relogin();
     }
 
     @Test(priority = 15,enabled = true,description = "diagnostician Scheduling availability")
     public void diagnostician_Availability() throws InterruptedException {
-
-        Diagnostician diagnostician = new Diagnostician();
-        DashBoardPanelPage panelpage=new DashBoardPanelPage();
-        LoginPage login=new LoginPage();
-        AdminTest admin=new AdminTest();
-        SuperAdminTest Superadmin = new SuperAdminTest();
-      //  login.diagnosticianLogin(Superadmin.diagnosticianUserName,"12345678");
-        diagnostician.checking_Availability();
-        diagnostician.cancel_Availability();
-        diagnostician.deleting_Availability();
+        dia.diagnostician_Availability();
     }
-    @Test(priority =16, enabled = true, description = "To verify schedule appointment")
+    @Test(priority =17, enabled = true, description = "To verify schedule appointment")
     public void scheduleAppointment_Admin() throws InterruptedException {
         LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
 
-//
+       // Login as a Admin
        login.adminLogin(adminUserName,"12345678");
         dashboard.clickScheduleAppointment();
     }
 
-    @Test(priority = 17, enabled =true, description = "selecting date for appointment")
-    public void appointmentCalender() throws InterruptedException {
-        LoginPage login = new LoginPage();
-        Diagnostician diagnostician = new Diagnostician();
-        DashboardPage dashboard = new DashboardPage();
-        //dashboard.clickScheduleAppointment();
-        diagnostician.createAppointment("Plano");
-        diagnostician.appointmentDateSelecting(2);
+    @Test(priority = 18, enabled =true, description = "selecting date for appointment")
+    public void appointmentCalenderInAdmin() throws InterruptedException {
+        AdminTest admin=new AdminTest();
+        admin.appointmentCalender();
     }
 
-    @Test(priority = 18, enabled = true, description = "Filling client details")
+    @Test(priority = 19, enabled = true, description = "Filling client details")
     public void fillClientDetails() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        DirectorPage director=new DirectorPage();
+        ClientDetailsPage detailPage=new ClientDetailsPage();
         DashBoardPanelPage panelpage=new DashBoardPanelPage();
-        SuperAdminTest Superadmin = new SuperAdminTest();
-        diagnostician.enteringClientDetails( dia.diagnosticianFirstName,dia.diagnosticianLastName, 2, "19-11-1997",2, dia.dia_Cell_Number,dia.diagnosticianEmailAddress, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
+        detailPage.enteringClientDetails(dia.diagnosticianFirstName,dia.diagnosticianLastName, 2, "19-11-1997",2, dia.dia_Cell_Number,dia.diagnosticianEmailAddress, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
         panelpage.click_LogOutLink();
     }
 
-    @Test(priority = 15, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
-    public void diagnostician_login_With_OldPassword() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-      //  panelPage.click_LogOutLink();
-        // Logging with Old password to get validation message.
-        login.diagnosticianLogin(dia.diagnosticianUserName,"123456");
-        WebdriverWaits.waitUntilVisible(diagnostician.validation_Msg);
-        validate_text(diagnostician.validation_Msg, "Username or password is incorrect");
+    @Test(priority = 16, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
+    public void verify_Dia_IsAbleToLoginWithOldPassword_InSuperAdmin() throws InterruptedException {
+       dia.diagnostician_login_With_OldPassword();
     }
 
     //DIRECTOR-----------------------------------------------------------------------------------
 
-    @Test(priority = 19, enabled = true, description = "verify that SuperAdmin is able to create Director or not")
-    public void create_Directors() throws InterruptedException {
-        directorFirstName = "AU_Elsie" + RandomStrings.requiredCharacters(1);
-        directorLastName = "AU_Brien" + RandomStrings.requiredCharacters(1);
-        directorEmailAddress = directorFirstName + "@yopmail.com";
-        directorUserName = "AU_retta" + RandomStrings.requiredCharacters(1);
-        dir_Cell_Number=RandomStrings.requiredDigits(10);
-        DirectorPage director = new DirectorPage();
-        DashBoardPanelPage panelPage=new DashBoardPanelPage();
-        LoginPage login = new LoginPage();
-
-        //Login with super Admin credentials
-        login.superAdminLogin();//login
-        panelPage.click_DirectorTab();
-        director.create_Director(directorFirstName, directorLastName, dir_Cell_Number, directorEmailAddress, directorUserName, "123456", "123456");
-        WebdriverWaits.waitUntilVisible(director.directorListPage);
-        validate_text(director.directorListPage, "Directors List");
-        director.Verify_Duplicate_Director(directorFirstName, directorLastName, dir_Cell_Number, directorEmailAddress, directorUserName, "123456", "123456");
-        WebdriverWaits.waitUntilVisible(director.validationMsg);
-        validate_text(director.validationMsg, "An error occurred while creating the admin. Username already exists!");
-         panelPage.clickOn_BackButton();
-       //panelPage.click_LogOutLink();
+    @Test(priority = 20, enabled = true, description = "verify that SuperAdmin is able to create Director or not")
+    public void create_Directors_In_SuperAdmin() throws InterruptedException {
+         director.create_Directors();
     }
 
 
-    @Test(priority = 20, enabled = true, description = "Super admin is able to edit the created diagnostician or not")
-    public void edit_Director() throws InterruptedException {
-        String directorEmailAddress1 = directorFirstName + "12@yopmail.com";
-        DirectorPage director = new DirectorPage();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        LoginPage login=new LoginPage();
-       // login.superAdminLogin();
-        //panelPage.clickOn_BackButton();
-        //director changing the password.
-      //  panelPage.edit_Director();
-        director.edit_Director(directorEmailAddress1, "12345678", "12345678");
-        validate_text(director.edit_SuccMsg, "Director details updated successfully.");
-        Log.info("Successfully Edited the created director");
+    @Test(priority = 21, enabled = true, description = "Super admin is able to edit the created diagnostician or not")
+    public void edit_Director_In_SuperAdmin() throws InterruptedException {
+        director.edit_Director();
     }
-    @Test(priority = 21, enabled = true, description = "verify that superadmin is able to check toggle button is enable or disable")
-    public void director_checking_Toggle_Off() throws InterruptedException {
-        DirectorPage director = new DirectorPage();
-        director.cheking_DisableUser();
-        WebdriverWaits.waitUntilVisible(director.enableUser);
-        validate_text(director.enableUser, "Enable User");
+    @Test(priority = 22, enabled = true, description = "verify that superadmin is able to check toggle button is enable or disable")
+    public void director_checking_Toggle_Off_InSuperAdmin() throws InterruptedException {
+        director.director_checking_Toggle_Off();
     }
 
-    @Test(priority = 22, enabled = true, description = "Verify that Superadmin is able to Enable the user or not")
+    @Test(priority = 23, enabled = true, description = "Verify that Superadmin is able to Enable the user or not")
     public void director_enable_User() throws InterruptedException {
-        DirectorPage director = new DirectorPage();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        director.enable_Director();
-        WebdriverWaits.waitUntilVisible(director.edit_SuccMsg);
-        validate_text(director.edit_SuccMsg, "Director details updated successfully.");
-        Log.info("Successfully Edited the created director");
+        director.director_enable_User();
 
     }
 
-    @Test(priority = 23, enabled = true, description = "verify that diagnostician is able to edit or not after clicking dont save button")
+    @Test(priority = 24, enabled = true, description = "verify that diagnostician is able to edit or not after clicking dont save button")
     public void verify_Dir_DntSaveBtn() throws InterruptedException {
-        DirectorPage director = new DirectorPage();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        director.not_Edit_Director(dir_Cell_Number, directorEmailAddress, "123456", "123456");
-        validate_text(director.UserNameGetText, directorUserName);
-        director.click_LogOutLink();
+        director.verify_Dir_DntSaveBtn();
     }
-    @Test(priority=24,enabled = true,description = "Verify that Director is able to login with valid credentials or not")
+    @Test(priority=25,enabled = true,description = "Verify that Director is able to login with valid credentials or not")
     public void director_Availability() throws InterruptedException {
-        LoginPage login=new LoginPage();
-        SuperAdminTest adminTest=new SuperAdminTest();
-        DashBoardPanelPage panelPage=new DashBoardPanelPage();
-        DirectorPage director=new DirectorPage();
-        login.adminLogin(directorUserName,"12345678");
-        WebdriverWaits.waitUntilVisible(director.dashboardPage);
-        validate_text(director.dashboardPage, "Dashboard");
-        panelPage.clickOn_AppointmentsTab();
-        validate_text(director.viewAll, "View All");
-        panelPage.clickOn_AvailabilityTab();
-        validate_text(director.monthHeader, "December");
-        validate_text(director.yearHeader, "2023");
-        validate_text(director.dateHeader, "20");
-        director.director_Availability();
-        director.click_LogOutLink();
+         director.director_Availability();
     }
-    @Test(priority = 25, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
+    @Test(priority = 26, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
     public void login_With_OldPassword() throws InterruptedException {
-        DirectorPage director = new DirectorPage();
-        DashBoardPanelPage panelPage=new DashBoardPanelPage();
-        //Director trying to login with old password
-        login.directorLogin(directorUserName, "123456");
-        WebdriverWaits.waitUntilVisible(director.validation_Msg);
-        validate_text(director.validation_Msg, "Username or password is incorrect");
-        //panelPage.click_LogOutLink();
+        director.login_With_OldPassword();
     }
 
-    @Test(priority = 26, enabled = true, description = "Verify Diagnostician is able to login with new password or not")
-    public void director_Relogin() throws InterruptedException {
-        DirectorPage director = new DirectorPage();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        //Director trying to login with new password
-        login.directorLogin(directorUserName, "12345678");
-        WebdriverWaits.waitUntilVisible(director.directorDashBoardPage);
-        validate_text(director.directorDashBoardPage, "Dashboard");
-        panelPage.click_LogOutLink();
+    @Test(priority = 27, enabled = true, description = "Verify Diagnostician is able to login with new password or not")
+    public void director_Relogin_By_SuperAdmin() throws InterruptedException {
+        director.director_Relogin();
     }
 
-    @Test(priority = 27, enabled = true, description = "Verify that SuperAdmin is able to view appointments or not")
+    @Test(priority = 28, enabled = true, description = "Verify that SuperAdmin is able to view appointments or not")
     public void Appointments_Page() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
         LoginPage login = new LoginPage();
         login.adminLogin(adminUserName,"12345678");
-        appointment.viewAllAppointmentsPage(dia.diagnosticianFirstName, dia.diagnosticianLastName);
+        appointment.allAppointmentsPage(dia.diagnosticianFirstName, dia.diagnosticianLastName);
     }
 
 
     //*************This testcase also has defect*********************
-    @Test(priority = 28, enabled = true, description = "Verify that 'Appointment Details' page opens up on clicking 'View Detail' link")
+    @Test(priority = 29, enabled = true, description = "Verify that 'Appointment Details' page opens up on clicking 'View Detail' link")
     public void view_Details_Page() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
-        appointment.View_DetailsPage();
+        appointment.clickOn_ViewDetails();
         WebdriverWaits.waitUntilVisible(appointment.App_Text);
         validate_text(appointment.App_Text, "All Appointments" );
 //        WebdriverWaits.WaitUntilVisible(appointment.viewStudentObservationButton);
@@ -384,11 +256,11 @@ public String admin_cell_Number;
 
     //********After completion of complete appointment this test case will be valid********************
 
-    @Test(priority = 29, enabled = false, description = "Verify that superAdmin is able to view ClientObservation Page or not")
-    public void view_ClientObservation_Page() throws InterruptedException {
-        AppointmentsPage appointment = new AppointmentsPage();
-        appointment.view_ClientObservation_Page();
-    }
+//    @Test(priority = 29, enabled = false, description = "Verify that superAdmin is able to view ClientObservation Page or not")
+//    public void view_ClientObservation_Page() throws InterruptedException {
+//        AppointmentsPage appointment = new AppointmentsPage();
+//        appointment.view_ClientObservation_Page();
+//    }
 
     @Test(priority = 30, enabled = true, description = "Verify that CSV file gets downloaded after clicking 'Export to CSV' button, on 'All Appointments' page")
     public void download_CSV_File() throws InterruptedException {

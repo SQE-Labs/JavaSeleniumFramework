@@ -26,7 +26,6 @@ public class LoginPage extends BasePage {
     }
 
     public void clickLoginBtn() {
-
         clickBtn_custom(login);
     }
 

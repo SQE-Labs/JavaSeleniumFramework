@@ -64,6 +64,7 @@ public class DirectorPage extends BasePage {
     // public By clickOnBox6=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[21]");
     public By availableText = By.xpath("//div[text()='Available']");
     public By saveButton = By.xpath("//button[text()='Save']");
+    public By validationMsg=By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
 
 
     //**************relogin with new password***********
@@ -78,51 +79,51 @@ public class DirectorPage extends BasePage {
 
 
     public void click_DirectorTab() {
-        WebdriverWaits.WaitUntilVisible(directorsTab);
+        WebdriverWaits.waitUntilVisible(directorsTab);
         WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(directorsTab);
     }
 
     public void click_CreateDirectorsButton() {
-        WebdriverWaits.WaitUntilVisible(createDirectorButton);
+        WebdriverWaits.waitUntilVisible(createDirectorButton);
         WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
         click_custom(createDirectorButton);
     }
 
     public void click_directorsFirstNameField(String directorsFirstNameText) {
-        wait.WaitUntilVisible(directorsFirstName);
+        wait.waitUntilVisible(directorsFirstName);
         sendKeys_withClear(directorsFirstName, directorsFirstNameText);
     }
 
     public void click_directorsLastNameField(String directorsLastNameText) {
-        wait.WaitUntilVisible(directorsLastName);
+        wait.waitUntilVisible(directorsLastName);
         sendKeys_withClear(directorsLastName, directorsLastNameText);
     }
 
     public void click_directorsMobileNumberField(String directorsMobileNumberText) {
-        wait.WaitUntilVisible(directorsMobileNumber);
+        wait.waitUntilVisible(directorsMobileNumber);
         sendKeys_withClear(directorsMobileNumber, directorsMobileNumberText);
     }
 
     public void click_directorsdirectorsEmailField(String directorsEmailText) {
-        wait.WaitUntilVisible(directorsEmail);
+        wait.waitUntilVisible(directorsEmail);
         sendKeys_withClear(directorsEmail, directorsEmailText);
     }
 
     public void click_directorsassignLocationField() {
-        wait.WaitUntilVisible(assignLocation);
+        wait.waitUntilVisible(assignLocation);
         click_custom(assignLocation);
-        wait.WaitUntilVisible(directorsLocationName);
+        wait.waitUntilVisible(directorsLocationName);
         click_custom(directorsLocationName);
     }
 
     public void click_directorsUserNameField(String directorsUserNameText) {
-        wait.WaitUntilVisible(directorsUserName);
+        wait.waitUntilVisible(directorsUserName);
         sendKeys_withClear(directorsUserName, directorsUserNameText);
     }
 
     public void click_passwordField(String password_FieldText) {
-        wait.WaitUntilVisible(password_Field);
+        wait.waitUntilVisible(password_Field);
         sendKeys_withClear(password_Field, password_FieldText);
     }
 
@@ -137,29 +138,33 @@ public class DirectorPage extends BasePage {
     //***************search created diagnostician******************
 
     public void click_filterButton() {
-        wait.WaitUntilVisible(filterButton);
+        wait.waitUntilVisible(filterButton);
         click_custom(filterButton);
     }
 
     public void enterInSearchField(String searchFieldText) {
         sendKeys_withClear(searchField, searchFieldText);
     }
-
+    public void clickOn_SaveButton() {
+        click_custom(saveButton);
+    }
     //***************edit created director*****************
     public void click_On_EditButton() {
-        wait.WaitUntilVisible(editButton);
+        wait.waitUntilVisible(editButton);
         click_custom(editButton);
     }
 
     public void enter_CellNumber(String cellNumberText) {
-        wait.WaitUntilVisible(cellNumber);
+        wait.waitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
     public void click_UpdateButton() {
         click_custom(updateButton);
     }
-
+    public void clickOn_YearHeader() {
+        click_custom(yearHeader);
+    }
 
     public void off_ToggleButton() {
         click_custom(toggle);
@@ -178,7 +183,7 @@ public class DirectorPage extends BasePage {
     }
 
     public void clickOn_DontSave() {
-        wait.WaitUntilVisible(dontSaveButton);
+        wait.waitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -197,10 +202,17 @@ public class DirectorPage extends BasePage {
     }
 
     public void click_LogOutLink() {
-        wait.WaitUntilVisible(logOutLink);
+        wait.waitUntilVisible(logOutLink);
         click_custom(logOutLink);
     }
-
+    public void clickOn_availableBox() {
+        click_custom(clickOnBox);
+        click_custom(clickOnBox1);
+        click_custom(clickOnBox2);
+        click_custom(clickOnBox3);
+        click_custom(clickOnBox4);
+        click_custom(clickOnBox5);
+    }
 
     //*********Create director**************
     public void create_Director(String directorsFirstNameText, String directorsLastNameText, String directorsMobileNumberText, String directorsEmailText, String directorsUserNameText, String password_FieldText, String confirmPasswordFieldText) throws InterruptedException {
@@ -295,8 +307,22 @@ public class DirectorPage extends BasePage {
         click_LogOutLink();
         clickOn_Login_UsernameField(userNameFieldText);
         clickOn_Login_PasswordField(PasswordFieldText);
-
         clickOn_Login_Button();
     }
+    public void director_Availability() throws InterruptedException {
 
+        clickOn_YearHeader();
+        WebdriverWaits.waitUntilVisible(yearsCalender);
+        validate_text(yearsCalender, "2023 - 2034");
+
+        validate_text(hihglihgtedYear, "2023");
+        clickOn_YearHeader();
+        clickOn_availableBox();
+
+        validate_text(availableText, "Available");
+        clickOn_SaveButton();
+    }
 }
+
+
+

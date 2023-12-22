@@ -93,7 +93,6 @@ public class DashBoardPanelPage extends BasePage {
         click_custom(AppointmentsTab);
     }
     public void clickOn_AvailabilityTab(){
-
         click_custom(availabilityTab);
     }
 }

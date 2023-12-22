@@ -51,7 +51,7 @@ public class AdminPage extends BasePage
     public By dontSaveButton=By.xpath("//a[text()='Don’t Save']");
     public By editUserPop_Up=By.xpath("//h5[text()='Edit User']");
     public By userNameText=By.xpath("(//td[2])[1]");
-    public By Error_Msg=By.xpath("//div[text()='An error occurred while creating the admin. Error: Username is already exist!']");
+    public By Error_Msg=By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
 
     //***********DASH BOARD PAGE**********
     public By dashboard=By.xpath("//h3[text()='Dashboard']");

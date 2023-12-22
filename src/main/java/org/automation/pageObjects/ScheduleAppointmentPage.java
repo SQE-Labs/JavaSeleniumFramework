@@ -122,7 +122,7 @@ public class ScheduleAppointmentPage extends BasePage {
     }
 
     public void selectTestinglocation(String chooseLocationText) {
-        WebdriverWaits.WaitUntilVisible(chooseTestingLocation);
+        WebdriverWaits.waitUntilVisible(chooseTestingLocation);
         WebdriverWaits.WaitUntilInvisible(spinner);
         clickBtn_custom(chooseTestingLocation, "ChooseLocation");
         selectDropDownByVisibleText_custom(chooseTestingLocation, chooseLocationText, "ChooseLocation");
@@ -154,7 +154,7 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(yesCancelBtn);
     }
     public void click_ViewDetails() throws InterruptedException{
-        WebdriverWaits.WaitUntilVisible(viewDetailsClient);
+        WebdriverWaits.waitUntilVisible(viewDetailsClient);
         click_custom(viewDetailsClient);
     }
 
@@ -187,7 +187,7 @@ public class ScheduleAppointmentPage extends BasePage {
 
 
     public void clickOnAppSaveButton() {
-        WebdriverWaits.WaitUntilVisible(appointmentSaveButtonButton);
+        WebdriverWaits.waitUntilVisible(appointmentSaveButtonButton);
         click_custom(appointmentSaveButtonButton);
     }
 
@@ -218,23 +218,23 @@ public class ScheduleAppointmentPage extends BasePage {
         int colCount = getColumnCount();
         int expLocatorPos = (colCount - 1) * 7 + 1;
         System.out.println(expLocatorPos);
-        WebdriverWaits.WaitUntilVisible(clickOnBox);
+        WebdriverWaits.waitUntilVisible(clickOnBox);
         click_custom(clickOnBox);
     }
 
     public void clickOnAssesmentType(int assestmentTypeTexts){
-        WebdriverWaits.WaitUntilVisible(assestmentType);
+        WebdriverWaits.waitUntilVisible(assestmentType);
         WebdriverWaits.WaitUntilInvisible(spinner);
-        WebdriverWaits.WaitForElementInteractable(assestmentType);
+        WebdriverWaits.waitForElementInteractable(assestmentType);
         click_custom(assestmentType);
         selectDropDownByIndex_custom(assestmentType,assestmentTypeTexts);
     }
     public void enterFirstName(String cilentFirstNameText){
-        WebdriverWaits.WaitUntilVisible(clientFirstName);
+        WebdriverWaits.waitUntilVisible(clientFirstName);
         sendKeys_withClear(clientFirstName,cilentFirstNameText);
     }
     public void enterLastName(String cilentLastNameText){
-        WebdriverWaits.WaitUntilVisible(clientLastName);
+        WebdriverWaits.waitUntilVisible(clientLastName);
         sendKeys_withClear(clientLastName,cilentLastNameText);
     }
     public void selectGradeType(int gradeType){
@@ -274,21 +274,21 @@ public class ScheduleAppointmentPage extends BasePage {
     }
 
     public void enterTestAmount(String testAmountText){
-        WebdriverWaits.WaitUntilVisible(testAmount);
+        WebdriverWaits.waitUntilVisible(testAmount);
         sendKeys_withClear(testAmount,testAmountText);
     }
     public void clickOnContinueToDepositButton(){
         click_custom(continueToDeposit);
     }
     public void enterInDateField(String dateOfBirthText) throws InterruptedException {
-        WebdriverWaits.WaitUntilVisible(dateOfBirth);
+        WebdriverWaits.waitUntilVisible(dateOfBirth);
         click_custom(dateOfBirth);
-        WebdriverWaits.WaitUntilVisible(dateOfBirth);
+        WebdriverWaits.waitUntilVisible(dateOfBirth);
         sendKeys_withClear(dateOfBirth,dateOfBirthText);
     }
     public void enterAmount(String enterAmountText) throws InterruptedException {
         WebdriverWaits.WaitUntilInvisible(enterAmountField);
-        WebdriverWaits.WaitUntilVisible(enterAmountField);
+        WebdriverWaits.waitUntilVisible(enterAmountField);
         click_custom(enterAmountField);
         sendKeys_withClear(enterAmountField,enterAmountText);
     }
@@ -297,19 +297,19 @@ public class ScheduleAppointmentPage extends BasePage {
     }
     public void clickOnViewDetailsButton(){
         WebdriverWaits.WaitUntilInvisible(viewDetails);
-       WebdriverWaits.WaitUntilVisible(viewDetails);
+       WebdriverWaits.waitUntilVisible(viewDetails);
         click_custom(viewDetails);
     }
     public void enterInsearchBox(String CustomerFirstName )
-    {    WebdriverWaits.WaitUntilVisible(searchBox);
+    {    WebdriverWaits.waitUntilVisible(searchBox);
         sendKeys_withClear(searchBox,CustomerFirstName);
     }
     public void clickOnviewLink(){
-        WebdriverWaits.WaitUntilVisible(viewlink);
+        WebdriverWaits.waitUntilVisible(viewlink);
         click_custom(viewlink);
     }
     public void clickOnFilterbutton(){
-        WebdriverWaits.WaitUntilVisible(filter);
+        WebdriverWaits.waitUntilVisible(filter);
         click_custom(filter);
     }
 
@@ -353,12 +353,12 @@ public class ScheduleAppointmentPage extends BasePage {
 
 //******************checking availability*************
     public void click_On_Availablity(){
-        WebdriverWaits.WaitUntilVisible(availability);
+        WebdriverWaits.waitUntilVisible(availability);
         WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(availability);
     }
     public void click_On_Slot() throws InterruptedException {
-            WebdriverWaits.WaitUntilVisible(slot);
+
             click_custom(slot);
         //scrollIntoHorizontally(slot1);
             click_custom(slot1);
@@ -376,7 +376,7 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(delete);
     }
     public void click_GoBack(){
-        WebdriverWaits.WaitUntilVisible(goBack);
+
         click_custom(goBack);
     }
 

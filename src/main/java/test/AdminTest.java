@@ -35,18 +35,8 @@ public class AdminTest extends BaseTest {
     @Test(priority = 0, enabled = false, description = "Create Diagnostician by admin")
     public void create_Diagnostician() throws InterruptedException {
         Diagnostician diagnostician = new Diagnostician();
-        // Login as 'Admin'
-        LoginPage login =new LoginPage();
-        login.adminLogin("Allen", "123456");
-        // Create diagnostician
-        diagnosticianFirstName = "AU_Zoi"+ RandomStrings.requiredCharacters(1);
-        diagnosticianLastName = "AU_smith"+ RandomStrings.requiredCharacters(1);
-        diagnosticianUserName= "AU_s" + RandomStrings.requiredCharacters(3);
-        diagnosticianEmailAddress = diagnosticianFirstName+ "10@yopmail.com";
-        String diagnosticianPhoneNumber = RandomStrings.requiredDigits(10);
-        diagnostician.create_Diagnostician(diagnosticianFirstName,diagnosticianLastName,diagnosticianPhoneNumber,diagnosticianEmailAddress,diagnosticianUserName,"123456","123456");
-        WebdriverWaits.WaitUntilVisible(diagnostician.actualText);
-        validate_text(diagnostician.actualText,diagnosticianUserName);
+        DiagnosticianTest dia=new DiagnosticianTest();
+        dia.create_Diagnostician();
     }
 
 
@@ -56,13 +46,14 @@ public class AdminTest extends BaseTest {
     public void diagnostician_Availability() throws InterruptedException {
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
         DashBoardPanelPage panelpage=new DashBoardPanelPage();
+        DiagnosticianTest dia=new DiagnosticianTest();
         LoginPage login=new LoginPage();
         login.adminLogin("Allen","123456");
         //AdminTest admin=new AdminTest();
        // SuperAdminTest Superadmin = new SuperAdminTest();
         //login.diagnosticianLogin(Superadmin.diagnosticianUserName,"12345678");
         DashBoardPanelPage logout = new DashBoardPanelPage();
-        schedule.login_As_Diagnostician(diagnosticianUserName,"123456");
+        schedule.login_As_Diagnostician(dia.diagnosticianUserName,"123456");
         schedule.checking_Availability();
         schedule.cancel_Availability();
         schedule.deleting_Availability();
@@ -76,7 +67,7 @@ public class AdminTest extends BaseTest {
         Thread.sleep(5000);
     }
 
-    @Test(priority = 3, enabled = false, description = "selecting date for appointment")
+    @Test(priority = 3, enabled = true, description = "selecting date for appointment")
     public void appointmentCalender() throws InterruptedException {
         LoginTest login = new LoginTest();
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
@@ -129,19 +120,13 @@ public class AdminTest extends BaseTest {
     @Test(priority = 2, enabled = false, description = "Verify CSV file gets exported")
     public void verify_ExportCsvbtn() throws InterruptedException{
         AppointmentsPage appPage= new AppointmentsPage();
+        DashBoardPanelPage panelPage=new DashBoardPanelPage();
         appPage.exportCSV_Button();
-    }
-    @Test(priority = 3, enabled = false, description = "Validate file is downloaded")
-    public void validate_DownloadedFile() throws InterruptedException{
-        AppointmentsPage appPage= new AppointmentsPage();
-        appPage.validateDownloadedFile();
 
+        String downloadFile=panelPage.getDownloadFileName();
+        Assert.assertTrue(panelPage.isFileDownloaded(downloadFile));
     }
-    @Test(priority = 4, enabled = false, description = "Validate file is downloaded")
-    public void is_Downloaded() throws InterruptedException{
-        AppointmentsPage appPage= new AppointmentsPage();
-        appPage.validateDownloadedFile();
-    }
+
     @Test(priority = 2, enabled = false, description = "Verify search fromDate and toDate")
     public void verify_FromAndToDate() throws InterruptedException{
         AppointmentsPage appPage= new AppointmentsPage();
@@ -150,7 +135,7 @@ public class AdminTest extends BaseTest {
         String toDate= DateGenerator.getCurrentDate();
         String FromDate= DateGenerator.getDateWithDays("yyyy-MM-dd",-2);
         appPage.enter_Dates(FromDate,toDate);
-        WebdriverWaits.WaitUntilVisible(appPage.dateElements);
+        WebdriverWaits.waitUntilVisible(appPage.dateElements);
         List<WebElement> my_list = engine.getWebElements(appPage.dateElements);
         HashSet<WebElement> dateSet = new HashSet<>(my_list);
 
@@ -231,7 +216,7 @@ public class AdminTest extends BaseTest {
         directorUserName = "AU_Zpi" + RandomStrings.requiredCharacters(3);
         String directorPhoneNumber = RandomStrings.requiredDigits(10);
         director.create_Director(directorFirstName,directorLastName, directorPhoneNumber, directorEmailAddress,directorUserName, "123456", "123456");
-        WebdriverWaits.WaitUntilVisible(director.actualText);
+        WebdriverWaits.waitUntilVisible(director.actualText);
         validate_text(director.actualText,directorUserName);
 
     }
@@ -241,7 +226,7 @@ public class AdminTest extends BaseTest {
         DirectorPage director = new DirectorPage();
         directorEmailAddress = directorFirstName + "010@yopmail.com";
         director.edit_Director(directorEmailAddress,"12345678","12345678");
-        WebdriverWaits.WaitUntilVisible(director.edit_SuccMsg);
+        WebdriverWaits.waitUntilVisible(director.edit_SuccMsg);
         validate_text(director.edit_SuccMsg,"Director details updated successfully.");
         System.out.println("Successfully Edited the created director");
 
@@ -252,7 +237,7 @@ public class AdminTest extends BaseTest {
     public void director_Checking_Toggle_Off() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         director.cheking_DisableUser();
-        WebdriverWaits.WaitUntilVisible(director.enableUser);
+        WebdriverWaits.waitUntilVisible(director.enableUser);
         validate_text(director.enableUser, "Enable User");
 
     }
@@ -269,7 +254,7 @@ public class AdminTest extends BaseTest {
         DirectorPage director = new DirectorPage();
         String  directorEmailAddressUpdated = directorFirstName + "101@yopmail.com";
         director.not_Edit_Director(directorEmailAddressUpdated,"123456","123456");
-        WebdriverWaits.WaitUntilVisible(director.UserNameGetText);
+        WebdriverWaits.waitUntilVisible(director.UserNameGetText);
         validate_text(director.UserNameGetText, directorUserName);
 
     }
@@ -278,7 +263,7 @@ public class AdminTest extends BaseTest {
         DirectorPage director = new DirectorPage();
         director.Relogin_With_newPassword(directorUserName, "12345678");
         WebdriverWaits.WaitUntilInvisible(director.spinner);
-        WebdriverWaits.WaitUntilVisible(director.directorDashBoardPage);
+        WebdriverWaits.waitUntilVisible(director.directorDashBoardPage);
         validate_text(director.directorDashBoardPage, "Dashboard");
     }
     //**************Creating Diagnostician****************///
@@ -289,7 +274,7 @@ public class AdminTest extends BaseTest {
         // Edit Diagnostician
         String diagnosticianPhoneNumber = RandomStrings.requiredDigits(10);
         String diagnosticianUpdatedEmail= diagnosticianFirstName + "10@yopmail.com";
-        diagnostician.edit_Diagnostician(diagnosticianPhoneNumber,diagnosticianUpdatedEmail,"1234567","1234567");
+        diagnostician.edit_Diagnostician(diagnosticianUpdatedEmail,"1234567","1234567");
 
     }
     @Test(priority = 2,enabled = false, description = "Enable created diagnostician by admin")
@@ -305,7 +290,7 @@ public class AdminTest extends BaseTest {
     public void search_Diagnostician() throws InterruptedException{
         Diagnostician diagnostician = new Diagnostician();
         diagnostician.search_CreatedDiagnostician(diagnosticianUserName);
-        WebdriverWaits.WaitUntilVisible(diagnostician.actualText);
+        WebdriverWaits.waitUntilVisible(diagnostician.actualText);
         validate_text(diagnostician.actualText, diagnosticianUserName);
 
     }
@@ -315,15 +300,16 @@ public class AdminTest extends BaseTest {
         String diagnosticianPhoneNumber= RandomStrings.requiredDigits(10);
         String diagnosticianUpdatedEmail= diagnosticianFirstName + "10@yopmail.com";
         diagnostician.verify_DontSave(diagnosticianPhoneNumber,diagnosticianUpdatedEmail,"1234567","1234567");
-        WebdriverWaits.WaitUntilVisible(diagnostician.actualText);
+        WebdriverWaits.waitUntilVisible(diagnostician.actualText);
         validate_text(diagnostician.actualText,diagnosticianUserName);
     }
     @Test(priority = 5,enabled = false, description = "Diagnostician Relogin")
     public void diagnostician_Relogin() throws InterruptedException {
         Diagnostician diagnostician = new Diagnostician();
-        diagnostician.Relogin_With_newPassword(directorUserName, "12345678");
+        LoginPage login=new LoginPage();
+        login.directorLogin(directorUserName, "12345678");
        // WebdriverWaits.WaitUntilInvisible(diagnostician.spinner);
-        WebdriverWaits.WaitUntilVisible(diagnostician.diagnosticianDashBoardPage);
+        WebdriverWaits.waitUntilVisible(diagnostician.diagnosticianDashBoardPage);
         validate_text(diagnostician.diagnosticianDashBoardPage, "Dashboard");
     }
 

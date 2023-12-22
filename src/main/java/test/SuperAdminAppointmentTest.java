@@ -16,29 +16,30 @@ DiagnosticianTest dia=new DiagnosticianTest();
     @Test(priority = 23, enabled = true, description = "Verify that SuperAdmin is able to view appointments or not")
     public void Appointments_Page() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
+        DiagnosticianTest dia=new DiagnosticianTest();
         SuperAdminTest admintest=new SuperAdminTest();
         LoginPage login = new LoginPage();
         login.superAdminLogin();
-        appointment.viewAllAppointmentsPage(dia.diagnosticianFirstName, dia.diagnosticianLastName);
+        appointment.allAppointmentsPage(dia.diagnosticianFirstName, dia.diagnosticianLastName);
     }
 
     @Test(priority = 24, enabled = true, description = "Verify that 'Appointment Details' page opens up on clicking 'View Detail' link")
     public void view_Details_Page() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
-        appointment.View_DetailsPage();
+        appointment.clickOn_ViewDetails();
         WebdriverWaits.waitUntilVisible(appointment.App_Text);
-        validate_text(appointment.App_Text, "Keymen Sloting Details");
-        WebdriverWaits.waitUntilVisible(appointment.viewStudentObservationButton);
-        validate_text(appointment.viewStudentObservationButton, "View Student Observation");
-        WebdriverWaits.waitUntilVisible(appointment.viewDocumentsButton);
-        validate_text(appointment.viewDocumentsButton, "View Documents");
+        validate_text(appointment.App_Text, dia.diagnosticianFirstName+' '+dia.diagnosticianLastName +"Details");
+        WebdriverWaits.waitUntilVisible(appointment.view_Observation_Button);
+        validate_text(appointment.view_Observation_Button, "View Student Observation");
+        WebdriverWaits.waitUntilVisible(appointment.view_Document_Button);
+        validate_text(appointment.view_Document_Button, "View Documents");
     }
 
-    @Test(priority = 25, enabled = true, description = "Verify that superAdmin is able to view ClientObservation Page or not")
-    public void view_ClientObservation_Page() throws InterruptedException {
-        AppointmentsPage appointment = new AppointmentsPage();
-        appointment.view_ClientObservation_Page();
-    }
+//    @Test(priority = 25, enabled = false, description = "Verify that superAdmin is able to view ClientObservation Page or not")
+//    public void view_ClientObservation_Page() throws InterruptedException {
+//        AppointmentsPage appointment = new AppointmentsPage();
+//        appointment.view_ClientObservation_Page();
+//    }
 
     @Test(priority = 26, enabled = true, description = "Verify that CSV file gets downloaded after clicking 'Export to CSV' button, on 'All Appointments' page")
     public void download_CSV_File() throws InterruptedException {

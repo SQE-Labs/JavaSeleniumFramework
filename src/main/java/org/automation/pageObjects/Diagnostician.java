@@ -557,77 +557,7 @@ WebdriverWaits waits=new WebdriverWaits();
         click_custom(assestmentType);
         selectDropDownByIndex_custom(assestmentType,assestmentTypeTexts);
     }
-    public void enterFirstName(String cilentFirstNameText){
 
-        sendKeys_withClear(clientFirstName,cilentFirstNameText);
-    }
-    public void enterLastName(String cilentLastNameText){
-        WebdriverWaits.waitUntilVisible(clientLastName);
-        sendKeys_withClear(clientLastName,cilentLastNameText);
-    }
-    public void selectGradeType(int gradeType){
-        selectDropDownByIndex_custom(grade,gradeType);
-    }
-    public void selectSchoolType(int schoolTypeOption) throws InterruptedException {
-        // click_custom(SchoolType);
-        WebdriverWaits.waitUntilVisible(SchoolType);
-        selectDropDownByIndex_custom(SchoolType,schoolTypeOption);
-    }
-    public void enterCellNumber(String cellNumberText){
-        WebdriverWaits.waitUntilVisible(cellNumber);
-        sendKeys_withClear(cellNumber,cellNumberText);
-    }
-    public void enterPhoneNumber(String phoneNumberText){
-        sendKeys_withClear(phoneNumber,phoneNumberText);
-    }
-    public void enterEmialAddress(String emailAddressText){
-        sendKeys_withClear(emailAddress,emailAddressText);
-    }
-    public void reasonForCallDropDown(String reasonForCallText){
-        selectDropDownByVisibleText_custom(reasonForCall,reasonForCallText);
-    }
-    public void enterAdress1(String address1Text){
-        sendKeys_withClear(address1,address1Text);
-    }
-    public void enterAdress2(String address2Text){
-        sendKeys_withClear(address2,address2Text);
-    }
-    public void enterCity(String cityText){
-        sendKeys_withClear(city,cityText);
-    }
-    public void enterState(String stateText){
-        sendKeys_withClear(state,stateText);
-    }
-    public void enterZipCode(String zipCodeText){
-        sendKeys_withClear(zipCode,zipCodeText);
-    }
-
-    public void enterTestAmount(String testAmountText){
-        WebdriverWaits.waitUntilVisible(testAmount);
-        sendKeys_withClear(testAmount,testAmountText);
-    }
-    public void clickOnContinueToDepositButton(){
-        click_custom(continueToDeposit);
-    }
-    public void enterInDateField(String dateOfBirthText) throws InterruptedException {
-        click_custom(dateOfBirth);
-        WebdriverWaits.waitUntilVisible(dateOfBirth);
-        sendKeys_withClear(dateOfBirth,dateOfBirthText);
-    }
-    public void enterAmount(String enterAmountText) throws InterruptedException {
-        WebdriverWaits.WaitUntilInvisible(enterAmountField);
-        WebdriverWaits.waitUntilVisible(enterAmountField);
-        click_custom(enterAmountField);
-        sendKeys_withClear(enterAmountField,enterAmountText);
-    }
-    public void clickOnCollectDepositButton(){
-        click_custom(collectDeposit);
-    }
-    public void clickOnViewDetailsButton(){
-        WebdriverWaits.WaitUntilInvisible(viewDetails);
-
-        click_custom(viewDetails);
-    }
     public void enterInsearchBox(String CustomerFirstName )
     {
         WebdriverWaits.waitUntilVisible(searchBox);
@@ -751,32 +681,7 @@ WebdriverWaits waits=new WebdriverWaits();
 
         clickOnAssesmentType(Type);
     }
-    public void enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address1Text, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
-        enterFirstName(CustomerFirstName);
-        enterLastName(CustomerLastName);
 
-        enterInDateField( dateOfBirthText);
-        selectGradeType(gradeType);
-        selectSchoolType(schoolTypeOption);
-
-        enterCellNumber(cellNumber);
-        // enterPhoneNumber( phoneNumberText);
-        enterEmialAddress(EmailAddress);
-        reasonForCallDropDown(reasonForCallText);
-//            enterAdress1(address1Text);
-//            enterAdress2(address2Text);
-//            enterCity( cityText);
-//            enterState(stateText);
-//            enterZipCode(zipCodeText);
-        enterTestAmount(testAmountText);
-        clickOnContinueToDepositButton();
-
-        enterAmount(enterAmountText);
-        clickOnCollectDepositButton();
-
-        clickOnViewDetailsButton();
-
-    }
 
 
     public void search_ScheduledAppointment (String CustomerFirstName) throws InterruptedException {
