@@ -84,7 +84,7 @@ public class AdminPage extends BasePage
         WebdriverWaits. waitUntilVisible(admin_Email);
         sendKeys_withClear(admin_Email, diagnostician_EmailText);
     }
-    public void userNameField(String userNameText) {
+    public void enter_UserNameField(String userNameText) {
         WebdriverWaits.waitUntilVisible(userName);
         sendKeys_withClear(userName, userNameText);
     }
@@ -168,8 +168,8 @@ public class AdminPage extends BasePage
         enter_admin_LastName(CustomerLastName);
         enter_admin_MobileNumber(diagnostician_MobileNumberText);
         enter_admin_Email(EmailAddress);
-
-        userNameField(UserName);
+//
+        enter_UserNameField(UserName);
         create_passwordField(PasswordText);
         confirm_PasswordField(RePassword);
         clickOn_createadminButton();

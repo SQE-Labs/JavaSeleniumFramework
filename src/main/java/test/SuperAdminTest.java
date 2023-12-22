@@ -43,6 +43,11 @@ public String admin_cell_Number;
         login.superAdminLogin();
         AdminPage admin=new AdminPage();
         panelPage.click_On_AdminTab();
+        adminFirstName = "AU_Kelv" + RandomStrings.requiredCharacters(2);
+        adminLastName = "AU_Pars" + RandomStrings.requiredCharacters(2);
+        adminEmailAddress = adminFirstName + "@yopmail.com";
+        adminUserName = "AU_Imle" + RandomStrings.requiredCharacters(2);
+        admin_cell_Number = RandomStrings.requiredDigits(10);
         WebdriverWaits.waitUntilVisible(admin.dashboardPage );
         validate_text(admin.dashboardPage, "Admins List");
 
