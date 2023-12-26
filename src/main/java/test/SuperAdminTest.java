@@ -6,7 +6,6 @@ import org.automation.pageObjects.*;
 import org.automation.utilities.ActionEngine;
 import org.automation.utilities.RandomStrings;
 import org.automation.utilities.WebdriverWaits;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,10 +15,7 @@ import static org.automation.utilities.Assertions.validate_text;
 public class SuperAdminTest extends BaseTest {
 
 
-    public String directorFirstName;
-    public String directorLastName;
-    public String directorEmailAddress;
-    public String directorUserName;
+
     public String adminUserName;
     public String adminFirstName;
     public String adminEmailAddress;
@@ -27,7 +23,7 @@ public class SuperAdminTest extends BaseTest {
 public String adminLastName;
 
 public String admin_cell_Number;
-    public String dir_Cell_Number;
+
 
 
     LoginPage login = new LoginPage();
@@ -40,7 +36,6 @@ public String admin_cell_Number;
 
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login =new LoginPage();
-
         //Login by using superAdmin credentials
         login.superAdminLogin();
         AdminPage admin=new AdminPage();
@@ -74,7 +69,6 @@ public String admin_cell_Number;
         AdminPage admin = new AdminPage();
         //In Edit-Diagnostician password also changed
         admin.edit_Admin(adminEmailAddress1, "12345678", "12345678");
-
         validate_text(admin.Succ_Msg_Upd, "Successfully Edited the created Admin");
     }
     @Test(priority = 3, enabled = true, description = "verify that toggle is off or not")
@@ -100,7 +94,7 @@ public String admin_cell_Number;
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         panelPage.click_LogOutLink();
         // Login with Admin new password
-        login.re_Login(adminUserName, "12345678");
+        login.adminLogin(adminUserName, "12345678");
         WebdriverWaits.waitUntilVisible(admin.dashboard);
         validate_text(admin.dashboard, "Dashboard");
     }
@@ -160,13 +154,17 @@ public String admin_cell_Number;
 
     @Test(priority = 15,enabled = true,description = "diagnostician Scheduling availability")
     public void diagnostician_Availability() throws InterruptedException {
+        DashBoardPanelPage panelPage=new DashBoardPanelPage();
         dia.diagnostician_Availability();
+    }
+    @Test(priority = 16, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
+    public void verify_Dia_IsAbleToLoginWithOldPassword_InSuperAdmin() throws InterruptedException {
+        dia.diagnostician_login_With_OldPassword();
     }
     @Test(priority =17, enabled = true, description = "To verify schedule appointment")
     public void scheduleAppointment_Admin() throws InterruptedException {
         LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
-
        // Login as a Admin
        login.adminLogin(adminUserName,"12345678");
         dashboard.clickScheduleAppointment();
@@ -176,20 +174,17 @@ public String admin_cell_Number;
     public void appointmentCalenderInAdmin() throws InterruptedException {
         AdminTest admin=new AdminTest();
         admin.appointmentCalender();
+
     }
 
     @Test(priority = 19, enabled = true, description = "Filling client details")
     public void fillClientDetails() throws InterruptedException {
         ClientDetailsPage detailPage=new ClientDetailsPage();
-        DashBoardPanelPage panelpage=new DashBoardPanelPage();
         detailPage.enteringClientDetails(dia.diagnosticianFirstName,dia.diagnosticianLastName, 2, "19-11-1997",2, dia.dia_Cell_Number,dia.diagnosticianEmailAddress, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
-        panelpage.click_LogOutLink();
+
     }
 
-    @Test(priority = 16, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
-    public void verify_Dia_IsAbleToLoginWithOldPassword_InSuperAdmin() throws InterruptedException {
-       dia.diagnostician_login_With_OldPassword();
-    }
+
 
     //DIRECTOR-----------------------------------------------------------------------------------
 
@@ -247,7 +242,7 @@ public String admin_cell_Number;
         AppointmentsPage appointment = new AppointmentsPage();
         appointment.clickOn_ViewDetails();
         WebdriverWaits.waitUntilVisible(appointment.App_Text);
-        validate_text(appointment.App_Text, "All Appointments" );
+        validate_text(appointment.App_Text, dia.diagnosticianFirstName+' '+dia.diagnosticianLastName);
 //        WebdriverWaits.WaitUntilVisible(appointment.viewStudentObservationButton);
 //        validate_text(appointment.viewStudentObservationButton, "View Student Observation");
 //        WebdriverWaits.WaitUntilVisible(appointment.viewDocumentsButton);
@@ -311,14 +306,14 @@ public String admin_cell_Number;
         panelpage.click_LogOutLink();
     }
     @Test(priority = 34,enabled = true,description = "SuperAdmin is able to disable the diagnostician")
-     public void disablediagnostician(){
+     public void disablediagnostician() throws InterruptedException {
      LoginPage login=new LoginPage();
      login.superAdminLogin();
-     Diagnostician diagnostician=new Diagnostician();
+     DiagnosticianPage diagnostician=new DiagnosticianPage();
      DashBoardPanelPage panelPage=new DashBoardPanelPage();
      panelPage.click_DiagnosticianTab();
-
-     diagnostician.off_ToggleButton();
+        diagnostician.disable_Diagnostician();
+   //  diagnostician.off_ToggleButton();
      diagnostician.click_UpdateButton();
  }
 }

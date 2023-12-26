@@ -37,7 +37,7 @@ public class Assertions {
         return text;
     }
 
-    public static void validate_text(By element, String expected) throws InterruptedException {
+    public static void validate_text(By element, String expected) {
         WebdriverWaits.waitUntilVisible(element);
         SoftAssert softAssert = new SoftAssert();
         String actual = Assertions.getText_custom(element);

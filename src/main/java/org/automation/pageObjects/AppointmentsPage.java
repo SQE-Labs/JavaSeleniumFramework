@@ -25,7 +25,7 @@ public class AppointmentsPage extends BasePage {
     public By toDate=By.xpath("//input[@placeholder='To Date']");
     public By searchButton=By.xpath("//button[text()='Search']");
     public By exportCSVButton=By.xpath("//button[text()='Export to CSV']");
-    public By viewDetails=By.xpath("//td[text()='Hazel Rogers']/../td[6]/a");
+    public By viewDetails=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(6)");
     public By App_Text=By.xpath("//h3");
     public By spinner= By.cssSelector("div.ngx-spinner-overlay");
     public By viewAllActualText= By.xpath("//h3[@class='mb-4 mb-md-0']");

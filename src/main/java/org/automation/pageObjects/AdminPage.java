@@ -111,40 +111,27 @@ public class AdminPage extends BasePage
 
 
 
-
-
-
-
-
-
-
     public void clickOn_createAdminButton(){
-        WebdriverWaits.waitUntilVisible(createAdminButton);
-        //  WebdriverWaits.WaitUntilInvisible(createAdminButton);
+
         click_custom(createAdminButton);
     }
 
     public void enter_admin_FirstName(String CustomerFirstName) throws InterruptedException {
-        WebdriverWaits.waitUntilVisible(admin_FirstName);
         sendKeys_withClear(admin_FirstName, CustomerFirstName);
     }
 
     public void enter_admin_LastName(String CustomerLastName) {
-        WebdriverWaits.waitUntilVisible(admin_LastName);
         sendKeys_withClear(admin_LastName, CustomerLastName);
     }
 
     public void enter_admin_MobileNumber(String diagnostician_MobileNumberText) {
-        WebdriverWaits.waitUntilVisible(admin_MobileNumber);
         sendKeys_withClear(admin_MobileNumber, diagnostician_MobileNumberText);
     }
 
     public void enter_admin_Email(String diagnostician_EmailText) {
-        WebdriverWaits. waitUntilVisible(admin_Email);
         sendKeys_withClear(admin_Email, diagnostician_EmailText);
     }
     public void userNameField(String userNameText) {
-        WebdriverWaits.waitUntilVisible(userName);
         sendKeys_withClear(userName, userNameText);
     }
 
@@ -164,20 +151,17 @@ public class AdminPage extends BasePage
 
 
     public void click_filterButton() {
-        WebdriverWaits.waitUntilVisible(filterButton);
         WebdriverWaits.WaitUntilInvisible(loginLoading);
         click_custom(filterButton);
     }
 
     public void enterInSearchField(String searchFieldText) {
-        WebdriverWaits.waitUntilVisible(searchField);
         sendKeys_withClear(searchField, searchFieldText);
     }
 
     //+++++++++++++++++EDIT Admin++++++++++++++
 
     public void click_On_EditButton() {
-        WebdriverWaits.waitUntilVisible(editButton);
         WebdriverWaits.WaitUntilInvisible(loginLoading);
         click_custom(editButton);
     }
@@ -195,22 +179,18 @@ public class AdminPage extends BasePage
     }
 
     public void enter_Diagnostician_Email1(String diagnostician_EmailText1) {
-        WebdriverWaits.waitUntilVisible(emailField);
         sendKeys_withClear(emailField, diagnostician_EmailText1);
     }
 
     public void clickOn_PasswordField(String passwordTextFieldText) {
-        WebdriverWaits.waitUntilVisible(passwordTextField);
         sendKeys_withClear(passwordTextField, passwordTextFieldText);
     }
 
     public void clickOn_confirmPasswordFieldField(String confirmPasswordFieldText) {
-        WebdriverWaits.waitUntilVisible(confirmPasswordField);
         sendKeys_withClear(confirmPasswordField, confirmPasswordFieldText);
     }
     public void clickOn_DontSave()
     {
-        WebdriverWaits.waitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -227,7 +207,6 @@ public class AdminPage extends BasePage
         enter_admin_LastName(CustomerLastName);
         enter_admin_MobileNumber(diagnostician_MobileNumberText);
         enter_admin_Email(EmailAddress);
-
         userNameField(UserName);
         create_passwordField(PasswordText);
         confirm_PasswordField(RePassword);

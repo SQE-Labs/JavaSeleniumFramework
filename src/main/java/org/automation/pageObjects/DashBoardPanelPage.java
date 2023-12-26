@@ -28,14 +28,14 @@ public class DashBoardPanelPage extends BasePage {
 
 
     public void click_LogOutLink() {
-
         click_custom(logOutLink);
     }
     public void click_ViewAllTab(){
         click_custom(viewAllTab);
     }
 
-    public void click_DirectorTab()     {
+    public void click_DirectorTab() {
+        WebdriverWaits.waitUntilVisible(directorsTab);
         WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(directorsTab);
     }
@@ -84,12 +84,10 @@ public class DashBoardPanelPage extends BasePage {
         return downloadedFile;
     }
     public void clickOn_ExportCSVButton(){
-
         click_custom(exportCSVButton);
     }
     public void clickOn_AppointmentsTab(){
-
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+        WebdriverWaits.WaitUntilInvisible(spinner);
         click_custom(AppointmentsTab);
     }
     public void clickOn_AvailabilityTab(){

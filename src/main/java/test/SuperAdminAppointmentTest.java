@@ -17,7 +17,6 @@ DiagnosticianTest dia=new DiagnosticianTest();
     public void Appointments_Page() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
         DiagnosticianTest dia=new DiagnosticianTest();
-        SuperAdminTest admintest=new SuperAdminTest();
         LoginPage login = new LoginPage();
         login.superAdminLogin();
         appointment.allAppointmentsPage(dia.diagnosticianFirstName, dia.diagnosticianLastName);

@@ -2,7 +2,6 @@ package test;
 import org.automation.base.BaseTest;
 import org.automation.logger.Log;
 import org.automation.pageObjects.*;
-import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomStrings;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.Test;
@@ -19,11 +18,11 @@ public class DiagnosticianTest extends BaseTest {
 
     @Test(priority = 0,enabled = true,description = "Verify that Diagnostician is able to View Today appointment or not")
     public void create_Diagnostician() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        diagnosticianFirstName = "AU_Ivy" + RandomStrings.requiredCharacters(2);
-        diagnosticianLastName = "AU_Camp" + RandomStrings.requiredCharacters(2);
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
+        diagnosticianFirstName = "AU_Tyler" + RandomStrings.requiredCharacters(2);
+        diagnosticianLastName = "AU_Dylan" + RandomStrings.requiredCharacters(2);
         diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
-        diagnosticianUserName = "AU_Elsie" + RandomStrings.requiredCharacters(2);
+        diagnosticianUserName = "AU_Luke" + RandomStrings.requiredCharacters(2);
         dia_Cell_Number = RandomStrings.requiredDigits(10);
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login =new LoginPage();
@@ -43,7 +42,7 @@ public class DiagnosticianTest extends BaseTest {
 
     @Test(priority = 9, enabled = true, description = "SuperAdmin is able to search created diagnostician or not")
     public void search_Created_Diagnostician() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         panelPage.clickOn_BackButton();
         diagnostician.search_CreatedDiagnostician(diagnosticianUserName);
@@ -55,7 +54,7 @@ public class DiagnosticianTest extends BaseTest {
     @Test(priority = 10, enabled = true, description = "Super admin is able to edit the created diagnostician or not")
     public void edit_Diagnostician() throws InterruptedException {
         String diagnosticianEmailAddress1 = diagnosticianFirstName + "12@yopmail.com";
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         //In Edit-Diagnostician password also changed
         diagnostician.edit_Diagnostician(diagnosticianEmailAddress1, "12345678", "12345678");
         WebdriverWaits.waitUntilVisible(diagnostician.edit_Succ_Msg);
@@ -64,7 +63,7 @@ public class DiagnosticianTest extends BaseTest {
     }
     @Test(priority = 11, enabled = true, description = "verify that toggle is off or not")
     public void checking_Toggle_Off() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         //checking user is disable or not
         diagnostician.cheking_DisableUser();
         WebdriverWaits.waitUntilVisible(diagnostician.enableUser);
@@ -72,7 +71,7 @@ public class DiagnosticianTest extends BaseTest {
     }
     @Test(priority = 12, enabled = true, description = "Verify that Superadmin is able to diable the user or not")
     public void enable_User() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         diagnostician.enable_DiagnosticianUser();
         // Enabling the user
@@ -83,13 +82,13 @@ public class DiagnosticianTest extends BaseTest {
     }
     @Test(priority = 13, enabled = true, description = "verify that diagnostician is able to edit or not after clicking Dont save button")
     public void verify_Dia_DontSaveBtn() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         diagnostician.verify_DontSave("5659865589",diagnosticianEmailAddress, "123456", "123456");
         validate_text(diagnostician.UserNameGetText,diagnosticianUserName);
     }
     @Test(priority = 14, enabled = true, description = "Verify Diagnostician is able to login with new password or not")
     public void diagnostician_Relogin() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login=new LoginPage();
         panelPage.click_LogOutLink();
@@ -101,11 +100,8 @@ public class DiagnosticianTest extends BaseTest {
 
     @Test(priority = 15,enabled = true,description = "diagnostician Scheduling availability")
     public void diagnostician_Availability() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        DashBoardPanelPage panelpage=new DashBoardPanelPage();
-        LoginPage login=new LoginPage();
-        AdminTest admin=new AdminTest();
-        SuperAdminTest Superadmin = new SuperAdminTest();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
+
         //  login.diagnosticianLogin(Superadmin.diagnosticianUserName,"12345678");
         diagnostician.checking_Availability();
         diagnostician.cancel_Availability();
@@ -116,8 +112,6 @@ public class DiagnosticianTest extends BaseTest {
         LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
      SuperAdminTest admin=new SuperAdminTest();
-
-//
         login.adminLogin(admin.adminUserName,"12345678");
         dashboard.clickScheduleAppointment();
     }
@@ -125,7 +119,7 @@ public class DiagnosticianTest extends BaseTest {
     @Test(priority = 17, enabled =true, description = "selecting date for appointment")
     public void appointmentCalender() throws InterruptedException {
         LoginPage login = new LoginPage();
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         DashboardPage dashboard = new DashboardPage();
         //dashboard.clickScheduleAppointment();
         diagnostician.createAppointment("Plano");
@@ -136,11 +130,12 @@ public class DiagnosticianTest extends BaseTest {
 
     @Test(priority = 15, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
     public void diagnostician_login_With_OldPassword() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         LoginPage login=new LoginPage();
         //  panelPage.click_LogOutLink();
         // Logging with Old password to get validation message.
+        DashBoardPanelPage panelpage=new DashBoardPanelPage();
+        panelpage.click_LogOutLink();
         login.diagnosticianLogin(diagnosticianUserName,"123456");
         WebdriverWaits.waitUntilVisible(diagnostician.validation_Msg);
         validate_text(diagnostician.validation_Msg, "Username or password is incorrect");

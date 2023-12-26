@@ -40,7 +40,7 @@ public class ScheduleAppointmentPage extends BasePage {
     public By headerResource = By.xpath("//div[@class='header-resource-name']");
     //(//div[@class='mbsc-flex ng-star-inserted'])[1]
     public By selectingtoday=By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-selected ng-star-inserted']");
-    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[1]");
+    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[8]");
     public By saveButton = By.xpath("//mbsc-button[text()=' Save ']");
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
     public By totalBoxes=By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
@@ -117,13 +117,14 @@ public class ScheduleAppointmentPage extends BasePage {
     }
 
     public void selectAssessmentDate() {
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitUntilVisible(assessmentDate);
+        WebdriverWaits.WaitUntilInvisible(assessmentDate);
         clickBtn_custom(assessmentDate);
     }
 
     public void selectTestinglocation(String chooseLocationText) {
         WebdriverWaits.waitUntilVisible(chooseTestingLocation);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.WaitUntilInvisible(chooseTestingLocation);
         clickBtn_custom(chooseTestingLocation, "ChooseLocation");
         selectDropDownByVisibleText_custom(chooseTestingLocation, chooseLocationText, "ChooseLocation");
 
@@ -161,7 +162,7 @@ public class ScheduleAppointmentPage extends BasePage {
 
 
 
-    public void createAppointment(String chooseLocationText) throws InterruptedException {
+    public void scheduleAppointment(String chooseLocationText) throws InterruptedException {
         selectTestinglocation(chooseLocationText);
         selectAssessmentDate();
     }
@@ -224,7 +225,7 @@ public class ScheduleAppointmentPage extends BasePage {
 
     public void clickOnAssesmentType(int assestmentTypeTexts){
         WebdriverWaits.waitUntilVisible(assestmentType);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.WaitUntilInvisible(assestmentType);
         WebdriverWaits.waitForElementInteractable(assestmentType);
         click_custom(assestmentType);
         selectDropDownByIndex_custom(assestmentType,assestmentTypeTexts);
@@ -321,10 +322,6 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(testPlan);
     }
     public void clickOnCheckBox(){
-//        List<WebElement> list = getWebElements(checkBox, "Heders");
-//        ArrayList checkboxes=new ArrayList();
-//        for(WebElement checkbox: list){
-//            checkboxes.add(checkbox);
         click_custom(checkBox);
         click_custom(famCheckBox);
         click_custom(nepsyCheckBox);
@@ -396,9 +393,7 @@ public class ScheduleAppointmentPage extends BasePage {
 
 
     //================///////////=========================
-    public void scheduleAppointment(String testingLocation) throws InterruptedException {
-        createAppointment(testingLocation);
-    }
+
 
         public void appointmentDateSelecting(int Type) throws InterruptedException {
         Thread.sleep(5000);

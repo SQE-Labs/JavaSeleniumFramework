@@ -13,8 +13,7 @@ public class PaymentPage extends BasePage {
     public By cust_Name=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
     public String cust_Names ="//table[@id='paymentTable']//tbody//td[contains(text(),'%s')]";
     public By fromToDateField=By.xpath("//input[@placeholder='%s']");
-//    public By toDateField=By.xpath("//input[@placeholder='To Date']");
-  //  (//table[@id='appointmentTable']//td[contains(text(),'AU_Trent')]//following-sibling::td//a)[1]
+
 
     public void clickOn_PaymentTab(){
         WebdriverWaits.waitUntilVisible(paymentTab);
@@ -30,12 +29,12 @@ public class PaymentPage extends BasePage {
         WebdriverWaits.waitUntilVisible(searchField);
         sendKeys_withClear(searchField, searchFieldText);
     }
-    public void search_CreatedDiagnostician(String UserName) throws InterruptedException {
+    public void search_CreatedDiagnostician(String UserName)  {
         click_filterButton();
         enterInSearchField(UserName);
     }
 
 
-   // div:not([style='height: 99.5657%; top: 0%; width: 100%;']) [class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-schedule-header-day-today mbsc-selected ng-star-inserted']
+
 
 }

@@ -64,6 +64,7 @@ public class ActionEngine extends BaseTest {
     }
 
     public void sendKeys_withClear(By path, String valueToBeSent, String... label) {
+        WebdriverWaits.waitUntilVisible(path);
 
         String var = "";
         try {

@@ -4,14 +4,14 @@ import org.automation.base.BaseTest;
 import org.automation.logger.Log;
 
 import org.automation.pageObjects.DashBoardPanelPage;
-import org.automation.pageObjects.Diagnostician;
 import org.automation.pageObjects.DirectorPage;
 import org.automation.pageObjects.LoginPage;
-import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomStrings;
 import org.automation.utilities.WebdriverWaits;
+import org.bson.assertions.Assertions;
 import org.testng.annotations.Test;
 
+import static org.automation.utilities.Assertions.getText_custom;
 import static org.automation.utilities.Assertions.validate_text;
 
 
@@ -23,10 +23,10 @@ public class DirectorTest extends BaseTest {
     public String dir_Cell_Number;
     @Test(priority = 19, enabled = true, description = "verify that SuperAdmin is able to create Director or not")
     public void create_Directors() throws InterruptedException {
-        directorFirstName = "AU_Elsie" + RandomStrings.requiredCharacters(1);
-        directorLastName = "AU_Brien" + RandomStrings.requiredCharacters(1);
+        directorFirstName = "AU_Kiara" + RandomStrings.requiredCharacters(2);
+        directorLastName = "AU_Alice" + RandomStrings.requiredCharacters(2);
         directorEmailAddress = directorFirstName + "@yopmail.com";
-        directorUserName = "AU_retta" + RandomStrings.requiredCharacters(1);
+        directorUserName = "AU_Lilian" + RandomStrings.requiredCharacters(3);
         dir_Cell_Number=RandomStrings.requiredDigits(10);
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage=new DashBoardPanelPage();
@@ -40,7 +40,7 @@ public class DirectorTest extends BaseTest {
         validate_text(director.directorListPage, "Directors List");
         director.Verify_Duplicate_Director(directorFirstName, directorLastName, dir_Cell_Number, directorEmailAddress, directorUserName, "123456", "123456");
         WebdriverWaits.waitUntilVisible(director. validationMsg);
-        validate_text(director.validationMsg, "An error occurred while creating the admin. Username already exists!");
+        validate_text(director.validationMsg, "An error occurred while creating the user. Username already exists!");
         panelPage.clickOn_BackButton();
         //panelPage.click_LogOutLink();
     }
@@ -89,19 +89,26 @@ public class DirectorTest extends BaseTest {
     }
     @Test(priority=24,enabled = true,description = "Verify that Director is able to login with valid credentials or not")
     public void director_Availability() throws InterruptedException {
-        LoginPage login=new LoginPage();
-        SuperAdminTest adminTest=new SuperAdminTest();
         DashBoardPanelPage panelPage=new DashBoardPanelPage();
+        LoginPage login=new LoginPage();
         DirectorPage director=new DirectorPage();
-        login.adminLogin(directorUserName,"12345678");
+        login.directorLogin(directorUserName,"12345678");
         WebdriverWaits.waitUntilVisible(director.dashboardPage);
         validate_text(director.dashboardPage, "Dashboard");
         panelPage.clickOn_AppointmentsTab();
         validate_text(director.viewAll, "View All");
         panelPage.clickOn_AvailabilityTab();
-        validate_text(director.monthHeader, "December");
-        validate_text(director.yearHeader, "2023");
-        validate_text(director.dateHeader, "20");
+      //  validate_text(director.monthHeader, "December");
+        String getMonthHeader = getText_custom(director.monthHeader);
+       // WebdriverWaits.waitUntilVisible(director.monthHeader);
+        validate_text(director.monthHeader, "December" );
+
+      //  validate_text(director.yearHeader, "2023");
+        String getYearHeader=getText_custom(director.yearHeader);
+        validate_text(director.yearHeader, "2023" );
+
+        String getdate =getText_custom(director.dateHeader);
+        validate_text(director.dateHeader, "26" );
         director.director_Availability();
         director.click_LogOutLink();
     }

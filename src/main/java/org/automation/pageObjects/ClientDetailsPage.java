@@ -29,12 +29,13 @@ public class ClientDetailsPage extends BasePage {
     public By enterAmountField=By.xpath("//input[@placeholder='Enter Amount']");
     public By collectDeposit=By.xpath("//button[text()='Collect Deposit']");
     public By viewDetails=By.xpath("//a[text()='View Detail']");
+    public By logOutLink = By.xpath("//a[text()='Log Out']");
 
 
 
 
     public void enterFirstName(String cilentFirstNameText){
-
+        WebdriverWaits.waitUntilVisible(clientFirstName);
         sendKeys_withClear(clientFirstName,cilentFirstNameText);
     }
     public void enterLastName(String cilentLastNameText){
@@ -101,34 +102,28 @@ public class ClientDetailsPage extends BasePage {
     }
     public void clickOnViewDetailsButton(){
         WebdriverWaits.WaitUntilInvisible(viewDetails);
-
         click_custom(viewDetails);
+    }
+    public void logout_appointment(){
+        WebdriverWaits.waitUntilVisible(logOutLink);
+        WebdriverWaits.WaitUntilInvisible(logOutLink);
+        click_custom( logOutLink );
     }
     public void enteringClientDetails(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String address1Text, String address2Text, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
         enterFirstName(CustomerFirstName);
         enterLastName(CustomerLastName);
-
         enterInDateField( dateOfBirthText);
         selectGradeType(gradeType);
         selectSchoolType(schoolTypeOption);
-
         enterCellNumber(cellNumber);
-        // enterPhoneNumber( phoneNumberText);
         enterEmialAddress(EmailAddress);
         reasonForCallDropDown(reasonForCallText);
-//            enterAdress1(address1Text);
-//            enterAdress2(address2Text);
-//            enterCity( cityText);
-//            enterState(stateText);
-//            enterZipCode(zipCodeText);
         enterTestAmount(testAmountText);
         clickOnContinueToDepositButton();
-
         enterAmount(enterAmountText);
         clickOnCollectDepositButton();
-
         clickOnViewDetailsButton();
-
+        logout_appointment();
     }
 
 }

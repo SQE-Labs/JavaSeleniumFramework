@@ -29,12 +29,11 @@ public class AdminTest extends BaseTest {
      String directorEmailAddress;
      String directorUserName;
      String diagnosticianFirstName;
-     String diagnosticianLastName;
-     String diagnosticianEmailAddress;
+
 
     @Test(priority = 0, enabled = false, description = "Create Diagnostician by admin")
     public void create_Diagnostician() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         DiagnosticianTest dia=new DiagnosticianTest();
         dia.create_Diagnostician();
     }
@@ -270,7 +269,7 @@ public class AdminTest extends BaseTest {
 
     @Test(priority = 1,enabled = false, description = "Edit created diagnostician by admin")
     public void Edit_Diagnostician() throws InterruptedException{
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         // Edit Diagnostician
         String diagnosticianPhoneNumber = RandomStrings.requiredDigits(10);
         String diagnosticianUpdatedEmail= diagnosticianFirstName + "10@yopmail.com";
@@ -279,7 +278,7 @@ public class AdminTest extends BaseTest {
     }
     @Test(priority = 2,enabled = false, description = "Enable created diagnostician by admin")
     public void Enable_CreateDiagnostician()throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         //Enable disabled Diagnostician
         diagnostician.enable_DiagnosticianUser();
         validate_text(diagnostician.edit_Succ_Msg, "Diagnostician details updated successfully.");
@@ -288,7 +287,7 @@ public class AdminTest extends BaseTest {
 
     @Test(priority = 3,enabled = false, description = "Search created diagnostician by admin")
     public void search_Diagnostician() throws InterruptedException{
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         diagnostician.search_CreatedDiagnostician(diagnosticianUserName);
         WebdriverWaits.waitUntilVisible(diagnostician.actualText);
         validate_text(diagnostician.actualText, diagnosticianUserName);
@@ -296,7 +295,7 @@ public class AdminTest extends BaseTest {
     }
     @Test(priority = 4,enabled = false, description = "Verify Don't save button diagnostician by admin")
     public void verify_Dnt_SaveButton() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         String diagnosticianPhoneNumber= RandomStrings.requiredDigits(10);
         String diagnosticianUpdatedEmail= diagnosticianFirstName + "10@yopmail.com";
         diagnostician.verify_DontSave(diagnosticianPhoneNumber,diagnosticianUpdatedEmail,"1234567","1234567");
@@ -305,7 +304,7 @@ public class AdminTest extends BaseTest {
     }
     @Test(priority = 5,enabled = false, description = "Diagnostician Relogin")
     public void diagnostician_Relogin() throws InterruptedException {
-        Diagnostician diagnostician = new Diagnostician();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
         LoginPage login=new LoginPage();
         login.directorLogin(directorUserName, "12345678");
        // WebdriverWaits.WaitUntilInvisible(diagnostician.spinner);

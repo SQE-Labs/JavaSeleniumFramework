@@ -11,7 +11,7 @@ import static org.automation.utilities.Assertions.validate_text;
 import static org.automation.utilities.WebdriverWaits.WaitUntilInvisible;
 
 
-public class Diagnostician extends BasePage {
+public class DiagnosticianPage extends BasePage {
     public By diagnosticianLink = By.xpath("//a[text()='Diagnosticians']");
     public By createDiagnostician = By.xpath("//button[text()='Create Diagnostician']");
     public By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
@@ -158,7 +158,7 @@ public class Diagnostician extends BasePage {
 
     //+++++++++++++++CREATE DIAGNOSTICS++++++++++++++
 
-   // public By userNameField=By.xpath("//input[@placeholder='Username']");
+
     public By passwordField=By.xpath("//input[@placeholder='Password']");
 
     public By loginButton=By.xpath("//button[text()=' Log In ']");
@@ -190,17 +190,16 @@ public class Diagnostician extends BasePage {
 
 
 
-WebdriverWaits waits=new WebdriverWaits();
+
 
 
     public void click_createDiagnosticianButton() {
-        waits.waitUntilVisible(createDiagnostician);
-       // WebdriverWaits.WaitForPageLoadTime(10);
-        waits.WaitUntilInvisible(loginLoading);
+        WebdriverWaits.waitUntilVisible(createDiagnostician);
+        WebdriverWaits.WaitUntilInvisible(createDiagnostician);
         click_custom(createDiagnostician);
     }
 
-    public void enter_diagnostician_FirstName(String CustomerFirstName) throws InterruptedException {
+    public void enter_diagnostician_FirstName(String CustomerFirstName)  {
         WebdriverWaits.waitUntilVisible(diagnostician_FirstName);
         sendKeys_withClear(diagnostician_FirstName, CustomerFirstName);
     }
@@ -246,7 +245,6 @@ WebdriverWaits waits=new WebdriverWaits();
 
 
     public void click_Back_Button() {
-
         click_custom(backButton);
     }
 
@@ -256,7 +254,6 @@ WebdriverWaits waits=new WebdriverWaits();
     public void click_filterButton() {
         WebdriverWaits.waitUntilVisible(filterButton);
         WebdriverWaits.WaitUntilInvisible(loginLoading);
-
         click_custom(filterButton);
     }
 
@@ -273,7 +270,7 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     public void enter_CellNumber(String cellNumberText) {
-        waits.waitUntilVisible(cellNumber);
+        WebdriverWaits.waitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -354,7 +351,7 @@ WebdriverWaits waits=new WebdriverWaits();
 
 
 
-    public void create_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName, String PasswordText, String RePassword) throws InterruptedException {
+    public void create_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName, String PasswordText, String RePassword)  {
         click_createDiagnosticianButton();
         enter_diagnostician_FirstName(CustomerFirstName);
         enter_diagnostician_LastName(CustomerLastName);
@@ -366,7 +363,7 @@ WebdriverWaits waits=new WebdriverWaits();
         confirm_PasswordField(RePassword);
         clickOn_createDiagnosticianButton();
     }
-    public void Verify_Duplicate_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName,String PasswordText,String RePassword) throws InterruptedException {
+    public void Verify_Duplicate_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName,String PasswordText,String RePassword)  {
         click_createDiagnosticianButton();
         enter_diagnostician_FirstName(CustomerFirstName);
         enter_diagnostician_LastName(CustomerLastName);
@@ -380,17 +377,17 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
 
-    public void diagnostician_ListPage() throws InterruptedException {
+    public void diagnostician_ListPage()  {
         click_createDiagnosticianButton();
         click_Back_Button();
     }
 
-    public void search_CreatedDiagnostician(String UserName) throws InterruptedException {
+    public void search_CreatedDiagnostician(String UserName)  {
         click_filterButton();
         enterInSearchField(UserName);
     }
 
-    public void edit_Diagnostician( String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
+    public void edit_Diagnostician( String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText)  {
         click_On_EditButton();
        // enter_CellNumber(cellNumberText);
         enter_Diagnostician_Email1(EmailAddress1);
@@ -400,19 +397,23 @@ WebdriverWaits waits=new WebdriverWaits();
         click_UpdateButton();
     }
 
-    public void cheking_DisableUser() throws InterruptedException {
+    public void cheking_DisableUser()  {
         click_On_EditButton();
         clickOn_DontSave();
         click_On_EditButton();
         clickOn_DontSave();
     }
-    public void enable_DiagnosticianUser() throws InterruptedException {
+    public void disable_Diagnostician(){
+        click_On_EditButton();
+        off_ToggleButton();
+    }
+    public void enable_DiagnosticianUser()  {
         click_On_EditButton();
         off_ToggleButton();
         click_UpdateButton();
 
     }
-    public void verify_DontSave(String cellNumberText, String EmailAddress1, String passwordTextFieldText,String confirmPasswordFieldText) throws InterruptedException {
+    public void verify_DontSave(String cellNumberText, String EmailAddress1, String passwordTextFieldText,String confirmPasswordFieldText)  {
         click_On_EditButton();
         enter_CellNumber(cellNumberText);
         enter_Diagnostician_Email1(EmailAddress1);
@@ -421,7 +422,7 @@ WebdriverWaits waits=new WebdriverWaits();
         clickOn_DontSave();
     }
     //****************Diagnostician is checking todays appointments**************
-    public void today_Appointment(String summaryText) throws InterruptedException {
+    public void today_Appointment(String summaryText)  {
         WebdriverWaits.waitUntilVisible(dashboard);
         validate_text(dashboard, "Dashboard");
 
@@ -474,24 +475,22 @@ WebdriverWaits waits=new WebdriverWaits();
 
     }
 
-    public void click_CancelAppointmentBtn() throws InterruptedException {
+    public void click_CancelAppointmentBtn()  {
         WebdriverWaits.waitUntilVisible(cancelAppointment);
 
         scrollIntoView(cancelAppointment);
         click_custom(cancelAppointment);
     }
 
-    public void click_YesCancelBtn() throws InterruptedException {
+    public void click_YesCancelBtn()  {
         WebdriverWaits.waitUntilVisible(yesCancelBtn);
-//        click_custom(cancelRadioBtn);
-//        Thread.sleep(3000);
         click_custom(yesCancelBtn);
     }
 
 
 
 
-    public void createAppointment(String chooseLocationText) throws InterruptedException {
+    public void createAppointment(String chooseLocationText)  {
         selectTestinglocation(chooseLocationText);
         selectAssessmentDate();
     }
@@ -500,12 +499,6 @@ WebdriverWaits waits=new WebdriverWaits();
         List<WebElement> list = getWebElements(headerResource, "Heders");
         return list.size();
     }
-
-
-    // public void clickOnColumn() {
-    //    click_custom(clickOnBox);
-    //   return expLocatorPos;
-    //  }
 
     public void clickOnSaveButton() {
         //  click_custom(afternoonToggleButton);
@@ -522,25 +515,23 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
 
-    public void click_ViewAllOption() throws InterruptedException {
+    public void click_ViewAllOption()  {
 
         click_custom(viewAll);
     }
 
-    public void click_FilterBtn() throws InterruptedException {
-
+    public void click_FilterBtn() {
         scrollIntoView(filters);
-
         click_custom(filters);
     }
 
 
-    public void click_AppointmentsSubtab() throws InterruptedException {
+    public void click_AppointmentsSubtab() {
 
         click_custom(appointmentsSubTab);
     }
 
-    public void click_ViewDetailLink() throws InterruptedException {
+    public void click_ViewDetailLink()  {
         click_custom(viewDetailLink);
     }
 
@@ -573,16 +564,12 @@ WebdriverWaits waits=new WebdriverWaits();
 
     //******************Adding TestPlan for the Appointment**************
 
-    public void click_TestPlanButton() throws InterruptedException {
+    public void click_TestPlanButton()  {
         WebdriverWaits.waitUntilVisible(testPlan);
         scrollIntoView(testPlan);
         click_custom(testPlan);
     }
     public void clickOnCheckBox(){
-//        List<WebElement> list = getWebElements(checkBox, "Heders");
-//        ArrayList checkboxes=new ArrayList();
-//        for(WebElement checkbox: list){
-//            checkboxes.add(checkbox);
         click_custom(checkBox);
         click_custom(famCheckBox);
         click_custom(nepsyCheckBox);
@@ -611,26 +598,20 @@ WebdriverWaits waits=new WebdriverWaits();
     }
 
     //******************checking availability*************
-    public void click_On_Availablity() throws InterruptedException {
+    public void click_On_Availablity()  {
         WebdriverWaits.WaitUntilInvisible(availability);
         click_custom(availability);
         WebdriverWaits.waitUntilVisible(disableButton);
         validate_text(disableButton, "Save");
     }
-    public void click_On_Slot() throws InterruptedException {
-        // click_custom(slot);
-
-        // scrollIntoHorizontally(slot1);
-        //  click_custom(slot);
-        //   click_custom(slot1);
-        // click_custom(slot2);
+    public void click_On_Slot()  {
+        
+        // use logic??
         click_custom(slot3);
         click_custom(slot4);
         click_custom(slot5);
         click_custom(slot6);
         click_custom(slot7);
-      //  click_custom(slot8);
-      //  click_custom(slot9);
         click_custom(slot10);
         click_custom(slot11);
         click_custom(slot12);
@@ -650,7 +631,7 @@ WebdriverWaits waits=new WebdriverWaits();
 
         click_custom(delete);
     }
-    public void checking_Availability() throws InterruptedException {
+    public void checking_Availability()  {
         click_On_Availablity();
         click_On_Slot();
     }
@@ -672,7 +653,7 @@ WebdriverWaits waits=new WebdriverWaits();
     //================///////////=========================
 
 
-    public void appointmentDateSelecting(int Type) throws InterruptedException {
+    public void appointmentDateSelecting(int Type)  {
         getTotalColumnCount();
         //  schedule.clickOnColumn();
         clickOnSaveButton();
@@ -684,7 +665,7 @@ WebdriverWaits waits=new WebdriverWaits();
 
 
 
-    public void search_ScheduledAppointment (String CustomerFirstName) throws InterruptedException {
+    public void search_ScheduledAppointment (String CustomerFirstName)  {
         clickOnviewLink();
 
         clickOnFilterbutton();
@@ -696,21 +677,21 @@ WebdriverWaits waits=new WebdriverWaits();
 //            Thread.sleep(4000);
     }
 
-    public void creatingTestPlanForTheAppointment () throws InterruptedException {
+    public void creatingTestPlanForTheAppointment ()  {
         click_TestPlanButton();
         clickOnCheckBox();
         clickOnTestPlanSaveButton();
     }
 
 
-    public void login_As_Diagnostician(String UserName,String PasswordText) throws InterruptedException {
+    public void login_As_Diagnostician(String UserName,String PasswordText)  {
 
         enter_UserName(UserName);
         enter_Password(PasswordText);
         click_LoginButton( );
     }
 
-    public void deleting_Availability() throws InterruptedException {
+    public void deleting_Availability()  {
         click_custom(slot7);
         WebdriverWaits.waitUntilVisible(enableSaveButton);
         validate_text(enableSaveButton, "Save");
@@ -718,9 +699,9 @@ WebdriverWaits waits=new WebdriverWaits();
         click_On_Delete();
         WebdriverWaits.waitForElementInteractable(diagnosticianSaveButton);
         click_custom(diagnosticianSaveButton);
-        click_custom(logOutLink);
+
     }
-    public void cancel_Availability() throws InterruptedException {
+    public void cancel_Availability()  {
         click_custom(slot7);
         String getText=getText_custom(shiftText);
         WebdriverWaits.waitUntilVisible(shiftText);
