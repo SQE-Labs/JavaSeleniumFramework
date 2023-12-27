@@ -5,6 +5,7 @@ import org.automation.logger.Log;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -44,6 +45,18 @@ public class Assertions {
         softAssert.assertEquals(actual, expected);
         softAssert.assertAll();
     }
+
+    public static void validate_SelectedOption(By element, String expected) throws InterruptedException{
+        WebdriverWaits.WaitUntilVisible(element);
+        Select select= new Select(getDriver().findElement(element));
+        String selectedOption = select.getFirstSelectedOption().getText();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(selectedOption, expected);
+        softAssert.assertAll();
+
+    }
+
+
     public  void validate_SuccessTXTByString(By element, String expected) throws InterruptedException {
 //        SoftAssert softAssert = new SoftAssert();
 //        String actual = Assertions.getText_custom();

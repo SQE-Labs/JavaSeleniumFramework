@@ -90,8 +90,8 @@ public class AppointmentsPage extends BasePage {
         Log.info("Successfully searched created appointment");
     }
     public void exportCSV_Button(){
-        //click_AppointmentTab();
-        //click_ViewAllTab();
+        click_AppointmentTab();
+        click_ViewAllTab();
         clickOn_ExportCSVButton();
     }
     public boolean isFileDownloaded(String fileName) throws InterruptedException {

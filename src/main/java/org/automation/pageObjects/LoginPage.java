@@ -15,6 +15,7 @@ public class LoginPage extends BasePage {
 
 
     public void enterUsername(String userNameText) {
+        WebdriverWaits.waitUntilVisible(userNameField);
         sendKeys_custom(userNameField, userNameText);
     }
 

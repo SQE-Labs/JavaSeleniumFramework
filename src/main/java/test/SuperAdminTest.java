@@ -219,7 +219,7 @@ public String diagnosticianLastName;
         ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
 
         // login.ValidLogin();
-        schedule.scheduleAppointment("Plano");
+        schedule.scheduleAppointment(3);
         schedule.appointmentDateSelecting(2);
     }
 
@@ -247,10 +247,7 @@ public String diagnosticianLastName;
 
     @Test(priority = 19, enabled = true, description = "verify that SuperAdmin is able to create Director or not")
     public void create_Directors() throws InterruptedException {
-        directorFirstName = "AU_Bella" + RandomStrings.requiredCharacters(1);
-        directorLastName = "AU_Eggers" + RandomStrings.requiredCharacters(1);
-        directorEmailAddress = directorFirstName + "@yopmail.com";
-        directorUserName = "AU_Hulk" + RandomStrings.requiredCharacters(1);
+
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage=new DashBoardPanelPage();
         LoginPage login = new LoginPage();

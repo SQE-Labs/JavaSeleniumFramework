@@ -182,6 +182,18 @@ public class WebdriverWaits extends BaseTest {
     public static void WaitForPageLoadTime(long time) {
         getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(time));
     }
+    public static void waitUntilVisible(By element) {
+        try {
+
+            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver())
+                    .withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime20"))))
+                    .pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime5"))))
+                    .ignoring(NoSuchElementException.class, ElementNotInteractableException.class);
+            fluentWait1.until(ExpectedConditions.visibilityOfElementLocated(element));
+        } catch (Exception e) {
+
+        }
+    }
 }
 
 

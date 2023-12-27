@@ -58,6 +58,7 @@ public class Diagnostician extends BasePage {
     public  By validation_Msg=By.xpath("//small[text()='Username or password is incorrect']");
 
 
+
 WebdriverWaits waits=new WebdriverWaits();
 
     public void click_DiagnosticianLink() {
@@ -201,6 +202,7 @@ WebdriverWaits waits=new WebdriverWaits();
         create_passwordField(PasswordText);
         confirm_PasswordField(RePassword);
         clickOn_createDiagnosticianButton();
+
     }
 
     public void diagnostician_ListPage() throws InterruptedException {
@@ -213,9 +215,8 @@ WebdriverWaits waits=new WebdriverWaits();
         enterInSearchField(UserName);
     }
 
-    public void edit_Diagnostician(String cellNumberText, String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
+    public void edit_Diagnostician( String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-        enter_CellNumber(cellNumberText);
         enter_Diagnostician_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordFieldField(confirmPasswordFieldText);
