@@ -19,6 +19,7 @@ import static com.relevantcodes.extentreports.LogStatus.PASS;
 public class ActionEngine extends BaseTest {
 
     public void click_custom(By path, String... label) {
+        WebdriverWaits.waitForSpinner();
         WebdriverWaits.waitUntilVisible(path);
         String var = "";
         try {
