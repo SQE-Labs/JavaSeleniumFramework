@@ -30,10 +30,6 @@ public class WebdriverWaits extends BaseTest {
      * @param waitTime  WebDriver instance
      * @param locator By of the element to wait for
      */
-    public static void waitForElementSelected(By locator, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
-        Boolean bool = wait.until(ExpectedConditions.elementToBeSelected(locator));
-    }
 
 
     /**
@@ -42,15 +38,7 @@ public class WebdriverWaits extends BaseTest {
      * @param waitTime  WebDriver instance
      * @param locator By to locate element to wait for
      */
-    public static void waitForElementClickable(By locator, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
-        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
 
-    public static void waitForElementNotVisible(By locator, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-    }
     /**
      * Waits for the page to have a given title
      * <p>
@@ -61,10 +49,6 @@ public class WebdriverWaits extends BaseTest {
      * @param waitTime WebDriver instance
      * @param title  title the page should have
      */
-    public static boolean waitForPageTitle(String title, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
-        return wait.until(ExpectedConditions.titleContains(title));
-    }
 
 
     /**
@@ -97,7 +81,7 @@ public class WebdriverWaits extends BaseTest {
         Thread.sleep(3000);
     }
 
-    public static void WaitUntilInvisible(By element) {
+    public static void waitUntilInvisible(By element) {
         try {
             Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("pollingWait")))).ignoring(NoSuchElementException.class);
             fluentWait1.until(ExpectedConditions.invisibilityOf(getDriver().findElement(element)));
@@ -131,7 +115,7 @@ public class WebdriverWaits extends BaseTest {
         return text;
     }
 
-    public  Boolean WaitUntilVisibleAllElements(List<WebElement> element) {
+    public  Boolean waitUntilVisibleAllElements(List<WebElement> element) {
         try {
             Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("pollingWait")))).ignoring(NoSuchElementException.class, ElementNotInteractableException.class);
             fluentWait1.until(ExpectedConditions.visibilityOfAllElements(element));
@@ -202,6 +186,15 @@ public class WebdriverWaits extends BaseTest {
         WebElement ele = getDriver() .findElement(element);
         Actions act = new Actions(getDriver());
         act.moveToElement(ele).click().build().perform();
+    }
+    public static void waitForSpinner() {
+
+         By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
+        try {
+            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("pollingWait")))).ignoring(ElementClickInterceptedException.class, ElementNotInteractableException.class);
+            fluentWait1.until(ExpectedConditions.invisibilityOfElementLocated(loginLoading));
+        } catch (WebDriverException e) {
+        }
     }
 }
 

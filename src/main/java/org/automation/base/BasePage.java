@@ -175,7 +175,7 @@ public class BasePage extends ActionEngine {
         jse.executeScript("arguments[0].scrollIntoView(true);", ele);
     }
 
-public static void scrolltoUp() {
+public  void scrolltoUp() {
 
     JavascriptExecutor jse = (JavascriptExecutor) getDriver();
     try {
@@ -184,9 +184,5 @@ public static void scrolltoUp() {
         throw new RuntimeException (e);
     }
 }
-    public static  void waitForSpinner(){
-        WebdriverWaits.waitForElementNotVisible(By.className("spinner"),10);
 
-
-    }
 }

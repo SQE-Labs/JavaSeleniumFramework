@@ -112,7 +112,8 @@ public class AdminPage extends BasePage
 
 
     public void clickOn_createAdminButton(){
-
+        WebdriverWaits.waitForSpinner();
+        WebdriverWaits.waitForElementInteractable(createAdminButton);
         click_custom(createAdminButton);
     }
 
@@ -151,7 +152,7 @@ public class AdminPage extends BasePage
 
 
     public void click_filterButton() {
-        WebdriverWaits.WaitUntilInvisible(loginLoading);
+        WebdriverWaits.waitUntilInvisible(spinner);
         click_custom(filterButton);
     }
 
@@ -162,7 +163,7 @@ public class AdminPage extends BasePage
     //+++++++++++++++++EDIT Admin++++++++++++++
 
     public void click_On_EditButton() {
-        WebdriverWaits.WaitUntilInvisible(loginLoading);
+        WebdriverWaits.waitUntilInvisible(spinner);
         click_custom(editButton);
     }
     public void enter_Admin_Email1(String diagnostician_EmailText1) {
@@ -215,6 +216,7 @@ public class AdminPage extends BasePage
 //*******************SuperAdmin  searching created admin******************
 
     public void search_CreatedAdmin(String UserName) throws InterruptedException {
+        WebdriverWaits.waitForSpinner();
         click_filterButton();
         enterInSearchField(UserName);
     }
@@ -225,6 +227,7 @@ public class AdminPage extends BasePage
         click_On_EditButton();
         WebdriverWaits.waitUntilVisible(editUserPop_Up);
         validate_text(editUserPop_Up, "Edit User");
+
         // enter_CellNumber(cellNumberText);
         enter_Admin_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
@@ -266,7 +269,7 @@ public class AdminPage extends BasePage
         click_custom(updateBtn);
     }
     public void edit_AssessmentType(String assestmentTypeTexts) throws InterruptedException {
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitUntilInvisible(spinner);
         WebdriverWaits.waitUntilVisible(assestmentType);
         click_custom(assestmentType);
         selectDropDownByVisibleText_custom(assestmentType,assestmentTypeTexts);
@@ -285,7 +288,7 @@ public class AdminPage extends BasePage
     }
     public void re_AssignDiag(int chooseDiagnostician){
         WebdriverWaits.waitUntilVisible(diag);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitUntilInvisible(spinner);
         clickBtn_custom(diag, "chooseDiagnostician");
         selectDropDownByIndex_custom(diag,chooseDiagnostician,"Choose Diagnostician");
     }
@@ -355,7 +358,6 @@ public class AdminPage extends BasePage
     }
     public void enter_grade(String grade){
         WebdriverWaits.waitUntilVisible(editGrade);
-        WebdriverWaits.waitForElementClickable(editGrade,1000);
         click_custom(editGrade);
         selectDropDownByVisibleText_custom(editGrade,grade);
     }

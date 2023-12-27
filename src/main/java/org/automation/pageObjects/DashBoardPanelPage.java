@@ -28,6 +28,7 @@ public class DashBoardPanelPage extends BasePage {
 
 
     public void click_LogOutLink() {
+
         click_custom(logOutLink);
     }
     public void click_ViewAllTab(){
@@ -35,24 +36,24 @@ public class DashBoardPanelPage extends BasePage {
     }
 
     public void click_DirectorTab() {
-        WebdriverWaits.waitUntilVisible(directorsTab);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitUntilInvisible(spinner);
         click_custom(directorsTab);
     }
 
     public void click_DiagnosticianTab() {
-        WebdriverWaits.waitUntilVisible(diagnosticianLink);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitUntilInvisible(spinner);
         click_custom(diagnosticianLink);
     }
-    public void click_On_AdminTab(){
-  WebdriverWaits.waitUntilVisible(adminButton);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+    public void click_On_AdminTab() throws InterruptedException {
+        WebdriverWaits.waitForSpinner();
+        WebdriverWaits.waitUntilVisible(adminButton);
+        Thread.sleep(5000);
         click_custom(adminButton);
+
     }
     public void click_On_PaymentTab(){
 
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitUntilInvisible(spinner);
         click_custom(paymentButton);
     }
     public void edit_Director(){
@@ -87,7 +88,7 @@ public class DashBoardPanelPage extends BasePage {
         click_custom(exportCSVButton);
     }
     public void clickOn_AppointmentsTab(){
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitUntilInvisible(spinner);
         click_custom(AppointmentsTab);
     }
     public void clickOn_AvailabilityTab(){

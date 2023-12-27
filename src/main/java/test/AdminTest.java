@@ -1,6 +1,7 @@
 package test;
 
 import org.automation.base.BaseTest;
+import org.automation.logger.Log;
 import org.automation.pageObjects.*;
 import org.automation.utilities.ActionEngine;
 import org.automation.utilities.DateGenerator;
@@ -29,13 +30,36 @@ public class AdminTest extends BaseTest {
      String directorEmailAddress;
      String directorUserName;
      String diagnosticianFirstName;
+    public String diagnosticianEmailAddress;
+    public String diagnosticianLastName;
+    public String dia_Cell_Number;
 
 
-    @Test(priority = 0, enabled = false, description = "Create Diagnostician by admin")
+    SuperAdminTest superAdmin=new SuperAdminTest();
+
+    //login
+    @Test(priority = 0, enabled = false, description = "1.1 Create Diagnostician by admin")
     public void create_Diagnostician() throws InterruptedException {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
-        DiagnosticianTest dia=new DiagnosticianTest();
-        dia.create_Diagnostician();
+        diagnosticianFirstName = "AU_Murray" + RandomStrings.requiredCharacters(2);
+        diagnosticianLastName = "AU_Luken" + RandomStrings.requiredCharacters(2);
+        diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
+        diagnosticianUserName = "AU_Jude" + RandomStrings.requiredCharacters(2);
+        dia_Cell_Number = RandomStrings.requiredDigits(10);
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        //Login by using superAdmin credentials
+        //  login.superAdminLogin();
+        panelPage.click_DiagnosticianTab();
+        diagnostician.create_Diagnostician(diagnosticianFirstName, diagnosticianLastName, dia_Cell_Number, diagnosticianEmailAddress, diagnosticianUserName, "123456", "123456");
+        WebdriverWaits.waitUntilVisible(diagnostician.actualText);
+        validate_text(diagnostician.actualText, diagnosticianUserName);
+        Log.info("Successfully SuperAdmin Created diagnostician");
+
+        diagnostician.Verify_Duplicate_Diagnostician(diagnosticianFirstName, diagnosticianLastName, "8564234568", diagnosticianEmailAddress, diagnosticianUserName, "123456", "123456");
+        WebdriverWaits.waitUntilVisible(diagnostician.validationMsg);
+        validate_text(diagnostician.validationMsg, "An error occurred while creating the user. Username already exists!");
+        //panelPage.click_LogOutLink();
     }
 
 
@@ -43,27 +67,23 @@ public class AdminTest extends BaseTest {
 
      @Test(priority = 1,enabled = false,description = "diagnostician Scheduling availability")
     public void diagnostician_Availability() throws InterruptedException {
-        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-        DashBoardPanelPage panelpage=new DashBoardPanelPage();
         DiagnosticianTest dia=new DiagnosticianTest();
-        LoginPage login=new LoginPage();
-        login.adminLogin("Allen","123456");
-        //AdminTest admin=new AdminTest();
-       // SuperAdminTest Superadmin = new SuperAdminTest();
-        //login.diagnosticianLogin(Superadmin.diagnosticianUserName,"12345678");
-        DashBoardPanelPage logout = new DashBoardPanelPage();
-        schedule.login_As_Diagnostician(dia.diagnosticianUserName,"123456");
-        schedule.checking_Availability();
-        schedule.cancel_Availability();
-        schedule.deleting_Availability();
+         DiagnosticianPage diagnostician = new DiagnosticianPage();
+
+         //  login.diagnosticianLogin(Superadmin.diagnosticianUserName,"12345678");
+         diagnostician.checking_Availability();
+         diagnostician.cancel_Availability();
+         diagnostician.deleting_Availability();
     }
     @Test(priority = 2, enabled = false, description = "To verify schedule appointment")
     public void scheduleAppointment_Admin() throws InterruptedException {
         LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
-       //login.validLogin("Allen", "123456");
+        // Login as a Admin
+       // login.adminLogin(adminUserName, "12345678");
         dashboard.clickScheduleAppointment();
-        Thread.sleep(5000);
+
+
     }
 
     @Test(priority = 3, enabled = true, description = "selecting date for appointment")
@@ -85,9 +105,6 @@ public class AdminTest extends BaseTest {
         clientEmail2= clientFirstName+"101@yopmail.com";
         schedule.enteringClientDetails( clientFirstName, clientLastName, 2,"19-11-2000",1, "7654436788", clientEmail, "Other",clientEmail2,"New York","Texas","190001" ,"1000","1000");
         validate_text(schedule.actualText,"Appointment Scheduled!!");
-
-
-
     }
     @Test(priority = 5, enabled = false, description = "Verify View client details button on Schedule Appointment popup")
     public void verifyViewDetails() throws InterruptedException{
@@ -184,7 +201,7 @@ public class AdminTest extends BaseTest {
 
     public void verify_DontSave() throws InterruptedException{
         AdminPage editType = new AdminPage();
-        WebdriverWaits.WaitUntilInvisible(editType.spinner);
+        WebdriverWaits.waitForSpinner();
         editType.edit_AssessmentType("GT");
         editType.click_DontSave();
         validate_text(editType.clientAsses," Sibling/Re-evaluation ");
@@ -261,7 +278,7 @@ public class AdminTest extends BaseTest {
     public void director_Relogin() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         director.Relogin_With_newPassword(directorUserName, "12345678");
-        WebdriverWaits.WaitUntilInvisible(director.spinner);
+        WebdriverWaits.waitForSpinner();
         WebdriverWaits.waitUntilVisible(director.directorDashBoardPage);
         validate_text(director.directorDashBoardPage, "Dashboard");
     }
@@ -311,7 +328,7 @@ public class AdminTest extends BaseTest {
         WebdriverWaits.waitUntilVisible(diagnostician.diagnosticianDashBoardPage);
         validate_text(diagnostician.diagnosticianDashBoardPage, "Dashboard");
     }
-
+//logout testcase
 
 
 

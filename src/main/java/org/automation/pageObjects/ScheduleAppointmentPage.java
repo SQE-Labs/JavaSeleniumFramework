@@ -38,9 +38,10 @@ public class ScheduleAppointmentPage extends BasePage {
     public By continueToDeposit = By.id("intakeFormSubmit");
     public By testAmount=By.xpath("//input[@placeholder='Test Amount']");
     public By headerResource = By.xpath("//div[@class='header-resource-name']");
+    public By boxes=By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
     //(//div[@class='mbsc-flex ng-star-inserted'])[1]
     public By selectingtoday=By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-selected ng-star-inserted']");
-    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[8]");
+    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[15]");
     public By saveButton = By.xpath("//mbsc-button[text()=' Save ']");
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
     public By totalBoxes=By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
@@ -117,14 +118,11 @@ public class ScheduleAppointmentPage extends BasePage {
     }
 
     public void selectAssessmentDate() {
-        WebdriverWaits.waitUntilVisible(assessmentDate);
-        WebdriverWaits.WaitUntilInvisible(assessmentDate);
         clickBtn_custom(assessmentDate);
     }
 
     public void selectTestinglocation(String chooseLocationText) {
         WebdriverWaits.waitUntilVisible(chooseTestingLocation);
-        WebdriverWaits.WaitUntilInvisible(chooseTestingLocation);
         clickBtn_custom(chooseTestingLocation, "ChooseLocation");
         selectDropDownByVisibleText_custom(chooseTestingLocation, chooseLocationText, "ChooseLocation");
 
@@ -219,13 +217,19 @@ public class ScheduleAppointmentPage extends BasePage {
         int colCount = getColumnCount();
         int expLocatorPos = (colCount - 1) * 7 + 1;
         System.out.println(expLocatorPos);
-        WebdriverWaits.waitUntilVisible(clickOnBox);
-        click_custom(clickOnBox);
-    }
+            WebdriverWaits.waitUntilVisible(clickOnBox);
+            click_custom(clickOnBox);
+//        List<WebElement> boxess = getWebElements(boxes, "boxes");
+//        ArrayList<WebElement> boxesss=new ArrayList<>(boxess);
+//        for(WebElement box: boxesss) {
+//            System.out.println(expLocatorPos);
+//                click_custom(box);
+//                break;
+        }
+
 
     public void clickOnAssesmentType(int assestmentTypeTexts){
         WebdriverWaits.waitUntilVisible(assestmentType);
-        WebdriverWaits.WaitUntilInvisible(assestmentType);
         WebdriverWaits.waitForElementInteractable(assestmentType);
         click_custom(assestmentType);
         selectDropDownByIndex_custom(assestmentType,assestmentTypeTexts);
@@ -288,7 +292,6 @@ public class ScheduleAppointmentPage extends BasePage {
         sendKeys_withClear(dateOfBirth,dateOfBirthText);
     }
     public void enterAmount(String enterAmountText) throws InterruptedException {
-        WebdriverWaits.WaitUntilInvisible(enterAmountField);
         WebdriverWaits.waitUntilVisible(enterAmountField);
         click_custom(enterAmountField);
         sendKeys_withClear(enterAmountField,enterAmountText);
@@ -297,7 +300,6 @@ public class ScheduleAppointmentPage extends BasePage {
         click_custom(collectDeposit);
     }
     public void clickOnViewDetailsButton(){
-        WebdriverWaits.WaitUntilInvisible(viewDetails);
        WebdriverWaits.waitUntilVisible(viewDetails);
         click_custom(viewDetails);
     }
@@ -351,7 +353,7 @@ public class ScheduleAppointmentPage extends BasePage {
 //******************checking availability*************
     public void click_On_Availablity(){
         WebdriverWaits.waitUntilVisible(availability);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitForSpinner();
         click_custom(availability);
     }
     public void click_On_Slot() throws InterruptedException {

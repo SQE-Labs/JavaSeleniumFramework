@@ -55,12 +55,12 @@ public class DirectorPage extends BasePage {
     public By dateHeader = By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-schedule-header-day-today mbsc-selected ng-star-inserted']");
     public By yearsCalender = By.xpath("//mbsc-button[text()=' 2023 - 2034 ']");
     public By hihglihgtedYear = By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios ng-star-inserted'])[13]");
-    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[10]");
-    public By clickOnBox1 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[14]");
-    public By clickOnBox2 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[10]");
-    public By clickOnBox3 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[11]");
-    public By clickOnBox4 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[12]");
-    public By clickOnBox5 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[16]");
+    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[16]");
+    public By clickOnBox1 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[17]");
+    public By clickOnBox2 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[18]");
+    public By clickOnBox3 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[19]");
+    public By clickOnBox4 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[20]");
+    public By clickOnBox5 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[21]");
     // public By clickOnBox6=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[21]");
     public By availableText = By.xpath("//div[text()='Available']");
     public By saveButton = By.xpath("//button[text()='Save']");
@@ -82,7 +82,7 @@ public class DirectorPage extends BasePage {
 
     public void click_CreateDirectorsButton() {
         WebdriverWaits.waitUntilVisible(createDirectorButton);
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("div.ngx-spinner-overlay"));
+        WebdriverWaits.waitUntilInvisible(spinner);
         click_custom(createDirectorButton);
     }
 
@@ -179,7 +179,6 @@ public class DirectorPage extends BasePage {
     }
 
     public void clickOn_DontSave() {
-        wait.waitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -250,7 +249,6 @@ public class DirectorPage extends BasePage {
         // test case number ( 4.6 ).
         Assertions.validate_text(edit_Popup, "Edit User");
         Log.info("Successfully Edit popUp opens");
-        // enter_CellNumber(cellNumberText);
         enter_Director_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordField(confirmPasswordFieldText);
@@ -260,7 +258,7 @@ public class DirectorPage extends BasePage {
 
     //********Cheking toggole off of directore*************
 
-    public void cheking_DisableUser() throws InterruptedException {
+    public void cheking_DisableUser()   {
         click_On_EditButton();
         clickOn_DontSave();
         click_On_EditButton();
@@ -268,7 +266,7 @@ public class DirectorPage extends BasePage {
     }
 
     //********Enable user of director************
-    public void enable_Director() throws InterruptedException {
+    public void enable_Director()   {
         click_On_EditButton();
         off_ToggleButton();
         click_UpdateButton();
@@ -277,7 +275,6 @@ public class DirectorPage extends BasePage {
 
     public void not_Edit_Director(String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-        // enter_CellNumber(cellNumberText);
         enter_Director_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordField(confirmPasswordFieldText);
@@ -292,8 +289,6 @@ public class DirectorPage extends BasePage {
         clickOn_Login_UsernameField(userNameFieldText);
         clickOn_Login_PasswordField(PasswordFieldText);
         clickOn_Login_Button();
-
-
     }
 
     //************director login with old Password***********
@@ -303,7 +298,7 @@ public class DirectorPage extends BasePage {
         clickOn_Login_PasswordField(PasswordFieldText);
         clickOn_Login_Button();
     }
-    public void director_Availability() throws InterruptedException {
+    public void director_Availability()   {
 
         clickOn_YearHeader();
         WebdriverWaits.waitUntilVisible(yearsCalender);

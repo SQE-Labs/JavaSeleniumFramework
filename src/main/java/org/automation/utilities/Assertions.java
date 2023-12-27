@@ -38,7 +38,7 @@ public class Assertions {
     }
 
     public static void validate_text(By element, String expected) {
-        WebdriverWaits.waitUntilVisible(element);
+        WebdriverWaits.waitForSpinner();;
         SoftAssert softAssert = new SoftAssert();
         String actual = Assertions.getText_custom(element);
         softAssert.assertEquals(actual, expected);

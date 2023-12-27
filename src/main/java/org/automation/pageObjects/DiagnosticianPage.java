@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 import static org.automation.utilities.Assertions.validate_text;
-import static org.automation.utilities.WebdriverWaits.WaitUntilInvisible;
 
 
 public class DiagnosticianPage extends BasePage {
@@ -194,39 +193,31 @@ public class DiagnosticianPage extends BasePage {
 
 
     public void click_createDiagnosticianButton() {
-        WebdriverWaits.waitUntilVisible(createDiagnostician);
-        WebdriverWaits.WaitUntilInvisible(createDiagnostician);
+        WebdriverWaits.waitForSpinner();
         click_custom(createDiagnostician);
     }
 
     public void enter_diagnostician_FirstName(String CustomerFirstName)  {
-        WebdriverWaits.waitUntilVisible(diagnostician_FirstName);
         sendKeys_withClear(diagnostician_FirstName, CustomerFirstName);
     }
 
     public void enter_diagnostician_LastName(String CustomerLastName) {
-        WebdriverWaits.waitUntilVisible(diagnostician_LastName);
         sendKeys_withClear(diagnostician_LastName, CustomerLastName);
     }
 
     public void enter_Diagnostician_MobileNumber(String diagnostician_MobileNumberText) {
-        WebdriverWaits.waitUntilVisible(diagnostician_MobileNumber);
         sendKeys_withClear(diagnostician_MobileNumber, diagnostician_MobileNumberText);
     }
 
     public void enter_Diagnostician_Email(String diagnostician_EmailText) {
-        WebdriverWaits. waitUntilVisible(diagnostician_Email);
         sendKeys_withClear(diagnostician_Email, diagnostician_EmailText);
     }
     public void click_AssignLocation() {
-        WebdriverWaits.waitUntilVisible(assignLocation);
         click_custom(assignLocation);
-        WebdriverWaits.waitUntilVisible(locationName);
         click_custom(locationName);
     }
 
     public void userNameField(String userNameText) {
-        WebdriverWaits.waitUntilVisible(userName);
         sendKeys_withClear(userName, userNameText);
     }
 
@@ -253,24 +244,21 @@ public class DiagnosticianPage extends BasePage {
 
     public void click_filterButton() {
         WebdriverWaits.waitUntilVisible(filterButton);
-        WebdriverWaits.WaitUntilInvisible(loginLoading);
+        WebdriverWaits.waitUntilInvisible(loginLoading);
         click_custom(filterButton);
     }
 
     public void enterInSearchField(String searchFieldText) {
-        WebdriverWaits.waitUntilVisible(searchField);
         sendKeys_withClear(searchField, searchFieldText);
     }
 
     //+++++++++++++++++EDIT DIAGNOSTICIAN++++++++++++++
 
     public void click_On_EditButton() {
-
         click_custom(editButton);
     }
 
     public void enter_CellNumber(String cellNumberText) {
-        WebdriverWaits.waitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -302,24 +290,19 @@ public class DiagnosticianPage extends BasePage {
 
     //**********Diagnostician is viewing appointments************
     public void clickOn_Today_Appointment(){
-        WebdriverWaits.WaitUntilInvisible(loginLoading);
-        WebdriverWaits.waitUntilVisible(appointmentsTab);
+        WebdriverWaits.waitUntilInvisible(loginLoading);
         click_custom(appointmentsTab);
-        WebdriverWaits.waitUntilVisible(viewAllTab);
         click_custom(viewAllTab);
 
     }
     public void clickOn_ViewDetail(){
-        WebdriverWaits.waitUntilVisible(view_DetailApp);
         click_custom(view_DetailApp);
     }
     public void clickOn_StartAssesment(){
-        WebdriverWaits.waitUntilVisible(start_Assesment);
         scrollIntoView(start_Assesment);
         click_custom(start_Assesment);
     }
     public void clickOn_NoPaymentButton(){
-        WebdriverWaits.waitUntilVisible(no_Payment);
         click_custom(no_Payment);
     }
     public void clickOn_CheckBox(){
@@ -352,6 +335,7 @@ public class DiagnosticianPage extends BasePage {
 
 
     public void create_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName, String PasswordText, String RePassword)  {
+        WebdriverWaits.waitForSpinner();
         click_createDiagnosticianButton();
         enter_diagnostician_FirstName(CustomerFirstName);
         enter_diagnostician_LastName(CustomerLastName);
@@ -422,27 +406,7 @@ public class DiagnosticianPage extends BasePage {
         clickOn_DontSave();
     }
     //****************Diagnostician is checking todays appointments**************
-    public void today_Appointment(String summaryText)  {
-        WebdriverWaits.waitUntilVisible(dashboard);
-        validate_text(dashboard, "Dashboard");
 
-        clickOn_Today_Appointment();
-
-        clickOn_ViewDetail();
-        WebdriverWaits.waitUntilVisible(appointmentDetail);
-       validate_text(appointmentDetail, "Krillin Dash Details");
-
-        clickOn_StartAssesment();
-        WebdriverWaits.waitUntilVisible(paymentDetails);
-        validate_text(paymentDetails, "Payment Details");
-
-        clickOn_NoPaymentButton();
-        WebdriverWaits.waitUntilVisible(userAssesment);
-        validate_text(userAssesment, "Krillin Dash Assessment");
-
-        clickOn_CheckBox();
-        writing_Summary(summaryText);
-    }
 
 
 
@@ -451,13 +415,11 @@ public class DiagnosticianPage extends BasePage {
 
     public void selectAssessmentDate() {
         WebdriverWaits.waitUntilVisible(assessmentDate);
-        WaitUntilInvisible(assessmentDate);
         //  WebdriverWaits.moveToElement(assessmentDate);
         click_custom(assessmentDate);
     }
 
     public void selectTestinglocation(String chooseLocationText) {
-        WebdriverWaits.WaitUntilInvisible(assessmentDate);
         clickBtn_custom(chooseTestingLocation, "ChooseLocation");
         selectDropDownByVisibleText_custom(chooseTestingLocation,chooseLocationText);
 
@@ -476,7 +438,6 @@ public class DiagnosticianPage extends BasePage {
     }
 
     public void click_CancelAppointmentBtn()  {
-        WebdriverWaits.waitUntilVisible(cancelAppointment);
 
         scrollIntoView(cancelAppointment);
         click_custom(cancelAppointment);
@@ -599,9 +560,7 @@ public class DiagnosticianPage extends BasePage {
 
     //******************checking availability*************
     public void click_On_Availablity()  {
-        WebdriverWaits.WaitUntilInvisible(availability);
         click_custom(availability);
-        WebdriverWaits.waitUntilVisible(disableButton);
         validate_text(disableButton, "Save");
     }
     public void click_On_Slot()  {

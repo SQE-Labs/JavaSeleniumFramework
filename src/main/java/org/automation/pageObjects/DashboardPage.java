@@ -11,7 +11,6 @@ public class DashboardPage extends BasePage {
 
     public void clickScheduleAppointment()  {
         WebdriverWaits.waitUntilVisible(scheduleAppointment);
-        WebdriverWaits.WaitUntilInvisible(scheduleAppointment);
         clickBtn_custom(scheduleAppointment);
     }
 }
