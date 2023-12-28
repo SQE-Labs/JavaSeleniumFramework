@@ -13,6 +13,7 @@ public class DirectorPage extends BasePage {
     WebdriverWaits wait = new WebdriverWaits();
     public By directorsTab = By.xpath("//a[text()='Directors']");
     public By createDirectorButton = By.xpath("//button[text()='Create Director']");
+    public By directorActualText = By.xpath("//h3[text()='Directors List']");
     public By directorsFirstName = By.xpath("//input[@placeholder='First Name']");
     public By directorsLastName = By.xpath("//input[@placeholder='Last Name']");
     public By directorsMobileNumber = By.xpath("//input[@placeholder='(999) 999-9999']");
@@ -55,18 +56,20 @@ public class DirectorPage extends BasePage {
     public By dateHeader = By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-selected ng-star-inserted']']");
     public By yearsCalender = By.xpath("//mbsc-button[text()=' 2023 - 2034 ']");
     public By hihglihgtedYear = By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios ng-star-inserted'])[13]");
-    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[23]");
-    public By clickOnBox1 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[24]");
-    public By clickOnBox2 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[25]");
-    public By clickOnBox3 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[26]");
-    public By clickOnBox4 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[27]");
-    public By clickOnBox5 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[28]");
-    public By clickOnBox6 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[29]");
-    // public By clickOnBox6=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[21]");
+    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[22]");
+    public By clickOnBox1 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[23]");
+    public By clickOnBox2 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[24]");
+    public By clickOnBox3 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[25]");
+    public By clickOnBox4 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[26]");
+    public By clickOnBox5 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[27]");
+    public By clickOnBox6 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[28]");
+
     public By availableText = By.xpath("//div[text()='Available']");
     public By saveButton = By.xpath("//button[text()='Save']");
     public By validationMsg=By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
 
+    public By selectYear= By.xpath("//div[text()=' 2023 ']");
+    public By selectMonth=By.xpath("(//div[text()=' Dec '])[2]");
 
     //**************relogin with new password***********
 
@@ -161,6 +164,20 @@ public class DirectorPage extends BasePage {
     }
     public void clickOn_YearHeader() {
         click_custom(yearHeader);
+    }
+    public void clickOn_MonthHeader() {
+        WebdriverWaits.waitUntilVisible(monthHeader);
+        click_custom(monthHeader);
+    }
+    public void select_Year(){
+        WebdriverWaits.waitUntilVisible(selectYear);
+        click_custom(selectYear);
+
+    }
+    public void select_Month(){
+        WebdriverWaits.waitUntilVisible(selectMonth);
+        click_custom(selectMonth);
+
     }
 
     public void off_ToggleButton() {
@@ -300,7 +317,16 @@ public class DirectorPage extends BasePage {
         clickOn_Login_PasswordField(PasswordFieldText);
         clickOn_Login_Button();
     }
-
+    public void director_Availability() throws InterruptedException {
+        clickOn_MonthHeader();
+        WebdriverWaits.waitUntilVisible(yearsCalender);
+        validate_text(yearsCalender, "2023 - 2034");
+        select_Year();
+        select_Month();
+        clickOn_availableBox();
+        validate_text(availableText, "Available");
+        clickOn_SaveButton();
+    }
 }
 
 

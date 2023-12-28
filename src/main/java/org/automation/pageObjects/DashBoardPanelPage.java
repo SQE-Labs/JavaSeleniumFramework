@@ -28,6 +28,7 @@ public class DashBoardPanelPage extends BasePage {
 
 
     public void click_LogOutLink() {
+        refresh_Page();
 WebdriverWaits.waitUntilVisible(logOutLink);
         click_custom(logOutLink);
     }
@@ -42,6 +43,8 @@ WebdriverWaits.waitUntilVisible(logOutLink);
     }
 
     public void click_DiagnosticianTab() {
+        refresh_Page();
+
         WebdriverWaits.waitUntilInvisible(spinner);
         WebdriverWaits.waitUntilVisible(diagnosticianLink);
         click_custom(diagnosticianLink);
@@ -93,7 +96,9 @@ WebdriverWaits.waitUntilVisible(logOutLink);
         WebdriverWaits.waitUntilInvisible(spinner);
         click_custom(AppointmentsTab);
     }
-    public void clickOn_AvailabilityTab(){
+    public void click_Availability(){
+        WebdriverWaits.waitUntilVisible(availabilityTab);
+        WebdriverWaits.waitForSpinner();
         click_custom(availabilityTab);
     }
 }

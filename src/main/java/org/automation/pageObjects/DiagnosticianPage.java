@@ -13,13 +13,15 @@ import static org.automation.utilities.Assertions.validate_text;
 public class DiagnosticianPage extends BasePage {
     public By diagnosticianLink = By.xpath("//a[text()='Diagnosticians']");
     public By createDiagnostician = By.xpath("//button[text()='Create Diagnostician']");
+    public By diagListPageText = By.xpath("//h3[text()='Diagnosticians List']");
     public By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
+    public By avaActualText= By.xpath("//div[@class='ng-star-inserted']");
     public By diagnostician_FirstName = By.xpath("//input[@placeholder='First Name']");
     public By diagnostician_LastName = By.xpath("//input[@placeholder='Last Name']");
     public By diagnostician_MobileNumber = By.xpath("//input[@placeholder='(999) 999-9999']");
     public By diagnostician_Email = By.xpath("//input[@placeholder='Email']");
     public By assignLocation = By.xpath("//select[@id='testingLocation']");
-    public By locationName = By.xpath("//option[text()='Austin']");
+    public By locationName = By.xpath("//option[text()='Plano']");
     public By userName = By.xpath("//input[@placeholder='Username']");
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
@@ -165,20 +167,20 @@ public class DiagnosticianPage extends BasePage {
     //********CHECKING AVAILABILITY******************
     public By totalSlots=By.xpath("//div[@class='mbsc-timeline-events']");
     public By availability=By.xpath("//a[text()='Availability']");
-    //public By slot=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[1]");
-    public By slot1=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[2]");
-   // public By slot2=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[3]");
-    public By slot3=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[4]");
-    public By slot4=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[9]");
-    public By slot5=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[10]");
-    public By slot6=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[11]");
-    public By slot7=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[12]");
-   // public By slot8=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[13]");
-   // public By slot9=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[14]");
-    public By slot10=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[5]");
-    public By slot11=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[6]");
-    public By slot12=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[7]");
-    public By slot13=By.xpath("(//div[@class='mbsc-flex mbsc-flex-1-1 mbsc-timeline-slot ng-star-inserted'])[8]");
+    public By slot=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[1]");
+    public By slot1=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[2]");
+   public By slot2=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[3]");
+    public By slot3=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[4]");
+    public By slot4=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[5]");
+    public By slot5=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[6]");
+    public By slot6=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[7]");
+    public By slot7=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[8]");
+    public By slot8=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[9]");
+   public By slot9=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[10]");
+    public By slot10=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[11]");
+    public By slot11=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[12]");
+    public By slot12=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[13]");
+    public By slot13=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[14]");
     public By diagnosticianSaveButton=By.xpath("//button[text()='Save']");
     public By todayLink=By.xpath("//mbsc-button[text()=' Today ']");
     public By delete=By.xpath("//mbsc-button[text()=' Delete ']");
@@ -248,7 +250,7 @@ public class DiagnosticianPage extends BasePage {
     //+++++++++++++++++EDIT DIAGNOSTICIAN++++++++++++++
 
     public void click_On_EditButton() {
-        WebdriverWaits.waitUntilVisible(editButton);
+        WebdriverWaits.waitForSpinner();
         click_custom(editButton);
     }
 
@@ -278,7 +280,7 @@ public class DiagnosticianPage extends BasePage {
     }
     public void clickOn_DontSave()
     {
-        WebdriverWaits.waitUntilVisible(dontSaveButton);
+
         click_custom(dontSaveButton);
     }
 
@@ -575,8 +577,7 @@ public class DiagnosticianPage extends BasePage {
     public void click_On_Delete(){
 
         click_custom(delete);
-    }
-    public void checking_Availability()  {
+    }public void set_Availability(){
         click_On_Availablity();
         click_On_Slot();
     }

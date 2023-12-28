@@ -17,7 +17,7 @@ public class DiagnosticianTest extends BaseTest {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
 
         //  login.diagnosticianLogin(Superadmin.diagnosticianUserName,"12345678");
-        diagnostician.checking_Availability();
+        diagnostician.set_Availability();
         diagnostician.cancel_Availability();
         diagnostician.deleting_Availability();
     }

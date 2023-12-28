@@ -11,8 +11,8 @@ import org.automation.utilities.WebdriverWaits;
 import org.bson.assertions.Assertions;
 import org.testng.annotations.Test;
 
-import static org.automation.utilities.Assertions.*;
-import static org.automation.utilities.Assertions.validate_text_withTrim;
+import static org.automation.utilities.Assertions.getText_custom;
+import static org.automation.utilities.Assertions.validate_text;
 
 
 public class DirectorTest extends BaseTest {
@@ -25,40 +25,31 @@ public class DirectorTest extends BaseTest {
       //  validate_text(director.UserNameGetText, directorUserName);
         director.click_LogOutLink();
     }
-    @Test(priority = 27, enabled = false, description = "3.1, Verify that Director is able to login with valid credentials or not")
+    @Test(priority=24,enabled = true,description = "Verify that Director is able to login with valid credentials or not")
     public void director_Availability() throws InterruptedException {
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        LoginPage login = new LoginPage();
-        DirectorPage director = new DirectorPage();
-      //  login.directorLogin(directorUserName, "12345678");
+        DashBoardPanelPage panelPage=new DashBoardPanelPage();
+        LoginPage login=new LoginPage();
+        DirectorPage director=new DirectorPage();
+      //  login.directorLogin(directorUserName,"12345678");
         WebdriverWaits.waitUntilVisible(director.dashboardPage);
         validate_text(director.dashboardPage, "Dashboard");
         panelPage.clickOn_AppointmentsTab();
         validate_text(director.viewAll, "View All");
-        panelPage.clickOn_AvailabilityTab();
+        panelPage.click_Availability();
+      //  validate_text(director.monthHeader, "December");
+        String getMonthHeader = getText_custom(director.monthHeader);
+       // WebdriverWaits.waitUntilVisible(director.monthHeader);
+        validate_text(director.monthHeader, "December" );
 
-        String month1=getText_custom(director.monthHeader);
-        validate_text_withTrim(director.monthHeader, month1);
+      //  validate_text(director.yearHeader, "2023");
+        String getYearHeader=getText_custom(director.yearHeader);
+        validate_text(director.yearHeader, "2023" );
 
-        String year=getText_custom(director.yearHeader);
-        validate_text_withTrim(director.yearHeader, year);
-
-        String date=getText_custom(director.dateHeader);
-        validate_text_withTrim(director.dateHeader, date);
-
-        director.clickOn_YearHeader();
-        WebdriverWaits.waitUntilVisible(director.yearsCalender);
-        validate_text(director.yearsCalender, "2023 - 2034");
-
-        validate_text(director.hihglihgtedYear, "2023");
-        director.clickOn_YearHeader();
-        director.clickOn_availableBox();
-
-        validate_text(director.availableText, "Available");
-        director.clickOn_SaveButton();
+        String getdate =getText_custom(director.dateHeader);
+        validate_text(director.dateHeader, "27" );
+        director.director_Availability();
         director.click_LogOutLink();
     }
-
     @Test(priority = 25, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
     public void login_With_OldPassword() throws InterruptedException {
         DirectorPage director = new DirectorPage();

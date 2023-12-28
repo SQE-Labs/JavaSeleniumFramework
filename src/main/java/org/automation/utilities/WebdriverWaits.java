@@ -196,7 +196,9 @@ public class WebdriverWaits extends BaseTest {
         } catch (WebDriverException e) {
         }
     }
-}
+
+    }
+
 
 
 

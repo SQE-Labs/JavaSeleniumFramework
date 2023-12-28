@@ -19,7 +19,6 @@ import static com.relevantcodes.extentreports.LogStatus.PASS;
 public class ActionEngine extends BaseTest {
 
     public void click_custom(By path, String... label) {
-        WebdriverWaits.waitForSpinner();
         WebdriverWaits.waitUntilVisible(path);
         String var = "";
         try {
@@ -345,5 +344,9 @@ public class ActionEngine extends BaseTest {
         getDriver().navigate().back();
     }
 
-        }
 
+    public void navigate_to_baseUrl(){
+        getDriver().get(PropertiesUtil.getPropertyValue("url"));
+    }
+
+}
