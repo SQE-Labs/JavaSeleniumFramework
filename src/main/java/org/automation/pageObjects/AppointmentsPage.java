@@ -4,12 +4,15 @@ import org.automation.base.BasePage;
 import org.automation.logger.Log;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.io.File;
+import java.util.List;
 
 import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
 import static org.automation.utilities.Assertions.validate_text;
+import static org.automation.utilities.DateGenerator.getDate;
 
 
 public class AppointmentsPage extends BasePage {
@@ -17,76 +20,243 @@ public class AppointmentsPage extends BasePage {
     public By viewAllTab=By.xpath("//a[text()='View All']");
     public By dashBoardPage=By.xpath("//h3[text()='Dashboard']");
     public By allAppointmentsPage=By.xpath("//h3[text()='All Appointments']");
-    public By searchedText=By.xpath("//td[text()='Hazel Rogers']");
-    public By searchByDate=By.xpath("//td[text()='Hazel Rogers']");
+    public By searchedText=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
+    public By headerResource = By.xpath("//div[@class='header-resource-name']");
+    public By clickSlotSaveBtn= By.xpath("//mbsc-button[text()=' Save ']");
+
+    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[23]");
+    public By clickCalSaveBtn = By.xpath("//a[@class='theme-button green float-right mr-2']");
+    public By calendarTitle= By.xpath("//mbsc-button[@class='mbsc-calendar-button mbsc-button mbsc-button-flat mbsc-font mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-reset ng-star-inserted']");
+    public By currentYear= By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios mbsc-ios-dark ng-star-inserted'])[13]");
+    public By newSlotText =By.xpath("//div[@class='ng-star-inserted']");
+
     public By filterButton = By.xpath("//a[text()='Filter']");
     public By searchField=By.xpath("//input[@id='filterSearch']");
     public By dateFrom=By.xpath("//input[@placeholder='From Date']");
     public By toDate=By.xpath("//input[@placeholder='To Date']");
     public By searchButton=By.xpath("//button[text()='Search']");
     public By exportCSVButton=By.xpath("//button[text()='Export to CSV']");
-    public By viewDetails=By.xpath("//td[text()='Hazel Rogers']/../td[6]/a");
+    public By viewDetails=By.xpath("//a[@class='theme-button grey']");
     public By App_Text=By.xpath("//h3");
     public By spinner= By.cssSelector("div.ngx-spinner-overlay");
     public By viewAllActualText= By.xpath("//h3[@class='mb-4 mb-md-0']");
+    public By assestmentType = By.id("assestmentType");
+    public By assessmentDate = By.id("assessmentDate");
+    public By newEventText= By.xpath("//div[text()='New Event']");
     public By actualSearchedText= By.xpath("(//td[@class='tablewidth'])[1]");
     public By dateElements = By.xpath("//tr/td[3]");
-    WebdriverWaits wait=new WebdriverWaits();
+    public By view_Observation_Button=By.xpath("//a[text()='View Student Observation']");
+    public By view_Document_Button=By.xpath("//a[text()='View Documents']");
 
+//
+    public By chooseTestingLocation = By.id("testingLocation");
+    public By clientFirstName = By.xpath("//input[@placeholder='Client First Name']");
+    public By clientLastName = By.xpath("//input[@placeholder='Client Last Name']");
+    public By dateOfBirth = By.xpath("//input[@placeholder='Date of Birth']");
+    public By grade = By.xpath("(//select[@id='schoolType'])[1]");
+    public By schoolType = By.xpath("(//select[@class='ng-untouched ng-pristine ng-invalid'])[2]");
+    public By SchoolType=By.xpath("(//select[@id='schoolType'])[2]");
+    //   public By cellNumber = By.xpath("//input[@placeholder='Cell Number']");
+    public By phoneNumber = By.xpath("(//input[@class='p-inputtext p-component p-element p-inputmask'])[2]");
+    public By emailAddress = By.xpath("//input[@placeholder='Email Address']");
+    public By reasonForCall = By.id("reasonForCall");
+    public By address1 = By.xpath("//input[@placeholder='Address 1']");
+    public By address2 = By.xpath("//input[@placeholder='Address 2']");
+    public By city = By.xpath("//input[@placeholder='City']");
+    public By state = By.xpath("//input[@placeholder='State']");
+    public By zipCode = By.xpath("//input[@placeholder='Zip Code']");
+    public By continueToDeposit = By.id("intakeFormSubmit");
+    public By testAmount=By.xpath("//input[@placeholder='Test Amount']");
+    public By cellNumber = By.xpath("//input[@placeholder='Cell Number']");
+    public By enterAmountField=By.xpath("//input[@placeholder='Enter Amount']");
+    public By collectDeposit=By.xpath("//button[text()='Collect Deposit']");
+    public By logOutLink = By.xpath("//a[text()='Log Out']");
+    public By actualText=By.xpath("//h4[text()='Appointment Scheduled!!']");
+
+
+
+
+    public void enterFirstName(String cilentFirstNameText){
+        sendKeys_withClear(clientFirstName,cilentFirstNameText);
+    }
+    public void enterLastName(String cilentLastNameText){
+        sendKeys_withClear(clientLastName,cilentLastNameText);
+    }
+    public void selectGradeType(int gradeType){
+        selectDropDownByIndex_custom(grade,gradeType);
+    }
+    public void selectSchoolType(int schoolTypeOption) throws InterruptedException {
+        // click_custom(SchoolType);
+        selectDropDownByIndex_custom(SchoolType,schoolTypeOption);
+    }
+    public void enterCellNumber(String cellNumberText){
+        sendKeys_withClear(cellNumber,cellNumberText);
+    }
+    public void enterPhoneNumber(String phoneNumberText){
+        sendKeys_withClear(phoneNumber,phoneNumberText);
+    }
+    public void enterEmialAddress(String emailAddressText){
+        sendKeys_withClear(emailAddress,emailAddressText);
+    }
+    public void reasonForCallDropDown(String reasonForCallText){
+        selectDropDownByVisibleText_custom(reasonForCall,reasonForCallText);
+    }
+    public void enterAdress1(String address1Text){
+        sendKeys_withClear(address1,address1Text);
+    }
+    public void enterAdress2(String address2Text){
+        sendKeys_withClear(address2,address2Text);
+    }
+    public void enterCity(String cityText){
+        sendKeys_withClear(city,cityText);
+    }
+    public void enterState(String stateText){
+        sendKeys_withClear(state,stateText);
+    }
+    public void enterZipCode(String zipCodeText){
+        sendKeys_withClear(zipCode,zipCodeText);
+    }
+
+    public void enterTestAmount(String testAmountText){
+        WebdriverWaits.waitUntilVisible(testAmount);
+        sendKeys_withClear(testAmount,testAmountText);
+    }
+    public void clickOnContinueToDepositButton(){
+        click_custom(continueToDeposit);
+    }
+    public void enterInDateField(String dateOfBirthText) throws InterruptedException {
+        click_custom(dateOfBirth);
+        WebdriverWaits.waitUntilVisible(dateOfBirth);
+        sendKeys_withClear(dateOfBirth,dateOfBirthText);
+    }
+    public void enterAmount(String enterAmountText) throws InterruptedException {
+        WebdriverWaits.waitUntilInvisible(enterAmountField);
+        WebdriverWaits.waitUntilVisible(enterAmountField);
+        click_custom(enterAmountField);
+        sendKeys_withClear(enterAmountField,enterAmountText);
+    }
+    public void clickOnCollectDepositButton(){
+        click_custom(collectDeposit);
+    }
+    public void clickOnViewDetailsButton(){
+        WebdriverWaits.waitUntilVisible(viewDetails);
+        click_custom(viewDetails);
+    }
+    public void selectTestinglocation(int chooseLocationText) {
+        WebdriverWaits.waitUntilVisible(chooseTestingLocation);
+        clickBtn_custom(chooseTestingLocation, "ChooseLocation");
+        selectDropDownByIndex_custom(chooseTestingLocation, chooseLocationText);
+    }
+    public int getColumnCount() {
+        List<WebElement> list = getWebElements(headerResource, "Heders");
+        return list.size();
+    }
+    public  void getTotalColumnCount() {
+        int colCount = getColumnCount();
+        int expLocatorPos = (colCount - 1) * 7 + 1;
+        System.out.println(expLocatorPos);
+        WebdriverWaits.waitUntilVisible(clickSlot);
+        click_custom(clickSlot);
+    }
+
+    public void clickSlotSaveButton(){
+        WebdriverWaits.waitUntilVisible(clickSlotSaveBtn);
+        click_custom(clickSlotSaveBtn);
+    }
+    public void clickCalSaveButton(){
+        click_custom(clickCalSaveBtn);
+    }
+    public void click_AssessmentDate(){
+        click_custom(assessmentDate);
+    }
+
+    public void selectAppointmentSlot() throws InterruptedException {
+        click_AssessmentDate();
+        //String date = getDate();
+        //WebdriverWaits.waitUntilVisible(calendarTitle);
+        //validate_text(calendarTitle,date);
+        getTotalColumnCount();
+        WebdriverWaits.waitUntilVisible(newEventText);
+        validate_text(newEventText,"New Event");
+        clickSlotSaveButton();
+        WebdriverWaits.waitUntilVisible(newSlotText);
+        validate_text(newSlotText,"New event");
+        clickCalSaveButton();
+    }
+
+
+
+
+    public void selectAssesmentType(int assestmentTypeTexts){
+        WebdriverWaits.waitUntilVisible(assestmentType);
+        WebdriverWaits.waitForElementInteractable(assestmentType);
+        click_custom(assestmentType);
+        selectDropDownByIndex_custom(assestmentType,assestmentTypeTexts);
+    }
+
+    public void fill_clientDetailsSection(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
+        enterFirstName(CustomerFirstName);
+        enterLastName(CustomerLastName);
+        enterInDateField( dateOfBirthText);
+        selectGradeType(gradeType);
+        selectSchoolType(schoolTypeOption);
+        enterCellNumber(cellNumber);
+        enterEmialAddress(EmailAddress);
+        reasonForCallDropDown(reasonForCallText);
+        enterTestAmount(testAmountText);
+        clickOnContinueToDepositButton();
+        WebdriverWaits.waitUntilInvisible(spinner);
+        enterAmount(enterAmountText);
+        WebdriverWaits.waitUntilInvisible(spinner);
+        clickOnCollectDepositButton();
+        WebdriverWaits.waitUntilVisible(actualText);
+        validate_text(actualText,"Appointment Scheduled!!");
+        clickOnViewDetailsButton();
+    }
     public void click_AppointmentTab(){
-        WebdriverWaits.WaitUntilVisible(appointmentsTab);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitUntilVisible(appointmentsTab);
+        WebdriverWaits.waitUntilInvisible(spinner);
         click_custom(appointmentsTab);
     }
     public void click_ViewAllTab(){
-        WebdriverWaits.WaitUntilVisible(viewAllTab);
         click_custom(viewAllTab);
     }
     public void click_FilterButton(){
-        wait.WaitUntilVisible(filterButton);
          click_custom(filterButton);
     }
     public void clickOn_ExportCSVButton(){
-        WebdriverWaits.WaitUntilInvisible(By.cssSelector("ngx-spinner-overlay"));
-        WebdriverWaits.WaitUntilVisible(exportCSVButton);
+        WebdriverWaits.waitUntilInvisible(spinner);
         click_custom(exportCSVButton);
     }
     public void click_SearchField(String searchFieldText){
-        WebdriverWaits.WaitUntilVisible(searchField);
-        sendKeys_withClear(searchField,searchFieldText);
+        WebdriverWaits.waitUntilVisible(searchField);
     }
     public void enter_Dates(String dateFromText,String toDateText) throws InterruptedException {
         click_custom(dateFrom);
         sendKeys_withClear(dateFrom,dateFromText);
-    wait. WaitUntilVisible(toDate);
         click_custom(toDate);
         sendKeys_withClear(toDate,toDateText);
-        wait.WaitUntilVisible(searchButton);
         click_custom(searchButton);
     }
     public void clickOn_ViewDetails(){
         click_custom(viewDetails);
     }
 
-    public void allAppointmentsPage(String searchFieldText,String dateFromText,String toDateText) throws InterruptedException {
-         WebdriverWaits.WaitUntilVisible(dashBoardPage);
+    public void view_allAppointmentsPage(String diagnosticianFirstName,String  diagnosticianLastName) throws InterruptedException {
          validate_text(dashBoardPage,"Dashboard");
+
          click_AppointmentTab();
         validate_text(viewAllTab,"View All");
         Log.info("View all details tab successfully displayed");
+
         click_ViewAllTab();
-        WebdriverWaits.WaitUntilVisible(allAppointmentsPage);
+        WebdriverWaits.waitUntilVisible(allAppointmentsPage);
         validate_text(allAppointmentsPage,"All Appointments");
+
         click_FilterButton();
-        WebdriverWaits.WaitUntilVisible(searchByDate);
-        enter_Dates(dateFromText, toDateText);
-        validate_text(searchByDate,"Hazel Rogers");
-        Log.info("Successfully searched created appointment By entering dates");
-        getDriver().navigate().refresh();
-        click_FilterButton();
-        click_SearchField(searchFieldText);
-        WebdriverWaits.WaitUntilVisible(searchedText);
-        validate_text(searchedText,"Hazel Rogers");
+        click_SearchField(diagnosticianFirstName);
+        WebdriverWaits.waitUntilVisible(searchedText);
+        validate_text(searchedText,diagnosticianFirstName+' '+diagnosticianLastName);
         Log.info("Successfully searched created appointment");
     }
     public void exportCSV_Button(){
@@ -94,30 +264,8 @@ public class AppointmentsPage extends BasePage {
         click_ViewAllTab();
         clickOn_ExportCSVButton();
     }
-    public boolean isFileDownloaded(String fileName) throws InterruptedException {
-        Thread.sleep(10000);
-        String home = System.getProperty("user.home");
-        String file_with_location = home + "/Downloads/" + fileName;
-        File file = new File(file_with_location.trim());
-        String fileTest = file.getName();
-        if (file.exists() && file.length() != 0) {
-            System.out.println(file_with_location + " is present with size greater than 0 ");
-            extentTest.log(PASS, file_with_location + " is present  with size greater than 0");
-            return true;
-        } else {
-            System.out.println(file_with_location + " is not present");
-            extentTest.log(FAIL, file_with_location + " is not  present ");
 
-            return false;
-        }
-    }
-    public String validateDownloadedFile() {
-        getDriver().navigate().to("chrome://downloads/");
-        ChromeDownloads download = new ChromeDownloads();
-        String downloadedFile = download.getFileName();
-        System.out.println(downloadedFile);
-        return downloadedFile;
-    }
+
     public void View_AllAppointmentsPage(){
         click_AppointmentTab();
         click_ViewAllTab();

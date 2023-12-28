@@ -36,6 +36,11 @@ public class DateGenerator {
     public static boolean isDateWithinRange(LocalDate startDate, LocalDate endDate, LocalDate dateToCheck) {
         return (dateToCheck.isAfter(startDate) || dateToCheck.isBefore(endDate));
     }
+   public static String  getDate(){
+       LocalDate currentDate = LocalDate.now();
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+       return currentDate.format(formatter);
 
+   }
 
 }

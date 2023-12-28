@@ -13,6 +13,7 @@ import static org.automation.utilities.Assertions.validate_text;
 
 public class AdminPage extends BasePage {
     public By adminTab = By.xpath("//a[text()='Admins']");
+    public By adminDashboardText =By.xpath("//h3[text()='Dashboard']");
     public By createAdminButton = By.xpath("//button[text()='Create Admin']");
     public By loginLoading = By.cssSelector("div.ngx-spinner-overlay");
     public By admin_FirstName = By.xpath("//input[@placeholder='First Name']");
@@ -110,42 +111,43 @@ public class AdminPage extends BasePage {
     public By editUpdateBtn = By.id("intakeFormSubmit");
     public By actualTextClient = By.xpath("//p[text()=' College']");
     public By followUp = By.xpath("//a[text()=' Create Follow Up ']");
-    public By followUpSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[15]");
+    public By followUpSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[22]");
     public By slotSaveBtn = By.xpath("//mbsc-button[text()=' Save ']");
     public By followUpSaveBtn = By.xpath("//a[text()='Save']");
     public By confirmBtn= By.xpath("//a[text()='Confirm']");
     public By validateScheduledFollowUp = By.xpath("//h4[text()='Follow Up Scheduled!!']");
     public By followUpBackBtn = By.xpath("(//a[text()='Back'])[3]");
+    public By viewAllTab = By.xpath("//a[text()='View All']");
 
 
     public void clickOn_createAdminButton() {
-        WebdriverWaits.WaitUntilVisible(createAdminButton);
-        //  WebdriverWaits.WaitUntilInvisible(createAdminButton);
+        WebdriverWaits.waitUntilVisible(createAdminButton);
+        WebdriverWaits.waitUntilInvisible(createAdminButton);
         click_custom(createAdminButton);
     }
 
     public void enter_admin_FirstName(String CustomerFirstName) throws InterruptedException {
-        WebdriverWaits.WaitUntilVisible(admin_FirstName);
+        WebdriverWaits.waitUntilVisible(admin_FirstName);
         sendKeys_withClear(admin_FirstName, CustomerFirstName);
     }
 
     public void enter_admin_LastName(String CustomerLastName) {
-        WebdriverWaits.WaitUntilVisible(admin_LastName);
+        WebdriverWaits.waitUntilVisible(admin_LastName);
         sendKeys_withClear(admin_LastName, CustomerLastName);
     }
 
     public void enter_admin_MobileNumber(String diagnostician_MobileNumberText) {
-        WebdriverWaits.WaitUntilVisible(admin_MobileNumber);
+        WebdriverWaits.waitUntilVisible(admin_MobileNumber);
         sendKeys_withClear(admin_MobileNumber, diagnostician_MobileNumberText);
     }
 
     public void enter_admin_Email(String diagnostician_EmailText) {
-        WebdriverWaits.WaitUntilVisible(admin_Email);
+        WebdriverWaits.waitUntilVisible(admin_Email);
         sendKeys_withClear(admin_Email, diagnostician_EmailText);
     }
 
     public void userNameField(String userNameText) {
-        WebdriverWaits.WaitUntilVisible(userName);
+        WebdriverWaits.waitUntilVisible(userName);
         sendKeys_withClear(userName, userNameText);
     }
 
@@ -165,21 +167,21 @@ public class AdminPage extends BasePage {
 
 
     public void click_filterButton() {
-        WebdriverWaits.WaitUntilVisible(filterButton);
-        WebdriverWaits.WaitUntilInvisible(loginLoading);
+        WebdriverWaits.waitUntilVisible(filterButton);
+        WebdriverWaits.waitUntilVisible(loginLoading);
         click_custom(filterButton);
     }
 
     public void enterInSearchField(String searchFieldText) {
-        WebdriverWaits.WaitUntilVisible(searchField);
+        WebdriverWaits.waitUntilVisible(searchField);
         sendKeys_withClear(searchField, searchFieldText);
     }
 
     //+++++++++++++++++EDIT Admin++++++++++++++
 
     public void click_On_EditButton() {
-        WebdriverWaits.WaitUntilVisible(editButton);
-        WebdriverWaits.WaitUntilInvisible(loginLoading);
+        WebdriverWaits.waitUntilVisible(editButton);
+        WebdriverWaits.waitUntilVisible(loginLoading);
         click_custom(editButton);
     }
 
@@ -197,22 +199,22 @@ public class AdminPage extends BasePage {
     }
 
     public void enter_Diagnostician_Email1(String diagnostician_EmailText1) {
-        WebdriverWaits.WaitUntilVisible(emailField);
+        WebdriverWaits.waitUntilVisible(emailField);
         sendKeys_withClear(emailField, diagnostician_EmailText1);
     }
 
     public void clickOn_PasswordField(String passwordTextFieldText) {
-        WebdriverWaits.WaitUntilVisible(passwordTextField);
+        WebdriverWaits.waitUntilVisible(passwordTextField);
         sendKeys_withClear(passwordTextField, passwordTextFieldText);
     }
 
     public void clickOn_confirmPasswordFieldField(String confirmPasswordFieldText) {
-        WebdriverWaits.WaitUntilVisible(confirmPasswordField);
+        WebdriverWaits.waitUntilVisible(confirmPasswordField);
         sendKeys_withClear(confirmPasswordField, confirmPasswordFieldText);
     }
 
     public void clickOn_DontSave() {
-        WebdriverWaits.WaitUntilVisible(dontSaveButton);
+        WebdriverWaits.waitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -241,7 +243,7 @@ public class AdminPage extends BasePage {
 
     public void edit_Admin(String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_On_EditButton();
-        WebdriverWaits.WaitUntilVisible(editUserPop_Up);
+        WebdriverWaits.waitUntilVisible(editUserPop_Up);
         validate_text(editUserPop_Up, "Edit User");
         // enter_CellNumber(cellNumberText);
         enter_Admin_Email1(EmailAddress1);
@@ -277,54 +279,54 @@ public class AdminPage extends BasePage {
     }
 
     public void click_EditAssessment() throws InterruptedException{
-        WebdriverWaits.WaitUntilVisible(editAss);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitUntilVisible(editAss);
+        WebdriverWaits.waitUntilVisible(spinner);
         click_custom(editAss);
         validate_text(assType,"Change Assement Type");
     }
 
     public void click_UpdateBtn() {
-        WebdriverWaits.WaitUntilVisible(updateBtn);
+        WebdriverWaits.waitUntilVisible(updateBtn);
         click_custom(updateBtn);
     }
 
     public void edit_AssessmentType(String assestmentTypeTexts) throws InterruptedException {
-        WebdriverWaits.WaitUntilInvisible(spinner);
-        WebdriverWaits.WaitUntilVisible(assestmentType);
+        WebdriverWaits.waitUntilVisible(assestmentType);
+        WebdriverWaits.waitForSpinner();
         click_custom(assestmentType);
         selectDropDownByVisibleText_custom(assestmentType, assestmentTypeTexts);
 
     }
 
     public void click_DontSave() {
-        WebdriverWaits.WaitUntilVisible(assestmentType);
-        WebdriverWaits.WaitUntilVisible(dontSaveAsses);
+        WebdriverWaits.waitUntilVisible(assestmentType);
+        WebdriverWaits.waitUntilVisible(dontSaveAsses);
         click_custom(dontSaveAsses);
 
     }
 
     //********* Re-assign appointment page ******//
     public void click_ReAssignBtn() {
-        WebdriverWaits.WaitUntilVisible(reAssignbtn);
+        WebdriverWaits.waitUntilVisible(reAssignbtn);
         click_custom(reAssignbtn);
     }
 
     public void re_AssignDiag(int chooseDiagnostician) {
-        WebdriverWaits.WaitUntilVisible(diag);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitUntilVisible(diag);
+        WebdriverWaits.waitUntilVisible(spinner);
         clickBtn_custom(diag, "chooseDiagnostician");
         selectDropDownByIndex_custom(diag, chooseDiagnostician, "Choose Diagnostician");
     }
 
     public void click_ReAssignBn() {
-        WebdriverWaits.WaitUntilVisible(rebtn);
+        WebdriverWaits.waitUntilVisible(rebtn);
         click_custom(rebtn);
 
 
     }
 
     public void click_TestPlan() {
-        WebdriverWaits.WaitUntilVisible(testPlan);
+        WebdriverWaits.waitUntilVisible(testPlan);
         click_custom(testPlan);
     }
 
@@ -353,101 +355,101 @@ public class AdminPage extends BasePage {
     }
 
     public void click_EditClientBtn() {
-        WebdriverWaits.WaitUntilVisible(editClientBtn);
+        WebdriverWaits.waitUntilVisible(editClientBtn);
         click_custom(editClientBtn);
     }
 
     //*********** Edit Client Info **********//
     public void enter_FirstName(String firstName) {
-        WebdriverWaits.WaitUntilVisible(editFirstName);
+        WebdriverWaits.waitUntilVisible(editFirstName);
         sendKeys_withClear(editFirstName, firstName);
     }
 
 
     public void enter_LastName(String lastName) {
-        WebdriverWaits.WaitUntilVisible(editLastName);
+        WebdriverWaits.waitUntilVisible(editLastName);
         sendKeys_withClear(editLastName, lastName);
     }
 
     public void enter_ParentName(String parentName) {
-        WebdriverWaits.WaitUntilVisible(editParentName);
+        WebdriverWaits.waitUntilVisible(editParentName);
         sendKeys_withClear(editParentName, parentName);
     }
 
     public void enter_Date(String birthDate) {
-        WebdriverWaits.WaitUntilVisible(editDate);
+        WebdriverWaits.waitUntilVisible(editDate);
         sendKeys_withClear(editDate, birthDate);
     }
 
     public void enter_PhoneNumber(String phoneNuber) {
-        WebdriverWaits.WaitUntilVisible(editPhoneNumber);
+        WebdriverWaits.waitUntilVisible(editPhoneNumber);
         sendKeys_withClear(editPhoneNumber, phoneNuber);
     }
 
     public void enter_CellNumber(String cellNumber) {
-        WebdriverWaits.WaitUntilVisible(editCellNumber);
+        WebdriverWaits.waitUntilVisible(editCellNumber);
         sendKeys_withClear(editCellNumber, cellNumber);
     }
 
     public void enter_Email1(String email) {
-        WebdriverWaits.WaitUntilVisible(editEmail);
+        WebdriverWaits.waitUntilVisible(editEmail);
         sendKeys_withClear(editEmail, email);
     }
 
     public void enter_Email2(String email) {
-        WebdriverWaits.WaitUntilVisible(editEmail2);
+        WebdriverWaits.waitUntilVisible(editEmail2);
         sendKeys_withClear(editEmail2, email);
     }
 
     public void enter_grade(String grade) {
-        WebdriverWaits.WaitUntilVisible(editGrade);
-        WebdriverWaits.waitForElementClickable(editGrade, 1000);
+        WebdriverWaits.waitUntilVisible(editGrade);
+        WebdriverWaits.waitUntilVisible(editGrade);
         click_custom(editGrade);
         selectDropDownByVisibleText_custom(editGrade, grade);
     }
 
     public void enter_SchoolType(int schoolType) {
-        WebdriverWaits.WaitUntilVisible(editSchoolType);
+        WebdriverWaits.waitUntilVisible(editSchoolType);
         selectDropDownByIndex_custom(editSchoolType, schoolType);
     }
 
     public void enter_District(String district) {
-        WebdriverWaits.WaitUntilVisible(editDistrict);
+        WebdriverWaits.waitUntilVisible(editDistrict);
         sendKeys_withClear(editDistrict, district);
     }
 
     public void enter_Reason(String reason) {
-        WebdriverWaits.WaitUntilVisible(editReason);
+        WebdriverWaits.waitUntilVisible(editReason);
         selectDropDownByVisibleText_custom(editReason, reason);
     }
 
     public void enter_Address2(String address) {
-        WebdriverWaits.WaitUntilVisible(editAddress2);
+        WebdriverWaits.waitUntilVisible(editAddress2);
         sendKeys_withClear(editAddress2, address);
     }
 
     public void enter_Address1(String address) {
-        WebdriverWaits.WaitUntilVisible(editAddress1);
+        WebdriverWaits.waitUntilVisible(editAddress1);
         sendKeys_withClear(editAddress1, address);
     }
 
     public void enter_City(String city) {
-        WebdriverWaits.WaitUntilVisible(editCity);
+        WebdriverWaits.waitUntilVisible(editCity);
         sendKeys_withClear(editCity, city);
     }
 
     public void enter_State(String state) {
-        WebdriverWaits.WaitUntilVisible(editCity);
+        WebdriverWaits.waitUntilVisible(editCity);
         sendKeys_withClear(editCity, state);
     }
 
     public void enter_ZipCode(String zipCode) {
-        WebdriverWaits.WaitUntilVisible(editZipCode);
+        WebdriverWaits.waitUntilVisible(editZipCode);
         sendKeys_withClear(editZipCode, zipCode);
     }
 
     public void enter_comment(String additionalComment) {
-        WebdriverWaits.WaitUntilVisible(editAdditionalComment);
+        WebdriverWaits.waitUntilVisible(editAdditionalComment);
         sendKeys_custom(editAdditionalComment, additionalComment);
     }
 
@@ -459,6 +461,10 @@ public class AdminPage extends BasePage {
         enter_grade(grade);
         return fullName;
 
+    }
+    public void click_ViewAll(){
+        WebdriverWaits.waitUntilVisible(viewAllTab);
+        click_custom(viewAllTab);
     }
 
     public void click_UpdateClientBtn() {
@@ -491,7 +497,7 @@ public class AdminPage extends BasePage {
         click_custom(confirmBtn);
     }
     public void click_BackBtn(){
-        WebdriverWaits.WaitUntilInvisible(spinner);
+        WebdriverWaits.waitForSpinner();
         WebdriverWaits.waitUntilVisible(followUpBackBtn);
         click_custom(followUpBackBtn);
 

@@ -9,27 +9,29 @@ public class PaymentPage extends BasePage {
     public By paymentListPage=By.xpath("//h3[text()='Payments']");
     public By filterButton = By.xpath("//a[text()='Filter']");
     public By searchField = By.xpath("//input[@id='filterSearch']");
-    public By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
-    public By cust_Name=By.xpath("//td[text()='Guard Bittle ']");
-    public By fromDateField=By.xpath("//input[@placeholder='From Date']");
-    public By toDateField=By.xpath("//input[@placeholder='To Date']");
+    public By cust_Name=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
+    public String cust_Names ="//table[@id='paymentTable']//tbody//td[contains(text(),'%s')]";
+    public By fromToDateField=By.xpath("//input[@placeholder='%s']");
+
 
     public void clickOn_PaymentTab(){
-        WebdriverWaits.WaitUntilVisible(paymentTab);
+        WebdriverWaits.waitUntilVisible(paymentTab);
         click_custom(paymentTab);
     }
     public void click_filterButton() {
-        WebdriverWaits.WaitUntilInvisible(loginLoading);
-        WebdriverWaits.WaitUntilVisible(filterButton);
+        WebdriverWaits.waitForSpinner();
         click_custom(filterButton);
     }
     public void enterInSearchField(String searchFieldText) {
-        WebdriverWaits.WaitUntilVisible(searchField);
+        WebdriverWaits.waitUntilVisible(searchField);
         sendKeys_withClear(searchField, searchFieldText);
     }
-    public void search_CreatedDiagnostician(String UserName) throws InterruptedException {
+    public void search_CreatedDiagnostician(String UserName)  {
         click_filterButton();
         enterInSearchField(UserName);
     }
+
+
+
 
 }

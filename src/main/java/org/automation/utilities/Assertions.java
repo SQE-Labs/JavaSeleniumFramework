@@ -38,16 +38,15 @@ public class Assertions {
         return text;
     }
 
-    public static void validate_text(By element, String expected) throws InterruptedException {
-        WebdriverWaits.WaitUntilVisible(element);
+    public static void validate_text(By element, String expected) {
+        WebdriverWaits.waitForSpinner();;
         SoftAssert softAssert = new SoftAssert();
         String actual = Assertions.getText_custom(element);
         softAssert.assertEquals(actual, expected);
         softAssert.assertAll();
     }
-
     public static void validate_SelectedOption(By element, String expected) throws InterruptedException{
-        WebdriverWaits.WaitUntilVisible(element);
+        WebdriverWaits.waitUntilVisible(element);
         Select select= new Select(getDriver().findElement(element));
         String selectedOption = select.getFirstSelectedOption().getText();
         SoftAssert softAssert = new SoftAssert();
