@@ -19,7 +19,7 @@ public class DiagnosticianPage extends BasePage {
     public By diagnostician_MobileNumber = By.xpath("//input[@placeholder='(999) 999-9999']");
     public By diagnostician_Email = By.xpath("//input[@placeholder='Email']");
     public By assignLocation = By.xpath("//select[@id='testingLocation']");
-    public By locationName = By.xpath("//option[text()='Plano']");
+    public By locationName = By.xpath("//option[text()='Austin']");
     public By userName = By.xpath("//input[@placeholder='Username']");
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
@@ -185,13 +185,6 @@ public class DiagnosticianPage extends BasePage {
     public By cancel=By.xpath("//mbsc-button[text()=' Cancel ']");
     public By logOutLink=By.xpath("//a[text()='Log Out']");
 
-
-
-
-
-
-
-
     public void click_createDiagnosticianButton() {
         WebdriverWaits.waitForSpinner();
         click_custom(createDiagnostician);
@@ -255,6 +248,7 @@ public class DiagnosticianPage extends BasePage {
     //+++++++++++++++++EDIT DIAGNOSTICIAN++++++++++++++
 
     public void click_On_EditButton() {
+        WebdriverWaits.waitUntilVisible(editButton);
         click_custom(editButton);
     }
 
@@ -284,7 +278,7 @@ public class DiagnosticianPage extends BasePage {
     }
     public void clickOn_DontSave()
     {
-
+        WebdriverWaits.waitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
 
@@ -347,18 +341,7 @@ public class DiagnosticianPage extends BasePage {
         confirm_PasswordField(RePassword);
         clickOn_createDiagnosticianButton();
     }
-    public void Verify_Duplicate_Diagnostician(String CustomerFirstName, String CustomerLastName, String diagnostician_MobileNumberText, String EmailAddress, String UserName,String PasswordText,String RePassword)  {
-        click_createDiagnosticianButton();
-        enter_diagnostician_FirstName(CustomerFirstName);
-        enter_diagnostician_LastName(CustomerLastName);
-        enter_Diagnostician_MobileNumber(diagnostician_MobileNumberText);
-        enter_Diagnostician_Email(EmailAddress);
-        click_AssignLocation();
-        userNameField(UserName);
-        create_passwordField(PasswordText);
-        confirm_PasswordField(RePassword);
-        clickOn_createDiagnosticianButton();
-    }
+
 
 
     public void diagnostician_ListPage()  {
@@ -387,7 +370,10 @@ public class DiagnosticianPage extends BasePage {
         click_On_EditButton();
         clickOn_DontSave();
     }
-    public void disable_Diagnostician(){
+    public void disable_Diagnostician(String userNameText) throws InterruptedException {
+        click_filterButton();
+        enterInSearchField(userNameText);
+        Thread.sleep(2000);
         click_On_EditButton();
         off_ToggleButton();
     }

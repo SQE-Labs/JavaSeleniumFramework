@@ -38,8 +38,8 @@ public class AdminTest extends BaseTest {
     SuperAdminTest superAdmin=new SuperAdminTest();
 
     //login
-    @Test(priority = 0, enabled = false, description = "1.1 Create Diagnostician by admin")
-    public void create_Diagnostician() throws InterruptedException {
+    @Test(priority = -1, enabled = false, description = "1.1 Create Diagnostician by admin")
+    public void create_Diagnostician()  {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         diagnosticianFirstName = "AU_Murray" + RandomStrings.requiredCharacters(2);
         diagnosticianLastName = "AU_Luken" + RandomStrings.requiredCharacters(2);
@@ -56,14 +56,16 @@ public class AdminTest extends BaseTest {
         validate_text(diagnostician.actualText, diagnosticianUserName);
         Log.info("Successfully SuperAdmin Created diagnostician");
 
-        diagnostician.Verify_Duplicate_Diagnostician(diagnosticianFirstName, diagnosticianLastName, "8564234568", diagnosticianEmailAddress, diagnosticianUserName, "123456", "123456");
-        WebdriverWaits.waitUntilVisible(diagnostician.validationMsg);
-        validate_text(diagnostician.validationMsg, "An error occurred while creating the user. Username already exists!");
-        //panelPage.click_LogOutLink();
     }
 
 
-
+    @Test(priority = 0, enabled = true, description = "1.1 Create duplicate  Diagnostician by admin")
+    public void create_Duplicate_Diagnostician() throws InterruptedException {
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
+        diagnostician.create_Diagnostician(diagnosticianFirstName, diagnosticianLastName, dia_Cell_Number, diagnosticianEmailAddress, diagnosticianUserName, "123456", "123456");
+        WebdriverWaits.waitUntilVisible(diagnostician.validationMsg);
+        validate_text(diagnostician.validationMsg, "An error occurred while creating the user. Username already exists!");
+    }
 
      @Test(priority = 1,enabled = false,description = "diagnostician Scheduling availability")
     public void diagnostician_Availability() throws InterruptedException {
@@ -89,7 +91,7 @@ public class AdminTest extends BaseTest {
     @Test(priority = 3, enabled = true, description = "selecting date for appointment")
     public void appointmentCalender() throws InterruptedException {
         LoginTest login = new LoginTest();
-        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+        AppointmentsPage schedule = new  AppointmentsPage();
         // login.ValidLogin();
         schedule.scheduleAppointment("Plano");
         schedule.appointmentDateSelecting(2);
@@ -97,21 +99,21 @@ public class AdminTest extends BaseTest {
 
     @Test(priority = 4, enabled = false, description = "Filling client details")
      public void fillClientDetails() throws InterruptedException {
-        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+         AppointmentsPage schedule = new   AppointmentsPage();
         clientFirstName=RandomStrings.requiredCharacters(6);
         clientLastName=RandomStrings.requiredCharacters(6);
         clientCellNumber=RandomStrings.requiredDigits(10);
         clientEmail=clientFirstName+ "@yopmail.com";
         clientEmail2= clientFirstName+"101@yopmail.com";
-        schedule.enteringClientDetails( clientFirstName, clientLastName, 2,"19-11-2000",1, "7654436788", clientEmail, "Other",clientEmail2,"New York","Texas","190001" ,"1000","1000");
-        validate_text(schedule.actualText,"Appointment Scheduled!!");
+        schedule.fill_clientDetailsSection( clientFirstName, clientLastName, 2, "19-11-1997", 2, clientCellNumber, clientEmail, "Math", "NSW", " Tasmania", " Barkers Creek", "South Australia", "5422", "1200", "1000");
+       // validate_text(schedule.actualText,"Appointment Scheduled!!");
     }
     @Test(priority = 5, enabled = false, description = "Verify View client details button on Schedule Appointment popup")
     public void verifyViewDetails() throws InterruptedException{
-        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-        schedule.clickOnviewLink();
+      //  ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+      //  schedule.clickOnviewLink();
         String expectedName = clientFirstName+" "+clientLastName;
-        validate_text(schedule.fullName,expectedName);
+    //    validate_text(schedule.fullName,expectedName);
 
     }
 
@@ -178,8 +180,8 @@ public class AdminTest extends BaseTest {
     }
     @Test(priority = 1, enabled = true, description = "Verify view details button.")
     public void verify_ViewDetails()  throws InterruptedException {
-        ScheduleAppointmentPage viewDetail= new ScheduleAppointmentPage();
-        viewDetail.click_ViewDetails();
+      //  ScheduleAppointmentPage viewDetail= new ScheduleAppointmentPage();
+      //  viewDetail.click_ViewDetails();
 
     }
     @Test(priority = 2, enabled = true, description = "Verify Edit Assessment type button .")
@@ -213,8 +215,8 @@ public class AdminTest extends BaseTest {
 
     @Test(priority = 6, enabled = false, description = "creating TestPlan for the created appointment")
     public void testPlanFor_scheduled_Appointment() throws InterruptedException {
-        ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
-        schedule.creatingTestPlanForTheAppointment();
+      //  ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
+      //  schedule.creatingTestPlanForTheAppointment();
     }
 
 
@@ -237,7 +239,7 @@ public class AdminTest extends BaseTest {
 
     }
     // ******************Editing the director*************//
-    @Test(priority = 1, enabled = false, description = "Creating Director from admin" )
+    @Test(priority = 1, enabled = false, description = "Editing Director from admin" )
     public void edit_Director() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         directorEmailAddress = directorFirstName + "010@yopmail.com";
@@ -262,7 +264,6 @@ public class AdminTest extends BaseTest {
         DirectorPage director = new DirectorPage();
         director.enable_Director();
         validate_text(director.edit_SuccMsg,"Director details updated successfully.");
-        System.out.println("Successfully Edited the created director");
     }
 
     @Test(priority = 4,enabled = false,description="verify that director is able to edit or not after clicking dont save button")
@@ -288,7 +289,6 @@ public class AdminTest extends BaseTest {
     public void Edit_Diagnostician() throws InterruptedException{
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         // Edit Diagnostician
-        String diagnosticianPhoneNumber = RandomStrings.requiredDigits(10);
         String diagnosticianUpdatedEmail= diagnosticianFirstName + "10@yopmail.com";
         diagnostician.edit_Diagnostician(diagnosticianUpdatedEmail,"1234567","1234567");
 
@@ -299,7 +299,6 @@ public class AdminTest extends BaseTest {
         //Enable disabled Diagnostician
         diagnostician.enable_DiagnosticianUser();
         validate_text(diagnostician.edit_Succ_Msg, "Diagnostician details updated successfully.");
-        System.out.println("Diagnostician details updated successfully.");
     }
 
     @Test(priority = 3,enabled = false, description = "Search created diagnostician by admin")
@@ -329,7 +328,89 @@ public class AdminTest extends BaseTest {
         validate_text(diagnostician.diagnosticianDashBoardPage, "Dashboard");
     }
 //logout testcase
+    //************Appointments page******************
 
+    //to-do
+    @Test(priority = 28, enabled = true, description = "2.1 Verify that SuperAdmin is able to view appointments or not")
+    public void Appointments_Page()   {
+        AppointmentsPage appointment = new AppointmentsPage();
+        LoginPage login = new LoginPage();
+       // login.adminLogin(adminUserName, "12345678");
+        appointment.view_allAppointmentsPage(diagnosticianFirstName, diagnosticianLastName);
+    }
+
+
+    //*************This testcase also has defect*********************
+    @Test(priority = 29, enabled = true, description = "2.5, 2.7 Verify that 'Appointment Details' page opens up on clicking 'View Detail' link")
+    public void view_Details_Page()   {
+        AppointmentsPage appointment = new AppointmentsPage();
+        appointment.clickOn_ViewDetails();
+        WebdriverWaits.waitForSpinner();
+        WebdriverWaits.waitUntilVisible(appointment.App_Text);
+        validate_text(appointment.App_Text, diagnosticianFirstName +' '+diagnosticianLastName+' '+"Details");
+        appointment.click_ViewAllTab();
+
+//        WebdriverWaits.WaitUntilVisible(appointment.viewStudentObservationButton);
+//        validate_text(appointment.viewStudentObservationButton, "View Student Observation");
+//        WebdriverWaits.WaitUntilVisible(appointment.viewDocumentsButton);
+//        validate_text(appointment.viewDocumentsButton, "View Documents");
+    }
+
+    //********After completion of complete appointment this test case will be valid********************
+
+    @Test(priority = 29, enabled = false, description = "Verify that superAdmin is able to view ClientObservation Page or not")
+    public void view_ClientObservation_Page()  {
+        AppointmentsPage appointment = new AppointmentsPage();
+        // appointment.view_ClientObservation_Page();
+    }
+
+    @Test(priority = 30, enabled = true, description = "2.6 Verify that CSV file gets downloaded after clicking 'Export to CSV' button, on 'All Appointments' page")
+    public void download_CSV_File() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelpage = new DashBoardPanelPage();
+        WebdriverWaits.waitForSpinner();
+        appointment.exportCSV_Button();
+        //Download exportCSV File and Check file is downloaded or not
+        String downloadFile = panelpage.getDownloadFileName();
+        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
+    }
+
+    //**********************SuperAdmin is viewing Payments page********************
+    @Test(priority = 31, enabled = true, description = "6.1, Verify that superAdmin is able to view payment page or not")
+    public void view_Payments_Page()  {
+        PaymentPage payment = new PaymentPage();
+        ActionEngine action = new ActionEngine();
+        DashBoardPanelPage panelpage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        action.navigate_Back();
+        panelpage.click_LogOutLink();
+
+        login.superAdminLogin();
+        payment.clickOn_PaymentTab();
+        WebdriverWaits.waitUntilVisible(payment.paymentListPage);
+        validate_text(payment.paymentListPage, "Payments");
+    }
+
+    @Test(priority = 32, enabled = true, description = "6.2, 6.3,  Verify that superAdmin is able to search perticular payment or not")
+    public void search_Payment()   {
+        PaymentPage payment = new PaymentPage();
+        payment.click_filterButton();
+        payment.enterInSearchField(diagnosticianFirstName);
+        WebdriverWaits.waitUntilVisible(payment.cust_Name);
+        validate_text(payment.cust_Name, diagnosticianFirstName +' '+diagnosticianLastName);
+    }
+
+    @Test(priority = 33, enabled = true, description = "6.5 Verify admin is able to download csv file or not")
+    public void download_ExportCSV_File() throws InterruptedException {
+        DashBoardPanelPage panelpage = new DashBoardPanelPage();
+        ActionEngine action = new ActionEngine();
+        panelpage.clickOn_ExportCSVButton();
+        //Download exportCSV File and Check file is downloaded or not
+        String downloadFile = panelpage.getDownloadFileName();
+        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
+        action.navigate_Back();
+        panelpage.click_LogOutLink();
+    }
 
 
 

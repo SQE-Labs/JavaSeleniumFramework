@@ -13,9 +13,9 @@ import static org.automation.utilities.Assertions.validate_text;
 
 public class AdminPage extends BasePage
 {
-    public By adminTab= By.xpath("//a[text()='Admins']");
+
     public By createAdminButton=By.xpath("//button[text()='Create Admin']");
-    public By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
+
     public By admin_FirstName = By.xpath("//input[@placeholder='First Name']");
     public By admin_LastName = By.xpath("//input[@placeholder='Last Name']");
     public By admin_MobileNumber = By.xpath("//input[@placeholder='Cell Number']");
@@ -27,7 +27,7 @@ public class AdminPage extends BasePage
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
     public By createadminButton = By.xpath("//button[text()=' Create Admin ']");
     public By succ_Msg=By.xpath("//div[text()='Admin Created Successfully']");
-    public By dashboardPage=By.xpath("//h3[text()='Admins List']");
+    public By dashboardPage=By.xpath("(//h3)[1]");
 
     //**************Search created Admin*************
 
@@ -113,11 +113,11 @@ public class AdminPage extends BasePage
 
     public void clickOn_createAdminButton(){
         WebdriverWaits.waitForSpinner();
-        WebdriverWaits.waitForElementInteractable(createAdminButton);
+        WebdriverWaits.waitUntilVisible(createAdminButton);
         click_custom(createAdminButton);
     }
 
-    public void enter_admin_FirstName(String CustomerFirstName) throws InterruptedException {
+    public void enter_admin_FirstName(String CustomerFirstName)   {
         sendKeys_withClear(admin_FirstName, CustomerFirstName);
     }
 
@@ -130,6 +130,7 @@ public class AdminPage extends BasePage
     }
 
     public void enter_admin_Email(String diagnostician_EmailText) {
+        WebdriverWaits.waitUntilVisible(admin_Email);
         sendKeys_withClear(admin_Email, diagnostician_EmailText);
     }
     public void userNameField(String userNameText) {

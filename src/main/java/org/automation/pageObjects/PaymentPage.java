@@ -14,7 +14,7 @@ public class PaymentPage extends BasePage {
     public By fromToDateField=By.xpath("//input[@placeholder='%s']");
 
 
-    public void clickOn_PaymentTab(){
+    public void     clickOn_PaymentTab(){
         WebdriverWaits.waitUntilVisible(paymentTab);
         click_custom(paymentTab);
     }
