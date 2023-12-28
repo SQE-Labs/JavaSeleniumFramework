@@ -300,19 +300,7 @@ public class DirectorPage extends BasePage {
         clickOn_Login_PasswordField(PasswordFieldText);
         clickOn_Login_Button();
     }
-    public void director_Availability()   {
 
-        clickOn_YearHeader();
-        WebdriverWaits.waitUntilVisible(yearsCalender);
-        validate_text(yearsCalender, "2023 - 2034");
-
-        validate_text(hihglihgtedYear, "2023");
-        clickOn_YearHeader();
-        clickOn_availableBox();
-
-        validate_text(availableText, "Available");
-        clickOn_SaveButton();
-    }
 }
 
 

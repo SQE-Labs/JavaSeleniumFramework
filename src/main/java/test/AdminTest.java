@@ -77,16 +77,7 @@ public class AdminTest extends BaseTest {
          diagnostician.cancel_Availability();
          diagnostician.deleting_Availability();
     }
-    @Test(priority = 2, enabled = false, description = "To verify schedule appointment")
-    public void scheduleAppointment_Admin() throws InterruptedException {
-        LoginPage login = new LoginPage();
-        DashboardPage dashboard = new DashboardPage();
-        // Login as a Admin
-       // login.adminLogin(adminUserName, "12345678");
-        dashboard.clickScheduleAppointment();
 
-
-    }
 
     @Test(priority = 3, enabled = true, description = "selecting date for appointment")
     public void appointmentCalender() throws InterruptedException {
@@ -122,7 +113,8 @@ public class AdminTest extends BaseTest {
         LoginPage login = new LoginPage();
         AppointmentsPage appPage= new AppointmentsPage();
         login.adminLogin("Allen", "123456");
-        appPage.View_AllAppointmentsPage();
+        appPage.click_AppointmentTab();
+        appPage.click_ViewAllTab();
         validate_text(appPage.viewAllActualText,"All Appointments");
 
     }
@@ -413,7 +405,32 @@ public class AdminTest extends BaseTest {
     }
 
 
+    @Test(priority = 17, enabled = true, description = "To verify schedule appointment for admin by superadmin")
+    public void scheduleAppointment_Admin()   {
+        LoginPage login = new LoginPage();
+        DashboardPage dashboard = new DashboardPage();
 
+        // Login as a Admin
+      //  login.adminLogin(adminUserName, "12345678");
+        dashboard.clickScheduleAppointment();
+    }
+
+    @Test(priority = 18, enabled = true, description = "selecting date for appointment by superadmin")
+    public void appointmentCalenderInAdmin() throws InterruptedException {
+        AppointmentsPage schedule = new AppointmentsPage();
+        // login.ValidLogin();
+        schedule.scheduleAppointment("Austin");
+        schedule.appointmentDateSelecting(2);
+
+    }
+
+
+    @Test(priority =20, enabled = true, description = "admin logout")
+    public void logoutAdmin() throws InterruptedException {
+        AppointmentsPage page = new AppointmentsPage();
+        page.click_LogOutLink();
+
+    }
 
 
 

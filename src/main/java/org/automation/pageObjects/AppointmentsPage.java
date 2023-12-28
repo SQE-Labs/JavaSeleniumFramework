@@ -170,8 +170,8 @@ public class AppointmentsPage extends BasePage {
         clickBtn_custom(assessmentDate);
     }
     public void enterAmount(String enterAmountText) throws InterruptedException {
-        WebdriverWaits.waitUntilInvisible(enterAmountField);
         WebdriverWaits.waitUntilVisible(enterAmountField);
+        WebdriverWaits.waitForSpinner();
         click_custom(enterAmountField);
         sendKeys_withClear(enterAmountField,enterAmountText);
     }
@@ -211,7 +211,6 @@ public class AppointmentsPage extends BasePage {
         Thread.sleep(5000);
         getTotalColumnCount();
         Thread.sleep(3000);
-        //  schedule.clickOnColumn();
         clickOnSaveButton();
         Thread.sleep(3000);
         clickOnAppSaveButton();
@@ -267,16 +266,10 @@ public class AppointmentsPage extends BasePage {
 
     }
     public void exportCSV_Button(){
-        //click_AppointmentTab();
-        //click_ViewAllTab();
+
         clickOn_ExportCSVButton();
     }
 
-
-    public void View_AllAppointmentsPage(){
-        click_AppointmentTab();
-        click_ViewAllTab();
-    }
 
 
 
