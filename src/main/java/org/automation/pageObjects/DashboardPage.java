@@ -7,12 +7,10 @@ import org.openqa.selenium.By;
 public class DashboardPage extends BasePage {
 
     public By scheduleAppointment = By.xpath("//li[@id='Schedule Appointment']");
-    public By spinner= By.cssSelector("div.ngx-spinner-overlay");
 
-
-    public void clickScheduleAppointment() throws InterruptedException {
-        WebdriverWaits.WaitUntilVisible(scheduleAppointment);
-        WebdriverWaits.WaitUntilInvisible(spinner);
+    public void clickScheduleAppointment()  {
+        WebdriverWaits.waitUntilVisible(scheduleAppointment);
+        WebdriverWaits.waitForSpinner();
         clickBtn_custom(scheduleAppointment);
     }
 }
