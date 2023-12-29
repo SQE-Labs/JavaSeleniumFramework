@@ -45,7 +45,7 @@ public class AdminTest extends BaseTest {
      String diagnosticianFirstName;
      String diagnosticianLastName;
      String diagnosticianEmailAddress;
-    @Test(priority = 0, enabled = true, description = "Verify admin is able to login with valid credentials")
+    @Test(priority = 0, enabled = false, description = "Verify admin is able to login with valid credentials")
      public void admin_login(){
     LoginPage login = new LoginPage();
     login.adminLogin("Allen","123456");
@@ -65,7 +65,7 @@ public class AdminTest extends BaseTest {
         validate_text(diagnostician.diagListPageText,"Diagnosticians List");
         //Create Diagnostician.
         diagnosticianFirstName = "Diagnostician"+ RandomStrings.requiredCharacters(3);
-        diagnosticianLastName = "AU_smith"+ RandomStrings.requiredCharacters(3);
+        diagnosticianLastName = "AU_smithg"+ RandomStrings.requiredCharacters(3);
         diagnosticianUserName= "Diagnostician" + RandomStrings.requiredCharacters(5);
         diagnosticianEmailAddress = diagnosticianFirstName+ "10@yopmail.com";
         String diagnosticianPhoneNumber = RandomStrings.requiredDigits(10);

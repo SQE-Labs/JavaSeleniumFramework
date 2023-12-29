@@ -12,6 +12,9 @@ import org.openqa.selenium.interactions.Actions;
 import java.time.Duration;
 import java.util.List;
 import org.automation.elements.Elements;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
 
@@ -348,5 +351,11 @@ public class ActionEngine extends BaseTest {
     public void navigate_to_baseUrl(){
         getDriver().get(PropertiesUtil.getPropertyValue("url"));
     }
-
+    public static String GetText(By element) {
+         WebDriverWait wait = new WebDriverWait(getDriver() , Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+        WebElement ele = getDriver() .findElement(element);
+        String text = ele.getText();
+        return text;
+    }
 }

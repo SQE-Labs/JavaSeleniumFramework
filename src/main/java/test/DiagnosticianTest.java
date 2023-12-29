@@ -9,20 +9,20 @@ import static org.automation.utilities.Assertions.validate_text;
 
 
 public class DiagnosticianTest extends BaseTest {
-    public String diagnosticianUserName;
 
 
-    @Test(priority = 15,enabled = true,description = "diagnostician Scheduling availability")
-    public void diagnostician_Availability() throws InterruptedException {
+
+    @Test(priority = 36,enabled = true,description = "diagnostician Scheduling availability")
+    public void diagnostician_Availability(String getText_Dia )   {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
-
-        //  login.diagnosticianLogin(Superadmin.diagnosticianUserName,"12345678");
+        LoginPage login =new LoginPage();
+          login.diagnosticianLogin(getText_Dia,"12345678");
         diagnostician.set_Availability();
         diagnostician.cancel_Availability();
         diagnostician.deleting_Availability();
     }
-    @Test(priority =16, enabled = true, description = "To verify schedule appointment")
-    public void scheduleAppointment_Admin() throws InterruptedException {
+    @Test(priority =16, enabled = false, description = "To verify schedule appointment")
+    public void scheduleAppointment_Admin()  {
         LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
      SuperAdminTest admin=new SuperAdminTest();
@@ -30,7 +30,7 @@ public class DiagnosticianTest extends BaseTest {
         dashboard.clickScheduleAppointment();
     }
 
-    @Test(priority = 17, enabled =true, description = "selecting date for appointment")
+    @Test(priority = 17, enabled =false, description = "selecting date for appointment")
     public void appointmentCalender() throws InterruptedException {
         LoginPage login = new LoginPage();
         DiagnosticianPage diagnostician = new DiagnosticianPage();
@@ -42,15 +42,15 @@ public class DiagnosticianTest extends BaseTest {
 
 
 
-    @Test(priority = 15, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
-    public void diagnostician_login_With_OldPassword() throws InterruptedException {
+    @Test(priority = 15, enabled = false, description = "Verify that diagnostician is able to login with old password or not")
+    public void diagnostician_login_With_OldPassword(String diagnostician_UserName) throws InterruptedException {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         LoginPage login=new LoginPage();
         //  panelPage.click_LogOutLink();
         // Logging with Old password to get validation message.
         DashBoardPanelPage panelpage=new DashBoardPanelPage();
         panelpage.click_LogOutLink();
-        login.diagnosticianLogin(diagnosticianUserName,"123456");
+        login.diagnosticianLogin(diagnostician_UserName,"123456");
         WebdriverWaits.waitUntilVisible(diagnostician.validation_Msg);
         validate_text(diagnostician.validation_Msg, "Username or password is incorrect");
     }

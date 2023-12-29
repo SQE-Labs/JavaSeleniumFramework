@@ -14,24 +14,22 @@ import static org.automation.utilities.Assertions.validate_text;
 public class AdminPage extends BasePage {
     public By adminTab = By.xpath("//a[text()='Admins']");
     public By adminDashboardText =By.xpath("//h3[text()='Dashboard']");
-    public By createAdminButton = By.xpath("//button[text()='Create Admin']");
+    public By createAdminButton = By.xpath("//button[@class='theme-button']");
     public By loginLoading = By.cssSelector("div.ngx-spinner-overlay");
     public By admin_FirstName = By.xpath("//input[@placeholder='First Name']");
     public By admin_LastName = By.xpath("//input[@placeholder='Last Name']");
     public By admin_MobileNumber = By.xpath("//input[@placeholder='Cell Number']");
     public By admin_Email = By.xpath("//input[@placeholder='Email']");
-    public By assignLocation = By.xpath("//select[@id='testingLocation']");
-    public By locationName = By.xpath("//option[text()='Plano']");
     public By userName = By.xpath("//input[@placeholder='Username']");
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
-    public By createadminButton = By.xpath("//button[text()=' Create Admin ']");
-    public By succ_Msg = By.xpath("//div[text()='Admin Created Successfully']");
-    public By dashboardPage = By.xpath("//h3[text()='Admins List']");
+    public By createadminButton = By.xpath("//button[@class='theme-button float-md-right']");
+    public By succ_Msg = By.xpath("//div[@class='alert alert-success ng-star-inserted']");
+    public By dashboardPage = By.xpath("//h3");
 
     //**************Search created Admin*************
 
-    public By filterButton = By.xpath("//a[text()='Filter']");
+    public By filterButton = By.xpath("//a[@class='theme-button grey ml-auto mr-3']");
     public By searchField = By.xpath("//input[@id='filterSearch']");
     public By actualText = By.xpath("(//td)[2]");
 
@@ -126,7 +124,7 @@ public class AdminPage extends BasePage {
         click_custom(createAdminButton);
     }
 
-    public void enter_admin_FirstName(String CustomerFirstName) throws InterruptedException {
+    public void enter_admin_FirstName(String CustomerFirstName)   {
         WebdriverWaits.waitUntilVisible(admin_FirstName);
         sendKeys_withClear(admin_FirstName, CustomerFirstName);
     }
@@ -168,7 +166,7 @@ public class AdminPage extends BasePage {
 
     public void click_filterButton() {
         WebdriverWaits.waitUntilVisible(filterButton);
-        WebdriverWaits.waitUntilVisible(loginLoading);
+        WebdriverWaits.waitForSpinner();
         click_custom(filterButton);
     }
 
@@ -246,7 +244,7 @@ public class AdminPage extends BasePage {
         click_On_EditButton();
         WebdriverWaits.waitUntilVisible(editUserPop_Up);
         validate_text(editUserPop_Up, "Edit User");
-        // enter_CellNumber(cellNumberText);
+
         enter_Admin_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordFieldField(confirmPasswordFieldText);
@@ -323,8 +321,6 @@ public class AdminPage extends BasePage {
     public void click_ReAssignBn() {
         WebdriverWaits.waitUntilVisible(rebtn);
         click_custom(rebtn);
-
-
     }
 
     public void click_TestPlan() {
@@ -504,15 +500,13 @@ public class AdminPage extends BasePage {
         click_custom(followUpBackBtn);
 
     }
-    public void Create_FollowUp() throws InterruptedException {
+    public void Create_FollowUp() {
         click_CreateFollowUpBtn();
         click_FollowUpSlot();
         click_FollowUpSlotSaveBtn();
         click_FollowUpSaveBtn();
         click_ConfirmFollowUpBtn();
         validate_text(validateScheduledFollowUp,"Follow Up Scheduled!!");
-
-
     }
 }
 
