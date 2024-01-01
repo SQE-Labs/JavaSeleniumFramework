@@ -6,6 +6,7 @@ import org.automation.utilities.RandomStrings;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.Test;
 import static org.automation.utilities.Assertions.validate_text;
+import static test.SuperAdminTest.diagnosticianUserName;
 
 
 public class DiagnosticianTest extends BaseTest {
@@ -13,10 +14,10 @@ public class DiagnosticianTest extends BaseTest {
 
 
     @Test(priority = 36,enabled = true,description = "diagnostician Scheduling availability")
-    public void diagnostician_Availability(String getText_Dia )   {
+    public void diagnostician_Availability()   {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         LoginPage login =new LoginPage();
-          login.diagnosticianLogin(getText_Dia,"12345678");
+          login.diagnosticianLogin(diagnosticianUserName,"12345678");
         diagnostician.set_Availability();
         diagnostician.cancel_Availability();
         diagnostician.deleting_Availability();
