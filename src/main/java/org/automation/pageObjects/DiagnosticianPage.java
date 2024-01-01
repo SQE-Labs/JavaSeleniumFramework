@@ -8,13 +8,14 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 import static org.automation.utilities.Assertions.validate_text;
+import static org.automation.utilities.WebdriverWaits.moveToElement;
 
 
 public class DiagnosticianPage extends BasePage {
 
     public By createDiagnostician = By.xpath("//button[text()='Create Diagnostician']");
     public By diagListPageText = By.xpath("//h3[text()='Diagnosticians List']");
-    public By loginLoading = By.cssSelector("div.ngx-spinner-overlay");
+
     public By avaActualText = By.xpath("//div[@class='ng-star-inserted']");
     public By diagnostician_FirstName = By.xpath("//input[@placeholder='First Name']");
     public By diagnostician_LastName = By.xpath("//input[@placeholder='Last Name']");
@@ -36,7 +37,7 @@ public class DiagnosticianPage extends BasePage {
 
     //**************Search created diagnostician*************
 
-    public By filterButton = By.xpath("//a[text()='Filter']");
+    public By filterButton = By.xpath("//a[@class='theme-button grey ml-auto mr-3']");
     public By searchField = By.xpath("//input[@id='filterSearch']");
 
     //+++++++++++++EDIT Diagnostician+++++++++++++++
@@ -77,10 +78,13 @@ public class DiagnosticianPage extends BasePage {
     public By summary = By.xpath("//textarea[@class='custom-input border border-danger ng-untouched ng-pristine ng-valid']");
     public By appointmentsTab = By.xpath("//a[text()=' Appointments ']");
     public By viewAllTab = By.xpath("(//a)[3]");
+    public By dashboard=By.xpath("//h3[text()='Dashboard']");
 
     public By disableButton = By.xpath("//div[@class='actions']/button[@class='theme-button grey pointer-disable float-md-right']");
     public By enableSaveButton = By.xpath("//button[@class='theme-button float-md-right green']");
     public By shiftText = By.xpath("//div[text()='Afternoon Shift']");
+    public By availableText=By.xpath("(//div[@class='ng-star-inserted'])[8]");
+    public By upcomingTab=By.xpath("(//li[@class='ng-star-inserted'])[3]");
 
 
 //*****************Set Availability for diagnostician ****************
@@ -92,12 +96,10 @@ public class DiagnosticianPage extends BasePage {
 
     public By headerResource = By.xpath("//div[@class='header-resource-name']");
 
-    public By selectingtoday = By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-selected ng-star-inserted']");
+
     public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[29]");
     public By saveButton = By.xpath("//mbsc-button[text()=' Save ']");
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
-    public By totalBoxes = By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
-    public By afternoonToggleButton = By.xpath("//mbsc-button[text()='Afternoon']");
 
     public By appointmentsSubTab = By.xpath("(//div/ul[@class='ng-star-inserted'][3])");
     public By viewAll = By.xpath("//*[@id=\"Appointments\"]/li[1]/a");
@@ -138,28 +140,32 @@ public class DiagnosticianPage extends BasePage {
     public By loginButton = By.xpath("//button[text()=' Log In ']");
 
     //********CHECKING AVAILABILITY******************
-    public By totalSlots = By.xpath("//div[@class='mbsc-timeline-events']");
+
     public By availability = By.xpath("//a[text()='Availability']");
-    public By slot = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[1]");
-    public By slot1 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[2]");
-    public By slot2 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[3]");
-    public By slot3 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[4]");
-    public By slot4 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[5]");
-    public By slot5 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[6]");
-    public By slot6 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[7]");
-    public By slot7 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[8]");
-    public By slot8 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[9]");
-    public By slot9 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[10]");
-    public By slot10 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[11]");
-    public By slot11 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[12]");
-    public By slot12 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[13]");
-    public By slot13 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[14]");
+
+    public By slot3 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[4]");
+    public By slot4 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[5]");
+    public By slot5 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[6]");
+    public By slot6 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[7]");
+    public By slot7 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[8]");
+    public By slot8 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[9]");
+    public By slot9 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[10]");
+    public By slot10 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[11]");
+    public By slot11 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[12]");
+    public By slot12 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[13]");
+    public By slot13 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[14]");
     public By diagnosticianSaveButton = By.xpath("//button[text()='Save']");
     public By todayLink = By.xpath("//mbsc-button[text()=' Today ']");
     public By delete = By.xpath("//mbsc-button[text()=' Delete ']");
     public By cancel = By.xpath("//mbsc-button[text()=' Cancel ']");
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public static By userNameText = By.xpath("(//td)[2]");
+
+    //********************Upcoming appointments********************
+    public By upcomingPageTitle=By.xpath("//h3[@class='mb-4 mb-md-0']");
+
+    //*******************Filtering appointments********************
+
 
     DashBoardPanelPage panelPage = new DashBoardPanelPage();
 
@@ -263,16 +269,17 @@ public class DiagnosticianPage extends BasePage {
     }
 
     //**********Diagnostician is viewing appointments************
-    public void clickOn_Today_Appointment() {
-        WebdriverWaits.waitUntilInvisible(loginLoading);
-        click_custom(appointmentsTab);
-        click_custom(viewAllTab);
+    public void clickOn_AppointmentTab() {
+
+        moveToElement(appointmentsTab);
+
 
     }
 
     public void clickOn_ViewDetail() {
         click_custom(view_DetailApp);
     }
+    public void clickOn_upcomingTab(){click_custom(upcomingTab);}
 
     public void clickOn_StartAssesment() {
         scrollIntoView(start_Assesment);
@@ -532,6 +539,8 @@ public class DiagnosticianPage extends BasePage {
 
     //******************checking availability*************
     public void click_On_Availablity() {
+        WebdriverWaits.waitUntilVisible(availability);
+        WebdriverWaits.waitForSpinner();
         click_custom(availability);
         validate_text(disableButton, "Save");
     }
@@ -539,15 +548,16 @@ public class DiagnosticianPage extends BasePage {
     public void click_On_Slot() {
 
         // use logic??
-        click_custom(slot3);
-        click_custom(slot4);
+        WebdriverWaits.waitUntilVisible(slot5);
+        //click_custom(slot3);
+      //  click_custom(slot4);
         click_custom(slot5);
         click_custom(slot6);
         click_custom(slot7);
+        click_custom(slot8);
+        click_custom(slot9);
         click_custom(slot10);
         click_custom(slot11);
-        click_custom(slot12);
-        click_custom(slot13);
 
         WebdriverWaits.waitUntilVisible(enableSaveButton);
         validate_text(enableSaveButton, "Save");
@@ -561,7 +571,6 @@ public class DiagnosticianPage extends BasePage {
     }
 
     public void click_On_Delete() {
-
         click_custom(delete);
     }
 
@@ -612,25 +621,35 @@ public class DiagnosticianPage extends BasePage {
     }
 
     public void deleting_Availability() {
-        click_custom(slot7);
+        WebdriverWaits.waitForElementInteractable(slot7);
+        moveToElement(slot7);
         WebdriverWaits.waitUntilVisible(enableSaveButton);
         validate_text(enableSaveButton, "Save");
 
         click_On_Delete();
         WebdriverWaits.waitForElementInteractable(diagnosticianSaveButton);
         click_custom(diagnosticianSaveButton);
+        WebdriverWaits.waitUntilVisible(slot7);
+        validate_text(slot7, "");
 
     }
 
-    public void cancel_Availability() {
-        click_custom(slot7);
+    public void cancel_Availability()   {
+        WebdriverWaits.waitForElementInteractable(slot7);
+        moveToElement(slot7);
         String getText = getText_custom(shiftText);
         WebdriverWaits.waitUntilVisible(shiftText);
         validate_text(shiftText, getText);
         WebdriverWaits.waitUntilVisible(cancel);
         click_custom(cancel);
+        WebdriverWaits.waitUntilVisible(availableText);
+        validate_text(availableText, "Available");
         click_custom(diagnosticianSaveButton);
     }
+    public void upcoming_Appointments(){
+        clickOn_upcomingTab();
+    }
+
 
 }
 

@@ -18,7 +18,7 @@ public class DashBoardPanelPage extends BasePage {
     public By paymentButton = By.xpath("//a[text()='Payments']");
     public By backButton = By.xpath("//button[text()='Back']");
     public By exportCSVButton = By.xpath("//button[text()='Export to CSV']");
-    public By AppointmentsTab = By.xpath("//a[text()=' Appointments ']");
+    public By AppointmentsTab = By.xpath("//a[@class='collapsed']");
     public By availabilityTab = By.xpath("//a[text()='Availability']");
     public By editButton = By.xpath("(//a[text()='Edit'])[1]");
     public By viewAllTab = By.xpath("//a[text()='View All']");
@@ -100,7 +100,7 @@ public class DashBoardPanelPage extends BasePage {
     }
 
     public void clickOn_AppointmentsTab() {
-        WebdriverWaits.waitUntilInvisible(spinner);
+        WebdriverWaits.waitForSpinner();
         click_custom(AppointmentsTab);
     }
 

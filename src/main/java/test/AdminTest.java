@@ -27,9 +27,10 @@ import  org.automation.utilities.WebdriverWaits.*;
 import static org.automation.utilities.DateGenerator.getDate;
 import static org.automation.utilities.WebdriverWaits.waitForSpinner;
 import static org.testng.Assert.assertEquals;
+import static test.SuperAdminTest.adminUserName;
 
 public class AdminTest extends BaseTest {
-    String diagnosticianUserName;
+    public static String diagnosticianUserName;
     String clientLastName;
     String directorFirstName;
     String directorUserName;
@@ -45,10 +46,10 @@ public class AdminTest extends BaseTest {
      String diagnosticianFirstName;
      String diagnosticianLastName;
      String diagnosticianEmailAddress;
-    @Test(priority = 0, enabled = false, description = "Verify admin is able to login with valid credentials")
+    @Test(priority = 0, enabled = true, description = "Verify admin is able to login with valid credentials")
      public void admin_login(){
     LoginPage login = new LoginPage();
-    login.adminLogin("Allen","123456");
+    login.adminLogin( "AU_Lloydlz","12345678");
     AdminPage dasboard = new AdminPage();
     waitForSpinner();
     validate_text(dasboard.adminDashboardText,"Dashboard");
@@ -66,7 +67,7 @@ public class AdminTest extends BaseTest {
         //Create Diagnostician.
         diagnosticianFirstName = "Diagnostician"+ RandomStrings.requiredCharacters(3);
         diagnosticianLastName = "AU_smithg"+ RandomStrings.requiredCharacters(3);
-        diagnosticianUserName= "Diagnostician" + RandomStrings.requiredCharacters(5);
+        diagnosticianUserName= "Au_Humay" + RandomStrings.requiredCharacters(3);
         diagnosticianEmailAddress = diagnosticianFirstName+ "10@yopmail.com";
         String diagnosticianPhoneNumber = RandomStrings.requiredDigits(10);
         diagnostician.create_Diagnostician(diagnosticianFirstName,diagnosticianLastName,diagnosticianPhoneNumber,diagnosticianEmailAddress,diagnosticianUserName,"123456","123456");
