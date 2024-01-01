@@ -244,7 +244,6 @@ public class AdminTest extends BaseTest {
 
     }
 
-
     @Test(priority = 18, enabled = false, description = "Verify Edit client Details button client page.")
     public void verify_EditClientBtn() throws InterruptedException{
         AdminPage EditClient = new AdminPage();
@@ -340,7 +339,6 @@ public class AdminTest extends BaseTest {
         validate_text(diagnostician.actualText,diagnosticianUserName);
     }
     //******************* Edit Director ***************//
-
 
     @Test(priority = 26, enabled = false, description = "Creating Director from admin" )
     public void edit_Director() throws InterruptedException {
