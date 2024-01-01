@@ -51,17 +51,17 @@ public class DirectorPage extends BasePage {
     public By dashboardPage = By.xpath("//h3[text()='Dashboard']");
     public By viewAll = By.xpath("//a[text()='View All']");
     public By setAvailability = By.xpath("//h3[text()='Set Availability']");
-    public By monthHeader = By.xpath("//span[text()=' December ']");
-    public By yearHeader = By.xpath("//span[text()=' 2023 ']");
+    public By monthHeader = By.xpath("//span[text()=' January ']");
+    public By yearHeader = By.xpath("//span[text()=' 2024 ']");
     public By dateHeader = By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-schedule-header-day-today mbsc-selected ng-star-inserted']");
-    public By yearsCalender = By.xpath("//mbsc-button[text()=' 2023 - 2034 ']");
+    public By yearsCalender = By.xpath("//mbsc-button[text()=' 2024 - 2034 ']");
     public By hihglihgtedYear = By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios ng-star-inserted'])[13]");
-    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[22]");
-    public By clickOnBox1 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[23]");
-    public By clickOnBox2 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[24]");
-    public By clickOnBox3 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[25]");
-    public By clickOnBox4 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[26]");
-    public By clickOnBox5 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[27]");
+    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[1]");
+    public By clickOnBox1 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[2]");
+    public By clickOnBox2 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[3]");
+    public By clickOnBox3 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[4]");
+    public By clickOnBox4 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[5]");
+    public By clickOnBox5 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[5]");
     public By availableText = By.xpath("//div[text()='Available']");
     public By saveButton = By.xpath("//button[text()='Save']");
     public By validationMsg=By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
@@ -239,18 +239,7 @@ public class DirectorPage extends BasePage {
         click_createDirectorButton();
     }
 
-    public void Verify_Duplicate_Director(String directorsFirstNameText, String directorsLastNameText, String directorsMobileNumberText, String directorsEmailText, String directorsUserNameText, String password_FieldText, String confirmPasswordFieldText) throws InterruptedException {
-        click_CreateDirectorsButton();
-        click_directorsFirstNameField(directorsFirstNameText);
-        click_directorsLastNameField(directorsLastNameText);
-        click_directorsMobileNumberField(directorsMobileNumberText);
-        click_directorsdirectorsEmailField(directorsEmailText);
-        click_directorsassignLocationField();
-        click_directorsUserNameField(directorsUserNameText);
-        click_passwordField(password_FieldText);
-        click_confirmPasswordField(confirmPasswordFieldText);
-        click_createDirectorButton();
-    }
+
 
 
     //**************Search created director*************

@@ -167,18 +167,18 @@ public class DiagnosticianPage extends BasePage {
     //********CHECKING AVAILABILITY******************
     public By totalSlots=By.xpath("//div[@class='mbsc-timeline-events']");
     public By availability=By.xpath("//a[text()='Availability']");
-    public By slot=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[1]");
-    public By slot1=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[2]");
-   public By slot2=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[3]");
-    public By slot3=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[4]");
-    public By slot4=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[5]");
-    public By slot5=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[6]");
-    public By slot6=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[7]");
-    public By slot7=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[8]");
-    public By slot8=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[9]");
-   public By slot9=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[10]");
-    public By slot10=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[11]");
-    public By slot11=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[12]");
+    public By slot=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[3]");
+    public By slot1=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[4]");
+   public By slot2=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[5]");
+    public By slot3=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[6]");
+    public By slot4=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[7]");
+    public By slot5=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[8]");
+    public By slot6=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[9]");
+    public By slot7=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[10]");
+    public By slot8=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[11]");
+   public By slot9=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[12]");
+    public By slot10=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[13]");
+    public By slot11=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[14]");
     public By slot12=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[13]");
     public By slot13=By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-timeline-column ng-star-inserted'])[14]");
     public By diagnosticianSaveButton=By.xpath("//button[text()='Save']");
@@ -562,20 +562,20 @@ public class DiagnosticianPage extends BasePage {
     }
     public void click_Slot()  {
         // use logic??
-        //click_custom(slot);
-        //click_custom(slot1);
-        //click_custom(slot2);
-        //click_custom(slot3);
-        //click_custom(slot4);
-        //click_custom(slot5);
-        //click_custom(slot6);
-        //click_custom(slot7);
+        click_custom(slot);
+        click_custom(slot1);
+        click_custom(slot2);
+        click_custom(slot3);
+        click_custom(slot4);
+        click_custom(slot5);
+        click_custom(slot6);
+        click_custom(slot7);
         click_custom(slot8);
         click_custom(slot9);
         click_custom(slot10);
-        click_custom(slot11);
-        click_custom(slot12);
-        click_custom(slot13);
+       // click_custom(slot11);
+       // click_custom(slot12);
+       // click_custom(slot13);
         WebdriverWaits.waitUntilVisible(enableSaveButton);
         validate_text(enableSaveButton, "Save");
         click_custom(diagnosticianSaveButton);

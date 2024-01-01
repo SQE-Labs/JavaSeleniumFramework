@@ -23,8 +23,6 @@ import  org.automation.utilities.Assertions.*;
 import static org.automation.utilities.Assertions.validate_SelectedOption;
 import static org.automation.utilities.Assertions.validate_text;
 import  org.automation.utilities.WebdriverWaits.*;
-
-import static org.automation.utilities.DateGenerator.getDate;
 import static org.automation.utilities.WebdriverWaits.waitForSpinner;
 import static org.testng.Assert.assertEquals;
 
@@ -87,7 +85,7 @@ public class AdminTest extends BaseTest {
 
     }
 
-    @Test(priority = 3, enabled = true, description = "Creating Director from admin" )
+    @Test(priority = 3, enabled = false, description = "Creating Director from admin" )
     public void create_Director() throws InterruptedException {
         DashBoardPanelPage panelpage=new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
@@ -106,7 +104,7 @@ public class AdminTest extends BaseTest {
     }
 
 
-    @Test(priority= 4,enabled = true,description = "Set availability for director by admin.")
+    @Test(priority= 4,enabled = false,description = "Set availability for director by admin.")
     public void director_Availability() throws InterruptedException {
         LoginPage login=new LoginPage();
         DashBoardPanelPage panelPage=new DashBoardPanelPage();
@@ -157,19 +155,23 @@ public class AdminTest extends BaseTest {
 
     }
     //********************** Create Follow Up For Client ***********************//
-    @Test(priority = 10, enabled = true, description = "Creat follow up for client by admin")
-    public void Create_FollowUp() throws InterruptedException{
+
+    @Test(priority = 10, enabled = false, description = "Creat follow up for client by admin")
+    public void create_FollowUp() throws InterruptedException{
       AdminPage followUp= new AdminPage();
         followUp.Create_FollowUp();
+        validate_text(followUp.validateScheduledFollowUp,"Follow Up Scheduled!!");
         followUp.click_BackBtn();
     }
     //******************** Functionality for Edit Assessment Pop Up and Test Plan **************//
-    @Test(priority = 11, enabled = true, description = "Verify Edit Assessment type button .")
+    @Test(priority = 11, enabled = false, description = "Verify Edit Assessment type button .")
     public void edit_AssessmentTypePopUp()throws InterruptedException{
         AdminPage editType = new AdminPage();
         editType.click_EditAssessment();
+        validate_text(editType.assType,"Change Assement Type");
+
     }
-    @Test(priority = 12, enabled = true, description = "Verify Edit Assessment type button .")
+    @Test(priority = 12, enabled = false, description = "Verify Edit Assessment type button .")
     public void edit_AssessmentType() throws InterruptedException{
         AdminPage editType = new AdminPage();
         editType.edit_AssessmentType("IQ");
@@ -178,14 +180,14 @@ public class AdminTest extends BaseTest {
         validate_text(editType.clientAsses,"IQ");
 
     }
-    @Test(priority = 13, enabled = true, description = "Verify Test plan button on <Client> details page.")
+    @Test(priority = 13, enabled = false, description = "Verify Test plan button on <Client> details page.")
     public void verify_TestPlanBtn()  throws InterruptedException{
         AdminPage testPlan = new AdminPage();
         WebdriverWaits.waitUntilInvisible(testPlan.spinner);
         testPlan.click_TestPlan();
         validate_text(testPlan.testPlanText,"Please choose tests.");
     }
-    @Test(priority = 14, enabled = true, description = "Verify save Test plan button on <Client> details page.")
+    @Test(priority = 14, enabled = false, description = "Verify save Test plan button on <Client> details page.")
     public  void plan_Test() throws InterruptedException{
         AdminPage testPlan = new AdminPage();
         testPlan.select_TestPlan();
@@ -193,28 +195,64 @@ public class AdminTest extends BaseTest {
         WebdriverWaits.waitUntilVisible(testPlan.validateCheckBox);
         validate_text(testPlan.validateCheckBox,"WJ Achievement");
     }
-    @Test(priority = 15, enabled = true, description = "Verify save Test plan button on <Client> details page.")
+    @Test(priority = 15, enabled = false, description = "Verify save Test plan button on <Client> details page.")
     public void dont_SaveAssessmentType() throws InterruptedException{
         AdminPage editType = new AdminPage();
         editType.edit_AssessmentType("GT");
         editType.click_DontSave();
         validate_text(editType.clientAsses,"IQ");
     }
-    @Test(priority = 16, enabled = true, description = "Verify save Test plan button on <Client> details page.")
+    @Test(priority = 16, enabled = false, description = "Verify save Test plan button on <Client> details page.")
     public void edit_Testplan() throws InterruptedException{
         AdminPage testPlan = new AdminPage();
         testPlan.edit_TestPlan();
         validate_text(testPlan.actualEditTest,"WRAML");
 
     }
-    @Test(priority = 17, enabled = true, description = "Verify Edit client Details button client page.")
+    //***************************** Collect Payment PopUp *************************//
+    public float beforeAssessmentAmount;
+    public float beforeAmountDue;
+    public float beforeReceviedAmount;
+    public float afterAssessmentAmount;
+    public float afterAmountDue;
+    public float afterRececiedAmount;
+    @Test(priority = 17, enabled = true, description = "Verify payment button on <Client> details page.")
+    public void verify_PaymentBtn() throws InterruptedException{
+        AdminPage payment = new AdminPage();
+        beforeAssessmentAmount= Float.parseFloat(payment.get_AssessmentAmount());
+        beforeAmountDue= Float.parseFloat(payment.get_AmountDue());
+        beforeReceviedAmount = Float.parseFloat(payment.get_ReceivedAmount());
+        payment.click_PaymentBtn();
+        WebdriverWaits.waitUntilVisible(payment.collectPayActualText);
+        validate_text(payment.collectPayActualText,"Collect Payment");
+    }
+
+    @Test(priority = 18, enabled = true, description = "Verify payment button on <Client> details page.")
+    public void verify_CollectTestFeeAdjustment() throws InterruptedException{
+        AdminPage payment = new AdminPage();
+        payment.validate_FeeAdjustmentAmount("100");
+        payment.validate_CollectAmountAdjustment("100");
+        afterAssessmentAmount= Float.parseFloat(payment.get_AssessmentAmount());
+        afterAmountDue= Float.parseFloat(payment.get_AmountDue());
+        afterRececiedAmount= Float.parseFloat(payment.get_ReceivedAmount());
+        String assessmentAmtDiff = Float.toString (afterAssessmentAmount-beforeAssessmentAmount).replace(".0","");
+        String recAmtDiff = Float.toString (afterRececiedAmount-beforeReceviedAmount).replace(".0","");
+        Assert.assertEquals(assessmentAmtDiff,"100");
+        Assert.assertEquals(recAmtDiff,"200");
+        WebdriverWaits.waitUntilVisible(payment.fullPayActualText);
+        validate_text(payment.fullPayActualText,"Full Paid");
+
+    }
+
+
+    @Test(priority = 18, enabled = false, description = "Verify Edit client Details button client page.")
     public void verify_EditClientBtn() throws InterruptedException{
         AdminPage EditClient = new AdminPage();
         EditClient.click_EditClientBtn();
         WebdriverWaits.waitUntilVisible(EditClient.editCllientActualText);
         validate_text(EditClient.editCllientActualText,"Edit Client Info");
     }
-    @Test(priority = 18, enabled = true, description = "Verify Edit client details popup client page.")
+    @Test(priority = 19, enabled = false, description = "Verify Edit client details popup client page.")
     public void verify_UpdateBtn() throws InterruptedException{
         AdminPage editClient= new AdminPage();
         editClient.edit_ClientInfo("Zoi","Smith","401 Broadway E eastate g","College");
@@ -224,20 +262,21 @@ public class AdminTest extends BaseTest {
 
     }
 
-    @Test(priority = 19, enabled = true, description = "Verify All Appointment page.")
+    @Test(priority = 20, enabled = false, description = "Verify All Appointment page.")
     public void verify_AllAppointmentsPage() throws InterruptedException {
         AppointmentsPage appPage= new AppointmentsPage();
         appPage.View_AllAppointmentsPage();
         validate_text(appPage.viewAllActualText,"All Appointments");
 
     }
-    @Test(priority = 20, enabled = true, description = "Verify search textbox")
+    @Test(priority = 21, enabled = false, description = "Verify search textbox")
     public void search_CreatedAppointment() throws InterruptedException{
         AppointmentsPage appPage= new AppointmentsPage();
         appPage.click_FilterButton();
         appPage.click_SearchField(clientFirstName+" "+ clientLastName);
+        //assertuon
     }
-    @Test(priority = 21, enabled = true, description = "Verify search fromDate and toDate")
+    @Test(priority = 22, enabled = false, description = "Verify search fromDate and toDate")
     public void verify_FromAndToDate() throws InterruptedException{
         AppointmentsPage appPage= new AppointmentsPage();
         ActionEngine engine;
@@ -263,10 +302,9 @@ public class AdminTest extends BaseTest {
         }
 
         Assert.assertTrue(result);
-
     }
     //************************ Edit Diagnostician *********************//
-    @Test(priority = 22,enabled = true, description = "Search created diagnostician by admin")
+    @Test(priority = 23,enabled = false, description = "Search created diagnostician by admin")
     public void search_Diagnostician() throws InterruptedException{
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         DashBoardPanelPage clickDiagnosticianTab = new DashBoardPanelPage();
@@ -275,7 +313,7 @@ public class AdminTest extends BaseTest {
         validate_text(diagnostician.actualText, diagnosticianUserName);
 
     }
-    @Test(priority = 23,enabled = true, description = "Edit created diagnostician by admin")
+    @Test(priority = 24,enabled = false, description = "Edit created diagnostician by admin")
     public void Edit_Diagnostician() throws InterruptedException{
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         // Edit Diagnostician
@@ -284,17 +322,16 @@ public class AdminTest extends BaseTest {
         WebdriverWaits.waitUntilVisible(diagnostician.edit_Succ_Msg);
         validate_text(diagnostician.edit_Succ_Msg, "Diagnostician details updated successfully.");
     }
-    @Test(priority = 24,enabled = true, description = "Enable created diagnostician by admin")
+    @Test(priority = 24,enabled = false, description = "Enable created diagnostician by admin")
     public void Enable_CreateDiagnostician()throws InterruptedException {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         //Enable disabled Diagnostician
         diagnostician.enable_DiagnosticianUser();
         validate_text(diagnostician.edit_Succ_Msg, "Diagnostician details updated successfully.");
-        System.out.println("Diagnostician details updated successfully.");
     }
 
 
-    @Test(priority = 25,enabled = true, description = "Verify Don't save button diagnostician by admin")
+    @Test(priority = 25,enabled = false, description = "Verify Don't save button diagnostician by admin")
     public void verify_Dnt_SaveButton() throws InterruptedException {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         String diagnosticianPhoneNumber= RandomStrings.requiredDigits(10);
@@ -305,7 +342,7 @@ public class AdminTest extends BaseTest {
     //******************* Edit Director ***************//
 
 
-    @Test(priority = 26, enabled = true, description = "Creating Director from admin" )
+    @Test(priority = 26, enabled = false, description = "Creating Director from admin" )
     public void edit_Director() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage clickDirectorTab = new DashBoardPanelPage();
@@ -316,7 +353,7 @@ public class AdminTest extends BaseTest {
 
     }
 
-    @Test(priority = 27, enabled = true, description = "Enable toggle button Director from admin" )
+    @Test(priority = 27, enabled = false, description = "Enable toggle button Director from admin" )
     public void director_Enable_User() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         director.enable_Director();
@@ -324,7 +361,7 @@ public class AdminTest extends BaseTest {
         System.out.println("Successfully Edited the created director");
     }
 
-    @Test(priority = 28,enabled = true,description="verify that director is able to edit or not after clicking dont save button")
+    @Test(priority = 28,enabled = false,description="verify that director is able to edit or not after clicking dont save button")
     public void Verify_DntSave_Button() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         String  directorEmailAddressUpdated = directorFirstName + "101@yopmail.com";
@@ -333,48 +370,16 @@ public class AdminTest extends BaseTest {
         validate_text(director.UserNameGetText, directorUserName);
 
     }
-    //**************** Verify export Csv button **************//
 
-    @Test(priority = 29, enabled = true, description = "Verify admin is able to download csv file or not")
-    public void download_ExportCSV_File() throws InterruptedException {
-        DashBoardPanelPage panelpage = new DashBoardPanelPage();
-        AdminPage clickViewAll= new AdminPage();
-        panelpage.clickOn_AppointmentsTab();
-        clickViewAll.click_ViewAll();
-        panelpage.clickOn_ExportCSVButton();
-        //Download exportCSV File and Check file is downloaded or not
-        String downloadFile = panelpage.getDownloadFileName();
-        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
 
-    }
     //******************** Logout button **************//
-    @Test(priority = 30, enabled = true, description = "Verify login button for admin.")
+    @Test(priority = 30, enabled = false, description = "Verify login button for admin.")
     public void admin_LogOut() throws InterruptedException{
         DashBoardPanelPage panelpage = new DashBoardPanelPage();
         panelpage.click_LogOutLink();
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

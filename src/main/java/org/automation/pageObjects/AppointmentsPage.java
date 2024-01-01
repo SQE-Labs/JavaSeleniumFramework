@@ -12,7 +12,7 @@ import java.util.List;
 import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
 import static org.automation.utilities.Assertions.validate_text;
-import static org.automation.utilities.DateGenerator.getDate;
+
 
 
 public class AppointmentsPage extends BasePage {
@@ -24,7 +24,7 @@ public class AppointmentsPage extends BasePage {
     public By headerResource = By.xpath("//div[@class='header-resource-name']");
     public By clickSlotSaveBtn= By.xpath("//mbsc-button[text()=' Save ']");
 
-    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[23]");
+    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[1]");
     public By clickCalSaveBtn = By.xpath("//a[@class='theme-button green float-right mr-2']");
     public By calendarTitle= By.xpath("//mbsc-button[@class='mbsc-calendar-button mbsc-button mbsc-button-flat mbsc-font mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-reset ng-star-inserted']");
     public By currentYear= By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios mbsc-ios-dark ng-star-inserted'])[13]");
@@ -220,6 +220,9 @@ public class AppointmentsPage extends BasePage {
     }
     public void click_ViewAllTab(){
         click_custom(viewAllTab);
+        WebdriverWaits.waitForSpinner();;
+        WebdriverWaits.waitUntilVisible(By.xpath("//a[text()='View Detail'])[1]"));
+        click_custom(By.xpath("//a[text()='View Detail'])[1]"));
     }
     public void click_FilterButton(){
          click_custom(filterButton);

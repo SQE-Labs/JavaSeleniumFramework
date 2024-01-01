@@ -111,13 +111,26 @@ public class AdminPage extends BasePage {
     public By editUpdateBtn = By.id("intakeFormSubmit");
     public By actualTextClient = By.xpath("//p[text()=' College']");
     public By followUp = By.xpath("//a[text()=' Create Follow Up ']");
-    public By followUpSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[22]");
+    public By followUpSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[36]");
     public By slotSaveBtn = By.xpath("//mbsc-button[text()=' Save ']");
     public By followUpSaveBtn = By.xpath("//a[text()='Save']");
     public By confirmBtn= By.xpath("//a[text()='Confirm']");
     public By validateScheduledFollowUp = By.xpath("//h4[text()='Follow Up Scheduled!!']");
     public By followUpBackBtn = By.xpath("(//a[text()='Back'])[3]");
     public By viewAllTab = By.xpath("//a[text()='View All']");
+    //*************************** Payment PopUp **************************//
+    public By paymentBtn = By.xpath("//button[text()=' Payment ']");
+    public By collectPayActualText = By.xpath("//h4[text()='Collect Payment']");
+    public By testFeeAdjustmentAmt = By.xpath("//input[@class='custom-input my-1 ng-pristine ng-valid ng-touched']");
+    public By collectFeeAmt = By.xpath("//input[@class='custom-input my-1 ng-untouched ng-pristine ng-valid']");
+    public By enterAmt = By.id("bookingDeposit");
+    public By collectPayBtn = By.xpath("//button[@class='theme-button mx-2']");
+    public By payRecievedActualText= By.xpath("//h4[text()='Payment Received!!']");
+    public By closebtn = By.xpath("(//a[text()='Close'])[2]");
+    public By amountDue = By.xpath("//label[text()='Amount Due']//following-sibling::p");
+    public By assessmentAmount = By.xpath("//label[text()='Assessment Amount']//following-sibling::p");
+    public By receivedAmount = By.xpath("//label[text()='Received Amount']//following-sibling::p");
+    public By fullPayActualText = By.xpath("//span[@class='badge bg-warning float-right ng-star-inserted']");
 
 
     public void clickOn_createAdminButton() {
@@ -282,7 +295,6 @@ public class AdminPage extends BasePage {
         WebdriverWaits.waitUntilVisible(editAss);
         WebdriverWaits.waitUntilVisible(spinner);
         click_custom(editAss);
-        validate_text(assType,"Change Assement Type");
     }
 
     public void click_UpdateBtn() {
@@ -502,15 +514,70 @@ public class AdminPage extends BasePage {
         click_custom(followUpBackBtn);
 
     }
+
     public void Create_FollowUp() throws InterruptedException {
         click_CreateFollowUpBtn();
         click_FollowUpSlot();
         click_FollowUpSlotSaveBtn();
         click_FollowUpSaveBtn();
         click_ConfirmFollowUpBtn();
-        validate_text(validateScheduledFollowUp,"Follow Up Scheduled!!");
 
 
+    }
+    public void change_FollowUp() throws InterruptedException{
+        click_CreateFollowUpBtn();
+        click_FollowUpSlot();
+        click_FollowUpSlotSaveBtn();
+
+    }
+    public void click_PaymentBtn(){
+        WebdriverWaits.waitUntilVisible(paymentBtn);
+        click_custom(paymentBtn);
+    }
+    public void click_CloseBtn(){
+        WebdriverWaits.waitUntilVisible(closebtn);
+        click_custom(closebtn);
+    }
+    public void click_CollectBtn(){
+        click_custom(collectPayBtn);
+    }
+    public String  get_AmountDue(){
+        WebdriverWaits.waitUntilVisible(amountDue);
+    return getText_custom(amountDue).replace("$","");
+    }
+    public String get_AssessmentAmount()
+    {    WebdriverWaits.waitUntilVisible(assessmentAmount);
+        return getText_custom(assessmentAmount).replace("$","");
+
+    }
+    public String get_ReceivedAmount()
+    {   WebdriverWaits.waitUntilVisible(receivedAmount);
+        return getText_custom(receivedAmount).replace("$","");
+
+    }
+    public void enter_FeeAdjustmentAmount(String amount){
+        WebdriverWaits.waitUntilVisible(testFeeAdjustmentAmt);
+        sendKeys_custom(testFeeAdjustmentAmt,amount);
+    }
+    public void validate_FeeAdjustmentAmount(String amount){
+        enter_FeeAdjustmentAmount(amount);
+
+    }
+    public void enter_CollectAmiuntAdjustment(String amount){
+        WebdriverWaits.waitUntilVisible(collectFeeAmt);
+        click_custom(collectFeeAmt);
+        sendKeys_custom(collectFeeAmt,amount ) ;
+    }
+    public void validate_CollectAmountAdjustment(String amount){
+        enter_CollectAmiuntAdjustment(amount);
+        enter_Amount(amount);
+        click_CollectBtn();
+        click_CloseBtn();
+
+    }
+    public void enter_Amount(String amount){
+        WebdriverWaits.waitUntilVisible(enterAmt);
+        sendKeys_custom(enterAmt,amount);
     }
 }
 
