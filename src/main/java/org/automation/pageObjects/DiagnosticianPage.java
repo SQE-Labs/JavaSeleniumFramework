@@ -22,7 +22,7 @@ public class DiagnosticianPage extends BasePage {
     public By diagnostician_MobileNumber = By.xpath("//input[@placeholder='(999) 999-9999']");
     public By diagnostician_Email = By.xpath("//input[@placeholder='Email']");
     public By assignLocation = By.xpath("//select[@id='testingLocation']");
-    public By locationName = By.xpath("//option[text()='Plano']");
+    public By locationName = By.xpath("//option[text()='Austin']");
     public By userName = By.xpath("//input[@placeholder='Username']");
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
@@ -39,6 +39,8 @@ public class DiagnosticianPage extends BasePage {
 
     public By filterButton = By.xpath("//a[@class='theme-button grey ml-auto mr-3']");
     public By searchField = By.xpath("//input[@id='filterSearch']");
+    public By viewClientDetailLink=By.xpath("(//td)[6]");
+    public By clientDetailText = By.cssSelector("page-header align-items-lg-center");
 
     //+++++++++++++EDIT Diagnostician+++++++++++++++
 
@@ -83,8 +85,9 @@ public class DiagnosticianPage extends BasePage {
     public By disableButton = By.xpath("//div[@class='actions']/button[@class='theme-button grey pointer-disable float-md-right']");
     public By enableSaveButton = By.xpath("//button[@class='theme-button float-md-right green']");
     public By shiftText = By.xpath("//div[text()='Afternoon Shift']");
-    public By availableText=By.xpath("(//div[@class='ng-star-inserted'])[8]");
+    public By availableText=By.xpath("(//div[@class='ng-star-inserted'])[7]");
     public By upcomingTab=By.xpath("(//li[@class='ng-star-inserted'])[3]");
+    public By searchTextButton=By.xpath("//button[@class='theme-button']");
 
 
 //*****************Set Availability for diagnostician ****************
@@ -141,11 +144,12 @@ public class DiagnosticianPage extends BasePage {
 
     //********CHECKING AVAILABILITY******************
 
+
     public By availability = By.xpath("//a[text()='Availability']");
 
     public By slot3 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[4]");
     public By slot4 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[5]");
-    public By slot5 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[6]");
+   // public By slot5 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[6]");
     public By slot6 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[7]");
     public By slot7 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[8]");
     public By slot8 = By.xpath("(//div[@class='mbsc-flex-1-1 mbsc-ios mbsc-ltr mbsc-timeline-column ng-star-inserted'])[9]");
@@ -158,6 +162,7 @@ public class DiagnosticianPage extends BasePage {
     public By todayLink = By.xpath("//mbsc-button[text()=' Today ']");
     public By delete = By.xpath("//mbsc-button[text()=' Delete ']");
     public By cancel = By.xpath("//mbsc-button[text()=' Cancel ']");
+
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public static By userNameText = By.xpath("(//td)[2]");
 
@@ -229,6 +234,9 @@ public class DiagnosticianPage extends BasePage {
     public void enterInSearchField(String searchFieldText) {
         sendKeys_withClear(searchField, searchFieldText);
     }
+    public void clickOn_ViewDetailLink(){
+        click_custom(viewClientDetailLink);
+    }
 
     //+++++++++++++++++EDIT DIAGNOSTICIAN++++++++++++++
 
@@ -270,7 +278,6 @@ public class DiagnosticianPage extends BasePage {
 
     //**********Diagnostician is viewing appointments************
     public void clickOn_AppointmentTab() {
-
         moveToElement(appointmentsTab);
 
 
@@ -279,7 +286,9 @@ public class DiagnosticianPage extends BasePage {
     public void clickOn_ViewDetail() {
         click_custom(view_DetailApp);
     }
-    public void clickOn_upcomingTab(){click_custom(upcomingTab);}
+    public void clickOn_upcomingTab(){
+        WebdriverWaits.waitUntilVisible(upcomingTab);
+        moveToElement(upcomingTab);}
 
     public void clickOn_StartAssesment() {
         scrollIntoView(start_Assesment);
@@ -548,16 +557,19 @@ public class DiagnosticianPage extends BasePage {
     public void click_On_Slot() {
 
         // use logic??
-        WebdriverWaits.waitUntilVisible(slot5);
+
+        WebdriverWaits.waitUntilVisible(slot7);
         //click_custom(slot3);
       //  click_custom(slot4);
-        click_custom(slot5);
-        click_custom(slot6);
+       // click_custom(slot5);
+       // click_custom(slot6);
         click_custom(slot7);
         click_custom(slot8);
         click_custom(slot9);
         click_custom(slot10);
+
         click_custom(slot11);
+
 
         WebdriverWaits.waitUntilVisible(enableSaveButton);
         validate_text(enableSaveButton, "Save");
@@ -594,23 +606,8 @@ public class DiagnosticianPage extends BasePage {
     }
 
 
-    public void search_ScheduledAppointment(String CustomerFirstName) {
-        clickOnviewLink();
 
-        clickOnFilterbutton();
 
-        enterInsearchBox(CustomerFirstName);
-        click_ViewDetailLink();
-//           click_CancelAppointmentBtn();
-//            click_YesCancelBtn();
-//            Thread.sleep(4000);
-    }
-
-    public void creatingTestPlanForTheAppointment() {
-        click_TestPlanButton();
-        clickOnCheckBox();
-        clickOnTestPlanSaveButton();
-    }
 
 
     public void login_As_Diagnostician(String UserName, String PasswordText) {
@@ -621,8 +618,8 @@ public class DiagnosticianPage extends BasePage {
     }
 
     public void deleting_Availability() {
-        WebdriverWaits.waitForElementInteractable(slot7);
-        moveToElement(slot7);
+        WebdriverWaits.waitUntilVisible(slot11);
+        moveToElement(slot11);
         WebdriverWaits.waitUntilVisible(enableSaveButton);
         validate_text(enableSaveButton, "Save");
 
@@ -635,8 +632,8 @@ public class DiagnosticianPage extends BasePage {
     }
 
     public void cancel_Availability()   {
-        WebdriverWaits.waitForElementInteractable(slot7);
-        moveToElement(slot7);
+        WebdriverWaits.waitUntilVisible(slot11);
+        moveToElement(slot11);
         String getText = getText_custom(shiftText);
         WebdriverWaits.waitUntilVisible(shiftText);
         validate_text(shiftText, getText);
@@ -646,10 +643,14 @@ public class DiagnosticianPage extends BasePage {
         validate_text(availableText, "Available");
         click_custom(diagnosticianSaveButton);
     }
-    public void upcoming_Appointments(){
-        clickOn_upcomingTab();
-    }
 
+public void view_ClientDetail(String clientLastName){
+        click_filterButton();
+    WebdriverWaits.waitUntilVisible(searchTextButton);
+    validate_text(searchTextButton, "Search" );
+        enterInSearchField(clientLastName);
+        clickOn_ViewDetailLink();
+}
 
 }
 

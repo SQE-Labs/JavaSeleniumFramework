@@ -283,6 +283,7 @@ public class SuperAdminTest extends BaseTest {
         validate_text(director.directorListPage, "Directors List");
 
 
+
     }
 
     @Test(priority = 20, enabled = true, description = "3.1, 3.5, 3.9, 3.36 verify that duplicate Director throws error")
@@ -290,7 +291,10 @@ public class SuperAdminTest extends BaseTest {
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
 
-        director.Verify_Duplicate_Director(directorFirstName, directorLastName, dir_Cell_Number, directorEmailAddress, directorUserName, "123456", "123456");
+
+
+        director.create_Director(directorFirstName, directorLastName, dir_Cell_Number, directorEmailAddress, directorUserName, "123456", "123456");
+
         WebdriverWaits.waitUntilVisible(director.validationMsg);
         validate_text(director.validationMsg, "An error occurred while creating the user. Username already exists!");
         panelPage.clickOn_BackButton();
@@ -307,8 +311,12 @@ public class SuperAdminTest extends BaseTest {
         Log.info("Successfully Edited the created director");
     }
 
-    @Test(priority = 22, enabled = true, description = "3.19, 3.20 verify that superadmin is able to check toggle button is enable or disable")
-    public void director_checking_Toggle_Off() {
+
+
+
+    @Test(priority = 21, enabled = true, description = "3.19, 3.20 verify that superadmin is able to enable Director")
+    public void director_checking_Toggle_Off() throws InterruptedException {
+
         DirectorPage director = new DirectorPage();
         director.cheking_DisableUser();
         WebdriverWaits.waitUntilVisible(director.enableUser);

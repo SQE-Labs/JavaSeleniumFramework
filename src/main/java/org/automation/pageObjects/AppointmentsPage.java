@@ -1,18 +1,12 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
-import org.automation.logger.Log;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-import java.io.File;
 import java.util.List;
-
-import static com.relevantcodes.extentreports.LogStatus.FAIL;
-import static com.relevantcodes.extentreports.LogStatus.PASS;
 import static org.automation.utilities.Assertions.validate_text;
-import static org.automation.utilities.DateGenerator.getDate;
+
 
 
 public class AppointmentsPage extends BasePage {
@@ -22,10 +16,8 @@ public class AppointmentsPage extends BasePage {
     public By allAppointmentsPage=By.xpath("//h3");
     public By searchedText=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
     public By viewDetailsLink=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(7)");
-
     public By clickSlotSaveBtn= By.xpath("//mbsc-button[text()=' Save ']");
-
-    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[7]");
+    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[16]");
     public By clickCalSaveBtn = By.xpath("//a[@class='theme-button green float-right mr-2']");
     public By calendarTitle= By.xpath("//mbsc-button[@class='mbsc-calendar-button mbsc-button mbsc-button-flat mbsc-font mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-reset ng-star-inserted']");
     public By currentYear= By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios mbsc-ios-dark ng-star-inserted'])[13]");
@@ -39,7 +31,6 @@ public class AppointmentsPage extends BasePage {
     public By exportCSVButton=By.xpath("//button[text()='Export to CSV']");
     public By assessmentDate = By.id("assessmentDate");
     public By viewDetails=By.xpath("//a[text()='View Detail']");
-
     public By App_Text=By.xpath("//h3");
     public By spinner= By.cssSelector("div.ngx-spinner-overlay");
     public By viewAllActualText= By.xpath("//h3[@class='mb-4 mb-md-0']");
@@ -50,8 +41,6 @@ public class AppointmentsPage extends BasePage {
     public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[23]");
     public By view_Observation_Button=By.xpath("//a[text()='View Student Observation']");
     public By view_Document_Button=By.xpath("//a[text()='View Documents']");
-
-//
     public By chooseTestingLocation = By.id("testingLocation");
     public By clientFirstName = By.xpath("//input[@placeholder='Client First Name']");
     public By clientLastName = By.xpath("//input[@placeholder='Client Last Name']");
@@ -62,7 +51,6 @@ public class AppointmentsPage extends BasePage {
     public By grade = By.xpath("(//select[@id='schoolType'])[1]");
     public By schoolType = By.xpath("(//select[@class='ng-untouched ng-pristine ng-invalid'])[2]");
     public By SchoolType=By.xpath("(//select[@id='schoolType'])[2]");
-    //   public By cellNumber = By.xpath("//input[@placeholder='Cell Number']");
     public By phoneNumber = By.xpath("(//input[@class='p-inputtext p-component p-element p-inputmask'])[2]");
     public By emailAddress = By.xpath("//input[@placeholder='Email Address']");
     public By reasonForCall = By.id("reasonForCall");
@@ -99,8 +87,9 @@ public class AppointmentsPage extends BasePage {
         // click_custom(SchoolType);
         selectDropDownByIndex_custom(SchoolType,schoolTypeOption);
     }
-    public void enterCellNumber(String cellNumberText){
+    public void enterCellNumber(String cellNumberText) throws InterruptedException {
         WebdriverWaits.waitUntilVisible(cellNumber);
+        Thread.sleep(4000);
         sendKeys_withClear(cellNumber,cellNumberText);
     }
     public void enterPhoneNumber(String phoneNumberText){
@@ -233,7 +222,7 @@ public class AppointmentsPage extends BasePage {
 
     public void selectAssesmentType(int assestmentTypeTexts){
         WebdriverWaits.waitUntilVisible(assestmentType);
-        WebdriverWaits.waitForElementInteractable(assestmentType);
+         WebdriverWaits.waitForSpinner();
         click_custom(assestmentType);
         selectDropDownByIndex_custom(assestmentType,assestmentTypeTexts);
     }
@@ -256,6 +245,7 @@ public class AppointmentsPage extends BasePage {
         WebdriverWaits.waitUntilVisible(actualText);
         validate_text(actualText,"Appointment Scheduled!!");
         clickOnViewDetailsButton();
+        WebdriverWaits.waitForSpinner();
     }
     public void click_AppointmentTab(){
         WebdriverWaits.waitUntilVisible(appointmentsTab);
@@ -275,6 +265,9 @@ public class AppointmentsPage extends BasePage {
     public void click_ViewAllTab(){
         WebdriverWaits.waitUntilVisible(viewAllTab);
         click_custom(viewAllTab);
+        WebdriverWaits.waitForSpinner();;
+        WebdriverWaits.waitUntilVisible(By.xpath("//a[text()='View Detail'])[1]"));
+        click_custom(By.xpath("//a[text()='View Detail'])[1]"));
     }
     public void click_FilterButton(){
          click_custom(filterButton);
@@ -292,21 +285,21 @@ public class AppointmentsPage extends BasePage {
         sendKeys_withClear(searchField,searchFieldText);
     }
     public void enter_Dates(String dateFromText,String toDateText) throws InterruptedException {
+        WebdriverWaits.waitUntilVisible(dateFrom);
         click_custom(dateFrom);
         sendKeys_withClear(dateFrom,dateFromText);
+        WebdriverWaits.waitUntilVisible(toDate);
         click_custom(toDate);
         sendKeys_withClear(toDate,toDateText);
-        click_custom(searchButton);
+//        WebdriverWaits.waitUntilVisible(searchButton);
+//        click_custom(searchButton);
     }
     public void clickOn_ViewDetails(){
         WebdriverWaits.waitUntilVisible(viewDetailsLink);
         click_custom(viewDetailsLink);
     }
 
-    public void view_allAppointmentsPage(String diagnosticianFirstName,String  diagnosticianLastName) throws InterruptedException {
 
-
-    }
     public void exportCSV_Button(){
         click_AppointmentTab();
         click_ViewAllTab();
@@ -314,9 +307,8 @@ public class AppointmentsPage extends BasePage {
     }
 
 
-    public void View_AllAppointmentsPage(){
 
-    }
+
 
 
 
