@@ -190,6 +190,7 @@ public class DiagnosticianPage extends BasePage {
 
 
 
+
     public void click_createDiagnosticianButton() {
         WebdriverWaits.waitForSpinner();
         click_custom(createDiagnostician);
@@ -562,8 +563,8 @@ public class DiagnosticianPage extends BasePage {
     }
     public void click_Slot()  {
         // use logic??
-        click_custom(slot);
-        click_custom(slot1);
+       // click_custom(slot);
+       // click_custom(slot1);
         click_custom(slot2);
         click_custom(slot3);
         click_custom(slot4);
@@ -573,13 +574,13 @@ public class DiagnosticianPage extends BasePage {
         click_custom(slot8);
         click_custom(slot9);
         click_custom(slot10);
-       // click_custom(slot11);
-       // click_custom(slot12);
-       // click_custom(slot13);
+       click_custom(slot11);
+        click_custom(slot12);
+        click_custom(slot13);
         WebdriverWaits.waitUntilVisible(enableSaveButton);
         validate_text(enableSaveButton, "Save");
         click_custom(diagnosticianSaveButton);
-        // click_custom(logOutLink);
+        click_custom(logOutLink);
     }
     public void click_TodayLink(){
         click_custom(todayLink);

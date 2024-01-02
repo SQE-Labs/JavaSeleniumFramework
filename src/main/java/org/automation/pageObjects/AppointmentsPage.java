@@ -24,7 +24,7 @@ public class AppointmentsPage extends BasePage {
     public By headerResource = By.xpath("//div[@class='header-resource-name']");
     public By clickSlotSaveBtn= By.xpath("//mbsc-button[text()=' Save ']");
 
-    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[1]");
+    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[20]");
     public By clickCalSaveBtn = By.xpath("//a[@class='theme-button green float-right mr-2']");
     public By calendarTitle= By.xpath("//mbsc-button[@class='mbsc-calendar-button mbsc-button mbsc-button-flat mbsc-font mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-reset ng-star-inserted']");
     public By currentYear= By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios mbsc-ios-dark ng-star-inserted'])[13]");
@@ -72,6 +72,10 @@ public class AppointmentsPage extends BasePage {
     public By collectDeposit=By.xpath("//button[text()='Collect Deposit']");
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public By actualText=By.xpath("//h4[text()='Appointment Scheduled!!']");
+    public By holdAppointmentBtn = By.xpath("(//h6[@class='mb-4 text-center'])[2]");
+    public By holdActualText = By.xpath("(//h6[@class='mb-4 text-center'])[2]");
+    public By holdButton = By.xpath("//button[@class='theme-button danger mx-2']");
+    public By getFullName = By.xpath("(//p)[9]");
 
 
 

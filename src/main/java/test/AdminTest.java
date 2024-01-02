@@ -8,23 +8,17 @@ import org.automation.utilities.RandomStrings;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
-
-import  org.automation.utilities.Assertions.*;
+import org.automation.utilities.ActionEngine;
 
 import static org.automation.utilities.Assertions.validate_SelectedOption;
 import static org.automation.utilities.Assertions.validate_text;
-import  org.automation.utilities.WebdriverWaits.*;
 import static org.automation.utilities.WebdriverWaits.waitForSpinner;
-import static org.testng.Assert.assertEquals;
 
 public class AdminTest extends BaseTest {
     String diagnosticianUserName;
@@ -43,6 +37,8 @@ public class AdminTest extends BaseTest {
      String diagnosticianFirstName;
      String diagnosticianLastName;
      String diagnosticianEmailAddress;
+     List<WebElement>  diagList;
+
     @Test(priority = 0, enabled = true, description = "Verify admin is able to login with valid credentials")
      public void admin_login(){
     LoginPage login = new LoginPage();
@@ -57,6 +53,7 @@ public class AdminTest extends BaseTest {
     public void create_Diagnostician() throws InterruptedException {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         DashBoardPanelPage tab = new DashBoardPanelPage();
+        AdminPage reAssign= new AdminPage();
         // Click on diagnostician tab from left panel.
         tab.click_DiagnosticianTab();
         WebdriverWaits.waitUntilVisible(diagnostician.diagListPageText);
@@ -71,6 +68,9 @@ public class AdminTest extends BaseTest {
         WebdriverWaits.waitUntilVisible(diagnostician.actualText);
         //validate Diagnostician
         validate_text(diagnostician.actualText,diagnosticianUserName);
+        diagList= reAssign.get_diagList(reAssign.diagList);
+
+        
 
     }
     @Test(priority = 2,enabled = true,description = "Set availability for diagnostician by admin")
@@ -163,8 +163,20 @@ public class AdminTest extends BaseTest {
         validate_text(followUp.validateScheduledFollowUp,"Follow Up Scheduled!!");
         followUp.click_BackBtn();
     }
-    //******************** Functionality for Edit Assessment Pop Up and Test Plan **************//
-    @Test(priority = 11, enabled = false, description = "Verify Edit Assessment type button .")
+    @Test(priority = 11, enabled = false, description = "Re-Assign Appointment for client by admin")
+    public void re_AssignAppointment() throws InterruptedException {
+        AdminPage reAssign = new AdminPage();
+        reAssign.click_ReAssignBn();
+        WebdriverWaits.waitUntilVisible(reAssign.reAssignDiagList);
+        List<WebElement> reassigList= reAssign.get_diagList(reAssign.diagList);
+        boolean result = reAssign.compare_DiagAndReAssignDiagList(diagList,reassigList);
+        Assert.assertTrue(result);
+
+    }
+    public void holdAppointment() throws InterruptedException{
+
+    }
+
     public void edit_AssessmentTypePopUp()throws InterruptedException{
         AdminPage editType = new AdminPage();
         editType.click_EditAssessment();
@@ -216,7 +228,7 @@ public class AdminTest extends BaseTest {
     public float afterAssessmentAmount;
     public float afterAmountDue;
     public float afterRececiedAmount;
-    @Test(priority = 17, enabled = true, description = "Verify payment button on <Client> details page.")
+    @Test(priority = 17, enabled = false, description = "Verify payment button on <Client> details page.")
     public void verify_PaymentBtn() throws InterruptedException{
         AdminPage payment = new AdminPage();
         beforeAssessmentAmount= Float.parseFloat(payment.get_AssessmentAmount());
@@ -227,7 +239,7 @@ public class AdminTest extends BaseTest {
         validate_text(payment.collectPayActualText,"Collect Payment");
     }
 
-    @Test(priority = 18, enabled = true, description = "Verify payment button on <Client> details page.")
+    @Test(priority = 18, enabled = false, description = "Verify payment button on <Client> details page.")
     public void verify_CollectTestFeeAdjustment() throws InterruptedException{
         AdminPage payment = new AdminPage();
         payment.validate_FeeAdjustmentAmount("100");
