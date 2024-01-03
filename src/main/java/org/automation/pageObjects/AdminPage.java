@@ -135,6 +135,21 @@ public class AdminPage extends BasePage {
     public By fullPayActualText = By.xpath("//span[@class='badge bg-warning float-right ng-star-inserted']");
     public By diagList = By.xpath("(//span[text()='Active'])/../../td[text()='Plano']/../td[1]");
     public By reAssignDiagList = By.xpath("//select[@id='diag']//option[@class='ng-star-inserted']");
+    public By searchTextBox = By.id("filterSearch");
+    public By toDateText = By.xpath("//input[@formcontrolname='toDate']");
+    public By fromDateText = By.xpath("//input[@formcontrolname='fromDate']");
+    public By  fullName = By.xpath("(//p)[9]");
+    public By holdAppointmentBtn = By.xpath("//button[text()='Yes, Hold']");
+    public By holdActualText = By.xpath("(//h6[@class='mb-4 text-center'])[2]");
+    public By holdButton = By.xpath("//button[text()=' Hold Appointment ']");
+    public By holdtab = By.xpath("//a[text()='Hold']");
+    public By allAppointmentsPage=By.xpath("//h3[text()='All Appointments']");
+    public By holdAppointmentText= By.xpath("//h3[text()='Hold Appointments']");
+    public By holdfilterButton = By.xpath("//a[text()='Filter']");
+    public By validateHoldClient = By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
+    public By unHoldBtn= By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(7)");
+
+
 
 
     public void clickOn_createAdminButton() {
@@ -471,13 +486,13 @@ public class AdminPage extends BasePage {
         sendKeys_custom(editAdditionalComment, additionalComment);
     }
 
-    public String edit_ClientInfo(String firstName, String lastName, String address1, String grade) {
-        String fullName = firstName + " " + lastName;
+    public void edit_ClientInfo(String firstName, String lastName, String address1, String grade) {
+
         enter_FirstName(firstName);
         enter_LastName(lastName);
         enter_Address1(address1);
         enter_grade(grade);
-        return fullName;
+
 
     }
 
@@ -534,12 +549,7 @@ public class AdminPage extends BasePage {
 
     }
 
-    public void change_FollowUp() throws InterruptedException {
-        click_CreateFollowUpBtn();
-        click_FollowUpSlot();
-        click_FollowUpSlotSaveBtn();
 
-    }
 
     public void click_PaymentBtn() {
         WebdriverWaits.waitUntilVisible(paymentBtn);
@@ -630,8 +640,29 @@ public class AdminPage extends BasePage {
         click_custom(diag);
 
    }
+public void click_HoldAppointmentBtn(){
+WebdriverWaits.waitUntilVisible(holdButton);
+click_custom(holdButton);
+}
+public void click_yesHoldBtn(){
+        WebdriverWaits.waitUntilVisible(holdAppointmentBtn);
+        click_custom(holdAppointmentBtn);
+}
+public void click_HoldTab(){
+        click_custom(holdtab);
+}
+public void click_HoldFilterBtn(){
+        WebdriverWaits.waitUntilVisible(holdfilterButton);
+        click_custom(holdfilterButton);
+}
 
+public void send_textHoldSearchBox(String name ){
+        sendKeys_custom(searchTextBox,name);
 
+}
+public void click_unHoldBtn(){
+     click_custom(unHoldBtn);
+}
 
     }
 

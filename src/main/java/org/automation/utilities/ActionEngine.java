@@ -225,11 +225,11 @@ public class ActionEngine extends BaseTest {
 
             text = element.getText();
             //  Log.debug("Text for " + element + " is " + text);
-            extentTest.log(PASS, "Text retrieved is: "+ text);
+            extentTest.log(PASS, "Text retrieved is: " + text);
             return text;
         } catch (Exception e) {
-            extentTest.log(FAIL, "==> Text not retried due to exception: "+ e);
-            throw  new RuntimeException(e);
+            extentTest.log(FAIL, "==> Text not retried due to exception: " + e);
+            throw new RuntimeException(e);
 
         }
     }
@@ -245,7 +245,7 @@ public class ActionEngine extends BaseTest {
 
         } catch (Exception e) {
             extentTest.log(FAIL, "Unable to get text due to exception : \n" + e);
-            throw  new RuntimeException(e);
+            throw new RuntimeException(e);
 
         }
     }
@@ -325,25 +325,31 @@ public class ActionEngine extends BaseTest {
         String fieldName = "";
         try {
             fieldName = label.length > 0 ? label[0] : path.toString();
-             List <WebElement> elements =getDriver().findElements(path);
+            List<WebElement> elements = getDriver().findElements(path);
 
-                //  log success message in exgent report
-                 extentTest.log(PASS,fieldName +"==>Locate webElements!");
-                  return elements;
+            //  log success message in exgent report
+            extentTest.log(PASS, fieldName + "==>Locate webElements!");
+            return elements;
 
 
-            } catch(Exception e){
-                //    log failure in extent
-                extentTest.log(FAIL, "Unable to find any elemenets " + fieldName + " due to exception: " + e);
-                return null;
-            }
+        } catch (Exception e) {
+            //    log failure in extent
+            extentTest.log(FAIL, "Unable to find any elemenets " + fieldName + " due to exception: " + e);
+            return null;
         }
-    public  void refresh_Page(){
+    }
+
+    public void refresh_Page() {
         getDriver().navigate().refresh();
     }
-    public void navigate_Back(){
+
+    public void navigate_Back() {
         getDriver().navigate().back();
     }
 
-        }
+    public String GetValueAttribute(By Path, String attributeName) {
+        String text = getDriver().findElement(Path).getAttribute(attributeName);
+        return text;
 
+        }
+    }

@@ -1,6 +1,7 @@
 package test;
 
 import org.automation.base.BaseTest;
+import org.automation.logger.Log;
 import org.automation.pageObjects.*;
 import org.automation.utilities.ActionEngine;
 import org.automation.utilities.DateGenerator;
@@ -16,8 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import org.automation.utilities.ActionEngine;
 
-import static org.automation.utilities.Assertions.validate_SelectedOption;
-import static org.automation.utilities.Assertions.validate_text;
+import static org.automation.utilities.Assertions.*;
 import static org.automation.utilities.WebdriverWaits.waitForSpinner;
 
 public class AdminTest extends BaseTest {
@@ -38,6 +38,8 @@ public class AdminTest extends BaseTest {
      String diagnosticianLastName;
      String diagnosticianEmailAddress;
      List<WebElement>  diagList;
+     String fullname;
+     String holdAppointmentname;
 
     @Test(priority = 0, enabled = true, description = "Verify admin is able to login with valid credentials")
      public void admin_login(){
@@ -150,7 +152,7 @@ public class AdminTest extends BaseTest {
         clientCellNumber=RandomStrings.requiredDigits(10);
         clientEmail=clientFirstName+ "@yopmail.com";
         clientEmail2= clientFirstName+"101@yopmail.com";
-        fillClientDetails.fill_clientDetailsSection( clientFirstName, clientLastName, 1,"19-11-2000",1, "7654436788", clientEmail, "Other","New York","Texas","30052" ,"1000","900");
+         fullname = fillClientDetails.fill_clientDetailsSection( clientFirstName, clientLastName, 1,"19-11-2000",1, "7654436788", clientEmail, "Other","New York","Texas","30052" ,"1000","900");
 
 
     }
@@ -173,10 +175,7 @@ public class AdminTest extends BaseTest {
         Assert.assertTrue(result);
 
     }
-    public void holdAppointment() throws InterruptedException{
-
-    }
-
+    @Test(priority = 11, enabled = false, description = "Re-Assign Appointment for client by admin")
     public void edit_AssessmentTypePopUp()throws InterruptedException{
         AdminPage editType = new AdminPage();
         editType.click_EditAssessment();
@@ -280,12 +279,18 @@ public class AdminTest extends BaseTest {
         validate_text(appPage.viewAllActualText,"All Appointments");
 
     }
-    @Test(priority = 21, enabled = false, description = "Verify search textbox")
+    @Test(priority = 21, enabled = false, description = "Verify filter button and serarchtextbox textbox")
     public void search_CreatedAppointment() throws InterruptedException{
         AppointmentsPage appPage= new AppointmentsPage();
+        AdminPage placeHolder = new AdminPage();
         appPage.click_FilterButton();
-        appPage.click_SearchField(clientFirstName+" "+ clientLastName);
-        //assertuon
+        String text = appPage.GetValueAttribute(appPage.searchTextBox,"placeholder");
+        String fromDateplaceholder = placeHolder.GetValueAttribute(placeHolder.fromDateText,"placeholder");
+        Assert.assertEquals(fromDateplaceholder,"From Date");
+        Assert.assertEquals(text,"Type here to search");
+
+
+
     }
     @Test(priority = 22, enabled = false, description = "Verify search fromDate and toDate")
     public void verify_FromAndToDate() throws InterruptedException{
@@ -313,6 +318,52 @@ public class AdminTest extends BaseTest {
         }
 
         Assert.assertTrue(result);
+    }
+    @Test(priority = 23,enabled = true,description="verify hold appointment button.")
+    public void verify_HoldAppointmentBtn() throws InterruptedException {
+        AdminPage hold = new AdminPage();
+        hold.click_HoldAppointmentBtn();
+        validate_text(hold.holdActualText, "Are you sure you want to hold this appointment?");
+        holdAppointmentname= hold.getText_custom(hold.fullName);
+        Log.info(holdAppointmentname);
+    }
+    @Test(priority = 24,enabled = true,description="verify yes hold button on hold appointment button.")
+    public void verify_yesHoldBtn() throws InterruptedException{
+        AdminPage hold = new AdminPage();
+        hold.click_yesHoldBtn();
+        WebdriverWaits.waitUntilVisible(hold.allAppointmentsPage);
+        validate_text(hold.allAppointmentsPage,"All Appointments");
+    }
+    @Test(priority = 25,enabled = true,description="verify yes hold button on hold appointment popup.")
+    public void verify_HoldAppointment() throws InterruptedException{
+        AdminPage hold = new AdminPage();
+        hold.click_HoldTab();
+        validate_text(hold.holdAppointmentText,"Hold Appointments");
+    }
+    @Test(priority = 26,enabled = true,description="verify filter button on hold appointment page.")
+    public void verify_holdfilterButton() throws InterruptedException{
+        AdminPage hold = new AdminPage();
+        hold.click_HoldFilterBtn();
+        String searchPlaceHolder = hold.GetValueAttribute(hold.searchTextBox,"placeholder");
+        String fromDateplaceholder = hold.GetValueAttribute(hold.fromDateText,"placeholder");
+        String toDatePlaceholder = hold.GetValueAttribute(hold.toDateText,"placeholder");
+        Assert.assertEquals(fromDateplaceholder,"From Date");
+        Assert.assertEquals(toDatePlaceholder,"To Date");
+        Assert.assertEquals(searchPlaceHolder,"Type here to search");
+
+    }
+    @Test(priority = 27,enabled = true,description="verify holded appointment .")
+    public void verify_holdedAppointment() throws InterruptedException{
+        AdminPage hold = new AdminPage();
+        hold.send_textHoldSearchBox(holdAppointmentname);
+        String name = getText_custom(hold.validateHoldClient);
+        Log.info(name);
+        validate_text(hold.validateHoldClient,holdAppointmentname);
+    }
+    public void verify_unHoldBtn() throws InterruptedException{
+        AdminPage unHold = new AdminPage();
+        unHold.click_unHoldBtn();
+
     }
     //************************ Edit Diagnostician *********************//
     @Test(priority = 23,enabled = false, description = "Search created diagnostician by admin")
@@ -382,6 +433,7 @@ public class AdminTest extends BaseTest {
     }
 
 
+
     //******************** Logout button **************//
     @Test(priority = 30, enabled = false, description = "Verify login button for admin.")
     public void admin_LogOut() throws InterruptedException{
@@ -390,6 +442,7 @@ public class AdminTest extends BaseTest {
 
 
     }
+
 
 
 

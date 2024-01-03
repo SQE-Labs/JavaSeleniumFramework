@@ -75,7 +75,10 @@ public class AppointmentsPage extends BasePage {
     public By holdAppointmentBtn = By.xpath("(//h6[@class='mb-4 text-center'])[2]");
     public By holdActualText = By.xpath("(//h6[@class='mb-4 text-center'])[2]");
     public By holdButton = By.xpath("//button[@class='theme-button danger mx-2']");
-    public By getFullName = By.xpath("(//p)[9]");
+    public By searchTextBox = By.id("filterSearch");
+    public By fromDateText = By.xpath("//input[@formcontrolname='fromDate']");
+    public By  fullName = By.xpath("//li[span[contains(text(), 'Client Name')]]/text()");
+
 
 
 
@@ -198,7 +201,7 @@ public class AppointmentsPage extends BasePage {
         selectDropDownByIndex_custom(assestmentType,assestmentTypeTexts);
     }
 
-    public void fill_clientDetailsSection(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
+    public String fill_clientDetailsSection(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText,int schoolTypeOption, String cellNumber , String EmailAddress, String reasonForCallText, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
         enterFirstName(CustomerFirstName);
         enterLastName(CustomerLastName);
         enterInDateField( dateOfBirthText);
@@ -215,7 +218,9 @@ public class AppointmentsPage extends BasePage {
         clickOnCollectDepositButton();
         WebdriverWaits.waitUntilVisible(actualText);
         validate_text(actualText,"Appointment Scheduled!!");
+        String ClientName = getText_custom(fullName);
         clickOnViewDetailsButton();
+        return ClientName;
     }
     public void click_AppointmentTab(){
         WebdriverWaits.waitUntilVisible(appointmentsTab);
@@ -224,9 +229,7 @@ public class AppointmentsPage extends BasePage {
     }
     public void click_ViewAllTab(){
         click_custom(viewAllTab);
-        WebdriverWaits.waitForSpinner();;
-        WebdriverWaits.waitUntilVisible(By.xpath("//a[text()='View Detail'])[1]"));
-        click_custom(By.xpath("//a[text()='View Detail'])[1]"));
+
     }
     public void click_FilterButton(){
          click_custom(filterButton);
