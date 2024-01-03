@@ -1,4 +1,5 @@
 package test;
+import com.opencsv.exceptions.CsvException;
 import org.automation.base.BaseTest;
 
 import org.automation.pageObjects.*;
@@ -10,11 +11,14 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
-
 import static org.automation.utilities.Assertions.validate_text;
 
 
@@ -47,7 +51,7 @@ public void diagnostician_Login(){
         validate_text(diagnostician.upcomingPageTitle, "Upcoming Appointments");
     }
     @Test(priority = 4,enabled = true,description = "Verify diagnostician is able to download csv file or not")
-    public void download_CSV_File() throws InterruptedException {
+    public void download_CSV_File() throws InterruptedException, IOException, AWTException, CsvException {
         AppointmentsPage appointment = new AppointmentsPage();
         DashBoardPanelPage panelpage = new DashBoardPanelPage();
         DiagnosticianPage diagnostician = new DiagnosticianPage();
@@ -58,6 +62,7 @@ public void diagnostician_Login(){
         //Download exportCSV File and Check file is downloaded or not
         String downloadFile = panelpage.getDownloadFileName();
         Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
+       // panelpage.readCSVFile();
     }
     @Test(priority = 4,enabled = false,description = "Verify diagnostian client details page")
     public void verify_ClientDetailsPage(){
@@ -91,7 +96,7 @@ public void diagnostician_Login(){
         boolean result = true;
         for (WebElement i:dateSet){
             String date =i.getText();
-            LocalDate inputDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("MMM dd,yyyy"));
+            LocalDate inputDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("MMM dd, yyyy"));
             System.out.println(inputDate);
 
             if( !(DateGenerator.isDateWithinRange(fromDateLocal,toDateLocal,inputDate))){

@@ -36,11 +36,7 @@ public class AppointmentsPage extends BasePage {
     public By viewAllActualText= By.xpath("//h3[@class='mb-4 mb-md-0']");
     public By assestmentType = By.id("assestmentType");
     public By newEventText= By.xpath("//div[text()='New Event']");
-    public By actualSearchedText= By.xpath("(//td[@class='tablewidth'])[1]");
-    public By dateElements = By.xpath("//tr/td[3]");
-    public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[23]");
-    public By view_Observation_Button=By.xpath("//a[text()='View Student Observation']");
-    public By view_Document_Button=By.xpath("//a[text()='View Documents']");
+    public By dateElements = By.xpath("//tr/td[4]");
     public By chooseTestingLocation = By.id("testingLocation");
     public By clientFirstName = By.xpath("//input[@placeholder='Client First Name']");
     public By clientLastName = By.xpath("//input[@placeholder='Client Last Name']");
@@ -49,7 +45,6 @@ public class AppointmentsPage extends BasePage {
     public By saveButton = By.xpath("//mbsc-button[text()=' Save ']");
     public By appointmentSaveButtonButton = By.xpath("//a[text()='Save']");
     public By grade = By.xpath("(//select[@id='schoolType'])[1]");
-    public By schoolType = By.xpath("(//select[@class='ng-untouched ng-pristine ng-invalid'])[2]");
     public By SchoolType=By.xpath("(//select[@id='schoolType'])[2]");
     public By phoneNumber = By.xpath("(//input[@class='p-inputtext p-component p-element p-inputmask'])[2]");
     public By emailAddress = By.xpath("//input[@placeholder='Email Address']");
@@ -66,9 +61,6 @@ public class AppointmentsPage extends BasePage {
     public By collectDeposit=By.xpath("//button[text()='Collect Deposit']");
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public By actualText=By.xpath("//h4[text()='Appointment Scheduled!!']");
-
-
-
 
     public void enterFirstName(String cilentFirstNameText){
         WebdriverWaits.waitUntilVisible(clientFirstName);

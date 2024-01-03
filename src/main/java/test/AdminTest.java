@@ -183,7 +183,7 @@ public class AdminTest extends BaseTest {
     @Test(priority = 13, enabled = false, description = "Verify Test plan button on <Client> details page.")
     public void verify_TestPlanBtn()  throws InterruptedException{
         AdminPage testPlan = new AdminPage();
-        WebdriverWaits.waitUntilInvisible(testPlan.spinner);
+        WebdriverWaits.waitForSpinner();
         testPlan.click_TestPlan();
         validate_text(testPlan.testPlanText,"Please choose tests.");
     }

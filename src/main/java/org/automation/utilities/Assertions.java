@@ -41,7 +41,13 @@ public class Assertions {
         softAssert.assertEquals(actual, expected);
         softAssert.assertAll();
     }
-    public static void validate_SelectedOption(By element, String expected) throws InterruptedException{
+    public static void validate_AttText(String actual, String expected) {
+        WebdriverWaits.waitForSpinner();;
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actual, expected);
+        softAssert.assertAll();
+    }
+    public static void validate_SelectedOption(By element, String expected) {
         WebdriverWaits.waitUntilVisible(element);
         Select select= new Select(getDriver().findElement(element));
         String selectedOption = select.getFirstSelectedOption().getText();

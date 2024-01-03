@@ -1,11 +1,14 @@
 package org.automation.pageObjects;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import test.SuperAdminTest;
 
-import java.io.File;
+import java.io.*;
+import java.util.List;
 
 import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
@@ -71,12 +74,12 @@ public class DashBoardPanelPage extends BasePage {
         click_custom(backButton);
     }
 
-    public boolean isFileDownloaded(String fileName) throws InterruptedException {
+    public boolean isFileDownloaded(String fileName) throws InterruptedException, FileNotFoundException {
         Thread.sleep(10000);
         String home = System.getProperty("user.home");
         String file_with_location = home + "/Downloads/" + fileName;
         File file = new File(file_with_location.trim());
-        String fileTest = file.getName();
+       // String fileTest = file.getName();
         if (file.exists() && file.length() != 0) {
             System.out.println(file_with_location + " is present with size greater than 0 ");
             extentTest.log(PASS, file_with_location + " is present  with size greater than 0");
@@ -87,6 +90,9 @@ public class DashBoardPanelPage extends BasePage {
             return false;
         }
     }
+
+
+
 
     public String getDownloadFileName() {
 
@@ -116,4 +122,20 @@ public class DashBoardPanelPage extends BasePage {
         Thread.sleep(4000);
         return getText_custom(DiagnosticianPage.userNameText);
     }
-}
+
+
+        public static void readCSVFile() throws IOException, CsvException {
+        String path = "C:\\Users\\SQE Labs\\Downloads\\.csv(10)";
+            Reader reader = new FileReader(path);
+            CSVReader csvreader = new CSVReader(reader);
+            List<String[]> data = csvreader.readAll();
+            for(String[] d : data){
+                for(String c : d ){
+                    System.out.println(c);
+                }
+            }
+
+        }
+
+    }
+

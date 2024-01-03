@@ -46,30 +46,29 @@ public class AdminPage extends BasePage {
     public By UserNameGetText = By.xpath("(//td)[2]");
     public By enableUser = By.xpath("//label[text()='Enable User']");
     public By toggle = By.xpath("//span[@class='slider round']");
-    public By dontSaveButton = By.xpath("//a[text()='Don’t Save']");
+    public By dontSaveButton = By.xpath("//a[@class='theme-button grey']");
     public By editUserPop_Up = By.xpath("//h5[text()='Edit User']");
     public By userNameText = By.xpath("(//td[2])[1]");
     public By Error_Msg = By.cssSelector(".alert.alert-danger.ng-star-inserted");
 
     //***********DASH BOARD PAGE**********
-    public By dashboard = By.xpath("//h3[text()='Dashboard']");
+    public By dashboard = By.xpath("(//h3)[1]");
     //*********** EDIT ASSESSMENT TYPE ********//
-    public By editAss = By.xpath("//a[text()='Edit Assessment Type']");
-    public By assType = By.xpath("//h5[text()='Change Assement Type']");
+    public By editAss = By.xpath("(//a[contains(@class,'ml-auto mr-3 px-3 py-2 badge')])[2]");
+    public By assType = By.xpath("(//h5[@class='border-bottom mb-3 pb-3 text-center text-green'])[2]");
     public By assestmentType = By.xpath("//select[@id='assesmentType']");
-    public By updateBtn = By.xpath("(//button[text()='Update'])[1]");
-    public By spinner = By.cssSelector("div.ngx-spinner-overlay");
+    public By updateBtn = By.xpath("(//button[@class='theme-button mr-3 grey'])[2]");
     public By clientAsses = By.xpath("//p[text()=' IQ']");
     public By dontSaveAsses = By.xpath("//a[text()='Don’t Save']");
 
     //***********Re-assign appointment************//
-    public By reAssignbtn = By.xpath("//a[text()='Re-assign Appointment']");
+    public By reAssignbtn = By.xpath("(//a[contains(@class,'ml-auto mr-3 px-3 py-2 badge')])[1]");
     public By diag = By.id("diag");
     public By diagLoc = By.id("testingLocation");
-    public By rebtn = By.xpath("//button[text()='Re-assign']");
+    public By rebtn = By.xpath("//button[@class='theme-button green']");
 
     //****************Edit Client**************//
-    public By testPlan = By.xpath("//button[text()=' Test Plan ']");
+    public By testPlan = By.xpath("(//button[@class='theme-button m-2 ng-star-inserted'])[1]");
     public By editTestPlan= By.xpath("//button[text()=' Edit Test Plan ']");
     public By testPlanText = By.xpath("//h6[text()='Please choose tests.']");
     public By checkBox = By.xpath("//label[text()='WJ Achievement']/..");
@@ -293,7 +292,7 @@ public class AdminPage extends BasePage {
 
     public void click_EditAssessment() throws InterruptedException{
         WebdriverWaits.waitUntilVisible(editAss);
-        WebdriverWaits.waitUntilVisible(spinner);
+        WebdriverWaits.waitForSpinner();
         click_custom(editAss);
     }
 
@@ -311,7 +310,6 @@ public class AdminPage extends BasePage {
     }
 
     public void click_DontSave() {
-        WebdriverWaits.waitUntilVisible(assestmentType);
         WebdriverWaits.waitUntilVisible(dontSaveAsses);
         click_custom(dontSaveAsses);
 
@@ -325,7 +323,7 @@ public class AdminPage extends BasePage {
 
     public void re_AssignDiag(int chooseDiagnostician) {
         WebdriverWaits.waitUntilVisible(diag);
-        WebdriverWaits.waitUntilVisible(spinner);
+        WebdriverWaits.waitForSpinner();
         clickBtn_custom(diag, "chooseDiagnostician");
         selectDropDownByIndex_custom(diag, chooseDiagnostician, "Choose Diagnostician");
     }

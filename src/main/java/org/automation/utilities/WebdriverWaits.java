@@ -91,7 +91,7 @@ public class WebdriverWaits extends BaseTest {
     }
 
 
-    public void byToWebelement(By element){
+    public static void byToWebelement(By element){
 
       JavascriptExecutor js=(JavascriptExecutor)driver;
       WebElement ele=driver.get().findElement(element);
@@ -141,7 +141,7 @@ public class WebdriverWaits extends BaseTest {
         }
     }
 
-    public static void waitUntilVisible(By element) {
+    public  static void waitUntilVisible(By element) {
         try {
 
             Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver())
@@ -176,7 +176,7 @@ public class WebdriverWaits extends BaseTest {
             throw new RuntimeException (E);
         }
     }
-    public static void moveToElement(By element) {
+    public  static void moveToElement(By element) {
         WebElement ele = getDriver() .findElement(element);
         Actions act = new Actions(getDriver());
         act.moveToElement(ele).click().build().perform();

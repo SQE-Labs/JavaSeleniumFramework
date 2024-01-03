@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.automation.utilities.Assertions.*;
@@ -418,7 +419,7 @@ public class SuperAdminTest extends BaseTest {
     }
 
     @Test(priority = 30, enabled = true, description = "2.6 Verify that CSV file gets downloaded after clicking 'Export to CSV' button, on 'All Appointments' page by superAdmin")
-    public void download_CSV_File() throws InterruptedException {
+    public void download_CSV_File() throws InterruptedException, FileNotFoundException {
         AppointmentsPage appointment = new AppointmentsPage();
         DashBoardPanelPage panelpage = new DashBoardPanelPage();
         WebdriverWaits.waitForSpinner();
@@ -438,6 +439,7 @@ public class SuperAdminTest extends BaseTest {
         action.navigate_Back();
         panelpage.click_LogOutLink();
         login.superAdminLogin();
+
         //******************** SuperAdmin viewing payments page**********
 
         payment.clickOn_PaymentTab();
@@ -456,7 +458,7 @@ public class SuperAdminTest extends BaseTest {
     }
 
     @Test(priority = 33, enabled = true, description = "6.5 Verify SuperAdmin is able to download csv file or not in payment module")
-    public void download_ExportCSV_File() throws InterruptedException {
+    public void download_ExportCSV_File() throws InterruptedException, FileNotFoundException {
         DashBoardPanelPage panelpage = new DashBoardPanelPage();
         ActionEngine action = new ActionEngine();
         panelpage.clickOn_ExportCSVButton();
