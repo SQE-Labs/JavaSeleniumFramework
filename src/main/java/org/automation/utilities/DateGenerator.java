@@ -42,7 +42,7 @@ public class DateGenerator {
        return currentDate.format(formatter);
 
    }
-    public static String getCurrentMonthInDecFormat() {
+    public static String getCurrentMonthFormat() {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM");
         return currentDate.format(formatter);

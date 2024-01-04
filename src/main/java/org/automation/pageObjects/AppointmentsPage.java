@@ -61,6 +61,13 @@ public class AppointmentsPage extends BasePage {
     public By collectDeposit=By.xpath("//button[text()='Collect Deposit']");
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public By actualText=By.xpath("//h4[text()='Appointment Scheduled!!']");
+    public By holdAppointmentBtn = By.xpath("(//h6[@class='mb-4 text-center'])[2]");
+    public By holdActualText = By.xpath("(//h6[@class='mb-4 text-center'])[2]");
+    public By holdButton = By.xpath("//button[@class='theme-button danger mx-2']");
+    public By searchTextBox = By.id("filterSearch");
+    public By fromDateText = By.xpath("//input[@formcontrolname='fromDate']");
+    public By  fullName = By.xpath("//li[span[contains(text(), 'Client Name')]]/text()");
+
 
     public void enterFirstName(String cilentFirstNameText){
         WebdriverWaits.waitUntilVisible(clientFirstName);
@@ -154,6 +161,7 @@ public class AppointmentsPage extends BasePage {
         clickBtn_custom(assessmentDate);
     }
     public void enterAmount(String enterAmountText) throws InterruptedException {
+        WebdriverWaits.waitUntilInvisible(enterAmountField);
         WebdriverWaits.waitUntilVisible(enterAmountField);
         click_custom(enterAmountField);
         sendKeys_withClear(enterAmountField,enterAmountText);

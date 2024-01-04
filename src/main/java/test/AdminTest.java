@@ -17,12 +17,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import org.automation.utilities.ActionEngine;
 
-import  org.automation.utilities.Assertions.*;
-
-import static org.automation.utilities.Assertions.validate_SelectedOption;
-import static org.automation.utilities.Assertions.validate_text;
-import  org.automation.utilities.WebdriverWaits.*;
+import static org.automation.utilities.Assertions.*;
 import static org.automation.utilities.WebdriverWaits.waitForSpinner;
 import static org.testng.Assert.assertEquals;
 import static test.SuperAdminTest.adminUserName;
@@ -45,6 +42,10 @@ public class AdminTest extends BaseTest {
      String diagnosticianFirstName;
      String diagnosticianLastName;
      String diagnosticianEmailAddress;
+     List<WebElement>  diagList;
+     String fullname;
+     String holdAppointmentname;
+
     @Test(priority = 0, enabled = true, description = "Verify admin is able to login with valid credentials")
      public void admin_login(){
     LoginPage login = new LoginPage();
@@ -59,6 +60,7 @@ public class AdminTest extends BaseTest {
     public void create_Diagnostician() throws InterruptedException {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         DashBoardPanelPage tab = new DashBoardPanelPage();
+        AdminPage reAssign= new AdminPage();
         // Click on diagnostician tab from left panel.
         tab.click_DiagnosticianTab();
         WebdriverWaits.waitUntilVisible(diagnostician.diagListPageText);
@@ -73,6 +75,10 @@ public class AdminTest extends BaseTest {
         WebdriverWaits.waitUntilVisible(diagnostician.actualText);
         //validate Diagnostician
         validate_text(diagnostician.actualText,diagnosticianUserName);
+        diagList= reAssign.get_diagList(reAssign.diagList);
+
+
+
     }
     @Test(priority = 2,enabled = true,description = "Set availability for diagnostician by admin")
     public void diagnostician_Availability() throws InterruptedException {
@@ -83,6 +89,7 @@ public class AdminTest extends BaseTest {
         diagnostician.set_Availability();
         validate_text(diagnostician.avaActualText,"Available");
         logout.click_LogOutLink();
+
     }
 
     @Test(priority = 3, enabled = true, description = "Creating Director from admin" )
@@ -150,7 +157,7 @@ public class AdminTest extends BaseTest {
         clientCellNumber=RandomStrings.requiredDigits(10);
         clientEmail=clientFirstName+ "@yopmail.com";
         clientEmail2= clientFirstName+"101@yopmail.com";
-        fillClientDetails.fill_clientDetailsSection( clientFirstName, clientLastName, 1,"19-11-2000",1, "7654436788", clientEmail, "Other","New York","Texas","30052" ,"1000","900");
+         fullname = fillClientDetails.fill_clientDetailsSection( clientFirstName, clientLastName, 1,"19-11-2000",1, "7654436788", clientEmail, "Other","New York","Texas","30052" ,"1000","900");
 
 
     }
@@ -163,8 +170,17 @@ public class AdminTest extends BaseTest {
         validate_text(followUp.validateScheduledFollowUp,"Follow Up Scheduled!!");
         followUp.click_BackBtn();
     }
-    //******************** Functionality for Edit Assessment Pop Up and Test Plan **************//
-    @Test(priority = 11, enabled = false, description = "Verify Edit Assessment type button .")
+    @Test(priority = 11, enabled = false, description = "Re-Assign Appointment for client by admin")
+    public void re_AssignAppointment() throws InterruptedException {
+        AdminPage reAssign = new AdminPage();
+        reAssign.click_ReAssignBn();
+        WebdriverWaits.waitUntilVisible(reAssign.reAssignDiagList);
+        List<WebElement> reassigList= reAssign.get_diagList(reAssign.diagList);
+        boolean result = reAssign.compare_DiagAndReAssignDiagList(diagList,reassigList);
+        Assert.assertTrue(result);
+
+    }
+    @Test(priority = 11, enabled = false, description = "Re-Assign Appointment for client by admin")
     public void edit_AssessmentTypePopUp()throws InterruptedException{
         AdminPage editType = new AdminPage();
         editType.click_EditAssessment();
@@ -270,12 +286,18 @@ public class AdminTest extends BaseTest {
         validate_text(appPage.viewAllActualText,"All Appointments");
 
     }
-    @Test(priority = 21, enabled = false, description = "Verify search textbox")
+    @Test(priority = 21, enabled = false, description = "Verify filter button and serarchtextbox textbox")
     public void search_CreatedAppointment() throws InterruptedException{
         AppointmentsPage appPage= new AppointmentsPage();
+        AdminPage placeHolder = new AdminPage();
         appPage.click_FilterButton();
-        appPage.click_SearchField(clientFirstName+" "+ clientLastName);
-        //assertuon
+        String text = appPage.GetValueAttribute(appPage.searchTextBox,"placeholder");
+        String fromDateplaceholder = placeHolder.GetValueAttribute(placeHolder.fromDateText,"placeholder");
+        Assert.assertEquals(fromDateplaceholder,"From Date");
+        Assert.assertEquals(text,"Type here to search");
+
+
+
     }
     @Test(priority = 22, enabled = false, description = "Verify search fromDate and toDate")
     public void verify_FromAndToDate() throws InterruptedException{
@@ -303,6 +325,52 @@ public class AdminTest extends BaseTest {
         }
 
         Assert.assertTrue(result);
+    }
+    @Test(priority = 23,enabled = true,description="verify hold appointment button.")
+    public void verify_HoldAppointmentBtn() throws InterruptedException {
+        AdminPage hold = new AdminPage();
+        hold.click_HoldAppointmentBtn();
+        validate_text(hold.holdActualText, "Are you sure you want to hold this appointment?");
+        holdAppointmentname= hold.getText_custom(hold.fullName);
+        Log.info(holdAppointmentname);
+    }
+    @Test(priority = 24,enabled = true,description="verify yes hold button on hold appointment button.")
+    public void verify_yesHoldBtn() throws InterruptedException{
+        AdminPage hold = new AdminPage();
+        hold.click_yesHoldBtn();
+        WebdriverWaits.waitUntilVisible(hold.allAppointmentsPage);
+        validate_text(hold.allAppointmentsPage,"All Appointments");
+    }
+    @Test(priority = 25,enabled = true,description="verify yes hold button on hold appointment popup.")
+    public void verify_HoldAppointment() throws InterruptedException{
+        AdminPage hold = new AdminPage();
+        hold.click_HoldTab();
+        validate_text(hold.holdAppointmentText,"Hold Appointments");
+    }
+    @Test(priority = 26,enabled = true,description="verify filter button on hold appointment page.")
+    public void verify_holdfilterButton() throws InterruptedException{
+        AdminPage hold = new AdminPage();
+        hold.click_HoldFilterBtn();
+        String searchPlaceHolder = hold.GetValueAttribute(hold.searchTextBox,"placeholder");
+        String fromDateplaceholder = hold.GetValueAttribute(hold.fromDateText,"placeholder");
+        String toDatePlaceholder = hold.GetValueAttribute(hold.toDateText,"placeholder");
+        Assert.assertEquals(fromDateplaceholder,"From Date");
+        Assert.assertEquals(toDatePlaceholder,"To Date");
+        Assert.assertEquals(searchPlaceHolder,"Type here to search");
+
+    }
+    @Test(priority = 27,enabled = true,description="verify holded appointment .")
+    public void verify_holdedAppointment() throws InterruptedException{
+        AdminPage hold = new AdminPage();
+        hold.send_textHoldSearchBox(holdAppointmentname);
+        String name = getText_custom(hold.validateHoldClient);
+        Log.info(name);
+        validate_text(hold.validateHoldClient,holdAppointmentname);
+    }
+    public void verify_unHoldBtn() throws InterruptedException{
+        AdminPage unHold = new AdminPage();
+        unHold.click_unHoldBtn();
+
     }
     //************************ Edit Diagnostician *********************//
     @Test(priority = 23,enabled = false, description = "Search created diagnostician by admin")

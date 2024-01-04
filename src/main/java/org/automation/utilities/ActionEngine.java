@@ -1,4 +1,6 @@
 package org.automation.utilities;
+
+import com.relevantcodes.extentreports.LogStatus;
 import org.automation.base.BaseTest;
 import org.automation.elements.*;
 import org.automation.elements.Button;
@@ -19,6 +21,7 @@ import static com.relevantcodes.extentreports.LogStatus.PASS;
 public class ActionEngine extends BaseTest {
 
     public void click_custom(By path, String... label) {
+        WebdriverWaits.waitForSpinner();
         WebdriverWaits.waitUntilVisible(path);
         String var = "";
         try {
@@ -224,11 +227,11 @@ public class ActionEngine extends BaseTest {
 
             text = element.getText();
             //  Log.debug("Text for " + element + " is " + text);
-            extentTest.log(PASS, "Text retrieved is: "+ text);
+            extentTest.log(PASS, "Text retrieved is: " + text);
             return text;
         } catch (Exception e) {
-            extentTest.log(FAIL, "==> Text not retried due to exception: "+ e);
-            throw  new RuntimeException(e);
+            extentTest.log(FAIL, "==> Text not retried due to exception: " + e);
+            throw new RuntimeException(e);
 
         }
     }
@@ -244,7 +247,7 @@ public class ActionEngine extends BaseTest {
 
         } catch (Exception e) {
             extentTest.log(FAIL, "Unable to get text due to exception : \n" + e);
-            throw  new RuntimeException(e);
+            throw new RuntimeException(e);
 
         }
     }
@@ -326,21 +329,23 @@ public class ActionEngine extends BaseTest {
             fieldName = label.length > 0 ? label[0] : path.toString();
              List <WebElement> elements =getDriver().findElements(path);
 
-                //  log success message in exgent report
-                 extentTest.log(PASS,fieldName +"==>Locate webElements!");
-                  return elements;
+            //  log success message in exgent report
+            extentTest.log(PASS, fieldName + "==>Locate webElements!");
+            return elements;
 
 
-            } catch(Exception e){
-                //    log failure in extent
-                extentTest.log(FAIL, "Unable to find any elemenets " + fieldName + " due to exception: " + e);
-                return null;
-            }
+        } catch (Exception e) {
+            //    log failure in extent
+            extentTest.log(FAIL, "Unable to find any elemenets " + fieldName + " due to exception: " + e);
+            return null;
         }
-    public  void refresh_Page(){
+    }
+
+    public void refresh_Page() {
         getDriver().navigate().refresh();
     }
-    public void navigate_Back(){
+
+    public void navigate_Back() {
         getDriver().navigate().back();
     }
     public void navigate_to_baseUrl(){
