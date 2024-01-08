@@ -359,7 +359,7 @@ public class ActionEngine extends BaseTest {
         return text;
     }
 
-    public String GetValueAttribute(By element, String attributeName) {
+    public static String GetValueAttribute(By element, String attributeName) {
         try {
             String text=getDriver().findElement(element).getAttribute(attributeName);
             return text;

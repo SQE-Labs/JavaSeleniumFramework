@@ -181,8 +181,11 @@ public class WebdriverWaits extends BaseTest {
         Actions act = new Actions(getDriver());
         act.moveToElement(ele).click().build().perform();
     }
+    public  static void moveToEleByWE(WebElement element) {
+        Actions act = new Actions(getDriver());
+        act.moveToElement(element).click().build().perform();
+    }
     public static void waitForSpinner() {
-
          By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
         try {
             Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("pollingWait")))).ignoring(ElementClickInterceptedException.class, ElementNotInteractableException.class);

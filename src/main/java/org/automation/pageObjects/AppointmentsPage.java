@@ -17,10 +17,8 @@ public class AppointmentsPage extends BasePage {
     public By searchedText=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
     public By viewDetailsLink=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(7)");
     public By clickSlotSaveBtn= By.xpath("//mbsc-button[text()=' Save ']");
-    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[16]");
+    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[5]");
     public By clickCalSaveBtn = By.xpath("//a[@class='theme-button green float-right mr-2']");
-    public By calendarTitle= By.xpath("//mbsc-button[@class='mbsc-calendar-button mbsc-button mbsc-button-flat mbsc-font mbsc-ios mbsc-ios-dark mbsc-ltr mbsc-reset ng-star-inserted']");
-    public By currentYear= By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios mbsc-ios-dark ng-star-inserted'])[13]");
     public By newSlotText =By.xpath("//div[@class='ng-star-inserted']");
 
     public By filterButton = By.xpath("//a[text()='Filter']");
@@ -67,6 +65,9 @@ public class AppointmentsPage extends BasePage {
     public By searchTextBox = By.id("filterSearch");
     public By fromDateText = By.xpath("//input[@formcontrolname='fromDate']");
     public By  fullName = By.xpath("//li[span[contains(text(), 'Client Name')]]/text()");
+
+
+
 
 
     public void enterFirstName(String cilentFirstNameText){

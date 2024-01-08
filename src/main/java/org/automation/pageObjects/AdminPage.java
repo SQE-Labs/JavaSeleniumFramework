@@ -22,6 +22,7 @@ public class AdminPage extends BasePage {
     public By admin_Email = By.xpath("//input[@placeholder='Email']");
     public By userName = By.xpath("//input[@placeholder='Username']");
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
+    public By diagList = By.xpath("(//span[text()='Active'])/../../td[text()='Plano']/../td[1]");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
     public By createadminButton = By.xpath("//button[@class='theme-button float-md-right']");
     public By succ_Msg = By.xpath("//div[@class='alert alert-success ng-star-inserted']");
@@ -108,7 +109,7 @@ public class AdminPage extends BasePage {
     public By editUpdateBtn = By.id("intakeFormSubmit");
     public By actualTextClient = By.xpath("//p[text()=' College']");
     public By followUp = By.xpath("//a[text()=' Create Follow Up ']");
-    public By followUpSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[13]");
+    public By followUpSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[7]");
     public By slotSaveBtn = By.xpath("//mbsc-button[text()=' Save ']");
     public By followUpSaveBtn = By.xpath("//a[text()='Save']");
     public By confirmBtn= By.xpath("//a[text()='Confirm']");
@@ -117,6 +118,7 @@ public class AdminPage extends BasePage {
     public By viewAllTab = By.xpath("//a[text()='View All']");
     //*************************** Payment PopUp **************************//
     public By paymentBtn = By.xpath("//button[text()=' Payment ']");
+    public By reAssignDiagList = By.xpath("//select[@id='diag']//option[@class='ng-star-inserted']");
     public By collectPayActualText = By.xpath("//h4[text()='Collect Payment']");
     public By testFeeAdjustmentAmt = By.xpath("//input[@class='custom-input my-1 ng-pristine ng-valid ng-touched']");
     public By collectFeeAmt = By.xpath("//input[@class='custom-input my-1 ng-untouched ng-pristine ng-valid']");
@@ -128,6 +130,31 @@ public class AdminPage extends BasePage {
     public By assessmentAmount = By.xpath("//label[text()='Assessment Amount']//following-sibling::p");
     public By receivedAmount = By.xpath("//label[text()='Received Amount']//following-sibling::p");
     public By fullPayActualText = By.xpath("//span[@class='badge bg-warning float-right ng-star-inserted']");
+    public By holdButton = By.xpath("//button[text()=' Hold Appointment ']");
+    public By holdActualText = By.xpath("(//h6[@class='mb-4 text-center'])[2]");
+    public By  fullName = By.xpath("(//p)[9]");
+    public By allAppointmentsPage=By.xpath("//h3[text()='All Appointments']");
+    public By holdAppointmentBtn = By.xpath("//button[text()='Yes, Hold']");
+    public By holdtab = By.xpath("//a[text()='Hold']");
+    public By holdAppointmentText= By.xpath("//h3[text()='Hold Appointments']");
+    public By holdfilterButton = By.xpath("//a[text()='Filter']");
+    public By searchTextBox = By.id("filterSearch");
+    public By toDateText = By.xpath("//input[@formcontrolname='toDate']");
+    public By fromDateText = By.xpath("//input[@formcontrolname='fromDate']");
+    public By validateHoldClient = By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
+    public By unHoldBtn= By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(7)");
+
+    //*******************Paying full payment by client****************
+
+    public By appointmentTab=By.xpath("//a[text()=' Appointments ']");
+    public By testCompleteTab=By.xpath("//a[text()='Test complete']");
+    public By clientDetailLink=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(7)");
+    public By paymentButton=By.xpath("//button[@class='theme-button green m-2 ng-star-inserted']");
+    public By inr=By.xpath("(//td)[10]");
+    public By amountField=By.xpath("//input[@id='bookingDeposit']");
+    public By collectButton=By.xpath("//button[@class='theme-button mx-2']");
+    public By cancelButton=By.xpath("(//a[@class='theme-button grey'])[4]");
+
 
 
     public void clickOn_createAdminButton() {
@@ -164,11 +191,40 @@ public class AdminPage extends BasePage {
     public void create_passwordField(String passwordFieldText) {
         sendKeys_withClear(password_Field, passwordFieldText);
     }
+    public void click_Re_AssigDropDown(){
+        WebdriverWaits.waitUntilVisible(diag);
+        click_custom(diag);
+
+    }
 
     public void confirm_PasswordField(String confirmPasswordText) {
         sendKeys_withClear(confirm_PasswordField, confirmPasswordText);
     }
+    public List<WebElement> get_diagList(By Path){
+        List<WebElement> list = getWebElements(Path);
+        return list;
+    }
+    public boolean compare_DiagAndReAssignDiagList(List<WebElement> list1, List<WebElement> list2) {
+        click_Re_AssigDropDown();
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+        System.out.println(list1.size());
+        System.out.println(list2.size());
 
+        for (int i = 0; i < list1.size(); i++) {
+            WebElement element1 = list1.get(i);
+            System.out.println(list1.get(i));
+            WebElement element2 = list2.get(i);
+            System.out.println(list2.get(i));
+
+            // Compare based on text, can be changed to any other attribute like element1.getAttribute("id")
+            if (!element1.getText().equals(element2.getText())) {
+                return false;
+            }
+        }
+        return true;
+    }
     public void clickOn_createadminButton() {
         click_custom(createadminButton);
     }
@@ -460,6 +516,29 @@ public class AdminPage extends BasePage {
         WebdriverWaits.waitUntilVisible(editAdditionalComment);
         sendKeys_custom(editAdditionalComment, additionalComment);
     }
+    public void click_HoldAppointmentBtn(){
+        WebdriverWaits.waitUntilVisible(holdButton);
+        click_custom(holdButton);
+    }
+    public void click_yesHoldBtn(){
+        WebdriverWaits.waitUntilVisible(holdAppointmentBtn);
+        click_custom(holdAppointmentBtn);
+    }
+    public void click_HoldTab(){
+        click_custom(holdtab);
+    }
+    public void click_HoldFilterBtn(){
+        WebdriverWaits.waitUntilVisible(holdfilterButton);
+        click_custom(holdfilterButton);
+    }
+    public void send_textHoldSearchBox(String name ){
+        sendKeys_custom(searchTextBox,name);
+
+    }
+    public void click_unHoldBtn(){
+        click_custom(unHoldBtn);
+    }
+
 
     public String edit_ClientInfo(String firstName, String lastName, String address1, String grade) {
         String fullName = firstName + " " + lastName;
@@ -578,6 +657,52 @@ public class AdminPage extends BasePage {
     public void enter_Amount(String amount){
         WebdriverWaits.waitUntilVisible(enterAmt);
         sendKeys_custom(enterAmt,amount);
+    }
+
+    //*******************Paying full payment by client**************
+    public void clickOn_AppointmentTab(){
+        WebdriverWaits.waitUntilVisible(appointmentTab);
+        WebdriverWaits.waitForSpinner();
+        click_custom(appointmentTab);
+        WebdriverWaits.waitForSpinner();
+        click_custom(testCompleteTab);
+    }
+
+    public void enter_ClientName(String clientText){
+        WebdriverWaits.waitUntilVisible(filterButton);
+        WebdriverWaits.waitForSpinner( );
+        click_custom(filterButton);
+        sendKeys_withClear(searchField,clientText);
+    }
+    public void clickOn_ViewDetailLink(){
+        click_custom(clientDetailLink);
+        WebdriverWaits.waitUntilVisible( paymentButton);
+        scrollIntoView(paymentButton);
+        click_custom(paymentButton);
+    }
+    public void enter_ValidAmount() throws InterruptedException {
+        String Inr = getText_custom(inr).replace("$", "");
+        Thread.sleep(6000);
+        sendKeys_withClear(amountField,Inr);
+    }
+    public void clickOn_CollectButton(){
+        click_custom(collectButton);
+    }
+    public void clickOn_CancelButton(){
+        WebdriverWaits.waitUntilVisible(cancelButton);
+        click_custom(cancelButton);
+    }
+
+    //*****************Doing full payment by client********************
+
+    public void paying_DueAmount(String clientText) throws InterruptedException {
+        clickOn_AppointmentTab();
+        enter_ClientName(clientText);
+        Thread.sleep(2000);
+        clickOn_ViewDetailLink();
+        enter_ValidAmount();
+        clickOn_CollectButton();
+        clickOn_CancelButton();
     }
 }
 
