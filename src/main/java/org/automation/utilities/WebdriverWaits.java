@@ -164,13 +164,7 @@ public class WebdriverWaits extends BaseTest {
         }
     }
 
-    public static void waitForElementInteractable(WebElement element) {
-        try {
-            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("pollingWait")))).ignoring(ElementClickInterceptedException.class, ElementNotInteractableException.class);
-            fluentWait1.until(ExpectedConditions.elementToBeClickable(element));
-        } catch (WebDriverException e) {
-        }
-    }
+
     public static void clickByJsExecuter(By element) {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         WebElement ele = getDriver().findElement(element);
@@ -188,7 +182,6 @@ public class WebdriverWaits extends BaseTest {
         act.moveToElement(ele).click().build().perform();
     }
     public static void waitForSpinner() {
-
          By loginLoading=By.cssSelector("div.ngx-spinner-overlay");
         try {
             Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("pollingWait")))).ignoring(ElementClickInterceptedException.class, ElementNotInteractableException.class);

@@ -8,7 +8,6 @@ public class DashboardPage extends BasePage {
 
     public By scheduleAppointment = By.xpath("//li[@id='Schedule Appointment']");
 
-
     public void clickScheduleAppointment()  {
         WebdriverWaits.waitUntilVisible(scheduleAppointment);
         WebdriverWaits.waitForSpinner();

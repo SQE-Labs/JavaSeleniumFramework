@@ -3,17 +3,24 @@ package org.automation.utilities;
 import com.relevantcodes.extentreports.LogStatus;
 import org.automation.base.BaseTest;
 import org.automation.elements.*;
+import org.automation.elements.Button;
 import org.automation.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.List;
 import org.automation.elements.Elements;
+import test.AdminTest;
+
 import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
+import static java.awt.event.KeyEvent.*;
 
 
 public class ActionEngine extends BaseTest {
@@ -352,4 +359,26 @@ public class ActionEngine extends BaseTest {
         return text;
 
         }
+    public static void uploadFile(String filepath) throws AWTException{
+        // creating object of Robot class
+        Robot rb = new Robot();
+        // Create a StringSelection object holding the file path
+         StringSelection str = new StringSelection(filepath);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str, null);
+        // press Contol+V for pasting
+        rb.keyPress(KeyEvent.VK_CONTROL);
+        rb.keyPress(KeyEvent.VK_V);
+
+        // release Contol+V for pasting
+        rb.keyRelease(KeyEvent.VK_CONTROL);
+        rb.keyRelease(KeyEvent.VK_V);
+
+        // for pressing and releasing Enter
+        rb.keyPress(KeyEvent.VK_ENTER);
+        rb.keyRelease(KeyEvent.VK_ENTER);
+
+
+
+    }
+
     }

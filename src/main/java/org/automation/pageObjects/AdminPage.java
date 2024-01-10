@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.automation.utilities.Assertions.validate_text;
+import static org.automation.utilities.WebdriverWaits.moveToElement;
 
 public class AdminPage extends BasePage {
     public By adminTab = By.xpath("//a[text()='Admins']");
@@ -22,18 +23,16 @@ public class AdminPage extends BasePage {
     public By admin_LastName = By.xpath("//input[@placeholder='Last Name']");
     public By admin_MobileNumber = By.xpath("//input[@placeholder='Cell Number']");
     public By admin_Email = By.xpath("//input[@placeholder='Email']");
-    public By assignLocation = By.xpath("//select[@id='testingLocation']");
-    public By locationName = By.xpath("//option[text()='Plano']");
     public By userName = By.xpath("//input[@placeholder='Username']");
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
-    public By createadminButton = By.xpath("//button[text()=' Create Admin ']");
-    public By succ_Msg = By.xpath("//div[text()='Admin Created Successfully']");
-    public By dashboardPage = By.xpath("//h3[text()='Admins List']");
+    public By createadminButton = By.xpath("//button[@class='theme-button float-md-right']");
+    public By succ_Msg = By.xpath("//div[@class='alert alert-success ng-star-inserted']");
+    public By dashboardPage = By.xpath("//h3");
 
     //**************Search created Admin*************
 
-    public By filterButton = By.xpath("//a[text()='Filter']");
+    public By filterButton = By.xpath("//a[@class='theme-button grey ml-auto mr-3']");
     public By searchField = By.xpath("//input[@id='filterSearch']");
     public By actualText = By.xpath("(//td)[2]");
 
@@ -53,12 +52,12 @@ public class AdminPage extends BasePage {
     public By dontSaveButton = By.xpath("//a[text()='Don’t Save']");
     public By editUserPop_Up = By.xpath("//h5[text()='Edit User']");
     public By userNameText = By.xpath("(//td[2])[1]");
-    public By Error_Msg = By.xpath("//div[text()='An error occurred while creating the admin. Error: Username is already exist!']");
+    public By Error_Msg = By.cssSelector(".alert.alert-danger.ng-star-inserted");
 
     //***********DASH BOARD PAGE**********
     public By dashboard = By.xpath("//h3[text()='Dashboard']");
     //*********** EDIT ASSESSMENT TYPE ********//
-    public By editAss = By.xpath("//a[text()='Edit Assessment Type']");
+    public By editAss = By.xpath("//a[@data-target='#editAssementType']");
     public By assType = By.xpath("//h5[text()='Change Assement Type']");
     public By assestmentType = By.xpath("//select[@id='assesmentType']");
     public By updateBtn = By.xpath("(//button[text()='Update'])[1]");
@@ -113,7 +112,7 @@ public class AdminPage extends BasePage {
     public By editUpdateBtn = By.id("intakeFormSubmit");
     public By actualTextClient = By.xpath("//p[text()=' College']");
     public By followUp = By.xpath("//a[text()=' Create Follow Up ']");
-    public By followUpSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-ios-dark mbsc-schedule-item ng-star-inserted'])[36]");
+    public By followUpSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[13]");
     public By slotSaveBtn = By.xpath("//mbsc-button[text()=' Save ']");
     public By followUpSaveBtn = By.xpath("//a[text()='Save']");
     public By confirmBtn = By.xpath("//a[text()='Confirm']");
@@ -138,19 +137,36 @@ public class AdminPage extends BasePage {
     public By searchTextBox = By.id("filterSearch");
     public By toDateText = By.xpath("//input[@formcontrolname='toDate']");
     public By fromDateText = By.xpath("//input[@formcontrolname='fromDate']");
-    public By  fullName = By.xpath("(//p)[9]");
+    public By fullName = By.xpath("//div[label[contains(text(), 'Full Name')]]/p");
     public By holdAppointmentBtn = By.xpath("//button[text()='Yes, Hold']");
     public By holdActualText = By.xpath("(//h6[@class='mb-4 text-center'])[2]");
     public By holdButton = By.xpath("//button[text()=' Hold Appointment ']");
     public By holdtab = By.xpath("//a[text()='Hold']");
-    public By allAppointmentsPage=By.xpath("//h3[text()='All Appointments']");
-    public By holdAppointmentText= By.xpath("//h3[text()='Hold Appointments']");
+    public By allAppointmentsPage = By.xpath("//h3[text()='All Appointments']");
+    public By holdAppointmentText = By.xpath("//h3[text()='Hold Appointments']");
     public By holdfilterButton = By.xpath("//a[text()='Filter']");
     public By validateHoldClient = By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
-    public By unHoldBtn= By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(7)");
-
-
-
+    public By unHoldBtn = By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(7)");
+    public By yesUholdBtn = By.xpath("//button[text()='Yes, Unhold']");
+    public By validateUnholdText = By.xpath("//h6[@class='mb-4 text-center']");
+    public By validateUholdAppointmentText = By.xpath("//h3");
+    public By cancelAppointmentBtn = By.xpath("//button[@data-target='#cancelApptModal']");
+    public By yesCancelBtn = By.xpath("//button[text()='Yes']");
+    public By validateCancelText = By.xpath("//h6[@class='mb-4 text-center']");
+    public By validateCancelAppointment = By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(7)");
+    public By rescheduleBtn = By.xpath("//label[@for='rescheduleAppt']/..");
+    public By cancelRadioBtn = By.xpath("//input[@value='Cancel']");
+    public By cancelTab = By.xpath("//a[text()='Canceled']");
+    public By cancelApppageText = By.xpath("//h3");
+    public By cancelFilterBtn = By.xpath("//a[text()='Filter']");
+    public By cancelSearchBox = By.id("filterSearch");
+    //***************************Upload Document****************//
+    public By uploadDocumentBtn = By.xpath(" //button[text()=' Upload Documents ']");
+    public By uploadDocumentText = By.xpath("//h4[text()='Upload Documents']");
+   public By  chooseFile =  By.id("document");
+    public By uploadBtn = By.xpath("//button[text()='Upload']");
+    public By uploadDocumentActualText = By.xpath("//h5[text()='Document Uploaded Successfully!!']");
+    public By closeBtn = By.xpath("//a[text()='Close']");
 
     public void clickOn_createAdminButton() {
         WebdriverWaits.waitUntilVisible(createAdminButton);
@@ -158,7 +174,7 @@ public class AdminPage extends BasePage {
         click_custom(createAdminButton);
     }
 
-    public void enter_admin_FirstName(String CustomerFirstName) throws InterruptedException {
+    public void enter_admin_FirstName(String CustomerFirstName) {
         WebdriverWaits.waitUntilVisible(admin_FirstName);
         sendKeys_withClear(admin_FirstName, CustomerFirstName);
     }
@@ -200,7 +216,7 @@ public class AdminPage extends BasePage {
 
     public void click_filterButton() {
         WebdriverWaits.waitUntilVisible(filterButton);
-        WebdriverWaits.waitUntilVisible(loginLoading);
+        WebdriverWaits.waitForSpinner();
         click_custom(filterButton);
     }
 
@@ -277,7 +293,7 @@ public class AdminPage extends BasePage {
         click_On_EditButton();
         WebdriverWaits.waitUntilVisible(editUserPop_Up);
         validate_text(editUserPop_Up, "Edit User");
-        // enter_CellNumber(cellNumberText);
+
         enter_Admin_Email1(EmailAddress1);
         clickOn_PasswordField(passwordTextFieldText);
         clickOn_confirmPasswordFieldField(confirmPasswordFieldText);
@@ -508,6 +524,7 @@ public class AdminPage extends BasePage {
 
     public void click_CreateFollowUpBtn() {
         WebdriverWaits.waitUntilVisible(followUp);
+        WebdriverWaits.waitForSpinner();
         click_custom(followUp);
     }
 
@@ -548,7 +565,6 @@ public class AdminPage extends BasePage {
 
 
     }
-
 
 
     public void click_PaymentBtn() {
@@ -610,10 +626,12 @@ public class AdminPage extends BasePage {
         WebdriverWaits.waitUntilVisible(enterAmt);
         sendKeys_custom(enterAmt, amount);
     }
-    public List<WebElement> get_diagList(By Path){
+
+    public List<WebElement> get_diagList(By Path) {
         List<WebElement> list = getWebElements(Path);
         return list;
     }
+
     public boolean compare_DiagAndReAssignDiagList(List<WebElement> list1, List<WebElement> list2) {
         click_Re_AssigDropDown();
         if (list1.size() != list2.size()) {
@@ -635,36 +653,99 @@ public class AdminPage extends BasePage {
         }
         return true;
     }
-   public void click_Re_AssigDropDown(){
+
+    public void click_Re_AssigDropDown() {
         WebdriverWaits.waitUntilVisible(diag);
         click_custom(diag);
 
-   }
-public void click_HoldAppointmentBtn(){
-WebdriverWaits.waitUntilVisible(holdButton);
-click_custom(holdButton);
-}
-public void click_yesHoldBtn(){
+    }
+
+    public void click_HoldAppointmentBtn() {
+        WebdriverWaits.waitUntilVisible(holdButton);
+        click_custom(holdButton);
+    }
+
+    public void click_yesHoldBtn() {
         WebdriverWaits.waitUntilVisible(holdAppointmentBtn);
         click_custom(holdAppointmentBtn);
-}
-public void click_HoldTab(){
+    }
+
+    public void click_HoldTab() {
         click_custom(holdtab);
-}
-public void click_HoldFilterBtn(){
+    }
+
+    public void click_HoldFilterBtn() {
         WebdriverWaits.waitUntilVisible(holdfilterButton);
         click_custom(holdfilterButton);
-}
+    }
 
-public void send_textHoldSearchBox(String name ){
-        sendKeys_custom(searchTextBox,name);
-
-}
-public void click_unHoldBtn(){
-     click_custom(unHoldBtn);
-}
+    public void send_textHoldSearchBox(String name) {
+        sendKeys_custom(searchTextBox, name);
 
     }
 
+    public void send_cancelAppointmentText(String name) {
+        sendKeys_custom(searchTextBox, name);
+    }
+
+    public void click_unHoldBtn() {
+        click_custom(unHoldBtn);
+    }
+
+    public void click_yesUnholdBtn() {
+        WebdriverWaits.waitUntilVisible(yesUholdBtn);
+        click_custom(yesUholdBtn);
+    }
+
+    public void click_CancelBtn() {
+        WebdriverWaits.waitUntilVisible(cancelAppointmentBtn);
+        click_custom(cancelAppointmentBtn);
+    }
+
+    public void click_yesCancelBtn() {
+        WebdriverWaits.waitUntilVisible(yesCancelBtn);
+        click_custom(yesCancelBtn);
+    }
+
+    public void click_CancelRadioBtn() {
+        WebdriverWaits.waitUntilVisible(cancelRadioBtn);
+        click_custom(cancelRadioBtn);
+    }
+
+    public void click_RescheduleRadioBtn() {
+        WebdriverWaits.waitUntilVisible(rescheduleBtn);
+        click_custom(rescheduleBtn);
+    }
+
+    public void click_CancelTab() {
+        WebdriverWaits.waitUntilVisible(cancelTab);
+        click_custom(cancelTab);
+
+    }
+
+    public void click_CancelFilterBtn() {
+        WebdriverWaits.waitUntilVisible(cancelFilterBtn);
+        click_custom(cancelFilterBtn);
+    }
+
+    public void click_UploadDocumentBtn() {
+        WebdriverWaits.waitUntilVisible(uploadDocumentBtn);
+        click_custom(uploadDocumentBtn);
+    }
+    public void click_ChooseFileBtn(){
+        WebdriverWaits.waitUntilVisible(chooseFile);
+        moveToElement(chooseFile);
+        WebdriverWaits.sleep(3000);
+    }
+    public void click_Uploadbtn(){
+        WebdriverWaits.waitUntilVisible(uploadBtn);
+        click_custom(uploadBtn);
+    }
+    public void click_CloseUploadBtn(){
+        WebdriverWaits.waitUntilVisible(closeBtn);
+        click_custom(closeBtn);
+
+    }
+}
 
 
