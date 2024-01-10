@@ -154,6 +154,7 @@ public class AdminPage extends BasePage {
     public By amountField=By.xpath("//input[@id='bookingDeposit']");
     public By collectButton=By.xpath("//button[@class='theme-button mx-2']");
     public By cancelButton=By.xpath("(//a[@class='theme-button grey'])[4]");
+    public By clientNameDetail=By.xpath("//h3");
 
 
 

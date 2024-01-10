@@ -152,7 +152,7 @@ public class AdminTest extends BaseTest {
      public void fill_clientDetailsSection() throws InterruptedException {
         AppointmentsPage fillClientDetails = new AppointmentsPage();
         clientFirstName="Au_xav"+RandomStrings.requiredCharacters(2);
-        clientLastName="Au_jam"+RandomStrings.requiredCharacters(2);
+        clientLastName="Au_Dawbi"+RandomStrings.requiredCharacters(2);
         clientCellNumber=RandomStrings.requiredDigits(10);
         clientEmail=clientFirstName+ "@yopmail.com";
         clientEmail2= clientFirstName+"101@yopmail.com";
@@ -439,6 +439,8 @@ public class AdminTest extends BaseTest {
         AdminPage admin=new AdminPage();
         login.adminLogin("Allen", "123456");
         admin.paying_DueAmount(clientFirstName);
+        WebdriverWaits.waitUntilVisible(admin.clientNameDetail);
+        validate_text(admin.clientNameDetail,clientFirstName +' '+ clientLastName +' '+ "Details");
     }
 }
 

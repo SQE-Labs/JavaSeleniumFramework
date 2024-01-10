@@ -17,7 +17,7 @@ public class AppointmentsPage extends BasePage {
     public By searchedText=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
     public By viewDetailsLink=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(7)");
     public By clickSlotSaveBtn= By.xpath("//mbsc-button[text()=' Save ']");
-    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[5]");
+    public By clickSlot = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[9]");
     public By clickCalSaveBtn = By.xpath("//a[@class='theme-button green float-right mr-2']");
     public By newSlotText =By.xpath("//div[@class='ng-star-inserted']");
 
@@ -28,7 +28,7 @@ public class AppointmentsPage extends BasePage {
     public By searchButton=By.xpath("//button[text()='Search']");
     public By exportCSVButton=By.xpath("//button[text()='Export to CSV']");
     public By assessmentDate = By.id("assessmentDate");
-    public By viewDetails=By.xpath("//a[text()='View Detail']");
+    public By viewDetails=By.xpath("//a[@class='theme-button grey']");
     public By App_Text=By.xpath("//h3");
     public By spinner= By.cssSelector("div.ngx-spinner-overlay");
     public By viewAllActualText= By.xpath("//h3[@class='mb-4 mb-md-0']");

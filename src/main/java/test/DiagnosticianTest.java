@@ -122,25 +122,44 @@ public class DiagnosticianTest extends BaseTest {
     public void todays_Appointments() throws InterruptedException {
         ActionEngine action = new ActionEngine();
         DiagnosticianPage diagnostician = new DiagnosticianPage();
-        DashBoardPanelPage panelPage=new DashBoardPanelPage();
-
         action.navigate_Back();
         diagnostician.payment_NewPage();
         diagnostician.start_Assessment_ByPaying_LessAmount("I am doing Simple Testing");
         WebdriverWaits.waitUntilVisible(diagnostician.upcoming_App);
         WebdriverWaits.waitForSpinner();
         validate_text(diagnostician.upcoming_App,  "Upcoming Appointments");
-        panelPage.click_LogOutLink();
+
     }
 
-    @Test(priority = 7,enabled = false,description = "diagnostician is verifying completed assessments")
+    @Test(priority = 7,enabled = true,description = "diagnostician is verifying completed assessments")
     public void verify_CompleteAssessment(){
         DiagnosticianPage diagnostician = new DiagnosticianPage();
+        DashBoardPanelPage panelPage=new DashBoardPanelPage();
         diagnostician.verify_CompleteAss();
-        diagnostician.view_ClientDetail(clientLastName);
-        WebdriverWaits.waitUntilVisible(diagnostician.clientDetailText);
-        validate_text(diagnostician.clientDetailText, clientFirstName +' '+ clientLastName +' '+ "Details");
+        diagnostician.click_filterButton();
+        diagnostician.enter_ClientDetail(clientLastName);
+        WebdriverWaits.waitUntilVisible(diagnostician.clientNameText);
+        validate_text(diagnostician.clientNameText, clientFirstName +' '+ clientLastName +' '+ "Details");
+        // panelPage.click_LogOutLink();
     }
+    @Test(priority = 8, enabled = true, description = "Verify diagnostician is able to download csv file or not after completing the assessment")
+    public void download_CSV_File_For_completeAss() throws InterruptedException, IOException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelpage = new DashBoardPanelPage();
+        DiagnosticianPage diagnostician = new DiagnosticianPage();
+        ActionEngine action = new ActionEngine();
+        diagnostician.verify_CompleteAss();
+        diagnostician.search_CreatedDiagnostician(clientLastName);
+
+        appointment.clickOn_ExportCSVButton();
+        //Download exportCSV File and Check file is downloaded or not
+        String downloadFile = panelpage.getDownloadFileName();
+        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
+        // panelpage.readCSVFile();
+        action.navigate_Back();
+        panelpage.click_LogOutLink();
+    }
+
 
 }
 

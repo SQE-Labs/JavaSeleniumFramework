@@ -50,6 +50,7 @@ public class DiagnosticianPage extends BasePage {
     public By searchFieldText = By.xpath("//input[@id='filterSearch']");
     public By viewClientDetailLink = By.xpath("(//td)[6]");
     public By clientDetailText = By.xpath("//div[contains(@class,'page-header align-items-lg-center')]");
+    public  By clientNameText=By.xpath("//h3");
     public By fromDate = By.xpath("//input[@placeholder='From Date']");
     public By toDate = By.xpath("//input[@placeholder='To Date']");
 
@@ -253,24 +254,19 @@ public class DiagnosticianPage extends BasePage {
         click_custom(filterButton);
         String AttText=getDriver().findElement(By.xpath("//input[@id='filterSearch']")).getAttribute("placeholder");
         System.out.println(AttText);
+        validate_AttText(AttText, "Type here to search");
 
-      //  getAttributevalue(searchField, "placeholder");
-        WebdriverWaits.waitUntilVisible(searchField);
-        validate_text(searchField, "Type here to search");
-
+        String fromDateText=getDriver().findElement(By.xpath("//input[@placeholder='From Date']")).getAttribute("placeholder");
         getAttributevalue(fromDate, "placeholder");
-        WebdriverWaits.waitUntilVisible(fromDate);
-        validate_text(fromDate, "From Date");
+        validate_AttText(fromDateText, "From Date");
 
-        getAttributevalue(toDate, "placeholder");
+        String toDateText=getDriver().findElement(By.xpath("//input[@placeholder='To Date']")).getAttribute("placeholder");
         WebdriverWaits.waitUntilVisible(toDate);
-        validate_text(toDate, "To Date");
+        validate_AttText(toDateText, "To Date");
     }
 
     public void enterInSearchField(String searchFieldText) {
         sendKeys_withClear(searchField, searchFieldText);
-
-
     }
 
     public void clickOn_ViewDetailLink() {
@@ -346,7 +342,6 @@ public class DiagnosticianPage extends BasePage {
 
     public void search_CreatedDiagnostician(String UserName) {
         click_filterButton();
-
         enterInSearchField(UserName);
     }
 
@@ -653,8 +648,12 @@ public class DiagnosticianPage extends BasePage {
 
     public void view_ClientDetail(String clientLastName) {
         click_custom(filterButton);
-        WebdriverWaits.waitUntilVisible(searchTextButton);
+          WebdriverWaits.waitUntilVisible(searchTextButton);
         validate_text(searchTextButton, "Search");
+        enterInSearchField(clientLastName);
+        clickOn_ViewDetailLink();
+    }
+    public void enter_ClientDetail(String clientLastName){
         enterInSearchField(clientLastName);
         clickOn_ViewDetailLink();
     }
@@ -670,8 +669,6 @@ public class DiagnosticianPage extends BasePage {
         validate_text(merchantLoginPage, "Merchant" + ' ' + "Login");
         switchToParentWindow();
     }
-
-
 
     public void start_Assessment_ByPaying_LessAmount(String textAreaText) throws InterruptedException {
         WebdriverWaits.waitUntilVisible(paymentDetailTitle);
@@ -696,7 +693,6 @@ public class DiagnosticianPage extends BasePage {
 
     public void verify_CompleteAss() {
         clickOn_CompleteAssTab();
-        click_filterButton();
     }
 
 
