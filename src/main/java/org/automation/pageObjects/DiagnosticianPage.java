@@ -87,7 +87,7 @@ public class DiagnosticianPage extends BasePage {
     public By difficulty_Sitting = By.xpath("(//div[@class='custom-control custom-checkbox'])[14]");
     public By Playing_with_hair = By.xpath("(//div[@class='custom-control custom-checkbox'])[13]");
     public By excessive_Talking = By.xpath("(//div[@class='custom-control custom-checkbox'])[16]");
-    public By summary = By.xpath("//textarea[@class='custom-input border border-danger ng-untouched ng-pristine ng-valid']");
+
     public By appointmentsTab = By.xpath("//a[text()=' Appointments ']");
     public By viewAllTab = By.xpath("(//a)[3]");
     public By dashboard = By.xpath("//h3[text()='Dashboard']");
@@ -193,6 +193,7 @@ public class DiagnosticianPage extends BasePage {
     //****************Complete Assessment*******************
 
     public By testComTab = By.xpath("//a[text()='Test complete']");
+
 
 
     DashBoardPanelPage panelPage = new DashBoardPanelPage();

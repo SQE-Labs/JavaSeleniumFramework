@@ -5,8 +5,9 @@ import org.automation.logger.Log;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import static org.automation.utilities.Assertions.validate_text;
+import java.util.List;
 
 
 public class DirectorPage extends BasePage {
@@ -66,10 +67,10 @@ public class DirectorPage extends BasePage {
     public By clickOnBox6 = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[16]");
     public By availableText = By.xpath("//div[text()='Available']");
     public By saveButton = By.xpath("//button[text()='Save']");
-    public By validationMsg=By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
+    public By validationMsg = By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
 
-    public By selectYear= By.xpath("//div[text()=' 2023 ']");
-    public By selectMonth=By.xpath("(//div[text()=' Dec '])[2]");
+    public By selectYear = By.xpath("//div[text()=' 2023 ']");
+    public By selectMonth = By.xpath("(//div[text()=' Dec '])[2]");
 
     //**************relogin with new password***********
 
@@ -82,9 +83,8 @@ public class DirectorPage extends BasePage {
 
     //*****************Paying full payment*****************
 
-    public By appointmentTab=By.xpath("//a[text()=' Appointments ']");
-
-
+    public By appointmentTab = By.xpath("//a[text()=' Appointments ']");
+    public By availableBox = By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']");
 
 
     public void click_CreateDirectorsButton() {
@@ -148,9 +148,11 @@ public class DirectorPage extends BasePage {
     public void enterInSearchField(String searchFieldText) {
         sendKeys_withClear(searchField, searchFieldText);
     }
+
     public void clickOn_SaveButton() {
         click_custom(saveButton);
     }
+
     //***************edit created director*****************
     public void click_On_EditButton() {
         wait.waitUntilVisible(editButton);
@@ -165,19 +167,23 @@ public class DirectorPage extends BasePage {
     public void click_UpdateButton() {
         click_custom(updateButton);
     }
+
     public void clickOn_YearHeader() {
         click_custom(yearHeader);
     }
+
     public void clickOn_MonthHeader() {
         WebdriverWaits.waitUntilVisible(monthHeader);
         click_custom(monthHeader);
     }
-    public void select_Year(){
+
+    public void select_Year() {
         WebdriverWaits.waitUntilVisible(selectYear);
         click_custom(selectYear);
 
     }
-    public void select_Month(){
+
+    public void select_Month() {
         WebdriverWaits.waitUntilVisible(selectMonth);
         click_custom(selectMonth);
 
@@ -221,8 +227,9 @@ public class DirectorPage extends BasePage {
         wait.waitUntilVisible(logOutLink);
         click_custom(logOutLink);
     }
+
     public void clickOn_availableBox() {
-       // click_custom(clickOnBox);
+        // click_custom(clickOnBox);
         click_custom(clickOnBox1);
         click_custom(clickOnBox2);
         click_custom(clickOnBox3);
@@ -246,8 +253,6 @@ public class DirectorPage extends BasePage {
     }
 
 
-
-
     //**************Search created director*************
     public void search_CreatedDirector(String UserName) throws InterruptedException {
         click_filterButton();
@@ -269,7 +274,7 @@ public class DirectorPage extends BasePage {
 
     //********Cheking toggole off of directore*************
 
-    public void cheking_DisableUser()   {
+    public void cheking_DisableUser() {
         click_On_EditButton();
         clickOn_DontSave();
         click_On_EditButton();
@@ -277,7 +282,7 @@ public class DirectorPage extends BasePage {
     }
 
     //********Enable user of director************
-    public void enable_Director()   {
+    public void enable_Director() {
         click_On_EditButton();
         off_ToggleButton();
         click_UpdateButton();
@@ -309,17 +314,31 @@ public class DirectorPage extends BasePage {
         clickOn_Login_PasswordField(PasswordFieldText);
         clickOn_Login_Button();
     }
+
     public void director_Availability() throws InterruptedException {
-      //  clickOn_MonthHeader();
-       // WebdriverWaits.waitUntilVisible(yearsCalender);
+        //  clickOn_MonthHeader();
+        // WebdriverWaits.waitUntilVisible(yearsCalender);
         //validate_text(yearsCalender, "2023 - 2034");
-      //  select_Year();
-       // select_Month();
-        clickOn_availableBox();
-      //  validate_text(availableText, "Available");
+        //  select_Year();
+        // select_Month();
+        WebdriverWaits.waitForSpinner();
+        Thread.sleep(10000);
+        List<WebElement> list = getDriver().findElements(By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']"));
+        System.out.println(list.size());
+        for (WebElement box : list) {
+            System.out.println(list.size());
+            click_custom(box);
+            if(getDriver().findElements(By.xpath("//div[@class='ng-star-inserted']")).size()>3){
+                if (getDriver().findElement(By.xpath("//div[@class='ng-star-inserted']")).getText().equals("Available")) {
+                    break;
+                }
+            }
+
+        }
         clickOn_SaveButton();
     }
 }
+
 
 
 

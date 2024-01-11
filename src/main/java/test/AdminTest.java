@@ -7,6 +7,7 @@ import org.automation.utilities.ActionEngine;
 import org.automation.utilities.DateGenerator;
 import org.automation.utilities.RandomStrings;
 import org.automation.utilities.WebdriverWaits;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -65,9 +66,9 @@ public class AdminTest extends BaseTest {
         WebdriverWaits.waitUntilVisible(diagnostician.diagListPageText);
         validate_text(diagnostician.diagListPageText,"Diagnosticians List");
         //Create Diagnostician.
-        diagnosticianFirstName = "AU_Aria"+ RandomStrings.requiredCharacters(2);
-        diagnosticianLastName = "AU_Leah"+ RandomStrings.requiredCharacters(2);
-        diagnosticianUserName= "Au_Lexi" + RandomStrings.requiredCharacters(2);
+        diagnosticianFirstName = "AU_Amy"+ RandomStrings.requiredCharacters(2);
+        diagnosticianLastName = "AU_Katie"+ RandomStrings.requiredCharacters(2);
+        diagnosticianUserName= "Au_Tran" + RandomStrings.requiredCharacters(2);
         diagnosticianEmailAddress = diagnosticianFirstName+ "10@yopmail.com";
         String diagnosticianPhoneNumber = RandomStrings.requiredDigits(10);
         diagnostician.create_Diagnostician(diagnosticianFirstName,diagnosticianLastName,diagnosticianPhoneNumber,diagnosticianEmailAddress,diagnosticianUserName,"123456","123456");
@@ -75,9 +76,6 @@ public class AdminTest extends BaseTest {
         //validate Diagnostician
         validate_text(diagnostician.actualText,diagnosticianUserName);
         diagList= reAssign.get_diagList(reAssign.diagList);
-
-
-
     }
     @Test(priority = 2,enabled = true,description = "Set availability for diagnostician by admin")
     public void diagnostician_Availability() throws InterruptedException {
@@ -97,10 +95,10 @@ public class AdminTest extends BaseTest {
         DirectorPage director = new DirectorPage();
         LoginPage login = new LoginPage();
         login.adminLogin("Allen","123456");
-        directorFirstName = "AU_Liamr" + RandomStrings.requiredCharacters(2);
-        directorLastName = "AU_Zac" + RandomStrings.requiredCharacters(2);
+        directorFirstName = "AU_Arlo" + RandomStrings.requiredCharacters(2);
+        directorLastName = "AU_Joel" + RandomStrings.requiredCharacters(2);
         directorEmailAddress = directorFirstName + "@yopmail.com";
-        directorUserName = "AU_Koby" + RandomStrings.requiredCharacters(2);
+        directorUserName = "AU_Koa" + RandomStrings.requiredCharacters(2);
         dirCellNumber=RandomStrings.requiredDigits(10);
         panelpage.click_DirectorTab();
         validate_text(director.directorActualText,"Directors List");
@@ -126,40 +124,56 @@ public class AdminTest extends BaseTest {
     public void schedule_Appointment() throws InterruptedException {
         LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
+        AppointmentsPage appPage = new AppointmentsPage();
         login.adminLogin("Allen", "123456");
         dashboard.clickScheduleAppointment();
-    }
-    @Test(priority = 6, enabled = true, description = "Select Location dropdown.")
-    public void select_TestingLocation() throws InterruptedException{
-        AppointmentsPage selctLoc = new AppointmentsPage();
-        selctLoc.selectTestinglocation(3);
-        validate_SelectedOption(selctLoc.chooseTestingLocation,"Austin");
-    }
-
-    @Test(priority = 7, enabled = true, description = "Selecting Date and time slot for appointment by admin.")
-    public void appointment_Calender() throws InterruptedException {
-        AppointmentsPage selectSlot = new AppointmentsPage();
-        selectSlot.selectAppointmentSlot();
-    }
-    @Test(priority = 8, enabled = true, description = "Selecting Assessment type for appointment by admin.")
-    public void select_AssessmentType() throws InterruptedException{
-        AppointmentsPage selectAssessment = new AppointmentsPage();
-        selectAssessment.selectAssesmentType(1);
-        validate_SelectedOption(selectAssessment.assestmentType,"Adult ADHD Only");
+        appPage.selectTestinglocation(3);
+        validate_SelectedOption(appPage.chooseTestingLocation,"Austin");
+        appPage.selectAppointmentSlot();
+        appPage.selectAssesmentType(1);
+        validate_SelectedOption(appPage.assestmentType,"Adult ADHD Only");
     }
 
-    @Test(priority = 9, enabled = true, description = "Filling client details by admin.")
+    @Test(priority = 6, enabled = true, description = "Filling client details by admin.")
      public void fill_clientDetailsSection() throws InterruptedException {
         AppointmentsPage fillClientDetails = new AppointmentsPage();
-        clientFirstName="Au_xav"+RandomStrings.requiredCharacters(2);
-        clientLastName="Au_Dawbi"+RandomStrings.requiredCharacters(2);
+        clientFirstName="Au_Theo"+RandomStrings.requiredCharacters(2);
+        clientLastName="Au_Finn"+RandomStrings.requiredCharacters(2);
         clientCellNumber=RandomStrings.requiredDigits(10);
         clientEmail=clientFirstName+ "@yopmail.com";
         clientEmail2= clientFirstName+"101@yopmail.com";
-        fillClientDetails.fill_clientDetailsSection( clientFirstName, clientLastName, 1,"19-11-2000",1, "7654436788", clientEmail, "Other","New York","Texas","30052" ,"1000","900");
-
-
+        fillClientDetails.fill_clientDetailsSection( clientFirstName, clientLastName, 1,"19-11-2000",1, clientCellNumber, clientEmail, "Other","New York","Texas","30052" ,"1000","900");
     }
+
+    @Test(priority = 7, enabled = true, description = "Verify that admin is able to cancel the appointment or not")
+    public void cancel_Appointment() {
+        AppointmentsPage appPage=new AppointmentsPage();
+        appPage.cancelAppointment();
+    }
+    @Test(priority = 8,enabled = true,description = "Diagnostician is verifying cancelled appointments")
+    public void verify_CancelledAppointment(){
+        AdminPage admin=new AdminPage();
+        admin.verify_CancelledApp(clientFirstName);
+        WebdriverWaits.waitUntilVisible(admin.clientName);
+        WebdriverWaits.waitForSpinner();
+        validate_text(admin.clientName,clientFirstName+' '+clientLastName);
+    }
+
+    @Test(priority = 9, enabled = true, description = "Appointment scheduled by admin for a client")
+    public void reSchedule_Appointment() throws InterruptedException {
+        DashboardPage dashboard = new DashboardPage();
+        AppointmentsPage appPage = new AppointmentsPage();
+        AppointmentsPage fillClientDetails = new AppointmentsPage();
+
+        dashboard.clickScheduleAppointment();
+        appPage.selectTestinglocation(3);
+        validate_SelectedOption(appPage.chooseTestingLocation,"Austin");
+        appPage.selectAppointmentSlot();
+        appPage.selectAssesmentType(1);
+        validate_SelectedOption(appPage.assestmentType,"Adult ADHD Only");
+        fillClientDetails.fill_clientDetailsSection( clientFirstName, clientLastName, 1,"19-11-2000",1, "7654436788", clientEmail, "Other","New York","Texas","30052" ,"1000","900");
+    }
+
     //********************** Create Follow Up For Client ***********************//
 
     @Test(priority = 10, enabled = true, description = "Creat follow up for client by admin")

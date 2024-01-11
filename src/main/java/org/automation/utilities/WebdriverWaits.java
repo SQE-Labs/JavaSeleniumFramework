@@ -156,7 +156,8 @@ public class WebdriverWaits extends BaseTest {
     public static Boolean waitForElementInteractable(By element) {
 
         try {
-            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("pollingWait")))).ignoring(ElementClickInterceptedException.class, ElementNotInteractableException.class);
+            Wait<WebDriver> fluentWait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(Long.parseLong(PropertiesUtil.getPropertyValue("waitTime")))).pollingEvery(Duration.ofMillis(Long.parseLong(PropertiesUtil.getPropertyValue("pollingWait"))))
+                    .ignoring(ElementClickInterceptedException.class, ElementNotInteractableException.class);
             fluentWait1.until(ExpectedConditions.elementToBeClickable(element));
             return true;
         } catch (WebDriverException e) {
