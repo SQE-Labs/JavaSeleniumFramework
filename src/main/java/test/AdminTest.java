@@ -7,26 +7,16 @@ import org.automation.utilities.ActionEngine;
 import org.automation.utilities.DateGenerator;
 import org.automation.utilities.RandomStrings;
 import org.automation.utilities.WebdriverWaits;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
-import org.automation.utilities.ActionEngine;
-
 import static org.automation.utilities.Assertions.*;
 import static org.automation.utilities.WebdriverWaits.waitForSpinner;
-import static org.testng.Assert.assertEquals;
-import static test.DiagnosticianTest.todays_Appointments;
 import static test.SuperAdminTest.adminUserName;
-
 public class AdminTest extends BaseTest {
 
       public static String clientLastName;
@@ -46,10 +36,11 @@ public class AdminTest extends BaseTest {
      List<WebElement>  diagList;
      String holdAppointmentname;
 
+
     @Test(priority = 0, enabled = true, description = "Verify admin is able to login with valid credentials")
      public void admin_login(){
     LoginPage login = new LoginPage();
-    login.adminLogin( "allen","123456");
+    login.adminLogin(adminUserName,"12345678");
     AdminPage dasboard = new AdminPage();
     waitForSpinner();
     validate_text(dasboard.adminDashboardText,"Dashboard");
@@ -59,6 +50,7 @@ public class AdminTest extends BaseTest {
     @Test(priority = 1, enabled = true, description = "Create diagnostician by admin")
     public void create_Diagnostician() throws InterruptedException {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
+        DashBoardPanelPage logout = new DashBoardPanelPage();
         DashBoardPanelPage tab = new DashBoardPanelPage();
         AdminPage reAssign= new AdminPage();
         // Click on diagnostician tab from left panel.
@@ -76,6 +68,7 @@ public class AdminTest extends BaseTest {
         //validate Diagnostician
         validate_text(diagnostician.actualText,diagnosticianUserName);
         diagList= reAssign.get_diagList(reAssign.diagList);
+
     }
     @Test(priority = 2,enabled = true,description = "Set availability for diagnostician by admin")
     public void diagnostician_Availability() throws InterruptedException {
@@ -94,7 +87,7 @@ public class AdminTest extends BaseTest {
         DashBoardPanelPage panelpage=new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
         LoginPage login = new LoginPage();
-        login.adminLogin("Allen","123456");
+        login.adminLogin( adminUserName,"12345678");
         directorFirstName = "AU_Arlo" + RandomStrings.requiredCharacters(2);
         directorLastName = "AU_Joel" + RandomStrings.requiredCharacters(2);
         directorEmailAddress = directorFirstName + "@yopmail.com";
@@ -125,10 +118,9 @@ public class AdminTest extends BaseTest {
         LoginPage login = new LoginPage();
         DashboardPage dashboard = new DashboardPage();
         AppointmentsPage appPage = new AppointmentsPage();
-        login.adminLogin("Allen", "123456");
+        login.adminLogin( adminUserName,"12345678");
         dashboard.clickScheduleAppointment();
-        appPage.selectTestinglocation(3);
-        validate_SelectedOption(appPage.chooseTestingLocation,"Austin");
+        appPage.selectTestinglocation("Austin");
         appPage.selectAppointmentSlot();
         appPage.selectAssesmentType(1);
         validate_SelectedOption(appPage.assestmentType,"Adult ADHD Only");
@@ -166,8 +158,7 @@ public class AdminTest extends BaseTest {
         AppointmentsPage fillClientDetails = new AppointmentsPage();
 
         dashboard.clickScheduleAppointment();
-        appPage.selectTestinglocation(3);
-        validate_SelectedOption(appPage.chooseTestingLocation,"Austin");
+        appPage.selectTestinglocation("Austin");
         appPage.selectAppointmentSlot();
         appPage.selectAssesmentType(1);
         validate_SelectedOption(appPage.assestmentType,"Adult ADHD Only");
@@ -177,7 +168,7 @@ public class AdminTest extends BaseTest {
     //********************** Create Follow Up For Client ***********************//
 
     @Test(priority = 10, enabled = true, description = "Creat follow up for client by admin")
-    public void create_FollowUp() throws InterruptedException{
+    public void create_FollowUp()  {
       AdminPage followUp= new AdminPage();
         followUp.Create_FollowUp();
         validate_text(followUp.validateScheduledFollowUp,"Follow Up Scheduled!!");
@@ -447,14 +438,16 @@ public class AdminTest extends BaseTest {
         panelpage.click_LogOutLink();
     }
 
-    @Test( dependsOnMethods={ "todays_Appointments"})
+    @Test( dependsOnMethods={ "download_CSV_File_For_completeAss"})
     public void full_Payment() throws InterruptedException {
         LoginPage login=new LoginPage();
         AdminPage admin=new AdminPage();
-        login.adminLogin("Allen", "123456");
+        DashBoardPanelPage panelpage = new DashBoardPanelPage();
+        login.adminLogin(adminUserName, "12345678");
         admin.paying_DueAmount(clientFirstName);
         WebdriverWaits.waitUntilVisible(admin.clientNameDetail);
         validate_text(admin.clientNameDetail,clientFirstName +' '+ clientLastName +' '+ "Details");
+        panelpage.click_LogOutLink();
     }
 }
 

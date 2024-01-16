@@ -352,7 +352,6 @@ public class AdminPage extends BasePage {
     //**********Enable user In Admin************
     public void enable_Admin() throws InterruptedException {
         click_On_EditButton();
-
         off_ToggleButton();
         click_UpdateButton();
     }
@@ -632,7 +631,7 @@ public class AdminPage extends BasePage {
 
 
     public void Create_FollowUp() {
-
+       refresh_Page();
         click_CreateFollowUpBtn();
         click_FollowUpSlot();
         click_FollowUpSlotSaveBtn();
@@ -713,6 +712,7 @@ public class AdminPage extends BasePage {
         WebdriverWaits.waitUntilVisible(appointmentTab);
         WebdriverWaits.waitForSpinner();
         click_custom(appointmentTab);
+        WebdriverWaits.waitUntilVisible(testCompleteTab);
         WebdriverWaits.waitForSpinner();
         click_custom(testCompleteTab);
     }
@@ -732,6 +732,7 @@ public class AdminPage extends BasePage {
     public void clickOn_ViewDetailLink() {
         click_custom(clientDetailLink);
         WebdriverWaits.waitUntilVisible(paymentButton);
+        WebdriverWaits.waitForSpinner();
         scrollIntoView(paymentButton);
         click_custom(paymentButton);
     }
