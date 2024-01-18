@@ -10,12 +10,10 @@ import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
-
 import static org.automation.utilities.Assertions.validate_text;
 
 public class AdminTest extends BaseTest {
@@ -25,9 +23,9 @@ public class AdminTest extends BaseTest {
     String clientEmail;
     String clientEmail2;
     String clientCellNumber;
-     String directorFirstName;
-     String directorLastName;
-     String directorEmailAddress;
+    String directorFirstName;
+    String directorLastName;
+    String directorEmailAddress;
      String directorUserName;
      String diagnosticianFirstName;
     public String diagnosticianEmailAddress;
@@ -49,7 +47,7 @@ public class AdminTest extends BaseTest {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login = new LoginPage();
         //Login by using superAdmin credentials
-        //  login.superAdminLogin();
+        login.superAdminLogin();
         panelPage.click_DiagnosticianTab();
         diagnostician.create_Diagnostician(diagnosticianFirstName, diagnosticianLastName, dia_Cell_Number, diagnosticianEmailAddress, diagnosticianUserName, "123456", "123456");
         WebdriverWaits.waitUntilVisible(diagnostician.actualText);

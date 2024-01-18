@@ -77,8 +77,16 @@ public class DirectorPage extends BasePage {
     public By directorDashBoardPage = By.xpath("//h3[text()='Dashboard']");
     public By validation_Msg = By.xpath("//small[text()='Username or password is incorrect']");
     public By spinner = By.cssSelector("div.ngx-spinner-overlay");
+    public By setAvailaibility = By.xpath("//h3[text()='Set Availability']");
+    public By slotSelection = By.xpath("//*[@id=\"diagnoSetAvailabilityForm\"]/div[1]/mbsc-eventcalendar/mbsc-calendar-view/mbsc-scheduler/div[3]/div[2]/div/div/div[7]/div/div[7]");
 
 
+
+    public void clickOn_AvailaibleSlot() {
+        WebdriverWaits.waitUntilVisible(slotSelection);
+        WebdriverWaits.waitForSpinner();
+        click_custom(slotSelection);
+    }
 
 
     public void click_CreateDirectorsButton() {
