@@ -95,6 +95,7 @@ WebdriverWaits.waitUntilVisible(logOutLink);
         click_custom(AppointmentsTab);
     }
     public void clickOn_AvailabilityTab(){
+        WebdriverWaits.waitForSpinner();
         click_custom(availabilityTab);
     }
 }

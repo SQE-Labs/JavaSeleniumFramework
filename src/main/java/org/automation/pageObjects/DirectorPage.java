@@ -78,16 +78,22 @@ public class DirectorPage extends BasePage {
     public By validation_Msg = By.xpath("//small[text()='Username or password is incorrect']");
     public By spinner = By.cssSelector("div.ngx-spinner-overlay");
     public By setAvailaibility = By.xpath("//h3[text()='Set Availability']");
-    public By slotSelection = By.xpath("//*[@id=\"diagnoSetAvailabilityForm\"]/div[1]/mbsc-eventcalendar/mbsc-calendar-view/mbsc-scheduler/div[3]/div[2]/div/div/div[7]/div/div[7]");
-
+    public By slotSelection = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[34]");
+    public By validateAvailable = By.xpath("(//div[@class='ng-star-inserted'])[17]");
+    public By avail_SaveButton = By.id("diagnoSetAvailabilitySubmit");
 
 
     public void clickOn_AvailaibleSlot() {
-        WebdriverWaits.waitUntilVisible(slotSelection);
+        WebdriverWaits.waitUntilVisible(spinner);
         WebdriverWaits.waitForSpinner();
         click_custom(slotSelection);
     }
 
+
+    public void clickOn_SaveBtn() {
+        WebdriverWaits.waitForSpinner();
+        click_custom(avail_SaveButton);
+    }
 
     public void click_CreateDirectorsButton() {
         WebdriverWaits.waitUntilVisible(createDirectorButton);
