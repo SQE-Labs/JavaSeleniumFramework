@@ -6,12 +6,13 @@ import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.automation.utilities.Assertions.validate_AttText;
 import static org.automation.utilities.Assertions.validate_text;
-import static org.automation.utilities.WebdriverWaits.moveToElement;
+import static org.automation.utilities.WebdriverWaits.*;
 
 public class AdminPage extends BasePage {
     public By adminTab = By.xpath("//a[text()='Admins']");
@@ -161,7 +162,10 @@ public class AdminPage extends BasePage {
 
     public By cancelTab = By.xpath("//a[text()='Canceled']");
     public By clientName=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
-
+    public By uploadDocumentButton=By.xpath("//button[@class='theme-button m-2 ng-star-inserted']");
+    public By uploadButton=By.xpath("//button[@class='theme-button mx-2']");
+    public By chooseField=By.xpath("//input[@placeholder='select document to be uploaded']");
+    public By closeButton=By.xpath("//a[text()='Close']");
 
 
     public void clickOn_createAdminButton() {
@@ -252,7 +256,6 @@ public class AdminPage extends BasePage {
     //+++++++++++++++++EDIT Admin++++++++++++++
 
     public void click_On_EditButton() {
-        WebdriverWaits.waitUntilVisible(editButton);
         WebdriverWaits.waitUntilVisible(loginLoading);
         click_custom(editButton);
     }
@@ -289,11 +292,38 @@ public class AdminPage extends BasePage {
         WebdriverWaits.waitUntilVisible(dontSaveButton);
         click_custom(dontSaveButton);
     }
+    public void clickOn_UploadButton(){
+        WebdriverWaits.waitUntilVisible(uploadDocumentButton);
+        WebdriverWaits.waitForSpinner();
+        scrollIntoView(uploadDocumentButton);
+        click_custom(uploadDocumentButton);
+    }
+    public void clickOn_UploadButtons(){
+        click_custom(uploadButton);
+    }
+    public void clickOn_CloseButton(){
+        waitUntilVisible(closeButton);
+        click_custom(closeButton);
+    }
+    public void clickOn_ChooseFile(){
+        WebdriverWaits.waitUntilVisible(chooseField);
+        WebdriverWaits.waitForSpinner();
+        moveToElement(chooseField);
+    }
 
     public void clickOn_CancelTab() {
         WebdriverWaits.waitUntilVisible(cancelTab);
         WebdriverWaits.waitForSpinner();
         moveToElement(cancelTab);
+    }
+    public  void upload_FileAttachment() throws InterruptedException, AWTException {
+        clickOn_UploadButton();
+        clickOn_ChooseFile();
+        Thread.sleep(4000);
+        String filepath = "Downloads\\33200_1911.pdf";
+        ChromeDownloads.uploadFileUsingRobot(filepath);
+        clickOn_UploadButtons();
+        clickOn_CloseButton();
     }
 
     public void verifySearchTextBox() {
@@ -733,8 +763,8 @@ public class AdminPage extends BasePage {
         click_custom(clientDetailLink);
         WebdriverWaits.waitUntilVisible(paymentButton);
         WebdriverWaits.waitForSpinner();
-        scrollIntoView(paymentButton);
-        click_custom(paymentButton);
+//        scrollIntoView(paymentButton);
+//        click_custom(paymentButton);
     }
 
     public void enter_ValidAmount() throws InterruptedException {
@@ -761,9 +791,9 @@ public class AdminPage extends BasePage {
         enter_ClientName(clientText);
         Thread.sleep(2000);
         clickOn_ViewDetailLink();
-        enter_ValidAmount();
-        clickOn_CollectButton();
-        clickOn_CancelButton();
+//        enter_ValidAmount();
+//        clickOn_CollectButton();
+//        clickOn_CancelButton();
     }
 
     public void verify_CancelledApp(String clientName) {

@@ -60,20 +60,18 @@ public class DiagnosticianTest extends BaseTest {
     @Test(priority = 3, enabled = true, description = "Verify diagnostian client details page")
     public void verify_ClientDetailsPage() {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
-
         diagnostician.view_ClientDetail(clientLastName);
         WebdriverWaits.waitUntilVisible(diagnostician.clientDetailText);
         validate_text(diagnostician.clientDetailText, clientFirstName +' '+ clientLastName +' '+"Details");
     }
 
     @Test(priority = 4, enabled = true, description = "Diagnostician is verifying  that relevant records appear after selecting valid range of date, on 'Upcoming Appointments' page.")
-    public void verify_FromAndTodate() throws InterruptedException {
+    public void verify_FromAndTodate()   {
         AppointmentsPage appPage = new AppointmentsPage();
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         diagnostician.clickOn_upcomingTab();
 
         WebdriverWaits.waitForSpinner();
-        // diagnostician.clickOn_upcomingTab();
         diagnostician.click_filterButton();
         ActionEngine engine;
         engine = new ActionEngine();
@@ -110,12 +108,12 @@ public class DiagnosticianTest extends BaseTest {
         Thread.sleep(5000);
         WebdriverWaits.waitForSpinner();
         diagnostician.clickOn_upcomingTab();
-        // diagnostician.clickOn_upcomingTab();
         appointment.clickOn_ExportCSVButton();
+
         //Download exportCSV File and Check file is downloaded or not
         String downloadFile = panelpage.getDownloadFileName();
         Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
-        // panelpage.readCSVFile();
+
     }
 
     @Test(priority = 6, enabled = true, description = "diagnostician is starting assessment")
@@ -140,7 +138,7 @@ public class DiagnosticianTest extends BaseTest {
         diagnostician.enter_ClientDetail(clientLastName);
         WebdriverWaits.waitUntilVisible(diagnostician.clientNameText);
         validate_text(diagnostician.clientNameText, clientFirstName +' '+ clientLastName +' '+ "Details");
-        // panelPage.click_LogOutLink();
+
     }
     @Test(priority = 8, enabled = true, description = "Verify diagnostician is able to download csv file or not after completing the assessment")
     public void download_CSV_File_For_completeAss() throws InterruptedException, IOException {
@@ -150,12 +148,11 @@ public class DiagnosticianTest extends BaseTest {
         ActionEngine action = new ActionEngine();
         diagnostician.verify_CompleteAss();
         diagnostician.search_CreatedDiagnostician(clientLastName);
-
         appointment.clickOn_ExportCSVButton();
+
         //Download exportCSV File and Check file is downloaded or not
         String downloadFile = panelpage.getDownloadFileName();
         Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
-        // panelpage.readCSVFile();
         action.navigate_Back();
         panelpage.click_LogOutLink();
     }

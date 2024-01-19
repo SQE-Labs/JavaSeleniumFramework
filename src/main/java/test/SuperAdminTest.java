@@ -54,10 +54,10 @@ public class SuperAdminTest extends BaseTest {
     @Test(priority = 2, enabled = true, description = "5.5, Verify that SuperAdmin is able to create Admin or not")
     public void create_Admin() throws InterruptedException, IOException {
         AdminPage admin = new AdminPage();
-        adminFirstName = "AU_Tado" + RandomStrings.requiredCharacters(2);
-        adminLastName = "AU_Ott" + RandomStrings.requiredCharacters(2);
+        adminFirstName = "AU_Chan" + RandomStrings.requiredCharacters(2);
+        adminLastName = "AU_Lowe" + RandomStrings.requiredCharacters(2);
         adminEmailAddress = adminFirstName + "@yopmail.com";
-        adminUserName = "AU_Llo" + RandomStrings.requiredCharacters(2);
+        adminUserName = "AU_Gill" + RandomStrings.requiredCharacters(2);
         admin_cell_Number = RandomStrings.requiredDigits(10);
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         WebdriverWaits.waitForSpinner();
@@ -74,7 +74,7 @@ public class SuperAdminTest extends BaseTest {
     }
 
     @Test(priority = 3, enabled = true, description = "SuperAdmin is able to search created admin or not")
-    public void search_Created_Admin() throws InterruptedException {
+    public void search_Created_Admin()    {
         AdminPage admin = new AdminPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         // panelPage.clickOn_BackButton();
@@ -151,10 +151,10 @@ public class SuperAdminTest extends BaseTest {
     public void create_Diagnostician_By_SuperAdmin() throws InterruptedException {
         //Login by using superAdmin credentials
         DiagnosticianPage diagnostician = new DiagnosticianPage();
-        diagnosticianFirstName = "AU_Arlo" + RandomStrings.requiredCharacters(2);
-        diagnosticianLastName = "AU_Isla" + RandomStrings.requiredCharacters(2);
+        diagnosticianFirstName = "AU_Troy" + RandomStrings.requiredCharacters(2);
+        diagnosticianLastName = "AU_Cox" + RandomStrings.requiredCharacters(2);
         diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
-         diagnosticianUserName = "AU_Mia" + RandomStrings.requiredCharacters(2);
+         diagnosticianUserName = "AU_Lim" + RandomStrings.requiredCharacters(2);
         dia_Cell_Number = RandomStrings.requiredDigits(10);
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         //navigating  to base url
@@ -179,7 +179,9 @@ public class SuperAdminTest extends BaseTest {
         //creating duplicate name diagnostistician
 
         diagnostician.create_Diagnostician(diagnosticianFirstName, diagnosticianLastName, "8564234568", diagnosticianEmailAddress, diagnosticianUserName, "123456", "123456");
+
         WebdriverWaits.waitUntilVisible(diagnostician.validationMsg);
+        WebdriverWaits.waitForSpinner();
         validate_text(diagnostician.validationMsg, "An error occurred while creating the user. Username already exists!");
     }
 
@@ -373,8 +375,8 @@ public class SuperAdminTest extends BaseTest {
 
     //************Appointments page******************
 
-    @Test( dependsOnMethods={ "full_Payment"})   //*****Enable the full Payment because of defect its blocking
-    public void Appointments_Page() throws InterruptedException {
+    @Test( dependsOnMethods={ "full_Payment"})
+    public void Appointments_Page()   {
         AppointmentsPage appointment = new AppointmentsPage();
         LoginPage login = new LoginPage();
         login.superAdminLogin();

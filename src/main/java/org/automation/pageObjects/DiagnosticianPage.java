@@ -508,7 +508,7 @@ public class DiagnosticianPage extends BasePage {
         for(WebElement slot : slots){
             Thread.sleep(2000);
             moveToEleByWE(slot);
-            if(getDriver().findElements(By.xpath("//div[@class='ng-star-inserted']")).size()>6){
+            if(getDriver().findElements(By.xpath("//div[@class='ng-star-inserted']")).size()>4){
                 break;
             }
         }

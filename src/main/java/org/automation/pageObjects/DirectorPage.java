@@ -317,14 +317,13 @@ public class DirectorPage extends BasePage {
     }
 
     public void director_Availability() throws InterruptedException {
-        WebdriverWaits.waitForSpinner();
-        Thread.sleep(10000);
+        Thread.sleep(5000);
         List<WebElement> list = getDriver().findElements(By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']"));
         System.out.println(list.size());
         for (WebElement box : list) {
-            System.out.println(list.size());
-            click_custom(box);
-            if(getDriver().findElements(By.xpath("//div[@class='ng-star-inserted']")).size()>3){
+            Thread.sleep(2000);
+             click_custom(box);
+            if(getDriver().findElements(By.xpath("//div[@class='ng-star-inserted']")).size()>2){
                 if (getDriver().findElement(By.xpath("//div[@class='ng-star-inserted']")).getText().equals("Available")) {
                     break;
                 }

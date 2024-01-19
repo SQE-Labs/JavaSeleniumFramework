@@ -76,14 +76,14 @@ public class AppointmentsPage extends BasePage {
         selectDropDownByIndex_custom(grade, gradeType);
     }
 
-    public void selectSchoolType(int schoolTypeOption) throws InterruptedException {
+    public void selectSchoolType(int schoolTypeOption)   {
         // click_custom(SchoolType);
         selectDropDownByIndex_custom(SchoolType, schoolTypeOption);
     }
 
     public void enterCellNumber(String cellNumberText) throws InterruptedException {
-        WebdriverWaits.waitUntilVisible(cellNumber);
-        Thread.sleep(4000);
+      Thread.sleep(4000);
+
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -179,7 +179,7 @@ public class AppointmentsPage extends BasePage {
         Thread.sleep(4000);
         List<WebElement> list = getWebElements(slots, "AppointmentSlots");
         for (WebElement slot : list) {
-            Thread.sleep(3000);
+            Thread.sleep(2000);
             click_custom(slot);
 
             if (getDriver().findElements(By.xpath("//div[@class='mbsc-ios mbsc-schedule-event-background ng-star-inserted']")).size() > 0) {
