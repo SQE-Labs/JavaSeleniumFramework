@@ -477,7 +477,6 @@ public class SuperAdminTest extends BaseTest {
         LoginPage login = new LoginPage();
         action.navigate_Back();
         panelpage.click_LogOutLink();
-
         login.superAdminLogin();
         payment.clickOn_PaymentTab();
         WebdriverWaits.waitUntilVisible(payment.paymentListPage);

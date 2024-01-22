@@ -122,11 +122,47 @@ public class DirectorTest extends BaseTest {
         director.clickOn_AvailaibleSlot();
         WebdriverWaits.waitUntilVisible(director.validateAvailable);
         validate_text(director.validateAvailable, "Available");
-
         WebdriverWaits.waitUntilVisible(director.avail_SaveButton);
         validate_text(director.avail_SaveButton, "Save");
         director.clickOn_SaveBtn();
 
+    }
+
+
+    @Test(priority = 5, enabled = true, description = "Verify that director is able to delete already available marked slot")
+    public void validate_DeletedSlots() throws InterruptedException {
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        DirectorPage director = new DirectorPage();
+        login.directorLogin("roman", "123456");
+        panelPage.clickOn_AvailabilityTab();
+        director.clickOn_DeletedSlot();
+        director.clickOn_DeleteButton();
+        validate_text(director.deletedSlot,"Available");
 
     }
+
+    @Test(priority = 6, enabled = true, description = "Verify that '<Date>' popup closes, when director clicks on 'Cancel' button")
+    public void verify_DatePopUp_Closed() throws InterruptedException {
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        DirectorPage director = new DirectorPage();
+        login.directorLogin("roman", "123456");
+        panelPage.clickOn_AvailabilityTab();
+        director.clickOn_DeletedSlot();
+        director.clickOn_CancelButton();
+        validate_text(director.today,"Today");
+
+    }
+
+    @Test(priority = 7, enabled = true, description = "Verify that director gets logged out after clicking 'Log Out' button")
+    public void validate_LogOut() throws InterruptedException {
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        DirectorPage director = new DirectorPage();
+        login.directorLogin("roman", "123456");
+        director.click_LogOutLink();
+        validate_text(director.signInToYourAccountTxt, "Sign in to your account");
+
+   }
 }

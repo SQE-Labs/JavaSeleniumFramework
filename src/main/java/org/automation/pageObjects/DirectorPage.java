@@ -11,6 +11,8 @@ import static org.automation.utilities.Assertions.validate_text;
 
 public class DirectorPage extends BasePage {
     WebdriverWaits wait = new WebdriverWaits();
+
+    public By logOutLink = By.xpath("//a[text()='Log Out']");
     public By directorsTab = By.xpath("//a[text()='Directors']");
     public By createDirectorButton = By.xpath("//button[text()='Create Director']");
     public By directorsFirstName = By.xpath("//input[@placeholder='First Name']");
@@ -66,14 +68,15 @@ public class DirectorPage extends BasePage {
     public By availableText = By.xpath("//div[text()='Available']");
     public By saveButton = By.xpath("//button[text()='Save']");
     public By validationMsg=By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
-
+    public By deletedSlot = By.xpath("(//div[@class='ng-star-inserted'])[2]");
+    public By deleteButton = By.xpath("//*[@class='btn btn-danger mbsc-button mbsc-button-flat mbsc-font mbsc-ios mbsc-ltr mbsc-popup-button mbsc-popup-button-center mbsc-popup-button-flex mbsc-reset ng-star-inserted']");
+public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-button[1]");
 
     //**************relogin with new password***********
 
     public By userNameField = By.xpath("//input[@placeholder='Username']");
     public By PasswordField = By.xpath("//input[@placeholder='Password']");
     public By login = By.id("loginFormSubmit");
-    public By logOutLink = By.xpath("//a[text()='Log Out']");
     public By directorDashBoardPage = By.xpath("//h3[text()='Dashboard']");
     public By validation_Msg = By.xpath("//small[text()='Username or password is incorrect']");
     public By spinner = By.cssSelector("div.ngx-spinner-overlay");
@@ -81,14 +84,38 @@ public class DirectorPage extends BasePage {
     public By slotSelection = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[34]");
     public By validateAvailable = By.xpath("(//div[@class='ng-star-inserted'])[17]");
     public By avail_SaveButton = By.id("diagnoSetAvailabilitySubmit");
+    public By signInToYourAccountTxt = By.xpath("//h3[text()='Sign in to your account']");
+    public By today = By.xpath("//mbsc-button[@aria-label='Today']");
 
 
     public void clickOn_AvailaibleSlot() {
         WebdriverWaits.waitUntilVisible(spinner);
         WebdriverWaits.waitForSpinner();
         click_custom(slotSelection);
+
     }
 
+    public void click_LogOutLink() {
+        WebdriverWaits.waitUntilVisible(logOutLink);
+        WebdriverWaits.waitForSpinner();
+        click_custom(logOutLink);
+    }
+
+    public void clickOn_CancelButton() {
+        WebdriverWaits.waitForSpinner();
+        click_custom(cancelButton);
+    }
+
+    public void clickOn_DeletedSlot() {
+        WebdriverWaits.waitUntilVisible(spinner);
+        WebdriverWaits.waitForSpinner();
+        click_custom(deletedSlot);
+    }
+
+    public void clickOn_DeleteButton() {
+        WebdriverWaits.waitForSpinner();
+        click_custom(deleteButton);
+    }
 
     public void clickOn_SaveBtn() {
         WebdriverWaits.waitForSpinner();
@@ -96,8 +123,7 @@ public class DirectorPage extends BasePage {
     }
 
     public void click_CreateDirectorsButton() {
-        WebdriverWaits.waitUntilVisible(createDirectorButton);
-        WebdriverWaits.waitForSpinner();
+         WebdriverWaits.waitForSpinner();
         click_custom(createDirectorButton);
     }
 
@@ -211,10 +237,6 @@ public class DirectorPage extends BasePage {
         click_custom(login);
     }
 
-    public void click_LogOutLink() {
-        wait.waitUntilVisible(logOutLink);
-        click_custom(logOutLink);
-    }
     public void clickOn_availableBox() {
         click_custom(clickOnBox);
         click_custom(clickOnBox1);
