@@ -67,9 +67,29 @@ public class AppointmentsPage extends BasePage {
     public By collectDeposit=By.xpath("//button[text()='Collect Deposit']");
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public By chooseTestingLocation = By.id("testingLocation");
+    public By appointmentsToday = By.xpath("//*[@id=\"Appointments\"]/li[2]/a");
+    public By todaysAppointmentTXT = By.xpath("//div[@class='align-items-md-center d-flex flex-column flex-md-row page-header']");
+    public By upcomingCard = By.xpath("//a[text()='Upcoming']");
+    public By upcomingAppointmentTXT = By.xpath("//h3[text()='Upcoming Appointments']");
+    public By directorFilter = By.xpath("//a[text()='Filter']");
+    public By searchTextBox = By.id("filterSearch");
+    public By toDateText = By.xpath("//input[@formcontrolname='toDate']");
+    public By fromDateText = By.xpath("//input[@formcontrolname='fromDate']");
 
 
 
+
+    public void click_UpcomingCard(){
+        WebdriverWaits.waitUntilVisible(upcomingCard);
+        clickBtn_custom(upcomingCard);
+
+    }
+
+    public void click_Filter(){
+        WebdriverWaits.waitUntilVisible(directorFilter);
+        clickBtn_custom(directorFilter);
+
+    }
 
     public void enterFirstName(String cilentFirstNameText){
         WebdriverWaits.waitUntilVisible(clientFirstName);
@@ -218,10 +238,18 @@ public class AppointmentsPage extends BasePage {
         Thread.sleep(3000);
         clickOnAssesmentType(Type);
     }
+
+
     public void click_ViewAllTab(){
         WebdriverWaits.waitUntilVisible(viewAllTab);
         click_custom(viewAllTab);
     }
+
+    public void click_Today_AppointmentCard(){
+        WebdriverWaits.waitUntilVisible(appointmentsToday);
+        click_custom(appointmentsToday);
+    }
+
     public void click_FilterButton(){
          click_custom(filterButton);
     }

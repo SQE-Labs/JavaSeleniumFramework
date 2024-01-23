@@ -32,6 +32,14 @@ public class LoginPage extends BasePage {
         WebdriverWaits.waitForSpinner();
 
     }
+    public void director_Login()   {
+        sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("director_userName"));
+        sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("director_password"));
+        clickBtn_custom(login);
+        WebdriverWaits.waitForSpinner();
+
+    }
+
     public void diagnosticianLogin( String username,String PasswordFieldText ) throws InterruptedException {
         enterUsername(username);
         enterPassword(PasswordFieldText);
