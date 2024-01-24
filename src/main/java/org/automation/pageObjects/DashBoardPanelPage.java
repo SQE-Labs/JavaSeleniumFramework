@@ -84,7 +84,7 @@ public class DashBoardPanelPage extends BasePage {
         String home = System.getProperty("user.home");
         String file_with_location = home + "/Downloads/" + fileName;
         File file = new File(file_with_location.trim());
-       // String fileTest = file.getName();
+        String fileTest = file.getName();
         if (file.exists() && file.length() != 0) {
             System.out.println(file_with_location + " is present with size greater than 0 ");
             extentTest.log(PASS, file_with_location + " is present  with size greater than 0");
