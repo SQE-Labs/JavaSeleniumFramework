@@ -33,13 +33,12 @@ public class DirectorTest extends BaseTest {
       //  login.directorLogin(directorUserName,"12345678");
         WebdriverWaits.waitUntilVisible(director.dashboardPage);
         validate_text(director.dashboardPage, "Dashboard");
-        panelPage.clickOn_AppointmentsTab();
+        panelPage.click_AppointmentsTab();
         validate_text(director.viewAll, "View All");
-        panelPage.clickOn_AvailabilityTab();
+        panelPage.click_Availability();
       //  validate_text(director.monthHeader, "December");
-        String getMonthHeader = getText_custom(director.monthHeader);
-       // WebdriverWaits.waitUntilVisible(director.monthHeader);
-        validate_text(director.monthHeader, "December" );
+//       String month=getText_custom(director.yearHeader);
+        validate_text(director.monthHeader,  "December" );
 
       //  validate_text(director.yearHeader, "2023");
         String getYearHeader=getText_custom(director.yearHeader);
