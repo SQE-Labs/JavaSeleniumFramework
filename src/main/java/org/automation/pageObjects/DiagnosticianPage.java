@@ -585,11 +585,7 @@ public class DiagnosticianPage extends BasePage {
         click_custom(yesCompleteAssButton);
     }
 
-    public void click_PaymentLinkButton() {
-        WebdriverWaits.waitForSpinner();
-        click_custom(paymentLinkButton);
-        switchToWindow();
-    }
+
 
     //************diagnostician verifying complete assessment*************
 

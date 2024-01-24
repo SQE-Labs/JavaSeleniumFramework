@@ -11,7 +11,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebElement;
 
-import static com.sun.beans.introspect.PropertyInfo.Name.description;
 
 public class BasePage extends ActionEngine {
 
@@ -69,7 +68,7 @@ public class BasePage extends ActionEngine {
      * <p>
      *  * @param description description of the new window
      */
-    public void switchToWindow() {
+    public void switchToWindow(String description) {
          Log.info("Switch to window [" + description + "]");
         parentWindow = getDriver().getWindowHandle();
         for (String windowHandle : getDriver().getWindowHandles())
@@ -112,7 +111,7 @@ public class BasePage extends ActionEngine {
      * <p>
      *  * @param description description of the main window
      */
-    public void switchToParentWindow() {
+    public void switchToParentWindow(String description) {
         Log.info("Switch to parent window [" + description + "]");
         getDriver().switchTo().window(parentWindow);
     }

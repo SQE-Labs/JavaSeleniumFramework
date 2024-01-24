@@ -189,7 +189,7 @@ public class SuperAdminTest extends BaseTest {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         Thread.sleep(4000);
-        panelPage.clickOn_BackButton();
+        panelPage.click_BackButton();
         diagnostician.serach_Dia(diagnosticianUserName);
         WebdriverWaits.waitUntilVisible(diagnostician.actualText);
         validate_text(diagnostician.actualText, diagnosticianUserName);
@@ -301,7 +301,7 @@ public class SuperAdminTest extends BaseTest {
 
         WebdriverWaits.waitUntilVisible(director.validationMsg);
         validate_text(director.validationMsg, "An error occurred while creating the user. Username already exists!");
-        panelPage.clickOn_BackButton();
+        panelPage.click_BackButton();
     }
 
     @Test(priority = 21, enabled = true, description = "3.2, 3.3, 3.15, 3.17 Super admin is able to edit the created director or not")
