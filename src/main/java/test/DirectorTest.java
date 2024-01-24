@@ -33,7 +33,7 @@ public class DirectorTest extends BaseTest {
       //  login.directorLogin(directorUserName,"12345678");
         WebdriverWaits.waitUntilVisible(director.dashboardPage);
         validate_text(director.dashboardPage, "Dashboard");
-        panelPage.clickOn_AppointmentsTab();
+        panelPage.click_AppointmentsTab();
         validate_text(director.viewAll, "View All");
         panelPage.click_Availability();
       //  validate_text(director.monthHeader, "December");

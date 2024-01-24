@@ -12,6 +12,7 @@ import java.util.List;
 
 import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
+import static org.automation.utilities.WebdriverWaits.moveToElement;
 
 public class DashBoardPanelPage extends BasePage {
     public By logOutLink = By.xpath("//a[text()='Log Out']");
@@ -41,7 +42,7 @@ public class DashBoardPanelPage extends BasePage {
     public void click_ViewAllTab() {
         WebdriverWaits.waitUntilVisible(viewAllTab);
         WebdriverWaits.waitForSpinner();
-        click_custom(viewAllTab);
+        moveToElement(viewAllTab);
     }
 
     public void click_DirectorTab() {
@@ -73,7 +74,7 @@ public class DashBoardPanelPage extends BasePage {
         click_custom(editButton);
     }
 
-    public void clickOn_BackButton() {
+    public void click_BackButton() {
         WebdriverWaits.waitUntilVisible(backButton);
         click_custom(backButton);
     }
@@ -105,11 +106,12 @@ public class DashBoardPanelPage extends BasePage {
         return downloadedFile;
     }
 
-    public void clickOn_ExportCSVButton() {
+    public void click_ExportCSVButton() {
         click_custom(exportCSVButton);
     }
 
-    public void clickOn_AppointmentsTab() {
+    public void click_AppointmentsTab() {
+        WebdriverWaits.waitUntilVisible(AppointmentsTab);
         WebdriverWaits.waitForSpinner();
         click_custom(AppointmentsTab);
     }
@@ -119,14 +121,6 @@ public class DashBoardPanelPage extends BasePage {
         WebdriverWaits.waitForSpinner();
         click_custom(availabilityTab);
     }
-
-    public  String RecentUser() throws InterruptedException {
-        // driver.get(DataInterface.AdminURL);
-        //click_custom(filterButton);
-        Thread.sleep(4000);
-        return getText_custom(DiagnosticianPage.userNameText);
-    }
-
 
         public static void readCSVFile() throws IOException, CsvException {
         String path = "C:\\Users\\SQE Labs\\Downloads\\.csv(10)";

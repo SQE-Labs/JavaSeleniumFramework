@@ -11,7 +11,7 @@ import static test.AdminTest.clientFirstName;
 
 
 public class AppointmentsPage extends BasePage {
-    public By appointmentsTab = By.xpath("//a[@data-toggle='collapse' and @href='#Appointments' and contains(@class, '')]");
+    public By appointmentsTab = By.xpath("//a[@class='collapsed']");
     public By viewAllTab = By.xpath("//a[text()='View All']");
     public By dashBoardPage = By.xpath("//h3[text()='Dashboard']");
     public By allAppointmentsPage = By.xpath("//h3");
@@ -33,7 +33,7 @@ public class AppointmentsPage extends BasePage {
     public By viewAllActualText = By.xpath("//h3[@class='mb-4 mb-md-0']");
     public By assestmentType = By.id("assestmentType");
     public By newEventText = By.xpath("//div[text()='New Event']");
-    public By dateElements = By.xpath("//tr/td[4]");
+    public By dateElements = By.xpath("//tr/td[3]");
     public By chooseTestingLocation = By.id("testingLocation");
     public By clientFirstName = By.xpath("//input[@placeholder='Client First Name']");
     public By clientLastName = By.xpath("//input[@placeholder='Client Last Name']");
@@ -81,9 +81,8 @@ public class AppointmentsPage extends BasePage {
         selectDropDownByIndex_custom(SchoolType, schoolTypeOption);
     }
 
-    public void enterCellNumber(String cellNumberText) throws InterruptedException {
-      Thread.sleep(4000);
-
+    public void enterCellNumber(String cellNumberText)   {
+     click_custom(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -111,7 +110,7 @@ public class AppointmentsPage extends BasePage {
         sendKeys_withClear(testAmount, testAmountText);
     }
 
-    public void clickOnContinueToDepositButton() {
+    public void clickContinueToDepositButton() {
         click_custom(continueToDeposit);
     }
 
@@ -156,12 +155,13 @@ public class AppointmentsPage extends BasePage {
         sendKeys_withClear(enterAmountField, enterAmountText);
     }
 
-    public void clickOnCollectDepositButton() {
+    public void clickCollectDepositButton() {
         click_custom(collectDeposit);
     }
 
-    public void clickOnViewDetailsButton() {
+    public void clickViewDetailsButton() {
         WebdriverWaits.waitUntilVisible(viewDetails);
+        WebdriverWaits.waitForSpinner();
         click_custom(viewDetails);
     }
 
@@ -188,7 +188,7 @@ public class AppointmentsPage extends BasePage {
         }
     }
 
-    public void clickOn_CancelButton() {
+    public void click_CancelButton() {
         refresh_Page();
         WebdriverWaits.waitUntilVisible(cancelButton);
         scrollIntoView(cancelButton);
@@ -243,14 +243,17 @@ public class AppointmentsPage extends BasePage {
         enterEmialAddress(EmailAddress);
         reasonForCallDropDown(reasonForCallText);
         enterTestAmount(testAmountText);
-        clickOnContinueToDepositButton();
+        clickContinueToDepositButton();
         WebdriverWaits.waitForSpinner();
         enterAmount(enterAmountText);
         WebdriverWaits.waitForSpinner();
-        clickOnCollectDepositButton();
+        clickCollectDepositButton();
+        WebdriverWaits.waitForSpinner();
+
         WebdriverWaits.waitUntilVisible(actualText);
         validate_text(actualText, "Appointment Scheduled!!");
-        clickOnViewDetailsButton();
+
+        clickViewDetailsButton();
         WebdriverWaits.waitForSpinner();
     }
 
@@ -263,14 +266,14 @@ public class AppointmentsPage extends BasePage {
     public void click_ViewAllTab() {
         WebdriverWaits.waitUntilVisible(viewAllTab);
         WebdriverWaits.waitForSpinner();
-        click_custom(viewAllTab);
+        moveToElement(viewAllTab);
     }
 
     public void click_FilterButton() {
         click_custom(filterButton);
     }
 
-    public void clickOn_ExportCSVButton() {
+    public void click_ExportCSVButton() {
         WebdriverWaits.waitUntilVisible(exportCSVButton);
         click_custom(exportCSVButton);
     }
@@ -291,7 +294,7 @@ public class AppointmentsPage extends BasePage {
 //        click_custom(searchButton);
     }
 
-    public void clickOn_ViewDetails() {
+    public void click_ViewDetails() {
         WebdriverWaits.waitUntilVisible(viewDetailsLink);
         click_custom(viewDetailsLink);
     }
@@ -300,11 +303,11 @@ public class AppointmentsPage extends BasePage {
     public void exportCSV_Button() {
         click_AppointmentTab();
         click_ViewAllTab();
-        clickOn_ExportCSVButton();
+        click_ExportCSVButton();
     }
 
     public void cancelAppointment() {
-        clickOn_CancelButton();
+        click_CancelButton();
     }
 
     public void filterRecords(String clientFirstName) {
