@@ -2,10 +2,10 @@ package test;
 
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.*;
+import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import static org.automation.utilities.Assertions.validate_text;
 
 
@@ -26,7 +26,7 @@ public class DirectorTest extends BaseTest {
     public void verify_AppointmentsTabExpands() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        panelPage.clickOn_AppointmentsTab();
+        panelPage.click_AppointmentsTab();
         validate_text(director.viewAll, "View All");
 
     }
@@ -35,11 +35,11 @@ public class DirectorTest extends BaseTest {
     public void validate_SetAppointment_AND_YearPicker() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
-        panelPage.clickOn_AvailabilityTab();
+        panelPage.click_AvailabilityTab();
         validate_text(director.setAvailaibility, "Set Availability");
         validate_text(director.monthHeader, "January"); //TODO
         validate_text(director.yearHeader, "2024");
-        panelPage.clickOn_AvailabilityTab();
+        panelPage.click_AvailabilityTab();
 
     }
 
@@ -47,13 +47,13 @@ public class DirectorTest extends BaseTest {
     public void verify_AvailableCards_AND_SaveButtonEnabled() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
-        panelPage.clickOn_AvailabilityTab();
-        director.clickOn_AvailaibleSlot();
+        panelPage.click_AvailabilityTab();
+        director.click_AvailaibleSlot();
         WebdriverWaits.waitUntilVisible(director.validateAvailable);
         validate_text(director.validateAvailable, "Available");
         WebdriverWaits.waitUntilVisible(director.avail_SaveButton);
         validate_text(director.avail_SaveButton, "Save");
-        director.clickOn_SaveBtn();
+        director.click_SaveBtn();
 
     }
 
@@ -62,9 +62,9 @@ public class DirectorTest extends BaseTest {
     public void verify_Closed_PopUp_OnCancel() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
-        panelPage.clickOn_AvailabilityTab();
-        director.clickOn_DeleteSlot();
-        director.clickOn_CancelButton();
+        panelPage.click_AvailabilityTab();
+        director.click_DeleteSlot();
+        director.click_CancelButton();
         validate_text(director.today, "Today");
 
     }
@@ -75,11 +75,11 @@ public class DirectorTest extends BaseTest {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
         LoginPage login = new LoginPage();
-        director.clickOn_DeleteSlot();
-        director.clickOn_DeleteButton();
+        director.click_DeleteSlot();
+        director.click_DeleteButton();
         //validate_text(director.deletedSlot, " ");
-        director.clickOn_SaveBtn();
-
+        director.click_SaveBtn();
+        Thread.sleep(2000);
 
     }
 
@@ -87,7 +87,7 @@ public class DirectorTest extends BaseTest {
     public void verify_Today_AppointmentPage() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         AppointmentsPage appointment = new AppointmentsPage();
-        panelPage.clickOn_AppointmentsTab();
+        panelPage.click_AppointmentsTab();
         appointment.click_Today_AppointmentCard();
         validate_text(appointment.todaysAppointmentTXT, "Today's Appointments");
 
@@ -97,7 +97,7 @@ public class DirectorTest extends BaseTest {
     public void verify_Upcoming_AppointmentPage() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         AppointmentsPage appointment = new AppointmentsPage();
-        panelPage.clickOn_AppointmentsTab();
+        panelPage.click_AppointmentsTab();
         appointment.click_UpcomingCard();
         validate_text(appointment.upcomingAppointmentTXT, "Upcoming Appointments");
 
@@ -125,8 +125,54 @@ public class DirectorTest extends BaseTest {
         validate_text(director.signInToYourAccountTxt, "Sign in to your account");
 
     }
-}
 
+    @Test(priority = 11, enabled = true, description = "14 Verify that relevant records appear after entering valid data in search textbox, on 'Upcoming Appointments' page")
+    public void verify_RelevantRecords() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_UpcomingCard();
+        appointment.click_Filter();
+        appointment.enterSearchText("Josh Volt");
+        validate_text(appointment.firstSearchedRecord, "Josh Volt");
+    }
+
+    //TODO //After the fix we will added assertions//
+    @Test(priority = 12, enabled = true, description = "16 Verify that date picker appears after clicking on calendar icon in 'From Date' field")
+    public void verify_FromDatePickerAppear() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+//      login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_UpcomingCard();
+        appointment.click_Filter();
+        appointment.click_FromDate();
+    }
+
+    //TODO //After the fix we will added assertions//
+    @Test(priority = 13, enabled = true, description = "21 Verify that date picker appears after clicking on calendar icon in 'To Date' field")
+    public void verify_ToDatePickerAppear() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+//      login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_UpcomingCard();
+        appointment.click_Filter();
+        appointment.click_ToDate();
+    }
+
+    @Test(priority = 14, enabled = true, description = "28 Verify that date picker appears after clicking on calendar icon in 'To Date' field")
+    public void verify_CSV_GetsDownloaded() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        panelPage.click_AppointmentsTab();
+
+    }
+}
 
 
 

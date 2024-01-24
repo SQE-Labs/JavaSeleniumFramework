@@ -111,7 +111,7 @@ public class AdminTest extends BaseTest {
       //  ScheduleAppointmentPage schedule = new ScheduleAppointmentPage();
       //  schedule.clickOnviewLink();
         String expectedName = clientFirstName+" "+clientLastName;
-    //    validate_text(schedule.fullName,expectedName);
+    //    validate_text(schedule.fullName,expectedName);z
 
     }
 

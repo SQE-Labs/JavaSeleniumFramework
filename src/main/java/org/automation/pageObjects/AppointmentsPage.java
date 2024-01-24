@@ -5,12 +5,7 @@ import org.automation.logger.Log;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-import java.io.File;
 import java.util.List;
-
-import static com.relevantcodes.extentreports.LogStatus.FAIL;
-import static com.relevantcodes.extentreports.LogStatus.PASS;
 import static org.automation.utilities.Assertions.validate_text;
 
 
@@ -75,9 +70,27 @@ public class AppointmentsPage extends BasePage {
     public By searchTextBox = By.id("filterSearch");
     public By toDateText = By.xpath("//input[@formcontrolname='toDate']");
     public By fromDateText = By.xpath("//input[@formcontrolname='fromDate']");
+    public By firstSearchedRecord = By.xpath("//*[@id=\"appointmentTable\"]/tbody/tr[1]/td[1]");
+    public By afterClickFromDate = By.xpath("//*[@id=\"filterShow\"]/div/div[2]/input");
+
+    public void click_FromDate() throws InterruptedException {
+        WebdriverWaits.waitUntilVisible(fromDateText);
+        clickBtn_custom(fromDateText);
+        WebdriverWaits.waitUntilVisible(afterClickFromDate);
+        clickBtn_custom(afterClickFromDate);
+    }
 
 
+    public void click_ToDate(){
+        WebdriverWaits.waitUntilVisible(toDateText);
+        clickBtn_custom(toDateText);
 
+    }
+
+    public void enterSearchText(String searchText){
+        WebdriverWaits.waitUntilVisible(searchTextBox);
+        sendKeys_withClear(searchTextBox,searchText);
+    }
 
     public void click_UpcomingCard(){
         WebdriverWaits.waitUntilVisible(upcomingCard);
@@ -305,7 +318,5 @@ public class AppointmentsPage extends BasePage {
         click_AppointmentTab();
         click_ViewAllTab();
     }
-
-
 
 }

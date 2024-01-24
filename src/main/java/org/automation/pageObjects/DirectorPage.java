@@ -88,7 +88,7 @@ public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-butt
     public By today = By.xpath("//mbsc-button[@aria-label='Today']");
 
 
-    public void clickOn_AvailaibleSlot() {
+    public void click_AvailaibleSlot() {
         WebdriverWaits.waitUntilVisible(spinner);
         WebdriverWaits.waitForSpinner();
         click_custom(slotSelection);
@@ -101,23 +101,23 @@ public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-butt
         click_custom(logOutLink);
     }
 
-    public void clickOn_CancelButton() {
+    public void click_CancelButton() {
         WebdriverWaits.waitForSpinner();
         click_custom(cancelButton);
     }
 
-    public void clickOn_DeleteSlot() {
+    public void click_DeleteSlot() {
         WebdriverWaits.waitUntilVisible(spinner);
         WebdriverWaits.waitForSpinner();
         click_custom(deletedSlot);
     }
 
-    public void clickOn_DeleteButton() {
+    public void click_DeleteButton() {
         WebdriverWaits.waitForSpinner();
         click_custom(deleteButton);
     }
 
-    public void clickOn_SaveBtn() {
+    public void click_SaveBtn() {
         WebdriverWaits.waitForSpinner();
         click_custom(avail_SaveButton);
     }

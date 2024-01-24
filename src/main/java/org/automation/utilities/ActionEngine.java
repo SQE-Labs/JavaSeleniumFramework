@@ -140,6 +140,19 @@ public class ActionEngine extends BaseTest {
         }
     }
 
+    public void doubleClick_Custom(By element, String fieldName) {
+        try {
+            JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+            executor.executeScript("arguments[0].scrollIntoView(true);", element);
+            Actions actions = new Actions(getDriver());
+            actions.doubleClick(getDriver().findElement(element)).build().perform();
+            extentTest.log(PASS, fieldName + "==> Double Clicked Successfully! ");
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            extentTest.log(FAIL, "Not able to double Clicked Successfully: " + fieldName + " due to exception: " + e);
+            throw new RuntimeException(e);
+        }
+    }
 
     //check if element is Present
     public boolean isElementPresent_custom(WebElement element, String fieldName) {

@@ -89,12 +89,12 @@ WebdriverWaits.waitUntilVisible(logOutLink);
     public void clickOn_ExportCSVButton(){
         click_custom(exportCSVButton);
     }
-    public void clickOn_AppointmentsTab(){
+    public void click_AppointmentsTab(){
         WebdriverWaits.waitUntilInvisible(spinner);
         WebdriverWaits.waitForSpinner();
         click_custom(AppointmentsTab);
     }
-    public void clickOn_AvailabilityTab(){
+    public void click_AvailabilityTab(){
         WebdriverWaits.waitForSpinner();
         click_custom(availabilityTab);
     }

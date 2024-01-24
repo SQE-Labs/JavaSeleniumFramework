@@ -582,19 +582,6 @@ public class DiagnosticianPage extends BasePage {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     //================///////////=========================
 
 

@@ -1,5 +1,3 @@
-
-
 package org.automation.utilities;
 
 import java.text.DateFormat;
@@ -7,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateGenerator {
 
@@ -35,6 +34,20 @@ public class DateGenerator {
     }
     public static boolean isDateWithinRange(LocalDate startDate, LocalDate endDate, LocalDate dateToCheck) {
         return (dateToCheck.isAfter(startDate) || dateToCheck.isBefore(endDate));
+    }
+
+    public static String getCurrentDateTime(String format) {
+
+
+        Date date = new Date();
+        DateFormat pstFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        TimeZone timeZone = TimeZone.getTimeZone("Australia/Canberra");
+        pstFormat.setTimeZone(timeZone);
+        String current_date_time = pstFormat.format(date);
+        System.out.println("Australia/Canberra-" + current_date_time);
+        return current_date_time;
+
+
     }
 
 
