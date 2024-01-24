@@ -351,7 +351,7 @@ public class ActionEngine extends BaseTest {
     public void navigate_to_baseUrl(){
         getDriver().get(PropertiesUtil.getPropertyValue("url"));
     }
-    public static String GetText(By element) {
+    public static String getText(By element) {
          WebDriverWait wait = new WebDriverWait(getDriver() , Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
         WebElement ele = getDriver() .findElement(element);
@@ -359,7 +359,7 @@ public class ActionEngine extends BaseTest {
         return text;
     }
 
-    public static String GetValueAttribute(By element, String attributeName) {
+    public static String getValueAttribute(By element, String attributeName) {
         try {
             String text=getDriver().findElement(element).getAttribute(attributeName);
             return text;

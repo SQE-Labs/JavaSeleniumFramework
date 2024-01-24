@@ -31,7 +31,7 @@ public class PaymentPage extends BasePage {
     public void search_CreatedDiagnostician(String UserName)  {
         click_filterButton();
         enterInSearchField(UserName);
-        ActionEngine.GetValueAttribute(searchField,"placeholder");
+        ActionEngine.getValueAttribute(searchField,"placeholder");
     }
 
 }

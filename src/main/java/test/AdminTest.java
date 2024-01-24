@@ -302,9 +302,9 @@ public class AdminTest extends BaseTest {
     public void verify_holdfilterButton() {
         AdminPage admin = new AdminPage();
         admin.click_HoldFilterBtn();
-        String searchPlaceHolder = admin.GetValueAttribute(admin.searchTextBox, "placeholder");
-        String fromDateplaceholder = admin.GetValueAttribute(admin.fromDateText, "placeholder");
-        String toDatePlaceholder = admin.GetValueAttribute(admin.toDateText, "placeholder");
+        String searchPlaceHolder = admin.getValueAttribute(admin.searchTextBox, "placeholder");
+        String fromDateplaceholder = admin.getValueAttribute(admin.fromDateText, "placeholder");
+        String toDatePlaceholder = admin.getValueAttribute(admin.toDateText, "placeholder");
         Assert.assertEquals(fromDateplaceholder, "From Date");
         Assert.assertEquals(toDatePlaceholder, "To Date");
         Assert.assertEquals(searchPlaceHolder, "Type here to search");
@@ -334,8 +334,8 @@ public class AdminTest extends BaseTest {
         AppointmentsPage appPage = new AppointmentsPage();
         AdminPage placeHolder = new AdminPage();
         appPage.click_FilterButton();
-        String text = appPage.GetValueAttribute(appPage.searchTextBox, "placeholder");
-        String fromDateplaceholder = placeHolder.GetValueAttribute(placeHolder.fromDateText, "placeholder");
+        String text = appPage.getValueAttribute(appPage.searchTextBox, "placeholder");
+        String fromDateplaceholder = placeHolder.getValueAttribute(placeHolder.fromDateText, "placeholder");
         Assert.assertEquals(fromDateplaceholder, "From Date");
         Assert.assertEquals(text, "Type here to search");
     }
