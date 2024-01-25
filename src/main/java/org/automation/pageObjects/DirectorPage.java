@@ -5,22 +5,26 @@ import org.automation.logger.Log;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import static org.automation.utilities.Assertions.validate_text;
+import java.util.List;
 
 
 public class DirectorPage extends BasePage {
+
     WebdriverWaits wait = new WebdriverWaits();
 
     public By logOutLink = By.xpath("//a[text()='Log Out']");
     public By directorsTab = By.xpath("//a[text()='Directors']");
+
     public By createDirectorButton = By.xpath("//button[text()='Create Director']");
+    public By directorActualText = By.xpath("//h3[text()='Directors List']");
     public By directorsFirstName = By.xpath("//input[@placeholder='First Name']");
     public By directorsLastName = By.xpath("//input[@placeholder='Last Name']");
-    public By directorsMobileNumber = By.xpath("//input[@placeholder='(999) 999-9999']");
+    public By directorsMobileNumber = By.xpath("//input[@placeholder='Cell Number']");
     public By directorsEmail = By.xpath("//input[@placeholder='Email']");
     public By assignLocation = By.xpath("//select[@id='testingLocation']");
-    public By directorsLocationName = By.xpath("//option[text()='Plano']");
+    public By directorsLocationName = By.xpath("//option[text()='Austin']");
     public By directorsUserName = By.xpath("//input[@placeholder='Username']");
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
     public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
@@ -29,7 +33,7 @@ public class DirectorPage extends BasePage {
     //**************Search created director***************
     public By filterButton = By.xpath("//a[text()='Filter']");
     public By searchField = By.xpath("//input[@id='filterSearch']");
-    public By actualText = By.xpath("(//td)[2]");
+
 
     //****************edit created director**************
 
@@ -37,24 +41,26 @@ public class DirectorPage extends BasePage {
     public By cellNumber = By.xpath("//input[@placeholder='Cell Number']");
     public By emailField = By.xpath("//input[@formcontrolname='email']");
     public By updateButton = By.xpath("//button[text()='Update']");
-    public By enableToggle = By.xpath("//label[text()='Enable User']");
+
     public By directorListPage = By.xpath("//h3[text()='Directors List']");
 
     public By passwordTextField = By.xpath("//input[@formcontrolname='password']");
     public By confirmPasswordField = By.xpath("(//input[@type='password'])[2]");
     public By edit_SuccMsg = By.xpath("//div[text()=' Director details updated successfully. ']");
     public By UserNameGetText = By.xpath("(//td)[2]");
-    public By disableUser = By.xpath("//label[text()='Enable User']");
+
     public By toggle = By.xpath("//span[@class='slider round']");
     public By dontSaveButton = By.xpath("//a[text()='Don’t Save']");
     public By edit_Popup = By.xpath("//h5[text()='Edit User']");
     public By enableUser = By.xpath("//label[text()='Enable User']");
     public By dashboardPage = By.xpath("//h3[text()='Dashboard']");
     public By viewAll = By.xpath("//a[text()='View All']");
-    public By setAvailability = By.xpath("//h3[text()='Set Availability']");
+
+
     public By monthHeader = By.xpath("//span[@class='mbsc-calendar-month mbsc-calendar-title mbsc-ios ng-star-inserted']");
     public By yearHeader = By.xpath("//span[@class='mbsc-calendar-title mbsc-calendar-year mbsc-ios ng-star-inserted']");
     public By dateHeader = By.xpath("//div[@class='mbsc-ios mbsc-ltr mbsc-schedule-header-day mbsc-selected ng-star-inserted']']");
+
     public By yearsCalender = By.xpath("//mbsc-button[text()=' 2023 - 2034 ']");
     public By hihglihgtedYear = By.xpath("(//div[@class='mbsc-calendar-cell-text mbsc-calendar-year-text mbsc-ios ng-star-inserted'])[13]");
     public By clickOnBox = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[23]");
@@ -67,10 +73,14 @@ public class DirectorPage extends BasePage {
     // public By clickOnBox6=By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[21]");
     public By availableText = By.xpath("//div[text()='Available']");
     public By saveButton = By.xpath("//button[text()='Save']");
-    public By validationMsg=By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
+    public By validationMsg = By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
     public By deletedSlot = By.xpath("//*[@id=\"diagnoSetAvailabilityForm\"]/div[1]/mbsc-eventcalendar/mbsc-calendar-view/mbsc-scheduler/div[3]/div[2]/div/div/div[5]/div/div[1]/mbsc-schedule-event[3]/div[3]/div[1]/div");
     public By deleteButton = By.xpath("//*[@class='btn btn-danger mbsc-button mbsc-button-flat mbsc-font mbsc-ios mbsc-ltr mbsc-popup-button mbsc-popup-button-center mbsc-popup-button-flex mbsc-reset ng-star-inserted']");
-public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-button[1]");
+    public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-button[1]");
+
+    public By selectYear = By.xpath("//div[text()=' 2023 ']");
+    public By selectMonth = By.xpath("(//div[text()=' Dec '])[2]");
+
 
     //**************relogin with new password***********
 
@@ -79,6 +89,7 @@ public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-butt
     public By login = By.id("loginFormSubmit");
     public By directorDashBoardPage = By.xpath("//h3[text()='Dashboard']");
     public By validation_Msg = By.xpath("//small[text()='Username or password is incorrect']");
+
     public By spinner = By.cssSelector("div.ngx-spinner-overlay");
     public By setAvailaibility = By.xpath("//h3[text()='Set Availability']");
     public By slotSelection = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[34]");
@@ -86,6 +97,9 @@ public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-butt
     public By avail_SaveButton = By.id("diagnoSetAvailabilitySubmit");
     public By signInToYourAccountTxt = By.xpath("//h3[text()='Sign in to your account']");
     public By today = By.xpath("//mbsc-button[@aria-label='Today']");
+
+
+    //*****************Paying full payment*****************
 
 
     public void click_AvailaibleSlot() {
@@ -123,44 +137,44 @@ public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-butt
     }
 
     public void click_CreateDirectorsButton() {
-         WebdriverWaits.waitForSpinner();
+        WebdriverWaits.waitForSpinner();
         click_custom(createDirectorButton);
     }
 
     public void click_directorsFirstNameField(String directorsFirstNameText) {
-        wait.waitUntilVisible(directorsFirstName);
+        WebdriverWaits.waitUntilVisible(directorsFirstName);
         sendKeys_withClear(directorsFirstName, directorsFirstNameText);
     }
 
     public void click_directorsLastNameField(String directorsLastNameText) {
-        wait.waitUntilVisible(directorsLastName);
+        WebdriverWaits.waitUntilVisible(directorsLastName);
         sendKeys_withClear(directorsLastName, directorsLastNameText);
     }
 
     public void click_directorsMobileNumberField(String directorsMobileNumberText) {
-        wait.waitUntilVisible(directorsMobileNumber);
+        WebdriverWaits.waitUntilVisible(directorsMobileNumber);
         sendKeys_withClear(directorsMobileNumber, directorsMobileNumberText);
     }
 
     public void click_directorsdirectorsEmailField(String directorsEmailText) {
-        wait.waitUntilVisible(directorsEmail);
+        WebdriverWaits.waitUntilVisible(directorsEmail);
         sendKeys_withClear(directorsEmail, directorsEmailText);
     }
 
     public void click_directorsassignLocationField() {
-        wait.waitUntilVisible(assignLocation);
+        WebdriverWaits.waitUntilVisible(assignLocation);
         click_custom(assignLocation);
-        wait.waitUntilVisible(directorsLocationName);
+        WebdriverWaits.waitUntilVisible(directorsLocationName);
         click_custom(directorsLocationName);
     }
 
     public void click_directorsUserNameField(String directorsUserNameText) {
-        wait.waitUntilVisible(directorsUserName);
+        WebdriverWaits.waitUntilVisible(directorsUserName);
         sendKeys_withClear(directorsUserName, directorsUserNameText);
     }
 
     public void click_passwordField(String password_FieldText) {
-        wait.waitUntilVisible(password_Field);
+        WebdriverWaits.waitUntilVisible(password_Field);
         sendKeys_withClear(password_Field, password_FieldText);
     }
 
@@ -175,35 +189,56 @@ public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-butt
     //***************search created diagnostician******************
 
     public void click_filterButton() {
-        wait.waitUntilVisible(filterButton);
+        WebdriverWaits.waitUntilVisible(filterButton);
         click_custom(filterButton);
     }
 
     public void enterInSearchField(String searchFieldText) {
         sendKeys_withClear(searchField, searchFieldText);
     }
-    public void clickOn_SaveButton() {
+
+    public void click_SaveButton() {
         click_custom(saveButton);
     }
+
     //***************edit created director*****************
-    public void click_On_EditButton() {
-        wait.waitUntilVisible(editButton);
+    public void click_EditButton() {
+        WebdriverWaits.waitUntilVisible(editButton);
         click_custom(editButton);
     }
 
     public void enter_CellNumber(String cellNumberText) {
-        wait.waitUntilVisible(cellNumber);
+        WebdriverWaits.waitUntilVisible(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
     public void click_UpdateButton() {
         click_custom(updateButton);
     }
+
     public void clickOn_YearHeader() {
         click_custom(yearHeader);
     }
 
+    public void clickOn_MonthHeader() {
+        WebdriverWaits.waitUntilVisible(monthHeader);
+        click_custom(monthHeader);
+    }
+
+    public void select_Year() {
+        WebdriverWaits.waitUntilVisible(selectYear);
+        click_custom(selectYear);
+
+    }
+
+    public void select_Month() {
+        WebdriverWaits.waitUntilVisible(selectMonth);
+        click_custom(selectMonth);
+
+    }
+
     public void off_ToggleButton() {
+        WebdriverWaits.waitUntilVisible(toggle);
         click_custom(toggle);
     }
 
@@ -211,29 +246,26 @@ public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-butt
         sendKeys_withClear(emailField, diagnostician_EmailText1);
     }
 
-    public void clickOn_PasswordField(String passwordTextFieldText) {
+    public void click_PasswordField(String passwordTextFieldText) {
         sendKeys_withClear(passwordTextField, passwordTextFieldText);
     }
 
-    public void clickOn_confirmPasswordField(String confirmPasswordFieldText) {
-        sendKeys_withClear(confirmPasswordField, confirmPasswordFieldText);
-    }
 
-    public void clickOn_DontSave() {
+    public void click_DontSave() {
         click_custom(dontSaveButton);
     }
 
 
     //**********DIAGNOSTICIAN LOGGING IN WITH NEW PASSWORD************
-    public void clickOn_Login_UsernameField(String userNameFieldText) {
+    public void click_Login_UsernameField(String userNameFieldText) {
         sendKeys_withClear(userNameField, userNameFieldText);
     }
 
-    public void clickOn_Login_PasswordField(String PasswordFieldText) {
+    public void click_Login_PasswordField(String PasswordFieldText) {
         sendKeys_withClear(PasswordField, PasswordFieldText);
     }
 
-    public void clickOn_Login_Button() {
+    public void click_Login_Button() {
         click_custom(login);
     }
 
@@ -247,21 +279,14 @@ public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-butt
         click_custom(clickOnBox6);
     }
 
+//    public void click_LogOutLink() {
+//        WebdriverWaits.waitUntilVisible(logOutLink);
+//        click_custom(logOutLink);
+//    }
+
+
     //*********Create director**************
     public void create_Director(String directorsFirstNameText, String directorsLastNameText, String directorsMobileNumberText, String directorsEmailText, String directorsUserNameText, String password_FieldText, String confirmPasswordFieldText) throws InterruptedException {
-        click_CreateDirectorsButton();
-        click_directorsFirstNameField(directorsFirstNameText);
-        click_directorsLastNameField(directorsLastNameText);
-        click_directorsMobileNumberField(directorsMobileNumberText);
-        click_directorsdirectorsEmailField(directorsEmailText);
-        click_directorsassignLocationField();
-        click_directorsUserNameField(directorsUserNameText);
-        click_passwordField(password_FieldText);
-        click_confirmPasswordField(confirmPasswordFieldText);
-        click_createDirectorButton();
-    }
-
-    public void Verify_Duplicate_Director(String directorsFirstNameText, String directorsLastNameText, String directorsMobileNumberText, String directorsEmailText, String directorsUserNameText, String password_FieldText, String confirmPasswordFieldText) throws InterruptedException {
         click_CreateDirectorsButton();
         click_directorsFirstNameField(directorsFirstNameText);
         click_directorsLastNameField(directorsLastNameText);
@@ -283,40 +308,40 @@ public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-butt
 
     //***********edit created director*************
     public void edit_Director(String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
-        click_On_EditButton();
+        click_EditButton();
         // test case number ( 4.6 ).
         Assertions.validate_text(edit_Popup, "Edit User");
         Log.info("Successfully Edit popUp opens");
         enter_Director_Email1(EmailAddress1);
-        clickOn_PasswordField(passwordTextFieldText);
-        clickOn_confirmPasswordField(confirmPasswordFieldText);
+        click_PasswordField(passwordTextFieldText);
+        click_confirmPasswordField(confirmPasswordFieldText);
         off_ToggleButton();
         click_UpdateButton();
     }
 
     //********Cheking toggole off of directore*************
 
-    public void cheking_DisableUser()   {
-        click_On_EditButton();
-        clickOn_DontSave();
-        click_On_EditButton();
-        clickOn_DontSave();
+    public void cheking_DisableUser() {
+        click_EditButton();
+        click_DontSave();
+        click_EditButton();
+        click_DontSave();
     }
 
     //********Enable user of director************
-    public void enable_Director()   {
-        click_On_EditButton();
+    public void enable_Director() {
+        click_EditButton();
         off_ToggleButton();
         click_UpdateButton();
     }
     //**************Not Editing created director**************
 
     public void not_Edit_Director(String EmailAddress1, String passwordTextFieldText, String confirmPasswordFieldText) throws InterruptedException {
-        click_On_EditButton();
+        click_EditButton();
         enter_Director_Email1(EmailAddress1);
-        clickOn_PasswordField(passwordTextFieldText);
-        clickOn_confirmPasswordField(confirmPasswordFieldText);
-        clickOn_DontSave();
+        click_PasswordField(passwordTextFieldText);
+        click_confirmPasswordField(confirmPasswordFieldText);
+        click_DontSave();
         Thread.sleep(6000);
     }
 
@@ -324,32 +349,38 @@ public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-butt
 
     public void Relogin_With_newPassword(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
         click_LogOutLink();
-        clickOn_Login_UsernameField(userNameFieldText);
-        clickOn_Login_PasswordField(PasswordFieldText);
-        clickOn_Login_Button();
+        click_Login_UsernameField(userNameFieldText);
+        click_Login_PasswordField(PasswordFieldText);
+        click_Login_Button();
     }
 
     //************director login with old Password***********
     public void directorRelogin_With_OldPassword(String userNameFieldText, String PasswordFieldText) throws InterruptedException {
         click_LogOutLink();
-        clickOn_Login_UsernameField(userNameFieldText);
-        clickOn_Login_PasswordField(PasswordFieldText);
-        clickOn_Login_Button();
+        click_Login_UsernameField(userNameFieldText);
+        click_Login_PasswordField(PasswordFieldText);
+        click_Login_Button();
     }
-    public void director_Availability()   {
 
-        clickOn_YearHeader();
-        WebdriverWaits.waitUntilVisible(yearsCalender);
-        validate_text(yearsCalender, "2023 - 2034");
+    public void director_Availability() throws InterruptedException {
+        Thread.sleep(5000);
+        List<WebElement> list = getDriver().findElements(By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']"));
+        System.out.println(list.size());
+        for (WebElement box : list) {
+            Thread.sleep(2000);
+            click_custom(box);
+            if (getDriver().findElements(By.xpath("//div[@class='ng-star-inserted']")).size() > 2) {
+                if (getDriver().findElement(By.xpath("//div[@class='ng-star-inserted']")).getText().equals("Available")) {
+                    break;
+                }
+            }
 
-        validate_text(hihglihgtedYear, "2023");
-        clickOn_YearHeader();
-        clickOn_availableBox();
-
-        validate_text(availableText, "Available");
-        clickOn_SaveButton();
+        }
+        click_SaveButton();
     }
 }
+
+
 
 
 

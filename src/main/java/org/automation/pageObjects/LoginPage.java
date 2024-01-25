@@ -32,6 +32,7 @@ public class LoginPage extends BasePage {
         WebdriverWaits.waitForSpinner();
 
     }
+
     public void director_Login()   {
         sendKeys_withClear(userNameField, PropertiesUtil.getPropertyValue("director_userName"));
         sendKeys_withClear(PasswordField, PropertiesUtil.getPropertyValue("director_password"));
@@ -40,8 +41,8 @@ public class LoginPage extends BasePage {
 
     }
 
-    public void diagnosticianLogin( String username,String PasswordFieldText ) throws InterruptedException {
-        enterUsername(username);
+    public void diagnostician_Login( String getText_Dia,String PasswordFieldText )   {
+        sendKeys_withClear(userNameField,getText_Dia );
         enterPassword(PasswordFieldText);
         click_custom(login);
         WebdriverWaits.waitForSpinner();
@@ -57,7 +58,7 @@ public class LoginPage extends BasePage {
         enterUsername(userNameFieldText);
         enterPassword(PasswordFieldText);
         click_custom(login);
-        WebdriverWaits.waitForSpinner();
+
 
     }
 

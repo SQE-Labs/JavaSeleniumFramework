@@ -16,6 +16,51 @@ public class DirectorTest extends BaseTest {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login = new LoginPage();
         login.director_Login();
+        director.click_LogOutLink();
+    }
+    @Test(priority=24,enabled = true,description = "Verify that Director is able to login with valid credentials or not")
+    public void director_Availability() throws InterruptedException {
+        DashBoardPanelPage panelPage=new DashBoardPanelPage();
+        LoginPage login=new LoginPage();
+        DirectorPage director=new DirectorPage();
+      //  login.directorLogin(directorUserName,"12345678");
+        WebdriverWaits.waitUntilVisible(director.dashboardPage);
+        validate_text(director.dashboardPage, "Dashboard");
+        panelPage.click_AppointmentsTab();
+        validate_text(director.viewAll, "View All");
+        panelPage.click_Availability();
+      //  validate_text(director.monthHeader, "December");
+//       String month=getText_custom(director.yearHeader);
+        validate_text(director.monthHeader,  "December" );
+
+      //  validate_text(director.yearHeader, "2023");
+//        String getYearHeader=getText_custom(director.yearHeader);
+//        validate_text(director.yearHeader, "2023" );
+//
+//        String getdate =getText_custom(director.dateHeader);
+        validate_text(director.dateHeader, "27" );
+        director.director_Availability();
+        director.click_LogOutLink();
+    }
+    @Test(priority = 25, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
+    public void login_With_OldPassword() throws InterruptedException {
+        DirectorPage director = new DirectorPage();
+        DashBoardPanelPage panelPage=new DashBoardPanelPage();
+        LoginPage login=new LoginPage();
+        //Director trying to login with old password
+     //   login.directorLogin(directorUserName, "123456");
+        WebdriverWaits.waitUntilVisible(director.validation_Msg);
+        validate_text(director.validation_Msg, "Username or password is incorrect");
+        //panelPage.click_LogOutLink();
+    }
+
+    @Test(priority = 26, enabled = true, description = "Verify Diagnostician is able to login with new password or not")
+    public void director_Relogin() throws InterruptedException {
+        DirectorPage director = new DirectorPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login=new LoginPage();
+        //Director trying to login with new password
+      //  login.directorLogin(directorUserName, "12345678");
         WebdriverWaits.waitUntilVisible(director.directorDashBoardPage);
         validate_text(director.directorDashBoardPage, "Dashboard");
 
@@ -34,11 +79,11 @@ public class DirectorTest extends BaseTest {
     public void validate_SetAppointment_AND_YearPicker() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
-        panelPage.click_AvailabilityTab();
+        panelPage.click_Availability();
         validate_text(director.setAvailaibility, "Set Availability");
         validate_text(director.monthHeader, "January"); //TODO
         validate_text(director.yearHeader, "2024");
-        panelPage.click_AvailabilityTab();
+        panelPage.click_Availability();
 
     }
 
@@ -46,7 +91,7 @@ public class DirectorTest extends BaseTest {
     public void verify_AvailableCards_AND_SaveButtonEnabled() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
-        panelPage.click_AvailabilityTab();
+        panelPage.click_Availability();
         director.click_AvailaibleSlot();
         WebdriverWaits.waitUntilVisible(director.validateAvailable);
         validate_text(director.validateAvailable, "Available");
@@ -61,7 +106,7 @@ public class DirectorTest extends BaseTest {
     public void verify_Closed_PopUp_OnCancel() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
-        panelPage.click_AvailabilityTab();
+        panelPage.click_Availability();
         director.click_DeleteSlot();
         director.click_CancelButton();
         validate_text(director.today, "Today");

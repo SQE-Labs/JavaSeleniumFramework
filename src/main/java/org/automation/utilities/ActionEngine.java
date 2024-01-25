@@ -3,6 +3,7 @@ package org.automation.utilities;
 import com.relevantcodes.extentreports.LogStatus;
 import org.automation.base.BaseTest;
 import org.automation.elements.*;
+import org.automation.elements.Button;
 import org.automation.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -11,7 +12,8 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
 import java.util.List;
-import org.automation.elements.Elements;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
 
@@ -360,6 +362,17 @@ public class ActionEngine extends BaseTest {
         getDriver().navigate().back();
     }
 
+    public void navigate_to_baseUrl() {
+        getDriver().get(PropertiesUtil.getPropertyValue("url"));
+    }
+
+    public static String getText(By element) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+        WebElement ele = getDriver().findElement(element);
+        String text = ele.getText();
+        return text;
+    }
 
     public static String GetValueAttribute(By element, String attributeName) {
         try {
@@ -368,6 +381,6 @@ public class ActionEngine extends BaseTest {
         } catch (Exception e) {
             return attributeName;
         }
+
     }
 }
-
