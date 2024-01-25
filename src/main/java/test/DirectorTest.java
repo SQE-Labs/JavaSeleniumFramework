@@ -2,7 +2,6 @@ package test;
 
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.*;
-import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -79,7 +78,6 @@ public class DirectorTest extends BaseTest {
         director.click_DeleteButton();
         //validate_text(director.deletedSlot, " ");
         director.click_SaveBtn();
-        Thread.sleep(2000);
 
     }
 
@@ -165,11 +163,15 @@ public class DirectorTest extends BaseTest {
         appointment.click_ToDate();
     }
 
-    @Test(priority = 14, enabled = true, description = "28 Verify that date picker appears after clicking on calendar icon in 'To Date' field")
+    @Test(priority = 14, enabled = true, description = "28 Verify that CSV file gets downloaded after clicking on 'Export to CSV' button")
     public void verify_CSV_GetsDownloaded() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
         panelPage.click_AppointmentsTab();
+        appointment.click_UpcomingCard();
+        appointment.exportCSV_Button();
 
     }
 }

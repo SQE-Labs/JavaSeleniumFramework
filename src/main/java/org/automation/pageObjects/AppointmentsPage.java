@@ -15,7 +15,6 @@ public class AppointmentsPage extends BasePage {
     public By dashBoardPage=By.xpath("//h3[text()='Dashboard']");
     public By allAppointmentsPage=By.xpath("//h3[text()='All Appointments']");
     public By searchedText=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
-
     public By filterButton = By.xpath("//a[text()='Filter']");
     public By searchField=By.xpath("//input[@id='filterSearch']");
     public By dateFrom=By.xpath("//input[@placeholder='From Date']");
