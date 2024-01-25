@@ -33,7 +33,8 @@ public class AppointmentsPage extends BasePage {
     public By viewAllActualText = By.xpath("//h3[@class='mb-4 mb-md-0']");
     public By assestmentType = By.id("assestmentType");
     public By newEventText = By.xpath("//div[text()='New Event']");
-    public By dateElements = By.xpath("//tr/td[3]");
+    public By dateElements = By.xpath("//tr/td[4]");
+    public By dateElement = By.xpath("//tr/td[3]");
     public By chooseTestingLocation = By.id("testingLocation");
     public By clientFirstName = By.xpath("//input[@placeholder='Client First Name']");
     public By clientLastName = By.xpath("//input[@placeholder='Client Last Name']");

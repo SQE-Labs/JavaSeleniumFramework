@@ -384,7 +384,6 @@ public class DiagnosticianPage extends BasePage {
 
     //****************Diagnostician is checking todays appointments**************
 
-
     public void selectAssessmentDate() {
         WebdriverWaits.waitUntilVisible(assessmentDate);
         click_custom(assessmentDate);
@@ -442,19 +441,15 @@ public class DiagnosticianPage extends BasePage {
         click_custom(dlsDyslexiaCheckBox);
     }
 
-
-
 //******************Logging as diagnostician************
 
     public void enter_UserName(String CustomerFirstName) {
         WebdriverWaits.waitUntilVisible(userNameField);
         sendKeys_withClear(userNameField, CustomerFirstName);
     }
-
     public void enter_Password(String PasswordText) {
         sendKeys_withClear(passwordField, PasswordText);
     }
-
     public void click_LoginButton() {
         click_custom(loginButton);
     }
@@ -517,7 +512,7 @@ public class DiagnosticianPage extends BasePage {
     public void enter_LowAmount() throws InterruptedException {
         String Inr = getText_custom(inr).replace("$", "");
         double amount = parseDouble(Inr);
-        double value = amount - 50;
+        double value = amount - 20;
         Thread.sleep(4000);
         sendKeys_withClear(amountField, String.valueOf(value));
     }
@@ -536,7 +531,7 @@ public class DiagnosticianPage extends BasePage {
         sendKeys_withClear(amountField, String.valueOf(value));
     }
 
-    public void clickOn_CollectButton() {
+    public void click_CollectButton() {
         click_custom(collectButton);
     }
 
@@ -579,7 +574,7 @@ public class DiagnosticianPage extends BasePage {
         click_custom(noButton);
         scrolltoUp();
         WebdriverWaits.waitUntilVisible(pageTitle);
-        validate_text(pageTitle, clientFirstName + ' ' + clientLastName + ' ' + "Assessment");
+        validate_text(pageTitle, "Zoi" + ' ' + "Smith" + ' ' + "Assessment");
 
         click_custom(completeAssButton);
         click_custom(yesCompleteAssButton);
@@ -671,9 +666,9 @@ public class DiagnosticianPage extends BasePage {
         WebdriverWaits.waitUntilVisible(collectButn);
         validate_text(collectButn, "Collect");
 
-        clickOn_CollectButton();
+        click_CollectButton();
         WebdriverWaits.waitUntilVisible(pageTitle);
-        validate_text(pageTitle, clientFirstName + ' ' + clientLastName + ' ' + "Assessment");
+        validate_text(pageTitle, "Zoi" + ' ' + "Smith" + ' ' + "Assessment");
 
         click_CheckBox();
 

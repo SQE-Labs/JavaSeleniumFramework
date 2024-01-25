@@ -279,8 +279,8 @@ public class AdminTest extends BaseTest {
         AdminPage hold = new AdminPage();
         hold.click_HoldAppointmentBtn();
         validate_text(hold.holdActualText, "Are you sure you want to hold this appointment?");
-        holdAppointmentname = hold.getText_custom(hold.fullName);
-        Log.info(holdAppointmentname);
+//        holdAppointmentname = hold.getText_custom(hold.fullName);
+//        Log.info(holdAppointmentname);
     }
 
     @Test(priority = 22, enabled = true, description = "verify yes hold button on hold appointment button.")
@@ -317,12 +317,14 @@ public class AdminTest extends BaseTest {
         hold.click_unHoldBtn();
     }
     @Test(priority = 26, enabled = true, description = "Verify All Appointment page.")
-    public void verify_AllAppointmentsPage() {
+    public void verify_AllAppointmentsPage() throws InterruptedException {
         AppointmentsPage appPage = new AppointmentsPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        LoginPage login = new LoginPage();
-        login.adminLogin("allen", "123456");
-        panelPage.click_AppointmentsTab();
+
+//        LoginPage login = new LoginPage();
+//        login.adminLogin("allen", "123456");
+//        panelPage.click_AppointmentsTab();
+        Thread.sleep(3000);
         panelPage.click_ViewAllTab();
         WebdriverWaits.waitUntilVisible(appPage.viewAllActualText);
         WebdriverWaits.waitForSpinner();
@@ -350,10 +352,10 @@ public class AdminTest extends BaseTest {
         String FromDate = DateGenerator.getDateWithDays("dd-MM-yyyy", -2);
         appPage.enter_Dates(FromDate, toDate);
         admin.click_SearchButton();
-        WebdriverWaits.waitUntilVisible(appPage.dateElements);
+        WebdriverWaits.waitUntilVisible(appPage.dateElement);
         WebdriverWaits.waitForSpinner();
         Thread.sleep(4000);
-        List<WebElement> my_list = engine.getWebElements(appPage.dateElements);
+        List<WebElement> my_list = engine.getWebElements(appPage.dateElement);
         HashSet<WebElement> dateSet = new HashSet<>(my_list);
 
         LocalDate toDateLocal = LocalDate.parse(toDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));

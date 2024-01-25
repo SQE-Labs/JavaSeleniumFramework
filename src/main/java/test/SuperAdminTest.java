@@ -271,10 +271,10 @@ public class SuperAdminTest extends BaseTest {
 
     @Test(priority = 19, enabled = true, description = "3.1, 3.5, 3.9, 3.36 verify that SuperAdmin is able to create Director or not")
     public void create_Directors() throws InterruptedException {
-        directorFirstName = "AU_Cabe" + RandomStrings.requiredCharacters(2);
-        directorLastName = "AU_Rudd" + RandomStrings.requiredCharacters(2);
+        directorFirstName = "AU_Luke" + RandomStrings.requiredCharacters(2);
+        directorLastName = "AU_Brown" + RandomStrings.requiredCharacters(2);
         directorEmailAddress = directorFirstName + "@yopmail.com";
-        directorUserName = "AU_Bice" + RandomStrings.requiredCharacters(3);
+        directorUserName = "AU_Aria" + RandomStrings.requiredCharacters(3);
         dir_Cell_Number = RandomStrings.requiredDigits(10);
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
@@ -473,6 +473,7 @@ public class SuperAdminTest extends BaseTest {
         DashBoardPanelPage panelpage = new DashBoardPanelPage();
         ActionEngine action = new ActionEngine();
         panelpage.click_ExportCSVButton();
+
         //Download exportCSV File and Check file is downloaded or not
         String downloadFile = panelpage.getDownloadFileName();
         Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
