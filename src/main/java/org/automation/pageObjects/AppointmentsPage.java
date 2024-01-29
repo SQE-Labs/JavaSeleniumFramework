@@ -63,13 +63,14 @@ public class AppointmentsPage extends BasePage {
     public By appointmentsToday = By.xpath("//*[@id=\"Appointments\"]/li[2]/a");
     public By todaysAppointmentTXT = By.xpath("//div[@class='align-items-md-center d-flex flex-column flex-md-row page-header']");
     public By upcomingCard = By.xpath("//a[text()='Upcoming']");
-    public By upcomingAppointmentTXT = By.xpath("//h3[text()='Upcoming Appointments']");
+    public By upcomingAppointmentTXT = By.xpath("//h3[@class='mb-4 mb-md-0']");
     public By directorFilter = By.xpath("//a[text()='Filter']");
     public By searchTextBox = By.id("filterSearch");
     public By toDateText = By.xpath("//input[@formcontrolname='toDate']");
     public By fromDateText = By.xpath("//input[@formcontrolname='fromDate']");
-    public By firstSearchedRecord = By.xpath("//*[@id=\"appointmentTable\"]/tbody/tr[1]/td[1]");
+    public By firstSearchedRecord = By.xpath("(//td[@class='tablewidth'])[4]");
     public By afterClickFromDate = By.xpath("//*[@id=\"filterShow\"]/div/div[2]/input");
+    public By getAppointmentDetails = By.xpath("(//h5[@class='mb-0 text-purple'])[1]");
 
     public void click_FromDate() throws InterruptedException {
         WebdriverWaits.waitUntilVisible(fromDateText);
@@ -94,6 +95,16 @@ public class AppointmentsPage extends BasePage {
         WebdriverWaits.waitUntilVisible(upcomingCard);
         clickBtn_custom(upcomingCard);
 
+    }
+
+    public void click_ViewAll(){
+        WebdriverWaits.waitUntilVisible(viewAllTab);
+        clickBtn_custom(viewAllTab);
+    }
+
+    public void click_ViewDetailLink(){
+        WebdriverWaits.waitUntilVisible(viewDetailsLink);
+        clickBtn_custom(viewDetailsLink);
     }
 
     public void click_Filter(){
@@ -372,8 +383,6 @@ public class AppointmentsPage extends BasePage {
 
 
     public void exportCSV_Button() {
-        click_AppointmentTab();
-        click_ViewAllTab();
         click_ExportCSVButton();
     }
 

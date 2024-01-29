@@ -5,6 +5,9 @@ import org.automation.pageObjects.*;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.io.FileNotFoundException;
+
 import static org.automation.utilities.Assertions.validate_text;
 
 
@@ -16,53 +19,7 @@ public class DirectorTest extends BaseTest {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login = new LoginPage();
         login.director_Login();
-        director.click_LogOutLink();
-    }
-    @Test(priority=24,enabled = true,description = "Verify that Director is able to login with valid credentials or not")
-    public void director_Availability() throws InterruptedException {
-        DashBoardPanelPage panelPage=new DashBoardPanelPage();
-        LoginPage login=new LoginPage();
-        DirectorPage director=new DirectorPage();
-      //  login.directorLogin(directorUserName,"12345678");
-        WebdriverWaits.waitUntilVisible(director.dashboardPage);
         validate_text(director.dashboardPage, "Dashboard");
-        panelPage.click_AppointmentsTab();
-        validate_text(director.viewAll, "View All");
-        panelPage.click_Availability();
-      //  validate_text(director.monthHeader, "December");
-//       String month=getText_custom(director.yearHeader);
-        validate_text(director.monthHeader,  "December" );
-
-      //  validate_text(director.yearHeader, "2023");
-//        String getYearHeader=getText_custom(director.yearHeader);
-//        validate_text(director.yearHeader, "2023" );
-//
-//        String getdate =getText_custom(director.dateHeader);
-        validate_text(director.dateHeader, "27" );
-        director.director_Availability();
-        director.click_LogOutLink();
-    }
-    @Test(priority = 25, enabled = true, description = "Verify that diagnostician is able to login with old password or not")
-    public void login_With_OldPassword() throws InterruptedException {
-        DirectorPage director = new DirectorPage();
-        DashBoardPanelPage panelPage=new DashBoardPanelPage();
-        LoginPage login=new LoginPage();
-        //Director trying to login with old password
-     //   login.directorLogin(directorUserName, "123456");
-        WebdriverWaits.waitUntilVisible(director.validation_Msg);
-        validate_text(director.validation_Msg, "Username or password is incorrect");
-        //panelPage.click_LogOutLink();
-    }
-
-    @Test(priority = 26, enabled = true, description = "Verify Diagnostician is able to login with new password or not")
-    public void director_Relogin() throws InterruptedException {
-        DirectorPage director = new DirectorPage();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        LoginPage login=new LoginPage();
-        //Director trying to login with new password
-      //  login.directorLogin(directorUserName, "12345678");
-        WebdriverWaits.waitUntilVisible(director.directorDashBoardPage);
-        validate_text(director.directorDashBoardPage, "Dashboard");
 
     }
 
@@ -106,6 +63,8 @@ public class DirectorTest extends BaseTest {
     public void verify_Closed_PopUp_OnCancel() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
+        LoginPage login = new LoginPage();
+        //login.director_Login();
         panelPage.click_Availability();
         director.click_DeleteSlot();
         director.click_CancelButton();
@@ -122,7 +81,7 @@ public class DirectorTest extends BaseTest {
         director.click_DeleteSlot();
         director.click_DeleteButton();
         //validate_text(director.deletedSlot, " ");
-        director.click_SaveBtn();
+        director.click_SaveButton();
 
     }
 
@@ -130,7 +89,7 @@ public class DirectorTest extends BaseTest {
     public void verify_Today_AppointmentPage() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         AppointmentsPage appointment = new AppointmentsPage();
-        panelPage.click_AppointmentsTab();
+        panelPage.click_AppointmentsTab2();
         appointment.click_Today_AppointmentCard();
         validate_text(appointment.todaysAppointmentTXT, "Today's Appointments");
 
@@ -140,7 +99,6 @@ public class DirectorTest extends BaseTest {
     public void verify_Upcoming_AppointmentPage() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         AppointmentsPage appointment = new AppointmentsPage();
-        panelPage.click_AppointmentsTab();
         appointment.click_UpcomingCard();
         validate_text(appointment.upcomingAppointmentTXT, "Upcoming Appointments");
 
@@ -161,15 +119,7 @@ public class DirectorTest extends BaseTest {
     }
 
 
-    @Test(priority = 10, enabled = true, description = "25 Verify that director gets logged out after clicking 'Log Out' button")
-    public void verify_DirectorLogOut() throws InterruptedException {
-        DirectorPage director = new DirectorPage();
-        director.click_LogOutLink();
-        validate_text(director.signInToYourAccountTxt, "Sign in to your account");
-
-    }
-
-    @Test(priority = 11, enabled = true, description = "14 Verify that relevant records appear after entering valid data in search textbox, on 'Upcoming Appointments' page")
+    @Test(priority = 10, enabled = true, description = "14 Verify that relevant records appear after entering valid data in search textbox, on 'Upcoming Appointments' page")
     public void verify_RelevantRecords() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
@@ -178,17 +128,17 @@ public class DirectorTest extends BaseTest {
         panelPage.click_AppointmentsTab();
         appointment.click_UpcomingCard();
         appointment.click_Filter();
-        appointment.enterSearchText("Josh Volt");
-        validate_text(appointment.firstSearchedRecord, "Josh Volt");
+        appointment.enterSearchText("Mark Henry");
+        validate_text(appointment.firstSearchedRecord, "Mark Henry");
     }
 
     //TODO //After the fix we will added assertions//
-    @Test(priority = 12, enabled = true, description = "16 Verify that date picker appears after clicking on calendar icon in 'From Date' field")
+    @Test(priority = 11, enabled = true, description = "16 Verify that date picker appears after clicking on calendar icon in 'From Date' field")
     public void verify_FromDatePickerAppear() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login = new LoginPage();
-//      login.director_Login();
+        login.director_Login();
         panelPage.click_AppointmentsTab();
         appointment.click_UpcomingCard();
         appointment.click_Filter();
@@ -196,27 +146,65 @@ public class DirectorTest extends BaseTest {
     }
 
     //TODO //After the fix we will added assertions//
-    @Test(priority = 13, enabled = true, description = "21 Verify that date picker appears after clicking on calendar icon in 'To Date' field")
+    @Test(priority = 12, enabled = true, description = "21 Verify that date picker appears after clicking on calendar icon in 'To Date' field")
     public void verify_ToDatePickerAppear() throws InterruptedException {
-        AppointmentsPage appointment = new AppointmentsPage();
-        DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        LoginPage login = new LoginPage();
-//      login.director_Login();
-        panelPage.click_AppointmentsTab();
-        appointment.click_UpcomingCard();
-        appointment.click_Filter();
-        appointment.click_ToDate();
-    }
-
-    @Test(priority = 14, enabled = true, description = "28 Verify that CSV file gets downloaded after clicking on 'Export to CSV' button")
-    public void verify_CSV_GetsDownloaded() throws InterruptedException {
         AppointmentsPage appointment = new AppointmentsPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         LoginPage login = new LoginPage();
         login.director_Login();
         panelPage.click_AppointmentsTab();
         appointment.click_UpcomingCard();
+        appointment.click_Filter();
+        appointment.click_ToDate();
+    }
+
+    @Test(priority = 13, enabled = true, description = "28 Verify that CSV file gets downloaded after clicking on 'Export to CSV' button")
+    public void verify_CSV_GetsDownloaded() throws InterruptedException, FileNotFoundException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        DashBoardPanelPage panelpage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_UpcomingCard();
         appointment.exportCSV_Button();
+
+        String downloadFile = panelpage.getDownloadFileName();
+        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
+
+
+    }
+
+    @Test(priority = 14, enabled = true, description = "29 Verify that admin is directed to '<client Details>' page after clicking 'View Details'  button")
+    public void verify_ViewDetailsPage() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_ViewAll();
+        appointment.click_ViewDetailLink();
+        validate_text(appointment.getAppointmentDetails, "Appointment Details");
+
+    }
+
+    @Test(priority = 15, enabled = true, description = "Verify that 'Test Plan' pop up appears after clicking 'Test Plan' button")
+    public void verify_TestPlan_PopupAppears() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_ViewAll();
+        appointment.click_ViewDetailLink();
+
+    }
+
+    @Test(priority = 30, enabled = true, description = "25 Verify that director gets logged out after clicking 'Log Out' button")
+    public void verify_DirectorLogOut() throws InterruptedException {
+        DirectorPage director = new DirectorPage();
+        director.click_LogOutLink();
+        validate_text(director.signInToYourAccountTxt, "Sign in to your account");
 
     }
 }

@@ -96,9 +96,6 @@ public class DashBoardPanelPage extends BasePage {
         }
     }
 
-
-
-
     public String getDownloadFileName() {
 
         ChromeDownloads download = new ChromeDownloads();
@@ -114,6 +111,12 @@ public class DashBoardPanelPage extends BasePage {
         WebdriverWaits.waitUntilInvisible(spinner);
         WebdriverWaits.waitForSpinner();
         click_custom(AppointmentsTab);
+    }
+
+    public void click_AppointmentsTab2(){
+        WebdriverWaits.waitUntilInvisible(availabilityTab);
+        WebdriverWaits.waitForSpinner();
+        click_custom(availabilityTab);
     }
 
     public void click_Availability() {

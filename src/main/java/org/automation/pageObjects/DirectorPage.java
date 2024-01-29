@@ -53,8 +53,8 @@ public class DirectorPage extends BasePage {
     public By dontSaveButton = By.xpath("//a[text()='Don’t Save']");
     public By edit_Popup = By.xpath("//h5[text()='Edit User']");
     public By enableUser = By.xpath("//label[text()='Enable User']");
-    public By dashboardPage = By.xpath("//h3[text()='Dashboard']");
-    public By viewAll = By.xpath("//a[text()='View All']");
+    public By dashboardPage = By.xpath("//div[@class='page-header d-flex align-items-center']");
+    public By viewAll = By.xpath("(//li[@class='ng-star-inserted'])[1]");
 
 
     public By monthHeader = By.xpath("//span[@class='mbsc-calendar-month mbsc-calendar-title mbsc-ios ng-star-inserted']");
@@ -74,7 +74,7 @@ public class DirectorPage extends BasePage {
     public By availableText = By.xpath("//div[text()='Available']");
     public By saveButton = By.xpath("//button[text()='Save']");
     public By validationMsg = By.xpath("//div[@class='alert alert-danger ng-star-inserted']");
-    public By deletedSlot = By.xpath("//*[@id=\"diagnoSetAvailabilityForm\"]/div[1]/mbsc-eventcalendar/mbsc-calendar-view/mbsc-scheduler/div[3]/div[2]/div/div/div[5]/div/div[1]/mbsc-schedule-event[3]/div[3]/div[1]/div");
+    public By deleteSlot = By.xpath("//*[@id=\"diagnoSetAvailabilityForm\"]/div[1]/mbsc-eventcalendar/mbsc-calendar-view/mbsc-scheduler/div[3]/div[2]/div/div/div[5]/div/div[1]/mbsc-schedule-event/div[3]");
     public By deleteButton = By.xpath("//*[@class='btn btn-danger mbsc-button mbsc-button-flat mbsc-font mbsc-ios mbsc-ltr mbsc-popup-button mbsc-popup-button-center mbsc-popup-button-flex mbsc-reset ng-star-inserted']");
     public By cancelButton = By.xpath("/html/body/div/div[3]/div[2]/div[3]/mbsc-button[1]");
 
@@ -91,11 +91,11 @@ public class DirectorPage extends BasePage {
     public By validation_Msg = By.xpath("//small[text()='Username or password is incorrect']");
 
     public By spinner = By.cssSelector("div.ngx-spinner-overlay");
-    public By setAvailaibility = By.xpath("//h3[text()='Set Availability']");
+    public By setAvailaibility = By.xpath("//div[@class='page-header d-flex align-items-center']");
     public By slotSelection = By.xpath("(//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted'])[34]");
-    public By validateAvailable = By.xpath("(//div[@class='ng-star-inserted'])[15]");
+    public By validateAvailable = By.xpath("//*[@id=\"diagnoSetAvailabilityForm\"]/div[1]/mbsc-eventcalendar/mbsc-calendar-view/mbsc-scheduler/div[3]/div[2]/div/div/div[5]/div/div[1]/mbsc-schedule-event/div[3]/div[1]/div");
     public By avail_SaveButton = By.id("diagnoSetAvailabilitySubmit");
-    public By signInToYourAccountTxt = By.xpath("//h3[text()='Sign in to your account']");
+    public By signInToYourAccountTxt = By.xpath("//h3[@class='heading']");
     public By today = By.xpath("//mbsc-button[@aria-label='Today']");
 
 
@@ -121,9 +121,8 @@ public class DirectorPage extends BasePage {
     }
 
     public void click_DeleteSlot() {
-        WebdriverWaits.waitUntilVisible(spinner);
         WebdriverWaits.waitForSpinner();
-        click_custom(deletedSlot);
+        click_custom(deleteSlot);
     }
 
     public void click_DeleteButton() {
@@ -132,6 +131,7 @@ public class DirectorPage extends BasePage {
     }
 
     public void click_SaveBtn() {
+        WebdriverWaits.waitUntilVisible(avail_SaveButton);
         WebdriverWaits.waitForSpinner();
         click_custom(avail_SaveButton);
     }
@@ -198,6 +198,8 @@ public class DirectorPage extends BasePage {
     }
 
     public void click_SaveButton() {
+        WebdriverWaits.waitUntilVisible(saveButton);
+        WebdriverWaits.waitForSpinner();
         click_custom(saveButton);
     }
 
@@ -379,8 +381,3 @@ public class DirectorPage extends BasePage {
         click_SaveButton();
     }
 }
-
-
-
-
-
