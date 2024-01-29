@@ -51,7 +51,8 @@ public class DiagnosticianPage extends BasePage {
 
     public By viewClientDetailLink = By.xpath("(//td)[6]");
     public By clientDetailText = By.xpath("//div[contains(@class,'page-header align-items-lg-center')]");
-    public By clientNameText = By.xpath("//h3");
+    public By clientNameText = By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
+    public By clientText=By.xpath("//h3");
     public By fromDate = By.xpath("//input[@placeholder='From Date']");
     public By toDate = By.xpath("//input[@placeholder='To Date']");
 
@@ -574,7 +575,7 @@ public class DiagnosticianPage extends BasePage {
         click_custom(noButton);
         scrolltoUp();
         WebdriverWaits.waitUntilVisible(pageTitle);
-        validate_text(pageTitle, "Zoi" + ' ' + "Smith" + ' ' + "Assessment");
+        validate_text(pageTitle, clientFirstName + ' ' + clientLastName + ' ' + "Assessment");
 
         click_custom(completeAssButton);
         click_custom(yesCompleteAssButton);
@@ -668,7 +669,7 @@ public class DiagnosticianPage extends BasePage {
 
         click_CollectButton();
         WebdriverWaits.waitUntilVisible(pageTitle);
-        validate_text(pageTitle, "Zoi" + ' ' + "Smith" + ' ' + "Assessment");
+        validate_text(pageTitle, clientFirstName + ' ' + clientLastName + ' ' + "Assessment");
 
         click_CheckBox();
 
@@ -686,7 +687,7 @@ public class DiagnosticianPage extends BasePage {
     public void click_CancelTab() {
         WebdriverWaits.waitUntilVisible(cancelTab);
         WebdriverWaits.waitForSpinner();
-        click_custom(cancelTab);
+        moveToElement(cancelTab);
     }
 
 

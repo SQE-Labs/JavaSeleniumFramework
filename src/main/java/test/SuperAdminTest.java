@@ -433,7 +433,7 @@ public class SuperAdminTest extends BaseTest {
         DashBoardPanelPage panelpage = new DashBoardPanelPage();
 
         WebdriverWaits.waitForSpinner();
-        panelpage.click_ViewAllTab();
+        panelpage.click_AppointmentsTab();
         appointment.filterRecords(clientFirstName);
 
         //Download exportCSV File and Check file is downloaded or not
@@ -448,24 +448,23 @@ public class SuperAdminTest extends BaseTest {
         PaymentPage payment = new PaymentPage();
         ActionEngine action=new ActionEngine();
         LoginPage login = new LoginPage();
-        //action.navigate_Back();
-       login.superAdminLogin();
+        action.navigate_Back();
+     //  login.superAdminLogin();
 
         //******************** SuperAdmin viewing payments page**********
 
         payment.click_PaymentTab();
         WebdriverWaits.waitUntilVisible(payment.paymentListPage);
         validate_text(payment.paymentListPage, "Payments");
-
     }
 
     //****************Admin while do the payment after creating the appointments.
     @Test(dependsOnMethods = {"view_Payments_Page"})
     public void verify_Search_Payment() {
         PaymentPage payment = new PaymentPage();
-        String getText = getText_custom(payment.getCust_Name);
+      //  String getText = getText_custom(payment.getCust_Name);
         payment.click_filterButton();
-        payment.enterInSearchField(getText);
+        payment.enterInSearchField(clientFirstName);
     }
 
     @Test(dependsOnMethods = {"verify_Search_Payment"})

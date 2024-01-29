@@ -276,6 +276,7 @@ public class AppointmentsPage extends BasePage {
 
     public void click_ExportCSVButton() {
         WebdriverWaits.waitUntilVisible(exportCSVButton);
+        WebdriverWaits.waitForSpinner();
         click_custom(exportCSVButton);
     }
 
