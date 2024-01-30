@@ -71,6 +71,9 @@ public class AppointmentsPage extends BasePage {
     public By firstSearchedRecord = By.xpath("(//td[@class='tablewidth'])[4]");
     public By afterClickFromDate = By.xpath("//*[@id=\"filterShow\"]/div/div[2]/input");
     public By getAppointmentDetails = By.xpath("(//h5[@class='mb-0 text-purple'])[1]");
+    public By editTestPlanButton = By.xpath("(//button[@class='theme-button m-2 ng-star-inserted'])[1]");
+    public By selectWISC = By.xpath("//*[@id=\"selectSurveyForm\"]/div[1]/div/div[5]/div/input");
+    public By saveBtnEditPlan = By.xpath("//button[@class='theme-button green mr-2']");
 
     public void click_FromDate() throws InterruptedException {
         WebdriverWaits.waitUntilVisible(fromDateText);
@@ -79,6 +82,29 @@ public class AppointmentsPage extends BasePage {
         clickBtn_custom(afterClickFromDate);
     }
 
+    public void click_EditTestPlan(){
+        WebdriverWaits.waitUntilVisible(editTestPlanButton);
+        scrollIntoView(editTestPlanButton);
+        clickBtn_custom(editTestPlanButton);
+
+    }
+
+    public void select_Checkbox() {
+        WebdriverWaits.waitUntilVisible(selectWISC);
+        clickBtn_custom(selectWISC);
+    }
+
+    public void click_SaveButton() {
+        WebdriverWaits.waitUntilVisible(saveBtnEditPlan);
+        scrollIntoView(saveBtnEditPlan);
+        clickBtn_custom(saveBtnEditPlan);
+    }
+
+    public void click_CloseButton() {
+        WebdriverWaits.waitUntilVisible(saveBtnEditPlan);
+        scrollIntoView(saveBtnEditPlan);
+        clickBtn_custom(saveBtnEditPlan);
+    }
 
     public void click_ToDate(){
         WebdriverWaits.waitUntilVisible(toDateText);

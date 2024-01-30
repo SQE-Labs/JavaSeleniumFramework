@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import java.io.FileNotFoundException;
 
 import static org.automation.utilities.Assertions.validate_text;
+import static org.automation.utilities.DateGenerator.getMonthAndYear;
 
 
 public class DirectorTest extends BaseTest {
@@ -36,10 +37,13 @@ public class DirectorTest extends BaseTest {
     public void validate_SetAppointment_AND_YearPicker() throws InterruptedException {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
         panelPage.click_Availability();
         validate_text(director.setAvailaibility, "Set Availability");
-        validate_text(director.monthHeader, "January"); //TODO
-        validate_text(director.yearHeader, "2024");
+        String currentDate = getMonthAndYear();
+        validate_text(director.monthHeader, currentDate.split(" ")[0]);
+        validate_text(director.yearHeader, currentDate.split(" ")[1]);
         panelPage.click_Availability();
 
     }
@@ -200,7 +204,38 @@ public class DirectorTest extends BaseTest {
 
     }
 
-    @Test(priority = 30, enabled = true, description = "25 Verify that director gets logged out after clicking 'Log Out' button")
+    @Test(priority = 16, enabled = true, description = " Verify that 'Test Plan' pop up appears after clicking 'Test Plan' button.")
+    public void verify_TestPlan_AND_AddComments() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_ViewAll();
+        appointment.click_ViewDetailLink();
+        appointment.click_EditTestPlan();
+        //appointment.select_Checkbox();
+        appointment.click_SaveButton();
+
+    }
+
+    @Test(priority = 17, enabled = true, description = "33 Verify that changes made by director on 'Test Plan' popup does not get saved, after clicking 'Close' button")
+    public void verify_TestPlan_ChangesSaved() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_ViewAll();
+        appointment.click_ViewDetailLink();
+        appointment.click_EditTestPlan();
+        appointment.select_Checkbox();
+        appointment.click_CloseButton();
+
+    }
+
+
+    @Test(priority = 20, enabled = true, description = "25 Verify that director gets logged out after clicking 'Log Out' button")
     public void verify_DirectorLogOut() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         director.click_LogOutLink();
@@ -208,6 +243,5 @@ public class DirectorTest extends BaseTest {
 
     }
 }
-
 
 
