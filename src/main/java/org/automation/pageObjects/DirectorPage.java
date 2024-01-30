@@ -303,7 +303,7 @@ public class DirectorPage extends BasePage {
     }
 
     public void director_Availability() throws InterruptedException {
-        Thread.sleep(7000);
+        Thread.sleep(9000);
         List<WebElement> list = getDriver().findElements(By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']"));
         System.out.println(list.size());
         for (WebElement box : list) {

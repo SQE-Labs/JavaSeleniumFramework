@@ -109,11 +109,10 @@ public class DiagnosticianTest extends BaseTest {
         WebdriverWaits.waitForSpinner();
         diagnostician.click_upcomingTab();
         appointment.click_ExportCSVButton();
-
+        Thread.sleep(3000);
         //Download exportCSV File and Check file is downloaded or not
         String downloadFile = panelpage.getDownloadFileName();
         Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
-
     }
 
     @Test(priority = 6, enabled = true, description = "26, 27, 28, 12, 13, 14, 16, 17, 18  diagnostician is starting assessment")
@@ -143,22 +142,11 @@ public class DiagnosticianTest extends BaseTest {
 
     @Test(priority = 8, enabled = true, description = "24, 86, 88 Verify diagnostician is able to download csv file or not after completing the assessment")
     public void verify_completeAss()   {
-        AppointmentsPage appointment = new AppointmentsPage();
-        DashBoardPanelPage panelpage = new DashBoardPanelPage();
         DiagnosticianPage diagnostician = new DiagnosticianPage();
-        ActionEngine action = new ActionEngine();
         diagnostician.verify_CompleteAss();
         diagnostician.search_CreatedDiagnostician(clientFirstName);
-        //appointment.click_ExportCSVButton();
         WebdriverWaits.waitUntilVisible(diagnostician.clientNameText);
         validate_text(diagnostician.clientNameText, clientFirstName +' '+ clientLastName);
-
-        //Download exportCSV File and Check file is downloaded or not
-//        String downloadFile = panelpage.getDownloadFileName();
-//        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
-//        Thread.sleep(3000);
-//        action.navigate_Back();
-
     }
 
     @Test(priority = 9, enabled = true, description = "89, 90  Verify diagnostician is able to download csv file or not after completing the assessment")

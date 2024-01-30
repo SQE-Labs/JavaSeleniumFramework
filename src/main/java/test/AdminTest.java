@@ -171,6 +171,7 @@ public class AdminTest extends BaseTest {
         AdminPage followUp = new AdminPage();
         followUp.Create_FollowUp();
         WebdriverWaits.waitUntilVisible(followUp.validateScheduledFollowUp);
+        WebdriverWaits.waitForSpinner();
         validate_text(followUp.validateScheduledFollowUp, "Follow Up Scheduled!!");
         followUp.click_BackBtn();
     }
@@ -288,6 +289,7 @@ public class AdminTest extends BaseTest {
         AdminPage hold = new AdminPage();
         hold.click_yesHoldBtn();
         WebdriverWaits.waitUntilVisible(hold.allAppointmentsPage);
+        WebdriverWaits.waitForSpinner();
         validate_text(hold.allAppointmentsPage, "All Appointments");
     }
 

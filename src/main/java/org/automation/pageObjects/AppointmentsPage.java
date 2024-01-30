@@ -83,7 +83,8 @@ public class AppointmentsPage extends BasePage {
     }
 
     public void enterCellNumber(String cellNumberText)   {
-     click_custom(cellNumber);
+        WebdriverWaits.waitUntilVisible(cellNumber);
+         click_custom(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -150,7 +151,6 @@ public class AppointmentsPage extends BasePage {
     }
 
     public void enterAmount(String enterAmountText) throws InterruptedException {
-        WebdriverWaits.waitUntilInvisible(enterAmountField);
         WebdriverWaits.waitUntilVisible(enterAmountField);
         click_custom(enterAmountField);
         sendKeys_withClear(enterAmountField, enterAmountText);
@@ -173,11 +173,11 @@ public class AppointmentsPage extends BasePage {
     }
 
     public void getTotalColumnCount() throws InterruptedException {
-        int colCount = getColumnCount();
-        int expLocatorPos = (colCount - 1) * 7 + 1;
-        System.out.println(expLocatorPos);
+//        int colCount = getColumnCount();
+//        int expLocatorPos = (colCount - 1) * 7 + 1;
+//        System.out.println(expLocatorPos);
 
-        Thread.sleep(4000);
+        Thread.sleep(7000);
         List<WebElement> list = getWebElements(slots, "AppointmentSlots");
         for (WebElement slot : list) {
             Thread.sleep(2000);
@@ -233,7 +233,6 @@ public class AppointmentsPage extends BasePage {
         click_custom(assestmentType);
         selectDropDownByIndex_custom(assestmentType, assestmentTypeTexts);
     }
-
     public void fill_clientDetailsSection(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText, int schoolTypeOption, String cellNumber, String EmailAddress, String reasonForCallText, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
         enterFirstName(CustomerFirstName);
         enterLastName(CustomerLastName);
@@ -247,7 +246,6 @@ public class AppointmentsPage extends BasePage {
         clickContinueToDepositButton();
         WebdriverWaits.waitForSpinner();
         enterAmount(enterAmountText);
-        WebdriverWaits.waitForSpinner();
         clickCollectDepositButton();
         WebdriverWaits.waitForSpinner();
 
