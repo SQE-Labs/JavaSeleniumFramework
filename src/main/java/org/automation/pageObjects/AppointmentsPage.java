@@ -33,7 +33,8 @@ public class AppointmentsPage extends BasePage {
     public By viewAllActualText = By.xpath("//h3[@class='mb-4 mb-md-0']");
     public By assestmentType = By.id("assestmentType");
     public By newEventText = By.xpath("//div[text()='New Event']");
-    public By dateElements = By.xpath("//tr/td[3]");
+    public By dateElements = By.xpath("//tr/td[4]");
+    public By dateElement = By.xpath("//tr/td[3]");
     public By chooseTestingLocation = By.id("testingLocation");
     public By clientFirstName = By.xpath("//input[@placeholder='Client First Name']");
     public By clientLastName = By.xpath("//input[@placeholder='Client Last Name']");
@@ -82,7 +83,8 @@ public class AppointmentsPage extends BasePage {
     }
 
     public void enterCellNumber(String cellNumberText)   {
-     click_custom(cellNumber);
+        WebdriverWaits.waitUntilVisible(cellNumber);
+         click_custom(cellNumber);
         sendKeys_withClear(cellNumber, cellNumberText);
     }
 
@@ -149,7 +151,6 @@ public class AppointmentsPage extends BasePage {
     }
 
     public void enterAmount(String enterAmountText) throws InterruptedException {
-        WebdriverWaits.waitUntilInvisible(enterAmountField);
         WebdriverWaits.waitUntilVisible(enterAmountField);
         click_custom(enterAmountField);
         sendKeys_withClear(enterAmountField, enterAmountText);
@@ -172,11 +173,11 @@ public class AppointmentsPage extends BasePage {
     }
 
     public void getTotalColumnCount() throws InterruptedException {
-        int colCount = getColumnCount();
-        int expLocatorPos = (colCount - 1) * 7 + 1;
-        System.out.println(expLocatorPos);
+//        int colCount = getColumnCount();
+//        int expLocatorPos = (colCount - 1) * 7 + 1;
+//        System.out.println(expLocatorPos);
 
-        Thread.sleep(4000);
+        Thread.sleep(7000);
         List<WebElement> list = getWebElements(slots, "AppointmentSlots");
         for (WebElement slot : list) {
             Thread.sleep(2000);
@@ -232,7 +233,6 @@ public class AppointmentsPage extends BasePage {
         click_custom(assestmentType);
         selectDropDownByIndex_custom(assestmentType, assestmentTypeTexts);
     }
-
     public void fill_clientDetailsSection(String CustomerFirstName, String CustomerLastName, int gradeType, String dateOfBirthText, int schoolTypeOption, String cellNumber, String EmailAddress, String reasonForCallText, String cityText, String stateText, String zipCodeText, String testAmountText, String enterAmountText) throws InterruptedException {
         enterFirstName(CustomerFirstName);
         enterLastName(CustomerLastName);
@@ -246,7 +246,6 @@ public class AppointmentsPage extends BasePage {
         clickContinueToDepositButton();
         WebdriverWaits.waitForSpinner();
         enterAmount(enterAmountText);
-        WebdriverWaits.waitForSpinner();
         clickCollectDepositButton();
         WebdriverWaits.waitForSpinner();
 
@@ -275,6 +274,7 @@ public class AppointmentsPage extends BasePage {
 
     public void click_ExportCSVButton() {
         WebdriverWaits.waitUntilVisible(exportCSVButton);
+        WebdriverWaits.waitForSpinner();
         click_custom(exportCSVButton);
     }
 

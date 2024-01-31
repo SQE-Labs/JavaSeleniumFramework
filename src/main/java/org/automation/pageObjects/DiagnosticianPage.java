@@ -51,7 +51,8 @@ public class DiagnosticianPage extends BasePage {
 
     public By viewClientDetailLink = By.xpath("(//td)[6]");
     public By clientDetailText = By.xpath("//div[contains(@class,'page-header align-items-lg-center')]");
-    public By clientNameText = By.xpath("//h3");
+    public By clientNameText = By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
+    public By clientText=By.xpath("//h3");
     public By fromDate = By.xpath("//input[@placeholder='From Date']");
     public By toDate = By.xpath("//input[@placeholder='To Date']");
 
@@ -384,7 +385,6 @@ public class DiagnosticianPage extends BasePage {
 
     //****************Diagnostician is checking todays appointments**************
 
-
     public void selectAssessmentDate() {
         WebdriverWaits.waitUntilVisible(assessmentDate);
         click_custom(assessmentDate);
@@ -442,19 +442,15 @@ public class DiagnosticianPage extends BasePage {
         click_custom(dlsDyslexiaCheckBox);
     }
 
-
-
 //******************Logging as diagnostician************
 
     public void enter_UserName(String CustomerFirstName) {
         WebdriverWaits.waitUntilVisible(userNameField);
         sendKeys_withClear(userNameField, CustomerFirstName);
     }
-
     public void enter_Password(String PasswordText) {
         sendKeys_withClear(passwordField, PasswordText);
     }
-
     public void click_LoginButton() {
         click_custom(loginButton);
     }
@@ -517,7 +513,7 @@ public class DiagnosticianPage extends BasePage {
     public void enter_LowAmount() throws InterruptedException {
         String Inr = getText_custom(inr).replace("$", "");
         double amount = parseDouble(Inr);
-        double value = amount - 50;
+        double value = amount - 20;
         Thread.sleep(4000);
         sendKeys_withClear(amountField, String.valueOf(value));
     }
@@ -536,7 +532,7 @@ public class DiagnosticianPage extends BasePage {
         sendKeys_withClear(amountField, String.valueOf(value));
     }
 
-    public void clickOn_CollectButton() {
+    public void click_CollectButton() {
         click_custom(collectButton);
     }
 
@@ -671,7 +667,7 @@ public class DiagnosticianPage extends BasePage {
         WebdriverWaits.waitUntilVisible(collectButn);
         validate_text(collectButn, "Collect");
 
-        clickOn_CollectButton();
+        click_CollectButton();
         WebdriverWaits.waitUntilVisible(pageTitle);
         validate_text(pageTitle, clientFirstName + ' ' + clientLastName + ' ' + "Assessment");
 
@@ -691,7 +687,7 @@ public class DiagnosticianPage extends BasePage {
     public void click_CancelTab() {
         WebdriverWaits.waitUntilVisible(cancelTab);
         WebdriverWaits.waitForSpinner();
-        click_custom(cancelTab);
+        moveToElement(cancelTab);
     }
 
 

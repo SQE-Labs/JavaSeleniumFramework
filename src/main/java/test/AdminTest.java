@@ -171,6 +171,7 @@ public class AdminTest extends BaseTest {
         AdminPage followUp = new AdminPage();
         followUp.Create_FollowUp();
         WebdriverWaits.waitUntilVisible(followUp.validateScheduledFollowUp);
+        WebdriverWaits.waitForSpinner();
         validate_text(followUp.validateScheduledFollowUp, "Follow Up Scheduled!!");
         followUp.click_BackBtn();
     }
@@ -269,7 +270,7 @@ public class AdminTest extends BaseTest {
     @Test(priority = 20, enabled = true, description = "Verify Edit client details popup client page.")
     public void verify_UpdateBtn() {
         AdminPage editClient = new AdminPage();
-        editClient.edit_ClientInfo("Zoi", "Smith", "401 Broadway E eastate g", "College");
+        editClient.edit_ClientInfo(clientFirstName, clientLastName, "401 Broadway E eastate g", "College");
         editClient.click_UpdateClientBtn();
         WebdriverWaits.waitUntilVisible(editClient.actualTextClient);
         validate_text(editClient.actualTextClient, "College");
@@ -279,8 +280,8 @@ public class AdminTest extends BaseTest {
         AdminPage hold = new AdminPage();
         hold.click_HoldAppointmentBtn();
         validate_text(hold.holdActualText, "Are you sure you want to hold this appointment?");
-        holdAppointmentname = hold.getText_custom(hold.fullName);
-        Log.info(holdAppointmentname);
+//        holdAppointmentname = hold.getText_custom(hold.fullName);
+//        Log.info(holdAppointmentname);
     }
 
     @Test(priority = 22, enabled = true, description = "verify yes hold button on hold appointment button.")
@@ -288,6 +289,7 @@ public class AdminTest extends BaseTest {
         AdminPage hold = new AdminPage();
         hold.click_yesHoldBtn();
         WebdriverWaits.waitUntilVisible(hold.allAppointmentsPage);
+        WebdriverWaits.waitForSpinner();
         validate_text(hold.allAppointmentsPage, "All Appointments");
     }
 
@@ -317,12 +319,14 @@ public class AdminTest extends BaseTest {
         hold.click_unHoldBtn();
     }
     @Test(priority = 26, enabled = true, description = "Verify All Appointment page.")
-    public void verify_AllAppointmentsPage() {
+    public void verify_AllAppointmentsPage() throws InterruptedException {
         AppointmentsPage appPage = new AppointmentsPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
-        LoginPage login = new LoginPage();
-        login.adminLogin("allen", "123456");
-        panelPage.click_AppointmentsTab();
+
+//        LoginPage login = new LoginPage();
+//        login.adminLogin("allen", "123456");
+//        panelPage.click_AppointmentsTab();
+        Thread.sleep(3000);
         panelPage.click_ViewAllTab();
         WebdriverWaits.waitUntilVisible(appPage.viewAllActualText);
         WebdriverWaits.waitForSpinner();
@@ -350,10 +354,10 @@ public class AdminTest extends BaseTest {
         String FromDate = DateGenerator.getDateWithDays("dd-MM-yyyy", -2);
         appPage.enter_Dates(FromDate, toDate);
         admin.click_SearchButton();
-        WebdriverWaits.waitUntilVisible(appPage.dateElements);
+        WebdriverWaits.waitUntilVisible(appPage.dateElement);
         WebdriverWaits.waitForSpinner();
         Thread.sleep(4000);
-        List<WebElement> my_list = engine.getWebElements(appPage.dateElements);
+        List<WebElement> my_list = engine.getWebElements(appPage.dateElement);
         HashSet<WebElement> dateSet = new HashSet<>(my_list);
 
         LocalDate toDateLocal = LocalDate.parse(toDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
