@@ -54,10 +54,10 @@ public class SuperAdminTest extends BaseTest {
     @Test(priority = 2, enabled = true, description = "5.5, Verify that SuperAdmin is able to create Admin or not")
     public void verify_Create_Admin() throws InterruptedException, IOException {
         AdminPage admin = new AdminPage();
-        adminFirstName = "AU_Chan" + RandomStrings.requiredCharacters(3);
-        adminLastName = "AU_Lowe" + RandomStrings.requiredCharacters(3);
+        adminFirstName = "AU_Ayla" + RandomStrings.requiredCharacters(3);
+        adminLastName = "AU_Ari" + RandomStrings.requiredCharacters(3);
         adminEmailAddress = adminFirstName + "@yopmail.com";
-        adminUserName = "AU_Gill" + RandomStrings.requiredCharacters(3);
+        adminUserName = "AU_Flyn" + RandomStrings.requiredCharacters(3);
         admin_cell_Number = RandomStrings.requiredDigits(10);
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         WebdriverWaits.waitForSpinner();
@@ -151,10 +151,10 @@ public class SuperAdminTest extends BaseTest {
     public void verify_Create_Diagnostician_By_SuperAdmin() throws InterruptedException {
         //Login by using superAdmin credentials
         DiagnosticianPage diagnostician = new DiagnosticianPage();
-        diagnosticianFirstName = "AU_Troy" + RandomStrings.requiredCharacters(2);
-        diagnosticianLastName = "AU_Cox" + RandomStrings.requiredCharacters(2);
+        diagnosticianFirstName = "AU_Isac" + RandomStrings.requiredCharacters(3);
+        diagnosticianLastName = "AU_Reid" + RandomStrings.requiredCharacters(3);
         diagnosticianEmailAddress = diagnosticianFirstName + "@yopmail.com";
-         diagnosticianUserName = "AU_Lim" + RandomStrings.requiredCharacters(2);
+         diagnosticianUserName = "AU_Noah" + RandomStrings.requiredCharacters(3);
         dia_Cell_Number = RandomStrings.requiredDigits(10);
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         //navigating  to base url
@@ -224,6 +224,7 @@ public class SuperAdminTest extends BaseTest {
         diagnostician.enable_DiagnosticianUser();
         // Enabling the user
         WebdriverWaits.waitUntilVisible(diagnostician.edit_Succ_Msg);
+        WebdriverWaits.waitForSpinner();
         validate_text(diagnostician.edit_Succ_Msg, "Diagnostician details updated successfully.");
         Log.info("Successfully Edited the created diagnostician");
         // panelPage.click_LogOutLink();
@@ -271,10 +272,10 @@ public class SuperAdminTest extends BaseTest {
 
     @Test(priority = 19, enabled = true, description = "3.1, 3.5, 3.9, 3.36 verify that SuperAdmin is able to create Director or not")
     public void create_Directors() throws InterruptedException {
-        directorFirstName = "AU_Cabe" + RandomStrings.requiredCharacters(2);
-        directorLastName = "AU_Rudd" + RandomStrings.requiredCharacters(2);
+        directorFirstName = "AU_Luke" + RandomStrings.requiredCharacters(2);
+        directorLastName = "AU_Brown" + RandomStrings.requiredCharacters(2);
         directorEmailAddress = directorFirstName + "@yopmail.com";
-        directorUserName = "AU_Bice" + RandomStrings.requiredCharacters(3);
+        directorUserName = "AU_Aria" + RandomStrings.requiredCharacters(3);
         dir_Cell_Number = RandomStrings.requiredDigits(10);
         DirectorPage director = new DirectorPage();
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
@@ -285,8 +286,6 @@ public class SuperAdminTest extends BaseTest {
         director.create_Director(directorFirstName, directorLastName, dir_Cell_Number, directorEmailAddress, directorUserName, "123456", "123456");
         WebdriverWaits.waitUntilVisible(director.directorListPage);
         validate_text(director.directorListPage, "Directors List");
-
-
 
     }
 
@@ -445,7 +444,8 @@ public class SuperAdminTest extends BaseTest {
         DashBoardPanelPage panelpage = new DashBoardPanelPage();
 
         WebdriverWaits.waitForSpinner();
-        panelpage.click_ViewAllTab();
+        panelpage.click_AppointmentsTab();
+        appointment.click_ViewAllTab();
         appointment.filterRecords(clientFirstName);
 
         //Download exportCSV File and Check file is downloaded or not
@@ -460,24 +460,23 @@ public class SuperAdminTest extends BaseTest {
         PaymentPage payment = new PaymentPage();
         ActionEngine action=new ActionEngine();
         LoginPage login = new LoginPage();
-        //action.navigate_Back();
-       login.superAdminLogin();
+        action.navigate_Back();
+      login.superAdminLogin();
 
         //******************** SuperAdmin viewing payments page**********
 
         payment.click_PaymentTab();
         WebdriverWaits.waitUntilVisible(payment.paymentListPage);
         validate_text(payment.paymentListPage, "Payments");
-
     }
 
     //****************Admin while do the payment after creating the appointments.
     @Test(dependsOnMethods = {"view_Payments_Page"})
     public void verify_Search_Payment() {
         PaymentPage payment = new PaymentPage();
-        String getText = getText_custom(payment.getCust_Name);
+      //  String getText = getText_custom(payment.getCust_Name);
         payment.click_filterButton();
-        payment.enterInSearchField(getText);
+        payment.enterInSearchField(clientFirstName);
     }
 
     @Test(dependsOnMethods = {"verify_Search_Payment"})
@@ -485,6 +484,7 @@ public class SuperAdminTest extends BaseTest {
         DashBoardPanelPage panelpage = new DashBoardPanelPage();
         ActionEngine action = new ActionEngine();
         panelpage.click_ExportCSVButton();
+
         //Download exportCSV File and Check file is downloaded or not
         String downloadFile = panelpage.getDownloadFileName();
         Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));

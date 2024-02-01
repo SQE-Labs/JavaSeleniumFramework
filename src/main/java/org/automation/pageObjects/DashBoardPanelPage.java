@@ -22,7 +22,7 @@ public class DashBoardPanelPage extends BasePage {
     public By paymentButton = By.xpath("//a[text()='Payments']");
     public By backButton = By.xpath("//button[text()='Back']");
     public By exportCSVButton = By.xpath("//button[text()='Export to CSV']");
-    public By AppointmentsTab = By.xpath("//a[@class='collapsed']");
+    public By AppointmentsTab = By.xpath("//a[text()=' Appointments ']");
     public By availabilityTab = By.xpath("//a[text()='Availability']");
     public By editButton = By.xpath("(//a[text()='Edit'])[1]");
     public By viewAllTab = By.xpath("//a[text()='View All']");
@@ -84,7 +84,7 @@ public class DashBoardPanelPage extends BasePage {
         String home = System.getProperty("user.home");
         String file_with_location = home + "/Downloads/" + fileName;
         File file = new File(file_with_location.trim());
-        String fileTest = file.getName();
+      //  String fileTest = file.getName();
         if (file.exists() && file.length() != 0) {
             System.out.println(file_with_location + " is present with size greater than 0 ");
             extentTest.log(PASS, file_with_location + " is present  with size greater than 0");

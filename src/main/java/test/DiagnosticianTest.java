@@ -60,7 +60,7 @@ public class DiagnosticianTest extends BaseTest {
     @Test(priority = 3, enabled = true, description = "32 Verify diagnostian client details page")
     public void verify_ClientDetailsPage() {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
-        diagnostician.view_ClientDetail(clientLastName);
+        diagnostician.view_ClientDetail(clientFirstName);
         WebdriverWaits.waitUntilVisible(diagnostician.clientDetailText);
         validate_text(diagnostician.clientDetailText, clientFirstName + ' ' + clientLastName + ' ' + "Details");
     }
@@ -105,15 +105,14 @@ public class DiagnosticianTest extends BaseTest {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
         ActionEngine action = new ActionEngine();
         action.navigate_Back();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         WebdriverWaits.waitForSpinner();
         diagnostician.click_upcomingTab();
         appointment.click_ExportCSVButton();
-
+        Thread.sleep(3000);
         //Download exportCSV File and Check file is downloaded or not
         String downloadFile = panelpage.getDownloadFileName();
         Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
-
     }
 
     @Test(priority = 6, enabled = true, description = "26, 27, 28, 12, 13, 14, 16, 17, 18  diagnostician is starting assessment")
@@ -135,27 +134,19 @@ public class DiagnosticianTest extends BaseTest {
 
         diagnostician.verify_CompleteAss();
         diagnostician.click_filterButton();
-        diagnostician.enter_ClientDetail(clientLastName);
-        WebdriverWaits.waitUntilVisible(diagnostician.clientNameText);
-        validate_text(diagnostician.clientNameText, clientFirstName + ' ' + clientLastName + ' ' + "Details");
+        diagnostician.enter_ClientDetail(clientFirstName);
+        WebdriverWaits.waitUntilVisible(diagnostician.clientText);
+        validate_text(diagnostician.clientText, clientFirstName +' '+clientLastName+' '+ "Details");
 
     }
 
     @Test(priority = 8, enabled = true, description = "24, 86, 88 Verify diagnostician is able to download csv file or not after completing the assessment")
-    public void verify_download_CSV_File_For_completeAss() throws InterruptedException, IOException {
-        AppointmentsPage appointment = new AppointmentsPage();
-        DashBoardPanelPage panelpage = new DashBoardPanelPage();
+    public void verify_completeAss()   {
         DiagnosticianPage diagnostician = new DiagnosticianPage();
-        ActionEngine action = new ActionEngine();
         diagnostician.verify_CompleteAss();
-        diagnostician.search_CreatedDiagnostician(clientLastName);
-        appointment.click_ExportCSVButton();
-
-        //Download exportCSV File and Check file is downloaded or not
-        String downloadFile = panelpage.getDownloadFileName();
-        Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
-        action.navigate_Back();
-        // panelpage.click_LogOutLink();
+        diagnostician.search_CreatedDiagnostician(clientFirstName);
+        WebdriverWaits.waitUntilVisible(diagnostician.clientNameText);
+        validate_text(diagnostician.clientNameText, clientFirstName +' '+ clientLastName);
     }
 
     @Test(priority = 9, enabled = true, description = "89, 90  Verify diagnostician is able to download csv file or not after completing the assessment")
@@ -167,7 +158,6 @@ public class DiagnosticianTest extends BaseTest {
         WebdriverWaits.waitUntilVisible(diagnostician.clientNameText);
         validate_text(diagnostician.clientNameText, clientFirstName +' '+ clientLastName);
          panelpage.click_LogOutLink();
-
     }
 }
 

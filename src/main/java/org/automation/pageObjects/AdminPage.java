@@ -184,9 +184,10 @@ public class AdminPage extends BasePage {
         sendKeys_withClear(admin_LastName, CustomerLastName);
     }
 
-    public void enter_admin_MobileNumber(String diagnostician_MobileNumberText) {
+    public void enter_admin_MobileNumber(String diagnostician_MobileNumberText) throws InterruptedException {
         WebdriverWaits.waitUntilVisible(admin_MobileNumber);
         click_custom(admin_MobileNumber);
+        Thread.sleep(2000);
         sendKeys_withClear(admin_MobileNumber, diagnostician_MobileNumberText);
     }
 
@@ -665,7 +666,6 @@ public class AdminPage extends BasePage {
 
 
     public void Create_FollowUp() {
-        refresh_Page();
         click_CreateFollowUpBtn();
         click_FollowUpSlot();
         click_FollowUpSlotSaveBtn();

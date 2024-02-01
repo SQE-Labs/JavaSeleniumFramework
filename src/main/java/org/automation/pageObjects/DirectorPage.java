@@ -6,8 +6,8 @@ import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import java.util.List;
+import static org.automation.utilities.WebdriverWaits.moveToEleByWE;
 
 
 public class DirectorPage extends BasePage {
@@ -27,7 +27,7 @@ public class DirectorPage extends BasePage {
     public By directorsLocationName = By.xpath("//option[text()='Austin']");
     public By directorsUserName = By.xpath("//input[@placeholder='Username']");
     public By password_Field = By.xpath("//input[@placeholder='Create Password']");
-    public By confirm_PasswordField = By.xpath("//input[@placeholder='Confirm Password']");
+    public By confirm_PasswordField = By.xpath("//input[@class='ng-untouched ng-pristine ng-valid border border-danger']");
     public By createDirectorsButton = By.xpath("//button[text()='Create Director']");
 
     //**************Search created director***************
@@ -46,7 +46,7 @@ public class DirectorPage extends BasePage {
 
     public By passwordTextField = By.xpath("//input[@formcontrolname='password']");
     public By confirmPasswordField = By.xpath("(//input[@type='password'])[2]");
-    public By edit_SuccMsg = By.xpath("//div[text()=' Director details updated successfully. ']");
+    public By edit_SuccMsg = By.xpath("//div[@class='alert alert-success ng-star-inserted']");
     public By UserNameGetText = By.xpath("(//td)[2]");
 
     public By toggle = By.xpath("//span[@class='slider round']");
@@ -182,6 +182,10 @@ public class DirectorPage extends BasePage {
         sendKeys_withClear(confirm_PasswordField, confirmPasswordFieldText);
     }
 
+    public void enter_ConfirmPassword(String rePassword) {
+        sendKeys_withClear(confirmPasswordField, rePassword);
+    }
+
     public void click_createDirectorButton() {
         click_custom(createDirectorsButton);
     }
@@ -297,7 +301,7 @@ public class DirectorPage extends BasePage {
         click_directorsassignLocationField();
         click_directorsUserNameField(directorsUserNameText);
         click_passwordField(password_FieldText);
-        click_confirmPasswordField(confirmPasswordFieldText);
+        enter_ConfirmPassword(confirmPasswordFieldText);
         click_createDirectorButton();
     }
 
@@ -365,13 +369,15 @@ public class DirectorPage extends BasePage {
     }
 
     public void director_Availability() throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(9000);
         List<WebElement> list = getDriver().findElements(By.xpath("//div[@class='mbsc-flex-1-0 mbsc-ios mbsc-schedule-item ng-star-inserted']"));
         System.out.println(list.size());
         for (WebElement box : list) {
             Thread.sleep(2000);
-            click_custom(box);
+
+            moveToEleByWE(box);
             if (getDriver().findElements(By.xpath("//div[@class='ng-star-inserted']")).size() > 2) {
+
                 if (getDriver().findElement(By.xpath("//div[@class='ng-star-inserted']")).getText().equals("Available")) {
                     break;
                 }
