@@ -172,10 +172,8 @@ public class DirectorTest extends BaseTest {
         panelPage.click_AppointmentsTab();
         appointment.click_UpcomingCard();
         appointment.exportCSV_Button();
-
         String downloadFile = panelpage.getDownloadFileName();
         Assert.assertTrue(panelpage.isFileDownloaded(downloadFile));
-
 
     }
 
@@ -214,7 +212,8 @@ public class DirectorTest extends BaseTest {
         appointment.click_ViewAll();
         appointment.click_ViewDetailLink();
         appointment.click_EditTestPlan();
-        //appointment.select_Checkbox();
+        appointment.select_Checkbox();
+        appointment.enter_OtherComments("My Appointment");
         appointment.click_SaveButton();
 
     }
@@ -234,12 +233,41 @@ public class DirectorTest extends BaseTest {
 
     }
 
+    @Test(priority = 18, enabled = true, description = "36 Verify that 'Collect Payment' popup opens up after clicking 'Payment' button")
+    public void verify_CollectPayment_PopupOpenUp() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_ViewAll();
+        appointment.click_ViewDetailLink();
+        appointment.click_PaymentButton();
+        validate_text(appointment.collectPaymentTXT,"Collect Payment");
+
+    }
+
+    @Test(priority = 19, enabled = true, description = "37 Verify that 'Test Fee Adjustment' field accepts positive amount and that positive amount gets added to 'Assessment Amount' and 'Amount Due' values, on 'Collect Payment' pop up")
+    public void verify_TestFeeAdjustment() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        PaymentPage payment = new PaymentPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_ViewAll();
+        appointment.click_ViewDetailLink();
+        appointment.click_PaymentButton();
+        payment.enter_TestFeeAdjustment("100");
+
+
+    }
 
     @Test(priority = 20, enabled = true, description = "25 Verify that director gets logged out after clicking 'Log Out' button")
     public void verify_DirectorLogOut() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         director.click_LogOutLink();
-        validate_text(director.signInToYourAccountTxt, "Sign in to your account");
+        validate_text(director.signInToYourAccountTxt,"Sign in to your account");
 
     }
 }

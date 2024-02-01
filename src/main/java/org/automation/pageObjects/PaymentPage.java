@@ -13,6 +13,7 @@ public class PaymentPage extends BasePage {
     public By cust_Name=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
     public By getCust_Name =By.xpath("(//td)[1]");
     public By fromToDateField=By.xpath("//input[@placeholder='%s']");
+    public By testFeeAdjustment = By.xpath("//input[@class='custom-input my-1 ng-pristine ng-valid ng-touched']");
 
 
     public void click_PaymentTab(){
@@ -20,6 +21,13 @@ public class PaymentPage extends BasePage {
         WebdriverWaits.waitForSpinner();
         click_custom(paymentTab);
     }
+
+    public void enter_TestFeeAdjustment(String testFeeAdjustmentTXT){
+        WebdriverWaits.waitUntilVisible(testFeeAdjustment);
+        WebdriverWaits.waitForSpinner();
+        sendKeys_withClear(testFeeAdjustment,testFeeAdjustmentTXT);
+    }
+
     public void click_filterButton() {
         WebdriverWaits.waitForSpinner();
         click_custom(filterButton);
