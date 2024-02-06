@@ -38,7 +38,7 @@ public class DirectorTest extends BaseTest {
         DashBoardPanelPage panelPage = new DashBoardPanelPage();
         DirectorPage director = new DirectorPage();
         LoginPage login = new LoginPage();
-        login.director_Login();
+       // login.director_Login();
         panelPage.click_Availability();
         validate_text(director.setAvailaibility, "Set Availability");
         String currentDate = getMonthAndYear();
@@ -259,11 +259,45 @@ public class DirectorTest extends BaseTest {
         appointment.click_ViewDetailLink();
         appointment.click_PaymentButton();
         payment.enter_TestFeeAdjustment("100");
+        payment.click_CollectButton();
+        payment.click_CloseBtn_PopUp();
+    }
 
+    @Test(priority = 20, enabled = true, description = "Verify that validation message appears after entering negative amount in 'Enter Amount' field, on 'Payment' popup")
+    public void verify_NegativeValue_ValMsg() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        PaymentPage payment = new PaymentPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_ViewAll();
+        appointment.click_ViewDetailLink();
+        appointment.click_PaymentButton();
+        payment.enter_TestFeeAdjustment("-700");
+        validate_text(payment.ValMsgAfterNegativeValueTXT,"Invalid adjustment or amount. Ensure the total due is not negative and the entered amount does not exceed the due balance.");
 
     }
 
-    @Test(priority = 20, enabled = true, description = "25 Verify that director gets logged out after clicking 'Log Out' button")
+    @Test(priority = 21, enabled = true, description = "Verify that validation message appears after entering negative amount in 'Enter Amount' field, on 'Payment' popup")
+    public void verify_CollectButtonEnabled() throws InterruptedException {
+        AppointmentsPage appointment = new AppointmentsPage();
+        DashBoardPanelPage panelPage = new DashBoardPanelPage();
+        PaymentPage payment = new PaymentPage();
+        LoginPage login = new LoginPage();
+        login.director_Login();
+        panelPage.click_AppointmentsTab();
+        appointment.click_ViewAll();
+        appointment.click_ViewDetailLink();
+        appointment.click_PaymentButton();
+        payment.enter_TestFeeAdjustment("-700");
+        payment.enter_collectAmountAdjustment("20");
+
+    }
+
+
+
+    @Test(priority = 22, enabled = true, description = "25 Verify that director gets logged out after clicking 'Log Out' button")
     public void verify_DirectorLogOut() throws InterruptedException {
         DirectorPage director = new DirectorPage();
         director.click_LogOutLink();

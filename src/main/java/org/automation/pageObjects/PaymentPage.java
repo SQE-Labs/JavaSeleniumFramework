@@ -13,7 +13,24 @@ public class PaymentPage extends BasePage {
     public By cust_Name=By.cssSelector("tr:not([style='display: none;' ]) td:nth-child(1)");
     public By getCust_Name =By.xpath("(//td)[1]");
     public By fromToDateField=By.xpath("//input[@placeholder='%s']");
-    public By testFeeAdjustment = By.xpath("//input[@class='custom-input my-1 ng-pristine ng-valid ng-touched']");
+    public By testFeeAdjustment = By.xpath("//*[@id=\"paymentModal\"]/div/div/table/tbody/tr[3]/td[2]/input");
+    public By collectButton = By.xpath("//button[text()='Collect']");
+    public By closeButtonPopUp = By.xpath("(//a[text()='Close'])[2]");
+    public By ValMsgAfterNegativeValueTXT = By.xpath("//div[@class='validation-message ng-star-inserted']");
+    public By collectAmountAdjustment = By.xpath("//*[@id='paymentModal']/div/div/table/tbody/tr[4]/td[2]/input");
+
+
+    public void click_CollectButton(){
+        WebdriverWaits.waitUntilVisible(collectButton);
+        WebdriverWaits.waitForSpinner();
+        click_custom(collectButton);
+    }
+
+    public void click_CloseBtn_PopUp(){
+        WebdriverWaits.waitUntilVisible(closeButtonPopUp);
+        WebdriverWaits.waitForSpinner();
+        click_custom(closeButtonPopUp);
+    }
 
 
     public void click_PaymentTab(){
@@ -22,11 +39,19 @@ public class PaymentPage extends BasePage {
         click_custom(paymentTab);
     }
 
+    public void enter_collectAmountAdjustment(String testFeeAdjustmentTXT){
+        WebdriverWaits.waitUntilVisible(collectAmountAdjustment);
+        WebdriverWaits.waitForSpinner();
+        sendKeys_withClear(collectAmountAdjustment,testFeeAdjustmentTXT);
+    }
+
     public void enter_TestFeeAdjustment(String testFeeAdjustmentTXT){
         WebdriverWaits.waitUntilVisible(testFeeAdjustment);
         WebdriverWaits.waitForSpinner();
         sendKeys_withClear(testFeeAdjustment,testFeeAdjustmentTXT);
     }
+
+
 
     public void click_filterButton() {
         WebdriverWaits.waitForSpinner();
