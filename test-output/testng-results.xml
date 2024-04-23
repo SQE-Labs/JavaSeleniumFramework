@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-04-23T10:51:18 IST" name="Default suite" finished-at="2024-04-23T10:51:28 IST" duration-ms="10370">
+    <groups>
+    </groups>
+    <test started-at="2024-04-23T10:51:18 IST" name="Default test" finished-at="2024-04-23T10:51:28 IST" duration-ms="10370">
+      <class name="com.TestCases.LoginTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.TestCases.LoginTest@1ab06251]" started-at="2024-04-23T10:51:18 IST" name="setUp" finished-at="2024-04-23T10:51:26 IST" duration-ms="7965" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="LoginAdmin()[pri:0, instance:com.TestCases.LoginTest@1ab06251]" started-at="2024-04-23T10:51:26 IST" name="LoginAdmin" finished-at="2024-04-23T10:51:28 IST" duration-ms="2007" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- LoginAdmin -->
+        <test-method is-config="true" signature="closeDriver()[pri:0, instance:com.TestCases.LoginTest@1ab06251]" started-at="2024-04-23T10:51:28 IST" name="closeDriver" finished-at="2024-04-23T10:51:28 IST" duration-ms="282" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeDriver -->
+      </class> <!-- com.TestCases.LoginTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
