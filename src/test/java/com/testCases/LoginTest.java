@@ -1,47 +1,38 @@
 package com.testCases;
 
+import com.commonMethods.Data_provider;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import com.browsers.BrowsersInvoked;
 import com.pageObjects.Login;
-import io.qameta.allure.Description;
+
+import java.util.Map;
 
 public class LoginTest extends BrowsersInvoked{
 	
 	public WebDriver driver;
 	public Login login;
-	//ExtentReportClass extentClass;
 
 	@BeforeClass
 	public void setUp() throws InterruptedException {
-		driver = BrowsersInvoked.Setup();
+		driver = BrowsersInvoked.setup();
 		login = new Login(driver);
 	}
-	
-	
-//	@Test
-//	public void readJson() throws FileNotFoundException, IOException, ParseException {
-//	JSONParser jsonparse = new JSONParser();
-//	
-//	JSONObject jsonobject = (JSONObject) jsonparse.parse(new FileReader("TestData\\Demo.json"));
-//	
-//	
-//	String id = (String) jsonobject.getString("EmplooyeeID");
-//	
-//	System.out.println(id);
-//	}
-	
-	@Test
-	@Description("Test case description goes here")
-	public void LoginAdmin(){
-		//extentClass = new ExtentReportClass();
-		login.LoginAdmin();
+
+
+	@Test(dataProvider = "jsonDataProvider",dataProviderClass = Data_provider.class)
+	public void loginAdmin(Map<String, String> testData) throws InterruptedException {
+		String username = testData.get("User");
+		String password = testData.get("Passwd");
+		login.login(username,password);
+
 	}
-	
-	
+
+
 	@AfterClass
 	public void closeDriver() {
 		BrowsersInvoked.tearDown(driver);
+		driver.quit();
 	}
 
 }

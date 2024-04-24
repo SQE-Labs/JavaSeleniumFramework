@@ -1,5 +1,9 @@
-{
-  
-      "EmplooyeeID": "1234"
+[
+      {
+            "User" : "standard_user",
+            "Pass" : "secret_sauce",
 
-}
+            "User" : "problem_user",
+            "Passwd" : "secret_sauce"
+      }
+]

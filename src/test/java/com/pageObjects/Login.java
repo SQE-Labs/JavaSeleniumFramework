@@ -17,13 +17,40 @@ public class Login extends CommonMethods {
 
 	}
 
-	public void LoginAdmin() {
+
+//	public void reader(String[] data) {
+//
+//		//Arrays.toString(data);
+//		//System.out.println(str);
+//		// String user[] = str.split("[\\[\\],]");
+//
+//		//Arrays.asList(data);
+//		List<String> list = new ArrayList<>();
+//		for (int i = 0; i < data.length; i++) {
+//			list.add(data[i]);
+//		}
+//		for (int i = 0; i < list.size(); i++) {
+//			System.out.println(list.get(i)+"\n");
+//		}
+//	}
 
 
-		SendKeysWithClear(userName,"standard_user");
-		SendKeysWithClear(passWord,"secret_sauce");
+	public void login(String username ,String password) {
+
+		SendKeysWithClear(userName,username);
+		SendKeysWithClear(passWord,password);
 		ClickOn(submit);
 		
+		//Assert.assertTrue(false);
+	}
+
+	public void loginParallel(String username ,String password) {
+
+
+		SendKeysWithClear(userName,username);
+		SendKeysWithClear(passWord,password);
+		ClickOn(submit);
+
 		//Assert.assertTrue(false);
 	}
 
