@@ -35,17 +35,16 @@ public class Login extends CommonMethods {
 //	}
 
 
-	public void login(String username ,String password) {
+	public void login(String username ,String password) throws InterruptedException {
 
-		SendKeysWithClear(userName,username);
+		Thread.sleep(4000);
+        SendKeysWithClear(userName,username);
 		SendKeysWithClear(passWord,password);
 		ClickOn(submit);
-		
 		//Assert.assertTrue(false);
 	}
 
 	public void loginParallel(String username ,String password) {
-
 
 		SendKeysWithClear(userName,username);
 		SendKeysWithClear(passWord,password);
