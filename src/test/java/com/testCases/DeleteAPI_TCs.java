@@ -1,29 +1,56 @@
 package com.testCases;
 
+import Base.Utilities;
 import com.commonMethods.AllureLogger;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import static io.restassured.RestAssured.given;
 
-public class DeleteAPI_TCs {
+public class DeleteAPI_TCs extends Utilities {
 
     @Test(priority = 1, description = "Verify Delete Operation", enabled = true)
-    public void verifyDeleteOperation() {
+    public void verifyDeleteUser() {
         AllureLogger.logToAllure("Starting the test to verify delete operation");
 
         Response response = given()
-                .baseUri("https://petstore.swagger.io/v2")
-                .header("Content-Type", "application/json")
+                .spec(requestSpec)
                 .pathParam("username", "Harshit")
                 .when()
                 .delete("/user/{username}");
 
         response.then().statusCode(404);
+
+        long startTime = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis();
+
+
+        //To Validate Response Time
+        response.then().statusCode(404);
+
+        System.out.println(response.asString());
+        long responseTime = endTime - startTime;
+        System.out.println("Response Time: " + responseTime + " milliseconds");
+        Assert.assertTrue(responseTime < 1000, "Response time should be less than 1000 milliseconds");
         System.out.println(response.asString());
     }
+
+    @Test(priority = 3, description = "Verify Delete Operation with Invalid Username", enabled = true)
+    public void verifyDeleteOperationWithInvalidUsername() {
+        AllureLogger.logToAllure("Starting the test to verify delete operation with invalid username");
+
+        Response response = given()
+                .spec(requestSpec)
+                .pathParam("username", "InvalidUsername") // Update username to an invalid value
+                .when()
+                .delete("/user/{username}");
+
+        response.then().statusCode(404); // Adjust the expected status code if needed
+        System.out.println(response.asString());
+    }
+
+
 
     @Test(priority = 2, description = "Verify Delete Operation with Response Time Validation", enabled = true)
     public void verifyDeleteOperationWithResponseTimeValidation() {
@@ -55,29 +82,12 @@ public class DeleteAPI_TCs {
     }
 
 
-    @Test(priority = 3, description = "Verify Delete Operation with Invalid Username", enabled = true)
-    public void verifyDeleteOperationWithInvalidUsername() {
-        AllureLogger.logToAllure("Starting the test to verify delete operation with invalid username");
-
-        Response response = given()
-                .baseUri("https://petstore.swagger.io/v2")
-                .header("Content-Type", "application/json")
-                .pathParam("username", "InvalidUsername") // Update username to an invalid value
-                .when()
-                .delete("/user/{username}");
-
-        response.then().statusCode(404); // Adjust the expected status code if needed
-        System.out.println(response.asString());
-    }
-
-
     @Test(priority = 4, description = "Verify Delete Operation with Request Headers Validation", enabled = true)
     public void verifyDeleteOperationWithRequestHeadersValidation() {
         AllureLogger.logToAllure("Starting the test to verify delete operation with request headers validation");
 
         Response response = given()
-                .baseUri("https://petstore.swagger.io/v2")
-                .header("Content-Type", "application/json")
+                .spec(requestSpec)
                 .pathParam("username", "Harshit")
                 .when()
                 .delete("/user/{username}");

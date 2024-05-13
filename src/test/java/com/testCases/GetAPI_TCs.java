@@ -1,5 +1,6 @@
 package com.testCases;
 
+import Base.Utilities;
 import com.commonMethods.AllureLogger;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
@@ -8,7 +9,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class GetAPI_TCs {
+public class GetAPI_TCs extends Utilities {
 
     String payload = "[\n" +
             "  {\n" +
@@ -27,10 +28,10 @@ public class GetAPI_TCs {
     public void verify_HttpMethod() {
         AllureLogger.logToAllure("Verify response status when using an unsupported HTTP method.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2")
-                .header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec)
                 .body(payload).log().body()
-                .pathParam("username","Saksham")
+                .pathParam("username", "Saksham")
                 .when()
                 .post("/user/{username}"); // Using an unsupported HTTP method (POST)
 
@@ -42,10 +43,10 @@ public class GetAPI_TCs {
     public void verify_InvalidUrl() {
         AllureLogger.logToAllure("Validate response status for an invalid URL.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2")
-                .header("Content-Type", "application/json")
-              //  .body(payload).log().body()
-               // .pathParam("username","Saksham")
+        Response response = given()
+                .spec(requestSpec)
+                //  .body(payload).log().body()
+                // .pathParam("username","Saksham")
                 .when()
                 .get("/user/invalid"); // Using an invalid URL
 
@@ -57,10 +58,10 @@ public class GetAPI_TCs {
     public void verify_HeaderMissing() {
         AllureLogger.logToAllure("Confirm response status when the Accept header is missing.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2")
-               // header("Content-Type", "application/json")
+        Response response = given()
+                .baseUri("https://petstore.swagger.io/v2")
                 .body(payload).log().body()
-                .pathParam("username","Saksham")
+                .pathParam("username", "Saksham")
                 .when()
                 .get("/user/{username}");
         response.then().statusCode(404);
@@ -71,9 +72,9 @@ public class GetAPI_TCs {
     public void verify_ResponseEmptyBody() {
         AllureLogger.logToAllure("Check response status when the response body is empty.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2")
-                .header("Content-Type", "application/json")
-                .pathParam("username","")
+        Response response = given()
+                .spec(requestSpec)
+                .pathParam("username", "")
                 .when()
                 .get("/user/{username}");
         response.then().statusCode(405);
@@ -85,8 +86,8 @@ public class GetAPI_TCs {
         AllureLogger.logToAllure("Check response status when the rate limit is exceeded.");
 
         for (int i = 0; i < 20; i++) {
-            Response response = given().baseUri("https://petstore.swagger.io/v2")
-                    .header("Content-Type", "application/json")
+            Response response = given()
+                    .spec(requestSpec)
                     .pathParam("username", "Saksham")
                     .when()
                     .get("/user/{username}  ");
@@ -97,7 +98,7 @@ public class GetAPI_TCs {
 //                e.printStackTrace();
 //            }
         }
-         // Expecting a "Too Many Requests" status code
+        // Expecting a "Too Many Requests" status code
 //        System.out.println(response.asString());
     }
 
@@ -105,9 +106,9 @@ public class GetAPI_TCs {
     public void verify_Response_ServerErrors() {
         AllureLogger.logToAllure("Confirm response status for server errors.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2").
-                header("Content-Type", "application/json")
-                .pathParam("username","Saksham")
+        Response response = given()
+                .spec(requestSpec)
+                .pathParam("username", "Saksham")
                 .when()
                 .get("/user/{username}");
         response.then().statusCode(200);
@@ -116,11 +117,5 @@ public class GetAPI_TCs {
         System.out.println(body.asString());
         Assert.assertEquals(bodyAsString.contains("Shubham") /*Expected value*/, true /*Actual Value*/, "Response body contains Hyderabad");
         Assert.assertEquals(bodyAsString.contains("Mehta") /*Expected value*/, true /*Actual Value*/, "Response body contains Hyderabad");
-
-
-
     }
-
-
-
 }

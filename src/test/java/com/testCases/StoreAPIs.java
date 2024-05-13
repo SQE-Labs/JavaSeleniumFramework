@@ -1,14 +1,16 @@
 package com.testCases;
 
+import Base.Utilities;
 import com.commonMethods.AllureLogger;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 
-public class StoreAPIs {
+public class StoreAPIs extends Utilities {
 
-
+    static ResponseSpecification responseSpec;
     private int orderId;
 
     String payload = "{\n" +
@@ -19,7 +21,6 @@ public class StoreAPIs {
             "  \"status\": \"placed\",\n" +
             "  \"complete\": true\n" +
             "}";
-
 
 
     @Test(priority = 1,description = "To get the Store Inventory Details",enabled = true)
@@ -37,6 +38,7 @@ public class StoreAPIs {
 //                .get("https://petstore.swagger.io/#/store/inventory").then().extract().asString();
 //        System.out.println(response);
 //        System.out.println(response.getContentType());
+
         System.out.println(response.asString());
 
     }

@@ -1,11 +1,12 @@
 package com.testCases;
 
+import Base.Utilities;
 import com.commonMethods.AllureLogger;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 
-public class UsersAPIs {
+public class UsersAPIs extends Utilities {
     String payload = "[\n" +
             "  {\n" +
             "    \"id\": 1,\n" +

@@ -1,12 +1,17 @@
 package com.testCases;
 
+import Base.Utilities;
 import com.commonMethods.AllureLogger;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import pojoClasses.Example;
+import java.util.Arrays;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
-public class PetAPIs {
+public class PetAPIs extends Utilities {
 
     String payload = "{\n" +
             "  \"id\": 1,\n" +
@@ -97,6 +102,13 @@ public class PetAPIs {
                 .when()
                 .get("/pet/findByStatus");
         response.then().statusCode(200);
+        System.out.println("response of body = "+response.asString());
+        List<Example> example = Arrays.asList(response.getBody().as(Example[].class));
+
+        //    Example res =response.getBody().as(Example.class);
+     //   Example pet=res.as(Example.class);
+        System.out.print("Name -"+example.get(1).getName());
+        Assert.assertEquals(example.get(0).getName(),"Saksham");
         System.out.println(response.asString());
     }
 
