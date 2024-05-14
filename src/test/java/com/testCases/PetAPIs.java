@@ -102,13 +102,16 @@ public class PetAPIs extends Utilities {
                 .when()
                 .get("/pet/findByStatus");
         response.then().statusCode(200);
-        System.out.println("response of body = "+response.asString());
+      //  System.out.println("response of body = "+response.asString());
         List<Example> example = Arrays.asList(response.getBody().as(Example[].class));
 
         //    Example res =response.getBody().as(Example.class);
      //   Example pet=res.as(Example.class);
-        System.out.print("Name -"+example.get(1).getName());
+        System.out.println("Name1 -"+example.get(0).getName());
+        System.out.print("Name0 -"+example.get(1).getName());
+
         Assert.assertEquals(example.get(0).getName(),"Saksham");
+
         System.out.println(response.asString());
     }
 

@@ -12,12 +12,12 @@ import java.io.FileInputStream;
 
 public class ExcelLib {
 	
-	private Workbook workbook;
-	private Sheet worksheet;
+	private final Workbook workbook;
+	private final Sheet worksheet;
 	private Row row;
 	private Cell cell;
-	private int rows;
-	private String testCaseName;
+	private final int rows;
+	private final String testCaseName;
 	private int testCaseStartRow = 0;
 	private int testCaseEndRow=0;
 	private int usedColumnsCount = 0;
@@ -175,7 +175,7 @@ public class ExcelLib {
 	public Object[][] getTestdata(){
 		int rowNum = 0;
 		int colNum = 0;
-		String data[][] = new String[iterationCount][usedColumnsCount-1];
+		String[][] data = new String[iterationCount][usedColumnsCount-1];
 
 		//Get the Test Data
 		for(int i =testCaseStartRow; i <= testCaseEndRow; i++){

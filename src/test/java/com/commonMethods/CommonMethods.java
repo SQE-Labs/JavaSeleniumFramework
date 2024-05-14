@@ -23,7 +23,7 @@ public class CommonMethods {
 	public static WebDriverWait wait;
 
 	public CommonMethods(WebDriver driver) {
-		this.driver = driver;
+		CommonMethods.driver = driver;
 	}
 
 	public void navigationURL(String Url) {

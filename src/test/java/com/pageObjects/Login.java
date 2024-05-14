@@ -13,7 +13,7 @@ public class Login extends CommonMethods {
 	public Login(WebDriver driver) {
 
 		super(driver);
-		this.driver = driver;
+		CommonMethods.driver = driver;
 
 	}
 
