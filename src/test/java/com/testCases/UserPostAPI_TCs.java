@@ -75,9 +75,9 @@ public class UserPostAPI_TCs extends Utilities {
     }
 
 
-    @Test(priority = 2, description = "Verify response status when user has unsupported HTTP method.", enabled = true)
+    @Test(priority = 2, description = "Verify user response with unsupported HTTP method.", enabled = true)
     public void verifyUser_UnsupportedHttpMethod() {
-        AllureLogger.logToAllure("Verify response status when user has unsupported HTTP method.");
+        AllureLogger.logToAllure("Verify user response with unsupported HTTP method.");
         Response response = given()
                 .spec(requestSpec)
                 .body(payload).log().body()
@@ -87,9 +87,9 @@ public class UserPostAPI_TCs extends Utilities {
         System.out.println(response.asString());
     }
 
-    @Test(priority = 3, description = "Verify response status when user accessing an invalid URL.", enabled = true)
+    @Test(priority = 3, description = "Verify user response with invalid URL.", enabled = true)
     public void verifyUser_InvalidUrl() {
-        AllureLogger.logToAllure("Verify response status when accessing an invalid URL.");
+        AllureLogger.logToAllure("Verify user response with invalid URL.");
 
         Response response = given()
                 .spec(requestSpec)
@@ -101,9 +101,9 @@ public class UserPostAPI_TCs extends Utilities {
     }
 
 
-    @Test(priority = 4, description = "Verify response status when the Content-Type header is missing.", enabled = true)
+    @Test(priority = 4, description = "Verify user response with missing Content-Type header.", enabled = true)
     public void verifyUser_MissingContentTypeHeader() {
-        AllureLogger.logToAllure("Verify response status when the Content-Type header is missing.");
+        AllureLogger.logToAllure("Verify user response with missing Content-Type header.");
 
         Response response = given().baseUri("https://petstore.swagger.io/v2/")
                 .body(payload).log().body()
@@ -113,9 +113,9 @@ public class UserPostAPI_TCs extends Utilities {
         System.out.println(response.asString());
     }
 
-    @Test(priority = 5, description = "Verify response status when sending an empty request body.", enabled = true)
-    public void verifyUser_StatusEmptyBody() {
-        AllureLogger.logToAllure("Verify response status when sending an empty request body.");
+    @Test(priority = 5, description = "Verify user response with Empty body.", enabled = true)
+    public void verifyUser_WithEmptyBody() {
+        AllureLogger.logToAllure("Verify user response with Empty body.");
 
         Response response = given()
                 .spec(requestSpec)
@@ -128,9 +128,9 @@ public class UserPostAPI_TCs extends Utilities {
     }
 
 
-    @Test(priority = 6, description = "Verify response status when required fields are missing.", enabled = true)
+    @Test(priority = 6, description = "Verify user response with required field missing.", enabled = true)
     public void verifyUser_RequiredFieldMissing() {
-        AllureLogger.logToAllure("Verify response status when required fields are missing.");
+        AllureLogger.logToAllure("Verify user response with required field missing.");
 
         Response response = given()
                 .spec(requestSpec)
@@ -141,9 +141,9 @@ public class UserPostAPI_TCs extends Utilities {
         System.out.println(response.asString());
     }
 
-    @Test(priority = 7, description = "Verify response status when providing invalid JSON format in the request body.", enabled = true)
+    @Test(priority = 7, description = "Verify user response with invalid JSON.", enabled = true)
     public void verifyUser_InvalidJsonFormat() {
-        AllureLogger.logToAllure("Verify response status when providing invalid JSON format in the request body.");
+        AllureLogger.logToAllure("Verify user response with invalid JSON.");
 
         Response response = given()
                 .spec(requestSpec)
@@ -154,9 +154,9 @@ public class UserPostAPI_TCs extends Utilities {
         System.out.println(response.asString());
     }
 
-    @Test(priority = 8, description = "Verify response status when providing invalid data types.", enabled = true)
+    @Test(priority = 8, description = "Verify user response with invalid data types", enabled = true)
     public void verifyUser_InvalidDataType() {
-        AllureLogger.logToAllure("Verify response status when providing invalid data types.");
+        AllureLogger.logToAllure("Verify user response with invalid data types");
 
         Response response = given()
                 .spec(requestSpec)
@@ -167,9 +167,9 @@ public class UserPostAPI_TCs extends Utilities {
         System.out.println(response.asString());
     }
 
-    @Test(priority = 9, description = "Verify response status when the endpoint is unavailable.", enabled = true)
+    @Test(priority = 9, description = "The user response is verified when endpoints are unavailable.", enabled = true)
     public void verifyUser_EndpointUnavailability() {
-        AllureLogger.logToAllure("Verify response status when the endpoint is unavailable.");
+        AllureLogger.logToAllure("The user response is verified when endpoints are unavailable.");
 
         Response response = given().baseUri("https://example.com/nonexistent/")
                 .header("Content-Type", "application/json")
@@ -181,9 +181,9 @@ public class UserPostAPI_TCs extends Utilities {
         System.out.println(response.asString());
     }
 
-    @Test(priority = 10, description = "Check response status when the rate limit is exceeded.", enabled = true)
+    @Test(priority = 10, description = "Check user response status when the rate limit is exceeded.", enabled = true)
     public void verifyUser_RateLimiting() {
-        AllureLogger.logToAllure("Check response status when the rate limit is exceeded.");
+        AllureLogger.logToAllure("Check user response status when the rate limit is exceeded.");
 
         for (int i = 0; i < 20; i++) {
 
