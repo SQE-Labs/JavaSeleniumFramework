@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class GetAPI_TCs extends Utilities {
+public class FetchUserDetails_TCs extends Utilities {
 
     String payload = "[\n" +
             "  {\n" +

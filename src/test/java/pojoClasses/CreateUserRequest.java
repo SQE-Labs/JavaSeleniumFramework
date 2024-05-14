@@ -20,7 +20,7 @@ import java.util.Map;
         "status"
 })
 
-public class UserAPIs {
+public class CreateUserRequest {
 
     @JsonProperty("id")
     private Long id;

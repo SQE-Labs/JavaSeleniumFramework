@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 
-public class UserPostAPI_TCs extends Utilities {
+public class CreateUserResponse_TCs extends Utilities {
 
     String payload = "[\n" +
             "  {\n" +
@@ -17,6 +17,45 @@ public class UserPostAPI_TCs extends Utilities {
             "    \"email\": \"Nitesh@gmail.com\",\n" +
             "    \"password\": \"Test@1234\",\n" +
             "    \"phone\": \"99965222234\",\n" +
+            "    \"userStatus\": 0\n" +
+            "  }\n" +
+            "]\n";
+
+    String payloadWithInvalidEmail = "[\n" +
+            "  {\n" +
+            "    \"id\": 1,\n" +
+            "    \"username\": \"Nitesh123\",\n" +
+            "    \"firstName\": \"Nitesh\",\n" +
+            "    \"lastName\": \"Dhiman\",\n" +
+            "    \"email\": \"Niteshgmail//\",\n" +
+            "    \"password\": \"Test@1234\",\n" +
+            "    \"phone\": \"99965222234\",\n" +
+            "    \"userStatus\": 0\n" +
+            "  }\n" +
+            "]\n";
+
+    String phoneNumberLessThan10_Char = "[\n" +
+            "  {\n" +
+            "    \"id\": 1,\n" +
+            "    \"username\": \"Nitesh123\",\n" +
+            "    \"firstName\": \"Nitesh\",\n" +
+            "    \"lastName\": \"Dhiman\",\n" +
+            "    \"email\": \"Niteshgmail.com\",\n" +
+            "    \"password\": \"Test@1234\",\n" +
+            "    \"phone\": \"99965234\",\n" +
+            "    \"userStatus\": 0\n" +
+            "  }\n" +
+            "]\n";
+
+    String phoneNumberGreater10_Char = "[\n" +
+            "  {\n" +
+            "    \"id\": 1,\n" +
+            "    \"username\": \"Nitesh123\",\n" +
+            "    \"firstName\": \"Nitesh\",\n" +
+            "    \"lastName\": \"Dhiman\",\n" +
+            "    \"email\": \"Niteshgmail.com\",\n" +
+            "    \"password\": \"Test@1234\",\n" +
+            "    \"phone\": \"999652227657234\",\n" +
             "    \"userStatus\": 0\n" +
             "  }\n" +
             "]\n";
@@ -128,9 +167,9 @@ public class UserPostAPI_TCs extends Utilities {
     }
 
 
-    @Test(priority = 6, description = "Verify user response with required field missing.", enabled = true)
+    @Test(priority = 6, description = "Verify user response with missing UserName field.", enabled = true)
     public void verifyUser_RequiredFieldMissing() {
-        AllureLogger.logToAllure("Verify user response with required field missing.");
+        AllureLogger.logToAllure("Verify user response with missing UserName field.");
 
         Response response = given()
                 .spec(requestSpec)
@@ -154,9 +193,9 @@ public class UserPostAPI_TCs extends Utilities {
         System.out.println(response.asString());
     }
 
-    @Test(priority = 8, description = "Verify user response with invalid data types", enabled = true)
+    @Test(priority = 8, description = "Verify user response with invalid data types for all parameters", enabled = true)
     public void verifyUser_InvalidDataType() {
-        AllureLogger.logToAllure("Verify user response with invalid data types");
+        AllureLogger.logToAllure("Verify user response with invalid data types for all parameters");
 
         Response response = given()
                 .spec(requestSpec)
@@ -195,6 +234,82 @@ public class UserPostAPI_TCs extends Utilities {
             response.then().statusCode(200);
             System.out.println(response.asString());
             System.out.println("Response " + i + ": " + response.getStatusCode());
+        }
+    }
+
+    @Test(priority = 11, description = "Verify user with an invalid email address in the payload.", enabled = true)
+    public void verifyUser_InvalidEmailAddress() {
+        AllureLogger.logToAllure("Verify user with an invalid email address in the payload.");
+
+
+        Response response = given()
+                .spec(requestSpec)
+                .body(payloadWithInvalidEmail).log().body()
+                .when()
+                .post("/user/createWithList/");
+
+        response.then().statusCode(200);
+        System.out.println(response.asString());
+
+    }
+
+    @Test(priority = 12, description = "Verify user with an invalid phone number in payload.", enabled = true)
+    public void verifyUser_PhoneNumberLessThan_AND_GreaterThan_10_Char() {
+        AllureLogger.logToAllure("Verify user with an invalid phone number in payload.");
+
+
+        Response response = given()
+                .spec(requestSpec)
+                .body(phoneNumberGreater10_Char).log().body()
+                .when()
+                .post("/user/createWithList/");
+
+        response.then().statusCode(200);
+        System.out.println(response.asString());
+
+        // To verify user with phone number less than 10 character
+        Response response1 = given()
+                .spec(requestSpec)
+                .body(phoneNumberLessThan10_Char).log().body()
+                .when()
+                .post("/user/createWithList/");
+
+        response.then().statusCode(200);
+        System.out.println(response1.asString());
+
+    }
+
+    @Test(priority = 13, description = "Verify response with existing user.", enabled = true)
+    public void verifyResponse_WithExistingUser() {
+        AllureLogger.logToAllure("Verify response with existing user.");
+
+        Response response = given()
+                .spec(requestSpec)
+                .body(payload).log().body()
+                .when()
+                .post("/user/Nitesh123");
+
+        response.then().statusCode(405);
+        System.out.println(response.asString());
+    }
+
+
+    @Test(priority = 14, description = "Verify multiple users with same request.", enabled = true)
+    public void verify_MultipleUser() {
+        AllureLogger.logToAllure("Verify multiple users with same request.");
+        String[] arr = {"saksham1", "shubham1"};
+
+        for (int i = 0; i < arr.length; i++) {
+            String url = "/user/" + arr[i];
+            System.out.println(url);
+            Response response = given()
+                    .spec(requestSpec)
+                    .body(payload).log().body()
+                    .when()
+                    .post(url);
+
+            response.then().statusCode(405);
+            System.out.println(response.asString());
         }
     }
 }

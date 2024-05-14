@@ -6,8 +6,8 @@
 <!--            <class name="com.testCases.StoreAPIs"/>-->
 <!--            <class name="com.testCases.UsersAPIs"/>-->
 <!--            <class name="com.testCases.PetAPIs"/>-->
-            <class name="com.testCases.UserPostAPI_TCs"></class>
-            <class name="com.testCases.GetAPI_TCs"></class>
+            <class name="com.testCases.CreateUserResponse_TCs"></class>
+            <class name="com.testCases.FetchUserDetails_TCs"></class>
             <class name="com.testCases.DeleteAPI_TCs"></class>
 
         </classes>
