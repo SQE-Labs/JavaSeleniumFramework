@@ -5,7 +5,8 @@ import com.commonMethods.AllureLogger;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pojoClasses.Example;
+import pojoClasses.UserAPIs;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -103,14 +104,14 @@ public class PetAPIs extends Utilities {
                 .get("/pet/findByStatus");
         response.then().statusCode(200);
       //  System.out.println("response of body = "+response.asString());
-        List<Example> example = Arrays.asList(response.getBody().as(Example[].class));
+        List<UserAPIs> userAPIs = Arrays.asList(response.getBody().as(UserAPIs[].class));
 
-        //    Example res =response.getBody().as(Example.class);
-     //   Example pet=res.as(Example.class);
-        System.out.println("Name1 -"+example.get(0).getName());
-        System.out.print("Name0 -"+example.get(1).getName());
+        //    UserAPIs res =response.getBody().as(UserAPIs.class);
+     //   UserAPIs pet=res.as(UserAPIs.class);
+        System.out.println("Name1 -"+ userAPIs.get(0).getName());
+        System.out.print("Name0 -"+ userAPIs.get(1).getName());
 
-        Assert.assertEquals(example.get(0).getName(),"Saksham");
+        Assert.assertEquals(userAPIs.get(0).getName(),"Saksham");
 
         System.out.println(response.asString());
     }

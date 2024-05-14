@@ -64,10 +64,9 @@ public class UserPostAPI_TCs extends Utilities {
 
     @Test(priority = 1, description = "Create list of users with given array", enabled = true)
     public void postUserList() {
-        AllureLogger.logToAllure("Starting the test to post Create list of users with given array");
-
-        Response response = given().baseUri("https://petstore.swagger.io/v2/").
-                header("Content-Type", "application/json")
+        AllureLogger.logToAllure("Create list of users with given array");
+        Response response = given()
+                .spec(requestSpec)
                 .body(payload).log().body()
                 .when()
                 .post("/user/createWithList/");
@@ -76,12 +75,11 @@ public class UserPostAPI_TCs extends Utilities {
     }
 
 
-    @Test(priority = 2, description = "Verify response status when using an unsupported HTTP method.", enabled = true)
-    public void verify_UnsupportedHttpMethod() {
-        AllureLogger.logToAllure("Verify response status when using an unsupported HTTP method.");
-
-        Response response = given().baseUri("https://petstore.swagger.io/v2/").
-                header("Content-Type", "application/json")
+    @Test(priority = 2, description = "Verify response status when user has unsupported HTTP method.", enabled = true)
+    public void verifyUser_UnsupportedHttpMethod() {
+        AllureLogger.logToAllure("Verify response status when user has unsupported HTTP method.");
+        Response response = given()
+                .spec(requestSpec)
                 .body(payload).log().body()
                 .when()
                 .put("/user/createWithList/");
@@ -89,12 +87,12 @@ public class UserPostAPI_TCs extends Utilities {
         System.out.println(response.asString());
     }
 
-    @Test(priority = 3, description = "Verify response status when accessing an invalid URL.", enabled = true)
-    public void verify_invalidUrl() {
+    @Test(priority = 3, description = "Verify response status when user accessing an invalid URL.", enabled = true)
+    public void verifyUser_InvalidUrl() {
         AllureLogger.logToAllure("Verify response status when accessing an invalid URL.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2/").
-                header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec)
                 .body(payload).log().body()
                 .when()
                 .post("/invalidEndpoint");
@@ -104,7 +102,7 @@ public class UserPostAPI_TCs extends Utilities {
 
 
     @Test(priority = 4, description = "Verify response status when the Content-Type header is missing.", enabled = true)
-    public void verify_ContentTypeHeader() {
+    public void verifyUser_MissingContentTypeHeader() {
         AllureLogger.logToAllure("Verify response status when the Content-Type header is missing.");
 
         Response response = given().baseUri("https://petstore.swagger.io/v2/")
@@ -116,11 +114,11 @@ public class UserPostAPI_TCs extends Utilities {
     }
 
     @Test(priority = 5, description = "Verify response status when sending an empty request body.", enabled = true)
-    public void verify_StatusEmptyBody() {
+    public void verifyUser_StatusEmptyBody() {
         AllureLogger.logToAllure("Verify response status when sending an empty request body.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2/").
-                header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec)
                 .body(emptyPayload).log().body()
                 .when()
                 .post("/user/createWithList/");
@@ -131,11 +129,11 @@ public class UserPostAPI_TCs extends Utilities {
 
 
     @Test(priority = 6, description = "Verify response status when required fields are missing.", enabled = true)
-    public void verify_RequiredFieldMissing() {
+    public void verifyUser_RequiredFieldMissing() {
         AllureLogger.logToAllure("Verify response status when required fields are missing.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2/")
-                .header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec)
                 .body(incompletePayload).log().body()
                 .when()
                 .post("/user/createWithList/");
@@ -144,11 +142,11 @@ public class UserPostAPI_TCs extends Utilities {
     }
 
     @Test(priority = 7, description = "Verify response status when providing invalid JSON format in the request body.", enabled = true)
-    public void verify_InvalidJsonFormat() {
+    public void verifyUser_InvalidJsonFormat() {
         AllureLogger.logToAllure("Verify response status when providing invalid JSON format in the request body.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2/")
-                .header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec)
                 .body(invalidJson).log().body()
                 .when()
                 .post("/user/createWithList/");
@@ -157,11 +155,11 @@ public class UserPostAPI_TCs extends Utilities {
     }
 
     @Test(priority = 8, description = "Verify response status when providing invalid data types.", enabled = true)
-    public void verify_InvalidDataType() {
+    public void verifyUser_InvalidDataType() {
         AllureLogger.logToAllure("Verify response status when providing invalid data types.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2/")
-                .header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec)
                 .body(payloadInvalidDataType).log().body()
                 .when()
                 .post("/user/createWithList/");
@@ -170,7 +168,7 @@ public class UserPostAPI_TCs extends Utilities {
     }
 
     @Test(priority = 9, description = "Verify response status when the endpoint is unavailable.", enabled = true)
-    public void verify_EndpointUnavailability() {
+    public void verifyUser_EndpointUnavailability() {
         AllureLogger.logToAllure("Verify response status when the endpoint is unavailable.");
 
         Response response = given().baseUri("https://example.com/nonexistent/")
@@ -183,4 +181,20 @@ public class UserPostAPI_TCs extends Utilities {
         System.out.println(response.asString());
     }
 
+    @Test(priority = 10, description = "Check response status when the rate limit is exceeded.", enabled = true)
+    public void verifyUser_RateLimiting() {
+        AllureLogger.logToAllure("Check response status when the rate limit is exceeded.");
+
+        for (int i = 0; i < 20; i++) {
+
+            Response response = given()
+                    .spec(requestSpec)
+                    .body(payload).log().body()
+                    .when()
+                    .post("/user/createWithList/");
+            response.then().statusCode(200);
+            System.out.println(response.asString());
+            System.out.println("Response " + i + ": " + response.getStatusCode());
+        }
+    }
 }
