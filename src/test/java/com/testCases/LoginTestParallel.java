@@ -22,7 +22,6 @@ public class LoginTestParallel extends BrowsersInvoked {
 
     @Test(enabled = true)
     public void parallelTest() throws InterruptedException {
-
     }
 
     @AfterClass
