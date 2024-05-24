@@ -3,24 +3,13 @@ package com.testCases;
 import Base.Utilities;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import java.io.File;
 import java.io.IOException;
 import com.commonMethods.AllureLogger;
 import org.testng.annotations.Test;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
-
+import pojoClasses.User;
 
 public class CreateUserResponsePostAPI_TCs extends Utilities {
-
-
-    // Read JSON payload from file
-    ObjectMapper mapper = new ObjectMapper();
-    File jsonFile = new File("C:/Users/Itsqe/IdeaProjects/TestAutomationFramework/testData/payloads/payload.json");
-    //String payload = mapper.writeValueAsString(jsonNode);
-
-    // Extract 'code' from JSON payload
-   // String code = jsonNode.get("code").asText();
 
     String payload = "[\n" +
             "  {\n" +
@@ -34,6 +23,7 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
             "    \"userStatus\": 0\n" +
             "  }\n" +
             "]\n";
+
 
     String payloadWithInvalidEmail = "[\n" +
             "  {\n" +
@@ -121,11 +111,19 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     @Test(priority = 1, description = "Create list of users with given array", enabled = true)
     public void postUserList() {
         AllureLogger.logToAllure("Create list of users with given array");
+        User users = new User();
+        users.setId(1);
+        users.setUsername("Shubham");
+        users.setFirstName("Shubh");
+        users.setLastName("Mehta");
+        users.setPhone("9996293333");
+        users.setEmail("shubham@76272.com");
+        users.setPassword("Test@123");
+        users.setUserStatus(Integer.parseInt("0"));
 
-
-        Response response = given()
+             Response response = given()
                 .spec(requestSpec)
-                .body(payload).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/user/createWithList/");
         response.then().statusCode(200);
