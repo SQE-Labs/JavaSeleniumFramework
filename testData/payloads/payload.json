@@ -1,14 +1,12 @@
 [
   {
-"id": "1",
-"username": "Nitesh123",
-"firstName": "Nitesh",
-"lastName": "Dhiman",
-"email": "Nitesh@gmail.com",
-"password": "Test@1234",
-"phone": "99965222234",
-"userStatus": "0"
-}
+    "id": 1,
+    "username": "Nitesh123",
+    "firstName": "Nitesh",
+    "lastName": "Dhiman",
+    "email": "Nitesh@gmail.com",
+    "password": "Test@1234",
+    "phone": "99965222234",
+    "userStatus": 0
+  }
 ]
-
-           
