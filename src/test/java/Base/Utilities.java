@@ -9,6 +9,9 @@ import org.testng.annotations.BeforeSuite;
 
 public class Utilities {
     protected static RequestSpecification requestSpec;
+    protected static RequestSpecification requestSpec_ContainsBaseURI;
+    protected static RequestSpecification requestSpec_EndPointNotAvaialble;
+
     protected static ResponseSpecification responseSpec;
 
     @BeforeSuite
@@ -17,6 +20,17 @@ public class Utilities {
                 .setBaseUri("https://petstore.swagger.io/v2")
                 .addHeader("Content-Type", "application/json")
                 .build();
+
+        requestSpec_ContainsBaseURI = new RequestSpecBuilder()
+                .setBaseUri("https://petstore.swagger.io/v2")
+                .build();
+
+        requestSpec_EndPointNotAvaialble = new RequestSpecBuilder()
+                .setBaseUri("https://example.com/nonexistent/")
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+
     }
 
     @BeforeMethod

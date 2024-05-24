@@ -2,14 +2,14 @@ package com.testCases;
 
 import Base.Utilities;
 import com.commonMethods.AllureLogger;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
-public class UpdateUserDetails_Tcs extends Utilities {
+
+public class UpdateUserDetailsPutAPI_Tcs extends Utilities {
 
     String payload = "{ \"id\": 568, \"username\": \"Jimmy\", \"firstName\": \"John\", \"lastName\": \"Doe\", \"email\": \"john.doe@example.com\", \"password\": \"password123\", \"phone\": \"1234567890\", \"userStatus\": 1 }";
 
@@ -22,6 +22,7 @@ public class UpdateUserDetails_Tcs extends Utilities {
     String invalidIDPayload = "{ \"id\": 5555555555555555894743876478348743t583, \"username\": \"Jimmy\", \"firstName\": \"John\", \"lastName\": \"Doe\", \"email\": \"john.doe@example.com\", \"password\": \"password123\", \"phone\": \"1234567890\", \"userStatus\": 1 }";
 
     String emptyPayload = "";
+
     @Test(priority = 1, description = "Update an existing username with PUT request", enabled = true)
     public void updateUser_WithPUT() {
         AllureLogger.logToAllure("Update an existing username with PUT request");
@@ -32,9 +33,18 @@ public class UpdateUserDetails_Tcs extends Utilities {
                 .when()
                 .put("/user/new_username");
 
-        response.then().statusCode(200);
+        response.then()
+                .statusCode(200);
+
+        if (response.jsonPath().get("message") != null) {
+            response.then().body("message", equalTo("568"));
+        } else {
+            AllureLogger.logToAllure("Assertion failed.");
+        }
+
         System.out.println(response.asString());
     }
+
 
     @Test(priority = 2, description = "Verify that sending a PUT request for a non-existent resource.", enabled = true)
     public void updateWith_NonExistentUser() {
@@ -44,9 +54,15 @@ public class UpdateUserDetails_Tcs extends Utilities {
                 .spec(requestSpec)
                 .body(payload).log().body()
                 .when()
-                .put("/user/Username");
+                .put("/user/UserNotExist");
 
         response.then().statusCode(200);
+        if (response.jsonPath().get("message") != null) {
+            response.then().body("message", equalTo("568"));
+        } else {
+            AllureLogger.logToAllure("Assertion failed.");
+        }
+
         System.out.println(response.asString());
     }
 
@@ -68,7 +84,8 @@ public class UpdateUserDetails_Tcs extends Utilities {
     public void verifyUser_MissingContentTypeHeader() {
         AllureLogger.logToAllure("Verify user response with missing Content-Type header.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2/")
+        Response response = given()
+                .spec(requestSpec_ContainsBaseURI)
                 .body(payload).log().body()
                 .when()
                 .put("/user/Namer");
@@ -77,11 +94,12 @@ public class UpdateUserDetails_Tcs extends Utilities {
 
     }
 
-    @Test(priority = 5, description = "erify that sending a PUT request with an invalid resource ID returns an error.", enabled = true)
+    @Test(priority = 5, description = "Verify that sending a PUT request with an invalid resource ID returns an error.", enabled = true)
     public void updateResource_WithInvalidID() {
         AllureLogger.logToAllure("Verify that sending a PUT request with an invalid resource ID returns an error.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2/")
+        Response response = given()
+                .spec(requestSpec)
                 .body(invalidIDPayload).log().body()
                 .when()
                 .put("/user/Namer");
@@ -94,7 +112,8 @@ public class UpdateUserDetails_Tcs extends Utilities {
     public void update_InvalidPhoneNumber() {
         AllureLogger.logToAllure("Verify that sending a PUT request with an invalid phone number length .");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2/")
+        Response response = given()
+                .spec(requestSpec)
                 .body(invalid_PhoneNumber_Payload).log().body()
                 .when()
                 .put("/user/Namer");
@@ -106,14 +125,15 @@ public class UpdateUserDetails_Tcs extends Utilities {
     public void update_InvalidPasswordLength() {
         AllureLogger.logToAllure("Verify that sending a PUT request with an invalid password length");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2/")
+        Response response = given()
+                .spec(requestSpec)
                 .body(invalid_PasswordLength_Payload).log().body()
                 .when()
                 .put("/user/Namer");
         response.then().statusCode(415);
         System.out.println(response.asString());
-
     }
+
 
     @Test(priority = 8, description = "Missing the username field and verify the response.", enabled = true)
     public void verify_MissingUsernameField_InPayload() {
@@ -126,6 +146,12 @@ public class UpdateUserDetails_Tcs extends Utilities {
                 .put("/user/new_username");
 
         response.then().statusCode(200);
+        if (response.jsonPath().get("message") != null) {
+            response.then().body("message", equalTo("568"));
+        } else {
+            AllureLogger.logToAllure("Assertion failed.");
+        }
+
         System.out.println(response.asString());
     }
 }

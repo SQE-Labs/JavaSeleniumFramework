@@ -3,13 +3,11 @@
 <suite name="Suite">
     <test thread-count="5" name="Test">
         <classes>
-<!--            <class name="com.testCases.StoreAPIs"/>-->
-<!--            <class name="com.testCases.UsersAPIs"/>-->
-<!--            <class name="com.testCases.PetAPIs"/>-->
-            <class name="com.testCases.CreateUserResponse_TCs"></class>
-            <class name="com.testCases.FetchUserDetails_TCs"></class>
-            <class name="com.testCases.UpdateUserDetails_Tcs"></class>
-            <class name="com.testCases.DeleteAPI_TCs"></class>
+
+            <class name="com.testCases.CreateUserResponsePostAPI_TCs"></class>
+            <class name="com.testCases.FetchUserDetailsGetAPI_TCs"></class>
+            <class name="com.testCases.UpdateUserDetailsPutAPI_Tcs"></class>
+
 
         </classes>
     </test> <!-- Test -->

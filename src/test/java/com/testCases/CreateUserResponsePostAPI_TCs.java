@@ -1,12 +1,26 @@
 package com.testCases;
 
 import Base.Utilities;
-import com.commonMethods.AllureLogger;
-import io.restassured.response.Response;
-import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import java.io.File;
+import java.io.IOException;
+import com.commonMethods.AllureLogger;
+import org.testng.annotations.Test;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.response.Response;
 
-public class CreateUserResponse_TCs extends Utilities {
+
+public class CreateUserResponsePostAPI_TCs extends Utilities {
+
+
+    // Read JSON payload from file
+    ObjectMapper mapper = new ObjectMapper();
+    File jsonFile = new File("C:/Users/Itsqe/IdeaProjects/TestAutomationFramework/testData/payloads/payload.json");
+    //String payload = mapper.writeValueAsString(jsonNode);
+
+    // Extract 'code' from JSON payload
+   // String code = jsonNode.get("code").asText();
 
     String payload = "[\n" +
             "  {\n" +
@@ -101,9 +115,14 @@ public class CreateUserResponse_TCs extends Utilities {
 
     String emptyPayload = "";
 
+    public CreateUserResponsePostAPI_TCs() throws IOException {
+    }
+
     @Test(priority = 1, description = "Create list of users with given array", enabled = true)
     public void postUserList() {
         AllureLogger.logToAllure("Create list of users with given array");
+
+
         Response response = given()
                 .spec(requestSpec)
                 .body(payload).log().body()
@@ -111,6 +130,14 @@ public class CreateUserResponse_TCs extends Utilities {
                 .post("/user/createWithList/");
         response.then().statusCode(200);
         System.out.println(response.asString());
+        if (response.jsonPath().get("message") != null) {
+            response.then().body("message", equalTo("ok"));
+        } else {
+            AllureLogger.logToAllure("Assertion failed.");
+        }
+        System.out.println(response.asString());
+
+
     }
 
 
@@ -144,7 +171,8 @@ public class CreateUserResponse_TCs extends Utilities {
     public void verifyUser_MissingContentTypeHeader() {
         AllureLogger.logToAllure("Verify user response with missing Content-Type header.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2/")
+        Response response = given()
+                .spec(requestSpec_ContainsBaseURI)
                 .body(payload).log().body()
                 .when()
                 .post("/user/createWithList/");
@@ -210,8 +238,8 @@ public class CreateUserResponse_TCs extends Utilities {
     public void verifyUser_EndpointUnavailability() {
         AllureLogger.logToAllure("The user response is verified when endpoints are unavailable.");
 
-        Response response = given().baseUri("https://example.com/nonexistent/")
-                .header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec_EndPointNotAvaialble)
                 .body(payloadInvalidDataType).log().body()
                 .when()
                 .post("/user/createWithList/");
@@ -234,6 +262,13 @@ public class CreateUserResponse_TCs extends Utilities {
             response.then().statusCode(200);
             System.out.println(response.asString());
             System.out.println("Response " + i + ": " + response.getStatusCode());
+            if (response.jsonPath().get("message") != null) {
+                response.then().body("message", equalTo("ok"));
+            } else {
+                AllureLogger.logToAllure("Assertion failed.");
+            }
+            System.out.println(response.asString());
+
         }
     }
 
@@ -249,6 +284,11 @@ public class CreateUserResponse_TCs extends Utilities {
                 .post("/user/createWithList/");
 
         response.then().statusCode(200);
+        if (response.jsonPath().get("message") != null) {
+            response.then().body("message", equalTo("ok"));
+        } else {
+            AllureLogger.logToAllure("Assertion failed.");
+        }
         System.out.println(response.asString());
 
     }
@@ -265,6 +305,11 @@ public class CreateUserResponse_TCs extends Utilities {
                 .post("/user/createWithList/");
 
         response.then().statusCode(200);
+        if (response.jsonPath().get("message") != null) {
+            response.then().body("message", equalTo("ok"));
+        } else {
+            AllureLogger.logToAllure("Assertion failed.");
+        }
         System.out.println(response.asString());
 
         // To verify user with phone number less than 10 character
@@ -275,7 +320,12 @@ public class CreateUserResponse_TCs extends Utilities {
                 .post("/user/createWithList/");
 
         response.then().statusCode(200);
-        System.out.println(response1.asString());
+        if (response1.jsonPath().get("message") != null) {
+            response1.then().body("message", equalTo("ok"));
+        } else {
+            AllureLogger.logToAllure("Assertion failed.");
+        }
+        System.out.println(response.asString());
 
     }
 

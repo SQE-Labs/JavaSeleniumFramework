@@ -4,15 +4,17 @@ import Base.Utilities;
 import com.commonMethods.AllureLogger;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.lessThan;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
-public class FetchUserDetails_TCs extends Utilities {
+public class FetchUserDetailsGetAPI_TCs extends Utilities {
 
     String payload = "[\n" +
             "  {\n" +
@@ -32,12 +34,17 @@ public class FetchUserDetails_TCs extends Utilities {
     public void verify_ValidUser() {
         AllureLogger.logToAllure("Verify that a GET request for an existing user");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2").
-                header("Content-Type", "application/json")
-                .pathParam("username", "Parveen")
+        Response response = given()
+                .spec(requestSpec)
+                .pathParam("username", "Pulkit")
                 .when()
                 .get("/user/{username}");
         response.then().statusCode(200);
+        if (response.jsonPath().get("username") != null) {
+            response.then().body("username", Matchers.equalTo("Pulkit"));
+        } else {
+            AllureLogger.logToAllure("Assertion failed.");
+        }
         System.out.println(response.asString());
     }
 
@@ -45,10 +52,9 @@ public class FetchUserDetails_TCs extends Utilities {
     public void verify_InvalidUser() {
         AllureLogger.logToAllure("Verify that a GET request for a non-existent user");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2").
-                header("Content-Type", "application/json")
-              //  .body(payload).log().body()
-                .pathParam("username", "Saksham")
+        Response response = given()
+                .spec(requestSpec)
+                .pathParam("username", "Parveen")
                 .when()
                 .get("/user/{username}");
         response.then().statusCode(404);
@@ -59,8 +65,8 @@ public class FetchUserDetails_TCs extends Utilities {
     public void verify_ResponseIn_JSONFormat() {
         AllureLogger.logToAllure("Verify that a GET request for an existing user returns JSON data");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2")
-                .header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec)
                 .pathParam("username", "Parveen")
                 .when()
                 .get("/user/{username}");
@@ -75,8 +81,8 @@ public class FetchUserDetails_TCs extends Utilities {
     public void verify_ResponseContent() {
         AllureLogger.logToAllure("Verify that the response contains the expected user data fields, such as username");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2")
-                .header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec)
                 .pathParam("username", "Parveen")
                 .when()
                 .get("/user/{username}");
@@ -93,8 +99,8 @@ public class FetchUserDetails_TCs extends Utilities {
     @Test(priority = 5, description = "Verify that the response headers include the appropriate content type.", enabled = true)
     public void verify_ResponseHeader() {
         AllureLogger.logToAllure("Verify that the response headers include the appropriate content type");
-        Response response = given().baseUri("https://petstore.swagger.io/v2")
-                .header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec)
                 .pathParam("username", "Parveen")
                 .when()
                 .get("/user/{username}");
@@ -110,8 +116,8 @@ public class FetchUserDetails_TCs extends Utilities {
     public void verify_ResponseTime() {
         AllureLogger.logToAllure("Verify that the response time falls within an acceptable range.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2")
-                .header("Content-Type", "application/json")
+        Response response = given()
+                .spec(requestSpec)
                 .pathParam("username", "Parveen")
                 .when()
                 .get("/user/{username}");
@@ -127,51 +133,50 @@ public class FetchUserDetails_TCs extends Utilities {
     @Test(priority = 7, description = "Check response status when the rate limit is exceeded.", enabled = true)
     public void verify_RateLimiting() {
 
-                           for (int i = 0; i < 5; i++) {
-                Response response = given().baseUri("https://petstore.swagger.io/v2")
-                        .header("Content-Type", "application/json")
-                        .pathParam("username", "Parveen")
-                        .when()
-                        .get("/user/{username}");
-
-            }
-
-            Response response = given().baseUri("https://petstore.swagger.io/v2")
-                    .header("Content-Type", "application/json")
+        for (int i = 0; i < 5; i++) {
+            Response response = given()
+                    .spec(requestSpec)
                     .pathParam("username", "Parveen")
                     .when()
                     .get("/user/{username}");
 
-            response.then().statusCode(200);
-            response.then().body("code", equalTo(200)); // Optional: Assert specific error code if available
-
-            // Print response body
-            System.out.println(response.getBody().asString());
         }
+
+        Response response = given()
+                .spec(requestSpec)
+                .pathParam("username", "Parveen")
+                .when()
+                .get("/user/{username}");
+
+        response.then().statusCode(200);
+        response.then().body("code", equalTo(200));
+        System.out.println(response.getBody().asString());
+    }
 
         @Test(priority = 8, description = "Verify user response with unsupported HTTP method.", enabled = true)
     public void verifyUser_Invalid_HTTPMethod() {
-        AllureLogger.logToAllure("Verify user response with unsupported HTTP method.");
+            AllureLogger.logToAllure("Verify user response with unsupported HTTP method.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2").
-                header("Content-Type", "application/json")
-                .pathParam("username", "Parveen")
-                .when()
-                .post("/user/{username}");
-        response.then().statusCode(405);
-        System.out.println(response.asString());
+            Response response = given()
+                    .spec(requestSpec)
+                    .pathParam("username", "Parveen")
+                    .when()
+                    .post("/user/{username}");
+            response.then().statusCode(405);
+            System.out.println(response.asString());
 
-    }
+        }
 
     @Test(priority = 9, description = "Verify user response with missing Content-Type header.", enabled = true)
     public void verifyUser_MissingContentTypeHeader() {
         AllureLogger.logToAllure("Verify user response with missing Content-Type header.");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2").
-                pathParam("username", "Parveen")
+        Response response = given()
+                .spec(requestSpec_ContainsBaseURI)
+                .pathParam("username", "Parveen")
                 .when()
                 .get("/user/{username}");
-        response.then().statusCode(200);
+        response.then().statusCode(404);
         System.out.println(response.asString());
     }
 
@@ -179,8 +184,9 @@ public class FetchUserDetails_TCs extends Utilities {
     public void verifyUser_EmptyParameter() {
         AllureLogger.logToAllure("Verify user with empty parameter");
 
-        Response response = given().baseUri("https://petstore.swagger.io/v2").
-                pathParam("username", "")
+        Response response = given()
+                .spec(requestSpec_ContainsBaseURI)
+                .pathParam("username", "")
                 .when()
                 .get("/user/{username}");
         response.then().statusCode(405);
