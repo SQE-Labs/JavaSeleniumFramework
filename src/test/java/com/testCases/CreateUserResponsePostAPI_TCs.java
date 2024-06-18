@@ -3,100 +3,14 @@ package com.testCases;
 import Base.Utilities;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import java.io.File;
 import java.io.IOException;
 import com.commonMethods.AllureLogger;
 import org.testng.annotations.Test;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
-
+import pojoClasses.User;
 
 public class CreateUserResponsePostAPI_TCs extends Utilities {
 
-
-    // Read JSON payload from file
-    ObjectMapper mapper = new ObjectMapper();
-    File jsonFile = new File("C:/Users/Itsqe/IdeaProjects/TestAutomationFramework/testData/payloads/payload.json");
-    //String payload = mapper.writeValueAsString(jsonNode);
-
-    // Extract 'code' from JSON payload
-   // String code = jsonNode.get("code").asText();
-
-    String payload = "[\n" +
-            "  {\n" +
-            "    \"id\": 1,\n" +
-            "    \"username\": \"Nitesh123\",\n" +
-            "    \"firstName\": \"Nitesh\",\n" +
-            "    \"lastName\": \"Dhiman\",\n" +
-            "    \"email\": \"Nitesh@gmail.com\",\n" +
-            "    \"password\": \"Test@1234\",\n" +
-            "    \"phone\": \"99965222234\",\n" +
-            "    \"userStatus\": 0\n" +
-            "  }\n" +
-            "]\n";
-
-    String payloadWithInvalidEmail = "[\n" +
-            "  {\n" +
-            "    \"id\": 1,\n" +
-            "    \"username\": \"Nitesh123\",\n" +
-            "    \"firstName\": \"Nitesh\",\n" +
-            "    \"lastName\": \"Dhiman\",\n" +
-            "    \"email\": \"Niteshgmail//\",\n" +
-            "    \"password\": \"Test@1234\",\n" +
-            "    \"phone\": \"99965222234\",\n" +
-            "    \"userStatus\": 0\n" +
-            "  }\n" +
-            "]\n";
-
-    String phoneNumberLessThan10_Char = "[\n" +
-            "  {\n" +
-            "    \"id\": 1,\n" +
-            "    \"username\": \"Nitesh123\",\n" +
-            "    \"firstName\": \"Nitesh\",\n" +
-            "    \"lastName\": \"Dhiman\",\n" +
-            "    \"email\": \"Niteshgmail.com\",\n" +
-            "    \"password\": \"Test@1234\",\n" +
-            "    \"phone\": \"99965234\",\n" +
-            "    \"userStatus\": 0\n" +
-            "  }\n" +
-            "]\n";
-
-    String phoneNumberGreater10_Char = "[\n" +
-            "  {\n" +
-            "    \"id\": 1,\n" +
-            "    \"username\": \"Nitesh123\",\n" +
-            "    \"firstName\": \"Nitesh\",\n" +
-            "    \"lastName\": \"Dhiman\",\n" +
-            "    \"email\": \"Niteshgmail.com\",\n" +
-            "    \"password\": \"Test@1234\",\n" +
-            "    \"phone\": \"999652227657234\",\n" +
-            "    \"userStatus\": 0\n" +
-            "  }\n" +
-            "]\n";
-
-    String payloadInvalidDataType = "[\n" +
-            "  {\n" +
-            "    \"id\": \"1\",     // Changed data type to string\n" +
-            "    \"username\": true,     // Changed data type to boolean\n" +
-            "    \"firstName\": null,    // Changed data type to null\n" +
-            "    \"lastName\": 123,      // Changed data type to number\n" +
-            "    \"email\": \"Nitesh@gmail.com\",\n" +
-            "    \"password\": [\"Test@1234\"],   // Changed data type to array\n" +
-            "    \"phone\": {\"value\": \"99965222234\"},   // Changed data type to object\n" +
-            "    \"userStatus\": \"active\"   // Changed data type to string\n" +
-            "  }\n" +
-            "]\n";
-
-
-    String incompletePayload = "[\n" +
-            "  {\n" +
-            "    \"id\": ,\n" +
-            "    \"email\": \"\",\n" +
-            "    \"password\": \"\",\n" +
-            "    \"phone\": \"\",\n" +
-            "    \"userStatus\": \n" +
-            "  }\n" +
-            "]\n";
 
     String invalidJson = "[\n" +
             "  {\n" +
@@ -113,19 +27,25 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
             "]\n";
 
 
-    String emptyPayload = "";
-
     public CreateUserResponsePostAPI_TCs() throws IOException {
     }
 
     @Test(priority = 1, description = "Create list of users with given array", enabled = true)
     public void postUserList() {
         AllureLogger.logToAllure("Create list of users with given array");
+        User users = new User();
+        users.setId(1);
+        users.setUsername("Shubham");
+        users.setFirstName("Shubh");
+        users.setLastName("Mehta");
+        users.setPhone("9996293903");
+        users.setEmail("shubham@76272.com");
+        users.setPassword("Test@123");
+        users.setUserStatus(Integer.parseInt("0"));
 
-
-        Response response = given()
+             Response response = given()
                 .spec(requestSpec)
-                .body(payload).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/user/createWithList/");
         response.then().statusCode(200);
@@ -144,9 +64,20 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     @Test(priority = 2, description = "Verify user response with unsupported HTTP method.", enabled = true)
     public void verifyUser_UnsupportedHttpMethod() {
         AllureLogger.logToAllure("Verify user response with unsupported HTTP method.");
+
+        User users = new User();
+        users.setId(1);
+        users.setUsername("Nitesh123");
+        users.setFirstName("Nitesh");
+        users.setLastName("Dhiman");
+        users.setPhone("9992222343");
+        users.setEmail("Nitesh@gmail.com");
+        users.setPassword("Test@1234");
+        users.setUserStatus(Integer.parseInt("0"));
+
         Response response = given()
                 .spec(requestSpec)
-                .body(payload).log().body()
+                .body(users).log().body()
                 .when()
                 .put("/user/createWithList/");
         response.then().statusCode(405);
@@ -157,9 +88,19 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     public void verifyUser_InvalidUrl() {
         AllureLogger.logToAllure("Verify user response with invalid URL.");
 
+        User users = new User();
+        users.setId(1);
+        users.setUsername("Nitesh123");
+        users.setFirstName("Nitesh");
+        users.setLastName("Dhiman");
+        users.setPhone("9992222343");
+        users.setEmail("Nitesh@gmail.com");
+        users.setPassword("Test@1234");
+        users.setUserStatus(Integer.parseInt("0"));
+
         Response response = given()
                 .spec(requestSpec)
-                .body(payload).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/invalidEndpoint");
         response.then().statusCode(404);
@@ -171,9 +112,19 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     public void verifyUser_MissingContentTypeHeader() {
         AllureLogger.logToAllure("Verify user response with missing Content-Type header.");
 
+        User users = new User();
+        users.setId(1);
+        users.setUsername("Nitesh123");
+        users.setFirstName("Nitesh");
+        users.setLastName("Dhiman");
+        users.setPhone("9992222343");
+        users.setEmail("Nitesh@gmail.com");
+        users.setPassword("Test@1234");
+        users.setUserStatus(Integer.parseInt("0"));
+
         Response response = given()
                 .spec(requestSpec_ContainsBaseURI)
-                .body(payload).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/user/createWithList/");
         response.then().statusCode(415);
@@ -184,9 +135,11 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     public void verifyUser_WithEmptyBody() {
         AllureLogger.logToAllure("Verify user response with Empty body.");
 
+        User users = new User();
+
         Response response = given()
                 .spec(requestSpec)
-                .body(emptyPayload).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/user/createWithList/");
         response.then().statusCode(405);
@@ -199,9 +152,16 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     public void verifyUser_RequiredFieldMissing() {
         AllureLogger.logToAllure("Verify user response with missing UserName field.");
 
+        User users = new User();
+        users.setUsername("Shubham");
+        users.setLastName("Mehta");
+        users.setPhone("9996293903");
+        users.setPassword("Test@123");
+        users.setUserStatus(Integer.parseInt("0"));
+
         Response response = given()
                 .spec(requestSpec)
-                .body(incompletePayload).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/user/createWithList/");
         response.then().statusCode(500);
@@ -225,9 +185,19 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     public void verifyUser_InvalidDataType() {
         AllureLogger.logToAllure("Verify user response with invalid data types for all parameters");
 
+        User users = new User();
+        users.setId(1);
+        users.setUsername("true");
+        users.setFirstName("null");
+        users.setLastName("123");
+        users.setPhone("value");
+        users.setEmail("Nitesh@gmail.com");
+        users.setPassword("Test@1234");
+        users.setUserStatus(Integer.parseInt("active"));
+
         Response response = given()
                 .spec(requestSpec)
-                .body(payloadInvalidDataType).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/user/createWithList/");
         response.then().statusCode(500);
@@ -238,9 +208,19 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     public void verifyUser_EndpointUnavailability() {
         AllureLogger.logToAllure("The user response is verified when endpoints are unavailable.");
 
+        User users = new User();
+        users.setId(1);
+        users.setUsername("true");
+        users.setFirstName("null");
+        users.setLastName("123");
+        users.setPhone("value");
+        users.setEmail("Nitesh@gmail.com");
+        users.setPassword("Test@1234");
+        users.setUserStatus(Integer.parseInt("active"));
+
         Response response = given()
                 .spec(requestSpec_EndPointNotAvaialble)
-                .body(payloadInvalidDataType).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/user/createWithList/");
 
@@ -252,11 +232,21 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     public void verifyUser_RateLimiting() {
         AllureLogger.logToAllure("Check user response status when the rate limit is exceeded.");
 
+        User users = new User();
+        users.setId(1);
+        users.setUsername("Nitesh123");
+        users.setFirstName("Nitesh");
+        users.setLastName("Dhiman");
+        users.setPhone("9992222343");
+        users.setEmail("Nitesh@gmail.com");
+        users.setPassword("Test@1234");
+        users.setUserStatus(Integer.parseInt("0"));
+
         for (int i = 0; i < 20; i++) {
 
             Response response = given()
                     .spec(requestSpec)
-                    .body(payload).log().body()
+                    .body(users).log().body()
                     .when()
                     .post("/user/createWithList/");
             response.then().statusCode(200);
@@ -276,10 +266,20 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     public void verifyUser_InvalidEmailAddress() {
         AllureLogger.logToAllure("Verify user with an invalid email address in the payload.");
 
+        User users = new User();
+
+        users.setId(1);
+        users.setUsername("Nitesh123");
+        users.setFirstName("Nitesh");
+        users.setLastName("Dhiman");
+        users.setPhone("9992222343");
+        users.setEmail("Niteshgmail");
+        users.setPassword("Test@1234");
+        users.setUserStatus(Integer.parseInt("0"));
 
         Response response = given()
                 .spec(requestSpec)
-                .body(payloadWithInvalidEmail).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/user/createWithList/");
 
@@ -297,10 +297,32 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     public void verifyUser_PhoneNumberLessThan_AND_GreaterThan_10_Char() {
         AllureLogger.logToAllure("Verify user with an invalid phone number in payload.");
 
+        User users = new User();
+        User dpUsers = new User();
+
+
+
+        users.setId(1);
+        users.setUsername("Nitesh123");
+        users.setFirstName("Nitesh");
+        users.setLastName("Dhiman");
+        users.setPhone("999342662523");
+        users.setEmail("Niteshgmail");
+        users.setPassword("Test@1234");
+        users.setUserStatus(Integer.parseInt("0"));
+
+        dpUsers.setId(1);
+        dpUsers.setUsername("Nitesh123");
+        dpUsers.setFirstName("Nitesh");
+        dpUsers.setLastName("Dhiman");
+        dpUsers.setPhone("999343");
+        dpUsers.setEmail("Niteshgmail");
+        dpUsers.setPassword("Test@1234");
+        dpUsers.setUserStatus(Integer.parseInt("0"));
 
         Response response = given()
                 .spec(requestSpec)
-                .body(phoneNumberGreater10_Char).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/user/createWithList/");
 
@@ -315,7 +337,7 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
         // To verify user with phone number less than 10 character
         Response response1 = given()
                 .spec(requestSpec)
-                .body(phoneNumberLessThan10_Char).log().body()
+                .body(dpUsers).log().body()
                 .when()
                 .post("/user/createWithList/");
 
@@ -333,9 +355,19 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     public void verifyResponse_WithExistingUser() {
         AllureLogger.logToAllure("Verify response with existing user.");
 
+        User users = new User();
+        users.setId(1);
+        users.setUsername("Nitesh123");
+        users.setFirstName("Nitesh");
+        users.setLastName("Dhiman");
+        users.setPhone("9992222343");
+        users.setEmail("Nitesh@gmail.com");
+        users.setPassword("Test@1234");
+        users.setUserStatus(Integer.parseInt("0"));
+
         Response response = given()
                 .spec(requestSpec)
-                .body(payload).log().body()
+                .body(users).log().body()
                 .when()
                 .post("/user/Nitesh123");
 
@@ -347,14 +379,25 @@ public class CreateUserResponsePostAPI_TCs extends Utilities {
     @Test(priority = 14, description = "Verify multiple users with same request.", enabled = true)
     public void verify_MultipleUser() {
         AllureLogger.logToAllure("Verify multiple users with same request.");
-        String[] arr = {"saksham1", "shubham1"};
+
+        User users = new User();
+        users.setId(1);
+        users.setUsername("Nitesh123");
+        users.setFirstName("Nitesh");
+        users.setLastName("Dhiman");
+        users.setPhone("9992222343");
+        users.setEmail("Nitesh@gmail.com");
+        users.setPassword("Test@1234");
+        users.setUserStatus(Integer.parseInt("0"));
+
+        String[] arr = {"saksham1" , "shubham1"};
 
         for (int i = 0; i < arr.length; i++) {
             String url = "/user/" + arr[i];
             System.out.println(url);
             Response response = given()
                     .spec(requestSpec)
-                    .body(payload).log().body()
+                    .body(users).log().body()
                     .when()
                     .post(url);
 
